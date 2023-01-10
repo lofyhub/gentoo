@@ -1,0 +1,118 @@
+<script setup lang="ts">
+import { withDefaults, defineProps, ref } from "vue";
+import BedIcon from "@/components/icons/BedIcon.vue";
+import BathtabIcon from "@/components/icons/BathtabIcon.vue";
+import heartIcon from "@/components/icons/heartIcon.vue";
+import Yingyang from "@/components/icons/YingYang.vue";
+import ImagePopup from "@/components/popups/ImagePopup.vue";
+import { toastSuccess } from "@/plugins/toast";
+
+const props = withDefaults(
+  defineProps<{
+    _id: number;
+    name: string;
+    location: string;
+    images: string[];
+    rate: {
+      price: number;
+      duration: string;
+      countryCode: string;
+    };
+    compartments: {
+      bedrooms: number;
+      totalRooms: string;
+      washRooms: number;
+      parking: boolean;
+    };
+    size: string;
+    createdAt: number;
+    status: string;
+  }>(),
+  {}
+);
+
+const selectedimg = ref(``);
+const showImagePopup = ref(false);
+// methods
+
+function updateSelectedImg(img: string) {
+  selectedimg.value = img;
+  showImagePopup.value = true;
+}
+
+function handleFavourite() {
+  toastSuccess(`Listing added to favourite`);
+}
+</script>
+<template>
+  <div
+    class="w-[290px] mt-8 mr-5 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
+  >
+    <img
+      :src="props.images[props.images.length - 1]"
+      alt="listing image from kikao"
+      class="object-cover object-center overflow-hidden h-32 w-full hover:cursor-pointer"
+      @click="updateSelectedImg(props.images[props.images.length - 1])"
+    />
+    <div class="px-3">
+      <div class="mt-2 flex justify-between">
+        <div>
+          <span class="text-base font-bold app-text"
+            >{{ props.rate.price.toLocaleString() }}
+            {{ props.rate.countryCode }}</span
+          >/<span class="font-normal">{{ props.rate.duration }}</span>
+        </div>
+        <div
+          class="w-7 h-7 rounded-full border-slate-300 border-2 flex items-center justify-center hover:cursor-pointer"
+          @click="handleFavourite"
+        >
+          <heartIcon class="w-4 h-4" />
+        </div>
+      </div>
+      <router-link :to="'/listing/' + props._id">
+        <div>
+          <p class="font-bold text-lg truncate">{{ props.name }}</p>
+          <span class="text-gray-500 py-1 truncate text-sm">{{
+            props.location
+          }}</span>
+        </div>
+        <hr class="my-1 h-2" />
+
+        <div class="flex pb-2 text-sm">
+          <div class="flex pr-2">
+            <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
+            <span class="text-gray-500 ml-1.5 font-extrabold"
+              >{{ props.compartments.bedrooms
+              }}<span class="ml-[1px] font-normal">{{
+                props.compartments.bedrooms > 1 ? `Beds` : `Bed`
+              }}</span></span
+            >
+          </div>
+          <div class="flex pr-3">
+            <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
+            <span class="text-gray-500 ml-1 font-extrabold"
+              >{{ props.compartments.washRooms
+              }}<span class="ml-1 font-normal">{{
+                props.compartments.washRooms > 1 ? `Bathrooms` : `Bathroom`
+              }}</span></span
+            >
+          </div>
+          <div class="flex">
+            <Yingyang class="w-4 h-4 inline" />
+            <span class="text-gray-500 ml-1.5 font-extrabold"
+              >{{ props.size.slice(0, props.size.length - 2)
+              }}<span class="font-normal">m2</span></span
+            >
+          </div>
+        </div>
+      </router-link>
+    </div>
+  </div>
+  <Teleport to="body">
+    <ImagePopup
+      v-if="showImagePopup"
+      :image="selectedimg"
+      @close="showImagePopup = false"
+    />
+  </Teleport>
+</template>
