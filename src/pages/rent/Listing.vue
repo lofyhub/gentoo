@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { houseSamples } from "@/temp/housestemp";
 
 import BackButton from "@/components/BackButton.vue";
 import ListingHeader from "@/components/ListingHeader.vue";
+import { useRootStore } from "@/store";
 
-const route = parseInt(useRoute().params.id as string, 10);
-const houseListing = houseSamples.filter((a) => a._id === route);
+const store = useRootStore();
+const idParam = useRoute().params.id as string;
+const houseListing = store.getListingById(idParam);
 </script>
 
 <template>
@@ -15,7 +16,7 @@ const houseListing = houseSamples.filter((a) => a._id === route);
       <BackButton />
     </div>
     <div>
-      <ListingHeader :listing="houseListing[houseListing.length - 1]" />
+      <ListingHeader :listing="houseListing!" />
     </div>
   </div>
 </template>

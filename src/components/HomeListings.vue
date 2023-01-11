@@ -3,9 +3,13 @@ import { useRootStore } from "@/store";
 import { useRouter } from "vue-router";
 
 import Listing from "@/components/Listing.vue";
+import { onMounted, computed } from "vue";
 
-const listings = useRootStore().listings.slice(0, 12);
+const store = useRootStore();
+const listings = computed(() => store.$state.listings.slice(0, 12));
 const router = useRouter();
+
+store.fetchListings();
 
 // methods
 

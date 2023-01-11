@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { useRootStore } from "@/store";
-import { houseSchema } from "@/temp/housestemp";
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
+import { computed } from "@vue/reactivity";
 
 const rootStore = useRootStore();
-const homeSample: houseSchema =
-  rootStore.$state.listings[
-    Math.floor(Math.random() * (rootStore.$state.listings.length - 2) + 1)
-  ];
+const homeSample = computed(
+  () =>
+    rootStore.$state.listings[
+      Math.floor(Math.random() * (rootStore.$state.listings.length - 2) + 1)
+    ]
+);
 </script>
 
 <template>
@@ -39,7 +41,7 @@ const homeSample: houseSchema =
       </div>
     </div>
     <!-- start card img section -->
-    <div class="">
+    <div v-if="homeSample">
       <router-link
         :to="'/listing/' + homeSample._id"
         class="bg-white leading-relaxed"

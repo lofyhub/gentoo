@@ -9,7 +9,7 @@ import { toastSuccess } from "@/plugins/toast";
 
 const props = withDefaults(
   defineProps<{
-    _id: number;
+    _id: string;
     name: string;
     location: string;
     images: string[];
@@ -25,7 +25,7 @@ const props = withDefaults(
       parking: boolean;
     };
     size: string;
-    createdAt: number;
+    createdAt: string;
     status: string;
   }>(),
   {}
@@ -83,7 +83,7 @@ function handleFavourite() {
             <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
             <span class="text-gray-500 ml-1.5 font-extrabold"
               >{{ props.compartments.bedrooms
-              }}<span class="ml-[1px] font-normal">{{
+              }}<span class="ml-1 font-normal">{{
                 props.compartments.bedrooms > 1 ? `Beds` : `Bed`
               }}</span></span
             >
@@ -92,7 +92,7 @@ function handleFavourite() {
             <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
             <span class="text-gray-500 ml-1 font-extrabold"
               >{{ props.compartments.washRooms
-              }}<span class="ml-1 font-normal">{{
+              }}<span class="ml-2 font-normal">{{
                 props.compartments.washRooms > 1 ? `Bathrooms` : `Bathroom`
               }}</span></span
             >
@@ -100,8 +100,8 @@ function handleFavourite() {
           <div class="flex">
             <Yingyang class="w-4 h-4 inline" />
             <span class="text-gray-500 ml-1.5 font-extrabold"
-              >{{ props.size.slice(0, props.size.length - 2)
-              }}<span class="font-normal">m2</span></span
+              >{{ props.size.slice(0, 3)
+              }}<span class="font-normal ml-1">m2</span></span
             >
           </div>
         </div>

@@ -3,24 +3,19 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import BrandedButton from "@/components/BrandedButton.vue";
 import LogoIcon from "@/components/icons/LogoIcon.vue";
-import { useStore } from "@/store/session";
+import { useSessionStore } from "@/store/session";
+import { useRootStore } from "@/store/index";
 
-const session = useStore();
+const session = useSessionStore();
+const store = useRootStore();
 const route = useRoute();
 const isOpen = ref(false);
 // methods
-function logIn() {
-  console.log("Login triggered");
-}
-
-function signUp() {
-  console.log("Sign up triggered");
-}
 </script>
 
 <template>
   <nav x-data="{ isOpen: false }" class="relative shadow dark:bg-gray-800">
-    <div class="container px-32 py-6 mx-auto">
+    <div class="container px-32 py-3 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
           <div class="text-xl font-semibold text-gray-700">
@@ -117,9 +112,13 @@ function signUp() {
             >
           </div>
           <div class="flex items-center mt-4 lg:mt-0">
-            <div v-if="!session.$state.id">
-              <BrandedButton :text="`Login`" :action="logIn" class="mr-4" />
-              <BrandedButton :text="`Sign up`" :action="signUp" />
+            <div v-if="session.$state.id">
+              <BrandedButton
+                :text="`Login`"
+                :action="store.toggleLogin"
+                class="mr-4 bg-indigo-50 hover:text-white"
+              />
+              <BrandedButton :text="`Sign up`" :action="store.toggleSignup" />
             </div>
             <div v-else>
               <button
@@ -138,7 +137,7 @@ function signUp() {
                 </div>
 
                 <h3 class="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">
-                  Khatab wedaa
+                  Kikao
                 </h3>
               </button>
             </div>

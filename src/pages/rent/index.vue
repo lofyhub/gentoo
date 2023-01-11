@@ -7,7 +7,6 @@ import { useRootStore } from "@/store";
 const listings = computed(() => useRootStore().$state.listings);
 
 // methods
-
 function reload() {
   window.location.reload();
 }
