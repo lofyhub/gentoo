@@ -1,13 +1,68 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRootStore } from "@/store/index";
+import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
+import regex from "@/config/regex";
+import axios from "axios";
 
 import XIcon from "@/components/icons/XIcon.vue";
 import LogoIcon from "@/components/icons/LogoIcon.vue";
+import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 
 const store = useRootStore();
-
+const name = ref(``);
+const email = ref(``);
+const password = ref(``);
+const password2 = ref(``);
+const kikaotype = ref(``);
+const loading = ref(false);
+// methods
 function close() {
   store.toggleSignup();
+}
+
+async function signUp() {
+  if (!name.value || !email.value || !password.value || !kikaotype.value) {
+    toastWarning(`Please enter all field details`);
+    return;
+  }
+
+  if (password.value !== password2.value) {
+    toastMessage(`Password mismatch`);
+    return;
+  }
+
+  if (!regex.emailRegex.test(email.value)) {
+    toastMessage(`Enter a valid email address`);
+    return;
+  }
+  const bodyData = {
+    email: email.value,
+    password: password.value,
+    username: name.value,
+    kikaotype: kikaotype.value,
+  };
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  loading.value = true;
+  try {
+    await axios.post("http://localhost:9000/signup", bodyData, config);
+    // close signup poup and trigget login  popup
+    store.toggleSignup();
+    store.toggleLogin();
+    // reset values here
+    email.value = ``;
+    password.value = ``;
+    name.value = ``;
+    kikaotype.value = ``;
+    toastSuccess("Sucessfully created your account");
+  } catch (error) {
+    loading.value = false;
+    toastWarning(error as string);
+  }
 }
 </script>
 
@@ -38,37 +93,38 @@ function close() {
             <input
               type="text"
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              name="fullname"
+              v-model="name"
               placeholder="Full Name"
             />
-
             <input
               type="text"
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              name="email"
+              v-model="email"
               placeholder="Email"
             />
             <div class="flex my-3">
               <div class="flex items-center mr-6">
                 <input
-                  id="inline-2-checkbox"
-                  type="checkbox"
-                  value=""
-                  class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  id="tenant"
+                  type="radio"
+                  v-model="kikaotype"
+                  value="tenant"
+                  class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
                   for="inline-2-checkbox"
-                  class="ml-2 text-sm font-medium text-indigo-900 dark:text-indigo-300"
+                  class="ml-2 text-sm font-medium text-gray-900 dark:text-indigo-300"
                   >Tenant</label
                 >
               </div>
               <div class="flex items-center mr-4">
                 <input
                   checked
-                  id="inline-checked-checkbox"
-                  type="checkbox"
-                  value=""
-                  class="w-4 h-4 text-indigo-600 bg-indigo-100 border-indigo-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  id="landlord"
+                  value="landlord"
+                  type="radio"
+                  v-model="kikaotype"
+                  class="w-4 h-4 text-indigo-600 bg-indigo-100 border-indigo-300 rounded dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
                   for="inline-checked-checkbox"
@@ -80,22 +136,28 @@ function close() {
             <input
               type="password"
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              name="password"
+              v-model="password"
               placeholder="Password"
             />
             <input
               type="password"
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              name="confirm_password"
+              v-model="password2"
               placeholder="Confirm Password"
             />
 
             <button
+              v-show="!loading"
               type="submit"
-              class="group relative my-3 flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              class="group relative my-3 flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              @click="signUp()"
             >
               Create Account
             </button>
+            <div class="flex justify-center pt-3">
+              <SpinnerIcon v-show="loading" style="padding: 0.1em" />
+            </div>
+
             <div class="flex -space-x-4 py-2 justify-center">
               <img
                 class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
