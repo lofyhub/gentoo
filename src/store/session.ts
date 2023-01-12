@@ -10,7 +10,7 @@ export interface Session {
   avatar: string;
 }
 
-export const useStore = defineStore(`session`, {
+export const useSessionStore = defineStore(`session`, {
   state: (): Session => {
     return {
       name: ``,

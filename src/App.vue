@@ -1,12 +1,27 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import Footer from "@/components/Footer.vue";
 import HeaderVue from "./components/Header.vue";
+import LoginPopup from "@/components/popups/LoginPopup.vue";
+import SignupPopup from "@/components/popups/SignupPopup.vue";
+
+import { useRootStore } from "@/store/index";
+
+const store = useRootStore();
+
+const showLogin = computed(() => store.$state.showLogin);
+const showSignup = computed(() => store.$state.showSignup);
 </script>
 
 <template>
   <HeaderVue />
   <router-view />
   <Footer />
+
+  <Teleport to="body">
+    <LoginPopup v-if="showLogin" />
+    <SignupPopup v-if="showSignup" />
+  </Teleport>
 </template>
 
 <style>
