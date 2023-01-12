@@ -3,7 +3,7 @@ import { useRootStore } from "@/store";
 import { useRouter } from "vue-router";
 
 import Listing from "@/components/Listing.vue";
-import { onMounted, computed } from "vue";
+import { computed } from "vue";
 
 const store = useRootStore();
 const listings = computed(() => store.$state.listings.slice(0, 12));

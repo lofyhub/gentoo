@@ -46,8 +46,6 @@ function handleTour() {
   }
 
   // send tht data to backend
-  console.log(dateSelected.value);
-  console.log(typeof dateSelected.value);
 }
 
 function socialShare() {
@@ -60,37 +58,37 @@ function addFavourite() {
 </script>
 
 <template>
-  <div class="pt-8" v-if="listing">
-    <div>
+  <div v-if="listing">
+    <div class="">
       <h1 class="text-4xl font-bold">{{ listing.name }}</h1>
-    </div>
-    <div class="py-4 flex justify-between">
-      <div>
-        <p class="text-gray-500 text-xl">{{ listing.location }}</p>
-      </div>
-      <div>
-        <button
-          class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50"
-          @click="socialShare"
-        >
-          <ShareIcon class="inline h-4 w-4" />
-          <span class="text-base ml-2">Share</span>
-        </button>
-        <button
-          class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
-          @click="addFavourite"
-        >
-          <span class="bg-none bg-transparent">
-            <HeartIcon class="inline h-4 w-4" />
-          </span>
-          <span class="text-base ml-2">Favourite</span>
-        </button>
-        <button
-          class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
-        >
-          <SearchIcon class="inline h-4 w-4" />
-          <span class="text-base ml-2">Browse nearby listings</span>
-        </button>
+      <div class="flex justify-between my-2">
+        <div>
+          <p class="text-gray-500 text-xl">{{ listing.location }}</p>
+        </div>
+        <div>
+          <button
+            class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50"
+            @click="socialShare"
+          >
+            <ShareIcon class="inline h-4 w-4" />
+            <span class="text-base ml-2">Share</span>
+          </button>
+          <button
+            class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
+            @click="addFavourite"
+          >
+            <span class="bg-none bg-transparent">
+              <HeartIcon class="inline h-4 w-4" />
+            </span>
+            <span class="text-base ml-2">Favourite</span>
+          </button>
+          <button
+            class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
+          >
+            <SearchIcon class="inline h-4 w-4" />
+            <span class="text-base ml-2">Browse nearby listings</span>
+          </button>
+        </div>
       </div>
     </div>
     <!-- start listing details -->
@@ -102,13 +100,14 @@ function addFavourite() {
             :src="listing.images[listing.images.length - 1]"
             alt=""
             srcset=""
+            loading="lazy"
             class="object-cover object-center overflow-hidden w-full h-[450px]"
             @click="showImagePopup = true"
           />
         </div>
         <div>
           <!-- Room details section bathrooms, washrooms e.t.c -->
-          <div class="my-8 border-2 border-gray-200 rounded h-[100px]">
+          <div class="my-6 border-2 border-gray-200 rounded h-[100px]">
             <div class="flex justify-around h-32">
               <!-- bedrooms -->
               <div class="w-32 py-5 ml-4">
@@ -197,7 +196,7 @@ function addFavourite() {
           </div>
           <!-- end of about this home -->
           <!-- listed by property owner -->
-          <div class="my-10 border-2 border-gray-300 rounded bg-indigo-50">
+          <div class="my-4 border-2 border-gray-300 rounded bg-indigo-50">
             <div class="py-4 mx-4">
               <p class="text-lg font-semibold">Listed by property owner</p>
             </div>
@@ -230,7 +229,7 @@ function addFavourite() {
             </div>
           </div>
           <!-- end of listed by property owner -->
-          <hr class="py-4" />
+          <hr class="my-10" />
           <!-- start rentail features -->
           <div>
             <h4 class="font-extrabold text-3xl">Rental features</h4>
@@ -290,57 +289,76 @@ function addFavourite() {
           <!-- end of rental features -->
         </div>
       </div>
-      <!-- apply contact setion -->
-      <div class="border-2 border-gray-200 h-[400px] ml-6 rounded w-[300px]">
-        <div class="my-4 ml-4">
-          <p class="text-lg my-1 font-extrabold">Rent Price</p>
-          <div class="my-1">
-            <span class="text-xl font-bold app-text"
-              >{{ listing.rate.price.toLocaleString() }}
-              {{ listing.rate.countryCode }}</span
-            >/<span class="">{{ listing.rate.duration }}</span>
-          </div>
-          <button
-            class="py-2 px-16 bg-indigo-500 text-white text-base rounded my-2"
+      <div class="ml-8 my-6">
+        <!-- start side images section -->
+        <div>
+          <div
+            v-for="image in sideImages"
+            :key="image"
+            class="border-2 border-indigo-500 mb-6 rounded"
           >
-            <GlobeIcon class="inline w-5 h-5" :color="`#ffffff`" /> Apply now
-          </button>
-          <hr class="my-3" />
-        </div>
-        <div class="ml-4">
-          <p class="font-extrabold text-lg">Request a home tour</p>
-          <div class="my-3 flex">
-            <button
-              class="py-1 px-6 border-2 border-gray-200 rounded"
-              @click="inPerson = !inPerson"
-            >
-              InPerson
-            </button>
-            <button
-              class="py-1 px-6 border-2 border-indigo-500 bg-indigo-50 app-text rounded ml-2"
-              @click="virtual = !virtual"
-            >
-              Virtual
-            </button>
-          </div>
-          <div>
-            <input
-              type="date"
-              name=""
-              id=""
-              v-model="dateSelected"
-              class="py-1 px-12 border-2 border-gray-200 my-2 rounded"
+            <img
+              :src="image"
+              class="w-[300px] h-58 p-1 rounded overflow-hidden"
+              alt="apartment image here"
+              loading="lazy"
+              srcset=""
             />
-            <button
-              class="py-2.5 px-16 rounded bg-indigo-500 text-white my-2"
-              @click="handleTour"
-            >
-              Request a tour
-            </button>
           </div>
         </div>
+        <!-- end side-images section  -->
+        <!-- apply contact setion -->
+        <div class="border-2 border-gray-200 h-[400px] rounded w-[300px]">
+          <div class="my-4 ml-4">
+            <p class="text-lg my-1 font-extrabold">Rent Price</p>
+            <div class="my-1">
+              <span class="text-lg font-bold app-text"
+                >{{ listing.rate.price.toLocaleString() }}
+                {{ listing.rate.countryCode }}</span
+              >/<span class="">{{ listing.rate.duration }}</span>
+            </div>
+            <button
+              class="py-2 px-20 bg-indigo-500 text-white text-base rounded my-2"
+            >
+              <GlobeIcon class="inline w-5 h-5" :color="`#ffffff`" /> Apply now
+            </button>
+            <hr class="my-3" />
+          </div>
+          <div class="ml-4">
+            <p class="font-extrabold text-lg">Request a home tour</p>
+            <div class="my-3 flex">
+              <button
+                class="py-1 px-8 border-2 border-gray-200 rounded"
+                @click="inPerson = !inPerson"
+              >
+                InPerson
+              </button>
+              <button
+                class="py-1 px-8 border-2 border-indigo-500 bg-indigo-50 app-text rounded ml-2"
+                @click="virtual = !virtual"
+              >
+                Virtual
+              </button>
+            </div>
+            <div>
+              <input
+                type="date"
+                name=""
+                id=""
+                v-model="dateSelected"
+                class="py-1 px-16 border-2 border-gray-200 my-2 rounded"
+              />
+              <button
+                class="py-2.5 px-20 rounded bg-black text-white my-2"
+                @click="handleTour"
+              >
+                Request a tour
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- end of apply/contact sections -->
       </div>
-      <!-- end of apply/contact sections -->
     </div>
   </div>
   <Teleport to="body">

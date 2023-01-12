@@ -11,12 +11,11 @@ const houseListing = store.getListingById(idParam);
 </script>
 
 <template>
-  <div class="lg:w-[1200px] mx-auto">
-    <div class="pt-8">
-      <BackButton />
+  <div class="w-[1130px] mx-auto">
+    <div class="pt-6">
+      <BackButton class="my-3" />
     </div>
-    <div>
-      <ListingHeader :listing="houseListing!" />
-    </div>
+
+    <ListingHeader :listing="houseListing!" />
   </div>
 </template>
