@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import BrandedButton from "@/components/BrandedButton.vue";
 import LogoIcon from "@/components/icons/LogoIcon.vue";
+import AvatarIcon from "@/components/icons/Avatar.vue";
 import { useSessionStore } from "@/store/session";
 import { useRootStore } from "@/store/index";
 
@@ -10,6 +11,7 @@ const session = useSessionStore();
 const store = useRootStore();
 const route = useRoute();
 const isOpen = ref(false);
+const userData = computed(() => session.$state);
 // methods
 </script>
 
@@ -112,34 +114,30 @@ const isOpen = ref(false);
             >
           </div>
           <div class="flex items-center mt-4 lg:mt-0">
-            <div v-if="session.$state.id">
-              <BrandedButton
-                :text="`Login`"
-                :action="store.toggleLogin"
-                class="mr-4 bg-indigo-50 hover:text-white"
-              />
-              <BrandedButton :text="`Sign up`" :action="store.toggleSignup" />
-            </div>
-            <div v-else>
+            <div v-if="userData._id">
               <button
                 type="button"
                 class="flex items-center focus:outline-none"
                 aria-label="toggle profile dropdown"
               >
                 <div
-                  class="w-10 h-10 overflow-hidden border-2 border-gray-400 rounded-full"
+                  class="w-10 h-10 overflow-hidden border-2 border-indigo-500 rounded-full"
                 >
-                  <img
-                    src="https://images.pexels.com/photos/3789888/pexels-photo-3789888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    class="object-cover w-full h-full"
-                    alt="avatar"
-                  />
+                  <AvatarIcon class="mt-1 flex ml-1.5" />
                 </div>
 
                 <h3 class="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">
                   Kikao
                 </h3>
               </button>
+            </div>
+            <div v-else>
+              <BrandedButton
+                :text="`Login`"
+                :action="store.toggleLogin"
+                class="mr-4 bg-indigo-50 hover:text-white"
+              />
+              <BrandedButton :text="`Sign up`" :action="store.toggleSignup" />
             </div>
           </div>
         </div>

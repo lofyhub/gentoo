@@ -1,14 +1,63 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRootStore } from "@/store/index";
+import { useSessionStore } from "@/store/session";
 
 import XIcon from "@/components/icons/XIcon.vue";
 import LogoIcon from "@/components/icons/LogoIcon.vue";
 import LockIcon from "@/components/icons/LockIcon.vue";
+import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
+import regex from "@/config/regex";
+import axios from "axios";
 
 const store = useRootStore();
+const sessionStore = useSessionStore();
+// refs
+const email = ref(``);
+const password = ref(``);
+
+// methods
 
 function close() {
   store.toggleLogin();
+}
+
+async function signIn() {
+  if (!email.value || !password.value) {
+    toastWarning(`Please enter all field details`);
+    return;
+  }
+
+  if (!regex.emailRegex.test(email.value)) {
+    toastWarning(`Enter a valid email address`);
+    return;
+  }
+  try {
+    const bodyData = {
+      email: email.value,
+      password: password.value,
+    };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.post(
+      `http://localhost:9000/signin`,
+      bodyData,
+      config
+    );
+    const data = await res.data;
+    // TODO: Find a beter way of storing the token i.e HTTPONLY coockie -- security concerns --
+    document.cookie = "x-access-token=" + data.token;
+    sessionStore.setSessionData(data.user);
+    if (res.status === 200) {
+      toastSuccess(`Login successful! Welcome back 👋`);
+      store.toggleLogin();
+    }
+  } catch (error) {
+    toastMessage(error as string);
+  }
 }
 </script>
 
@@ -45,7 +94,7 @@ function close() {
             >
           </p>
         </div>
-        <form class="mt-8 space-y-6" action="#" method="POST">
+        <div class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
           <div class="-space-y-px rounded-md shadow-sm">
             <div>
@@ -54,6 +103,7 @@ function close() {
                 id="email-address"
                 name="email"
                 type="email"
+                v-model="email"
                 autocomplete="email"
                 required
                 class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -66,6 +116,7 @@ function close() {
                 id="password"
                 name="password"
                 type="password"
+                v-model="password"
                 autocomplete="current-password"
                 required
                 class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -100,6 +151,7 @@ function close() {
             <button
               type="submit"
               class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              @click="signIn"
             >
               <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                 <LockIcon />
@@ -107,7 +159,7 @@ function close() {
               Sign in
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
     <!-- end of form -->
