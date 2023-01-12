@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useHead } from "unhead";
+
 import Footer from "@/components/Footer.vue";
 import HeaderVue from "./components/Header.vue";
 import LoginPopup from "@/components/popups/LoginPopup.vue";
 import SignupPopup from "@/components/popups/SignupPopup.vue";
 
 import { useRootStore } from "@/store/index";
+
+useHead({
+  title: "Kikao | Say goodbye to house hunting forever",
+});
 
 const store = useRootStore();
 

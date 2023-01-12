@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { withDefaults, defineProps, ref } from "vue";
 import { houseSchema } from "@/temp/housestemp";
+import { useHead } from "unhead";
 
 import { formatDate } from "@/helpers/helpers";
 
@@ -17,12 +18,16 @@ import AvailabbilityIcon from "./icons/AvailabbilityIcon.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import { toastSuccess, toastWarning } from "@/plugins/toast";
 
-withDefaults(
+const prop = withDefaults(
   defineProps<{
     listing: houseSchema;
   }>(),
   {}
 );
+
+useHead({
+  title: `Kikao - ${prop.listing.name}`,
+});
 
 const sideImages = [
   "https://images.pexels.com/photos/4857757/pexels-photo-4857757.jpeg?auto=compress&cs=tinysrgb&w=1600",
