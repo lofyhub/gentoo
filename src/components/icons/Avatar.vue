@@ -1,16 +1,31 @@
 <template>
   <svg
+    version="1.1"
+    id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    width="24px"
+    height="24px"
     viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    class="w-6 h-6"
+    enable-background="new 0 0 24 24"
+    xml:space="preserve"
   >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+    <image
+      id="image0"
+      width="24"
+      height="24"
+      x="0"
+      y="0"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZ
+cwAACxMAAAsTAQCanBgAAAAHdElNRQfnAQwOIhbp28npAAAAtUlEQVQ4y9WRsQ3CMBBFX4IFzACk
+zgw0bMAQTAB7sIiJItEhKGAIRAkVLUSKOygwhU0kB6RLh/J/dbr/pPM3tEIJOQbDmrRZ/I71Lkhk
+IK/iFksmAyYAyvo6FnArA/tg2sknpRTVQTdGzXrKKClZNYv/XZ1gipkwY8qBF6BYMgau3+UC9Flw
+8e1oFArtpzNzevX4kFPww7qKOx8ZhMA2WP/yxgUjDzzoCq99urM+gEVW5Hppv94QoVeTogEWCgAA
+ACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0wMS0xMlQxMzozNDoyMiswMTowMD/KnzgAAAAldEVYdGRh
+dGU6bW9kaWZ5ADIwMjMtMDEtMTJUMTM6MzQ6MjIrMDE6MDBOlyeEAAAAAElFTkSuQmCC"
     />
   </svg>
 </template>
