@@ -48,6 +48,7 @@ async function signIn() {
       config
     );
     const data = await res.data;
+    // TODO: Find a beter way of storing the token i.e HTTPONLY coockie -- security concerns --
     document.cookie = "x-access-token=" + data.token;
     sessionStore.setSessionData(data.user);
     if (res.status === 200) {
