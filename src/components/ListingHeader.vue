@@ -86,7 +86,7 @@ function addFavourite() {
             <span class="bg-none bg-transparent">
               <HeartIcon class="inline h-4 w-4" />
             </span>
-            <span class="text-base ml-2">Favourite</span>
+            <span class="text-base ml-2">Bookmark</span>
           </button>
           <button
             class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
