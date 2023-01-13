@@ -46,7 +46,7 @@ function handleFavourite() {
 </script>
 <template>
   <div
-    class="w-[290px] mt-8 mr-5 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
+    class="w-[250px] mt-8 mr-5 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
   >
     <img
       :src="props.images[props.images.length - 1]"
@@ -93,7 +93,7 @@ function handleFavourite() {
             <span class="text-gray-500 ml-1 font-extrabold"
               >{{ props.compartments.washRooms
               }}<span class="ml-2 font-normal">{{
-                props.compartments.washRooms > 1 ? `Bathrooms` : `Bathroom`
+                props.compartments.washRooms > 1 ? `Bathr..` : `Bathr..`
               }}</span></span
             >
           </div>

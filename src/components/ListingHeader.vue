@@ -14,7 +14,7 @@ import HouseIcon from "@/components/icons/HouseIcon.vue";
 import BrushIcon from "@/components/icons/BrushIcon.vue";
 import ActiveIcon from "@/components/icons/CheckCircleIcon.vue";
 import GlobeIcon from "@/components/icons/GlobeIcon.vue";
-import AvailabbilityIcon from "./icons/AvailabbilityIcon.vue";
+import Bleep from "@/components/icons/Bleep.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import { toastSuccess, toastWarning } from "@/plugins/toast";
 
@@ -249,7 +249,7 @@ function addFavourite() {
                 <div class="flex justify-between my-2">
                   <p>Availability</p>
                   <div class="ml-16 flex justify-center">
-                    <AvailabbilityIcon :available="true" class="mt-2" />
+                    <Bleep class="mr-8 mt-1.5" />
                     <span class="font-bold">Yes</span>
                   </div>
                 </div>
