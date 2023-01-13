@@ -46,12 +46,12 @@ function handleFavourite() {
 </script>
 <template>
   <div
-    class="w-[250px] mt-8 mr-5 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
+    class="w-[280px] mt-8 mr-5 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
   >
     <img
       :src="props.images[props.images.length - 1]"
       alt="listing image from kikao"
-      class="object-cover object-center overflow-hidden h-32 w-full hover:cursor-pointer"
+      class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
       @click="updateSelectedImg(props.images[props.images.length - 1])"
     />
     <div class="px-3">
@@ -63,15 +63,15 @@ function handleFavourite() {
           >/<span class="font-normal">{{ props.rate.duration }}</span>
         </div>
         <div
-          class="w-7 h-7 rounded-full border-slate-300 border-2 flex items-center justify-center hover:cursor-pointer"
+          class="w-8 h-8 rounded-full border-slate-300 border-2 flex items-center justify-center hover:cursor-pointer"
           @click="handleFavourite"
         >
-          <heartIcon class="w-4 h-4" />
+          <heartIcon class="w-5 h-5" />
         </div>
       </div>
       <router-link :to="'/listing/' + props._id">
         <div>
-          <p class="font-bold text-lg truncate">{{ props.name }}</p>
+          <p class="font-normal text-lg truncate">{{ props.name }}</p>
           <span class="text-gray-500 py-1 truncate text-sm">{{
             props.location
           }}</span>
@@ -81,7 +81,7 @@ function handleFavourite() {
         <div class="flex pb-2 text-sm">
           <div class="flex pr-2">
             <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
-            <span class="text-gray-500 ml-1.5 font-extrabold"
+            <span class="text-gray-600 font-bold ml-1.5"
               >{{ props.compartments.bedrooms
               }}<span class="ml-1 font-normal">{{
                 props.compartments.bedrooms > 1 ? `Beds` : `Bed`
@@ -90,16 +90,16 @@ function handleFavourite() {
           </div>
           <div class="flex pr-3">
             <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
-            <span class="text-gray-500 ml-1 font-extrabold"
+            <span class="text-gray-600 ml-1 font-bold"
               >{{ props.compartments.washRooms
               }}<span class="ml-2 font-normal">{{
-                props.compartments.washRooms > 1 ? `Bathr..` : `Bathr..`
+                props.compartments.washRooms > 1 ? `Bathrooms` : `Bathroom`
               }}</span></span
             >
           </div>
           <div class="flex">
             <Yingyang class="w-4 h-4 inline" />
-            <span class="text-gray-500 ml-1.5 font-extrabold"
+            <span class="text-gray-600 ml-1.5 font-bold"
               >{{ props.size.slice(0, 3)
               }}<span class="font-normal ml-1">m2</span></span
             >

@@ -15,6 +15,7 @@ import BrushIcon from "@/components/icons/BrushIcon.vue";
 import ActiveIcon from "@/components/icons/CheckCircleIcon.vue";
 import GlobeIcon from "@/components/icons/GlobeIcon.vue";
 import Bleep from "@/components/icons/Bleep.vue";
+import BleepRed from "@/components/icons/BleepRed.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import { toastSuccess, toastWarning } from "@/plugins/toast";
 
@@ -65,7 +66,7 @@ function addFavourite() {
 <template>
   <div v-if="listing">
     <div class="">
-      <h1 class="text-4xl font-bold">{{ listing.name }}</h1>
+      <h1 class="text-4xl font-normal">{{ listing.name }}</h1>
       <div class="flex justify-between my-2">
         <div>
           <p class="text-gray-500 text-xl">{{ listing.location }}</p>
@@ -85,7 +86,7 @@ function addFavourite() {
             <span class="bg-none bg-transparent">
               <HeartIcon class="inline h-4 w-4" />
             </span>
-            <span class="text-base ml-2">Favourite</span>
+            <span class="text-base ml-2">Bookmark</span>
           </button>
           <button
             class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
@@ -181,7 +182,7 @@ function addFavourite() {
           <!-- about this home -->
           <div>
             <div>
-              <h2 class="text-3xl font-bold">About this home</h2>
+              <h2 class="text-3xl font-normal">About this home</h2>
               <p class="py-3">
                 The "About this Home" section in a rental apartment listing is
                 typically a summary of the key features and characteristics of
@@ -237,7 +238,7 @@ function addFavourite() {
           <hr class="my-10" />
           <!-- start rentail features -->
           <div>
-            <h4 class="font-extrabold text-3xl">Rental features</h4>
+            <h4 class="font-normal text-3xl">Rental features</h4>
             <div class="flex justify-between py-4 text-base">
               <div>
                 <div class="flex justify-between my-2">
@@ -249,7 +250,8 @@ function addFavourite() {
                 <div class="flex justify-between my-2">
                   <p>Availability</p>
                   <div class="ml-16 flex justify-center">
-                    <Bleep class="mr-8 mt-1.5" />
+                    <Bleep v-if="listing.status" class="mr-8 mt-1.5" />
+                    <BleepRed v-else class="mr-8 mt-1.5" />
                     <span class="font-bold">Yes</span>
                   </div>
                 </div>

@@ -16,32 +16,32 @@ const homeSample = computed(
 
 <template>
   <div
-    class="flex flex-wrap justify-around my-8 lg:w-[1120px] mx-auto border-b-2 border-gray-300 pb-6"
+    class="flex flex-wrap justify-around my-8 w-full sm:w-4/5 lg:w-[1120px] mx-auto pb-6"
   >
-    <div class="w-2/4">
+    <div class="w-full lg:w-2/4 sm:w-full">
       <div class="leading-relaxed">
-        <h1 class="text-5xl font-black my-4">
+        <h1 class="text-5xl font-semi-bold my-4">
           Say <span class="app-text">Goodbye</span> to house hunting forever
         </h1>
         <p class="my-3 text-lg">
-          Find your dream home with us today! Detailed listings and high-quality
-          photos make it easy to find the perfect fit for landlords and tenants.
+          Experience the ultimate rental search with Kikao - discover your
+          perfect home from our wide selection of top-quality listings, complete
+          with stunning high-resolution photos from locations nationwide
         </p>
       </div>
-
       <div class="flex mt-8">
         <div class="border-l-2 border-gray-400 pl-8 mr-20 my-2">
-          <P class="text-xl app-text font-bold">50K+</P>
+          <P class="text-xl app-text font-normal">50K+</P>
           <span>tenants</span>
         </div>
         <div class="border-l-2 border-gray-400 my-2 pl-8">
-          <P class="text-xl app-text font-bold">10K+</P>
+          <P class="text-xl app-text font-normal">10K+</P>
           <span>listed properties</span>
         </div>
       </div>
     </div>
     <!-- start card img section -->
-    <div v-if="homeSample">
+    <div v-if="homeSample" class="mt-8">
       <router-link
         :to="'/listing/' + homeSample._id"
         class="bg-white leading-relaxed"
@@ -55,14 +55,14 @@ const homeSample = computed(
           <div class="px-4">
             <div class="mt-2 flex justify-between">
               <div>
-                <span class="text-xl font-extrabold app-text"
+                <span class="text-xl font-medium app-text"
                   >{{ homeSample.rate.price.toLocaleString() }}
                   {{ homeSample.rate.countryCode }}</span
                 >/<span class="">{{ homeSample.rate.duration }}</span>
               </div>
             </div>
             <div>
-              <p class="font-bold text-xl">{{ homeSample.name }}</p>
+              <p class="font-normal text-xl">{{ homeSample.name }}</p>
               <span class="text-gray-500 py-1 truncate">{{
                 homeSample.location
               }}</span>
@@ -71,7 +71,7 @@ const homeSample = computed(
             <div class="flex justify-between pb-2 text-sm">
               <div class="flex justify-between">
                 <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
-                <span class="text-gray-500 ml-2 font-bold"
+                <span class="text-gray-600 ml-2 font-bold"
                   >{{ homeSample.compartments.bedrooms }}
                   <span class="ml-0.5 font-normal">{{
                     homeSample.compartments.bedrooms > 1 ? `Beds` : `Bed`
@@ -80,7 +80,7 @@ const homeSample = computed(
               </div>
               <div class="flex justify-between">
                 <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
-                <span class="text-gray-500 ml-2 font-bold"
+                <span class="text-gray-600 ml-2 font-bold"
                   >{{ homeSample.compartments.washRooms
                   }}<span class="ml-1 font-normal">{{
                     homeSample.compartments.washRooms > 1
@@ -91,7 +91,7 @@ const homeSample = computed(
               </div>
               <div class="flex justify-between">
                 <Yingyang class="w-4 h-4 inline" />
-                <span class="text-gray-500 ml-2 font-bold"
+                <span class="text-gray-600 ml-2 font-bold"
                   >{{ homeSample.size.slice(0, homeSample.size.length - 2) }}
                   <span class="font-normal">m2</span></span
                 >
@@ -102,4 +102,5 @@ const homeSample = computed(
       >
     </div>
   </div>
+  <hr class="border-gray-200 dark:border-gray-700" />
 </template>

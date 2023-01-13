@@ -16,8 +16,8 @@ const props = withDefaults(
     fill="none"
     viewBox="0 0 24 24"
     stroke-width="1.5"
-    :stroke="props.color"
-    class="w-6 h-6"
+    :stroke="`rgb(79 70 229)`"
+    class="w-12 h-12"
   >
     <path
       stroke-linecap="round"
