@@ -10,10 +10,11 @@ const listings = computed(() => useRootStore().$state.listings);
 function reload() {
   window.location.reload();
 }
+//
 </script>
 <template>
-  <div class="lg:w-[1200px] mx-auto">
-    <SortListings class="lg:w-[920px] mx-auto mt-8" />
+  <div class="w-[1200px] mx-auto">
+    <SortListings class="w-full mx-auto mt-8" />
     <div
       v-if="listings.length < 1"
       class="text-center my-20 w-96 mx-auto tracking-normal font-bold"
@@ -28,7 +29,7 @@ function reload() {
         Browse Listings
       </button>
     </div>
-    <div v-else class="flex flex-wrap mt-4 mb-20 justify-center">
+    <div v-else class="flex flex-wrap mt-4 mb-20 justify-center w-full">
       <Listing
         v-for="listing in listings"
         :key="listing._id"
