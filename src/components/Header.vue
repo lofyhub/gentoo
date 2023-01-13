@@ -53,9 +53,9 @@ function handleListing() {
             >
               <LogoIcon class="w-8 h-8 inline" />
               <span
-                v-if="route.name === `Applications`"
+                v-if="route.name === `Dashboard`"
                 class="text-2xl font-extrabold ml-2"
-                >Add Listings</span
+                >Dashboard</span
               >
               <span v-else class="ml-2">Kikao</span></a
             >

@@ -17,6 +17,7 @@ import GlobeIcon from "@/components/icons/GlobeIcon.vue";
 import Bleep from "@/components/icons/Bleep.vue";
 import BleepRed from "@/components/icons/BleepRed.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
+import BackButton from "@/components/BackButton.vue";
 import { toastSuccess, toastWarning } from "@/plugins/toast";
 
 const prop = withDefaults(
@@ -64,6 +65,9 @@ function addFavourite() {
 </script>
 
 <template>
+  <div class="pt-6">
+    <BackButton class="my-3" />
+  </div>
   <div v-if="listing">
     <div class="">
       <h1 class="text-4xl font-normal">{{ listing.name }}</h1>
@@ -99,7 +103,7 @@ function addFavourite() {
     </div>
     <!-- start listing details -->
     <div class="flex">
-      <div class="w-[800px]">
+      <div class="lg:w-[800px] sm:w-[400px]">
         <!-- listing image section -->
         <div class="my-6">
           <img
@@ -107,13 +111,13 @@ function addFavourite() {
             alt=""
             srcset=""
             loading="lazy"
-            class="object-cover object-center overflow-hidden w-full h-[450px]"
+            class="object-cover object-center overflow-hidden w-full lg:h-[450px] sm:h-[300px]"
             @click="showImagePopup = true"
           />
         </div>
         <div>
           <!-- Room details section bathrooms, washrooms e.t.c -->
-          <div class="my-6 border-2 border-gray-200 rounded h-[100px]">
+          <div class="my-6 border-2 border-gray-200 rounded lg:h-[100px]">
             <div class="flex justify-around h-32">
               <!-- bedrooms -->
               <div class="w-32 py-5 ml-4">

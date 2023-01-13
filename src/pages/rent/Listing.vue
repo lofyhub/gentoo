@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 
-import BackButton from "@/components/BackButton.vue";
 import ListingHeader from "@/components/ListingHeader.vue";
 import { useRootStore } from "@/store";
 
@@ -11,11 +10,7 @@ const houseListing = store.getListingById(idParam);
 </script>
 
 <template>
-  <div class="w-[1130px] mx-auto">
-    <div class="pt-6">
-      <BackButton class="my-3" />
-    </div>
-
+  <div class="w-full lg:w-[1130px] sm:w-[640] mx-auto">
     <ListingHeader :listing="houseListing!" />
   </div>
 </template>

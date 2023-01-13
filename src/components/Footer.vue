@@ -1,119 +1,37 @@
 <script setup lang="ts">
-import Facebook from "@/components/icons/socials/Facebook.vue";
 import Twitter from "@/components/icons/socials/Twitter.vue";
-import Youtube from "@/components/icons/socials/Youtube.vue";
-import Linkedin from "@/components/icons/socials/Linkedin.vue";
-import LogoIcon from "./icons/LogoIcon.vue";
-import Phone from "@/components/icons/Phone.vue";
+import LogoIcon from "@/components/icons/LogoIcon.vue";
+
+const date = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="bg-white pt-20 pb-10 lg:pt-[120px] lg:pb-20">
-    <div class="flex flex-wrap w-4/5 mx-auto">
-      <div class="w-4/12 px-4">
-        <div class="mb-10 w-full">
-          <a href="/" class="mb-6 inline-block flex">
-            <LogoIcon class="h-12 w-12" />
-            <span class="text-2xl font-normal mt-3 ml-2">Kikao</span>
-          </a>
-          <ul>
-            <li>
-              <p class="text-body-color mb-7 text-base">
-                Discover your perfect home from our wide selection of
-                top-quality listings, complete with stunning high-resolution
-                photos from locations nationwide (Kenya)
-              </p>
-            </li>
-            <li>
-              <p class="text-dark flex items-center text-sm font-medium">
-                <span class="text-primary mr-3">
-                  <Phone class="text-indigo-500" />
-                </span>
-                <span>+254-0778-537-497</span>
-              </p>
-            </li>
-          </ul>
+  <footer class="bg-white py-10 w-full font-normal">
+    <div class="w-4/5 mx-auto">
+      <div class="flex">
+        <LogoIcon class="mr-3" />
+        <div class="mt-3 flex justify-between">
+          <p class="text-2xl inline">Kikao</p>
+          <p class="text-1xl inline mt-1.5 ml-6">
+            Copyright © {{ date }} Kikao Inc. All rights reserved.
+          </p>
         </div>
       </div>
-      <div class="w-1/5 px-4">
-        <div class="mb-10 w-full">
-          <h4 class="text-dark mb-9 text-2xl font-normal">Company</h4>
-          <ul>
-            <li>
-              <a
-                href="/about"
-                class="text-body-color hover:text-primary mb-2 inline-block text-base leading-loose"
-              >
-                About Kikao
-              </a>
-            </li>
-            <li>
-              <a
-                href="/contact"
-                class="text-body-color hover:text-primary mb-2 inline-block text-base leading-loose"
-              >
-                Contact & Support
-              </a>
-            </li>
-            <li>
-              <a
-                href="/faq"
-                class="text-body-color hover:text-primary mb-2 inline-block text-base leading-loose"
-              >
-                FAQ's
-              </a>
-            </li>
-            <li>
-              <a
-                href="/privacy"
-                class="text-body-color hover:text-primary mb-2 inline-block text-base leading-loose"
-              >
-                Setting & Privacy
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="w-2/5 px-4">
-        <div class="mb-10 w-full">
-          <h4 class="text-dark mb-9 text-2xl font-normal">Follow Us On</h4>
-          <div class="mb-6 flex items-center">
-            <a
-              href="https://twitter.com/kikaoHQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-dark hover:bg-indigo-50 hover:border-primary mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
-            >
-              <Facebook />
-            </a>
-            <a
-              href="https://twitter.com/kikaoHQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-dark hover:bg-indigo-50 hover:border-primary mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
-            >
-              <Twitter />
-            </a>
-            <a
-              href="https://twitter.com/kikaoHQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-dark hover:bg-indigo-50 hover:border-primary mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
-            >
-              <Youtube />
-            </a>
-            <a
-              href="https://twitter.com/kikaoHQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-dark hover:bg-indigo-50 hover:border-primary mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
-            >
-              <Linkedin />
-            </a>
-          </div>
-          <p class="text-body-color text-base">&copy; 2023 Kikao</p>
-        </div>
+      <div class="flex flex-wrap justify-between pt-4 w-4/5">
+        <a href="/"> Home</a>
+        <a href="/about">About Us</a>
+        <a href="/policy">Policy </a>
+        <a href="/contact">Help</a>
+        <a href="/contact">Contact</a>
+        <a
+          href="https://twitter.com/kikaoHQ"
+          target="_blank"
+          rel="noopener noreferrer"
+          class=""
+        >
+          <span class="inline">Follow </span>
+          <Twitter class="inline w-5 h-5 mx-3"
+        /></a>
       </div>
     </div>
   </footer>
