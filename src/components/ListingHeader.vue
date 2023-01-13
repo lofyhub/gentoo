@@ -18,6 +18,7 @@ import Bleep from "@/components/icons/Bleep.vue";
 import BleepRed from "@/components/icons/BleepRed.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import BackButton from "@/components/BackButton.vue";
+import SharePopup from "@/components/popups/SharePopup.vue";
 import { toastSuccess, toastWarning } from "@/plugins/toast";
 
 const prop = withDefaults(
@@ -40,6 +41,7 @@ const showImagePopup = ref(false);
 const dateSelected = ref(``);
 const inPerson = ref(false);
 const virtual = ref(false);
+const showShare = ref(false);
 
 // methods
 
@@ -56,7 +58,7 @@ function handleTour() {
 }
 
 function socialShare() {
-  toastSuccess("Clicked social share");
+  showShare.value = !showShare.value;
 }
 
 function addFavourite() {
@@ -385,5 +387,6 @@ function addFavourite() {
       :image="listing.images[listing.images.length - 1]"
       @close="showImagePopup = false"
     />
+    <SharePopup v-if="showShare" @close="showShare = false" />
   </Teleport>
 </template>

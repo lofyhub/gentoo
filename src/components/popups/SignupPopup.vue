@@ -196,14 +196,14 @@ async function signUp() {
               By signing up, you agree to the
               <a
                 class="no-underline border-b border-grey-dark text-grey-dark"
-                href="/privacy"
+                href="/policy"
               >
                 Terms of Service
               </a>
               and
               <a
                 class="no-underline border-b border-grey-dark text-grey-dark"
-                href="/privacy"
+                href="/policy"
               >
                 Privacy Policy
               </a>

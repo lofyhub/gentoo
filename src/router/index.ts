@@ -43,10 +43,10 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "FAQ's route" */ "@/pages/Faq.vue"),
   },
   {
-    path: "/privacy",
-    name: "privacy",
+    path: "/policy",
+    name: "Policy",
     component: () =>
-      import(/* webpackChunkName: "Privacy route" */ "@/pages/Privacy.vue"),
+      import(/* webpackChunkName: "Policy route" */ "@/pages/Privacy.vue"),
   },
   {
     path: "/contact",

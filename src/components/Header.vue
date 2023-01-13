@@ -116,11 +116,10 @@ function handleListing() {
               <div x-data="{ isOpen: true }" class="relative inline-block">
                 <!-- Dropdown toggle button -->
                 <button
-                  @click="isDropdown = !isDropdown"
-                  class="relative z-10 flex items-center text-sm text-gray-600 border border-transparent rounded-md hover:bg-indigo-50 focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
+                  @click.stop="isDropdown = !isDropdown"
+                  class="relative z-10 flex items-center text-sm text-gray-600 border border-transparent rounded-md hover:bg-indigo-50 focus:outline-none"
                 >
-                  <a
-                    href="#"
+                  <div
                     class="flex items-center text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <img
@@ -128,7 +127,7 @@ function handleListing() {
                       src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1600"
                       alt="kikao avatar profile image"
                     />
-                  </a>
+                  </div>
                   <DropdownIcon />
                 </button>
 
@@ -145,16 +144,15 @@ function handleListing() {
                   class="absolute right-0 z-20 w-56 mt-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
                 >
                   <div class="flex text-1xl">
-                    <a
-                      href="#"
-                      class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    <div
+                      class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300"
                     >
                       <img
                         class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
                         src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1600"
                         alt="kikao avatar image"
                       />
-                    </a>
+                    </div>
                     <div class="mx-1">
                       <h1
                         class="text-sm font-semibold text-gray-700 dark:text-gray-200"
@@ -168,14 +166,14 @@ function handleListing() {
                   </div>
                   <hr class="border-gray-200 dark:border-gray-700" />
                   <a
-                    href="#"
+                    href="/dashboard"
                     class="flex items-center p-3 text-base capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <Avatar class="h-8 w-8" />
                     <span class="mx-1"> view profile </span>
                   </a>
                   <a
-                    href="#"
+                    href="/dashboard"
                     class="flex items-center p-3 text-base text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <MacOptions />
