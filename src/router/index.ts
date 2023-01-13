@@ -29,8 +29,8 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "listingroute" */ "@/pages/rent/Listing.vue"),
   },
   {
-    path: "/addlistings",
-    name: "Applications",
+    path: "/dashboard",
+    name: "Dashboard",
     component: () =>
       import(
         /* webpackChunkName: "Applicationsroute" */ "@/pages/Applications.vue"
@@ -40,13 +40,19 @@ const routes: Array<RouteRecordRaw> = [
     path: "/faq",
     name: "FAQ",
     component: () =>
-      import(/* webpackChunkName: "FAQ'sroute" */ "@/pages/Faq.vue"),
+      import(/* webpackChunkName: "FAQ's route" */ "@/pages/Faq.vue"),
   },
   {
     path: "/privacy",
     name: "privacy",
     component: () =>
-      import(/* webpackChunkName: "FAQ'sroute" */ "@/pages/Privacy.vue"),
+      import(/* webpackChunkName: "Privacy route" */ "@/pages/Privacy.vue"),
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: () =>
+      import(/* webpackChunkName: "Contact route" */ "@/pages/Contact.vue"),
   },
 ];
 

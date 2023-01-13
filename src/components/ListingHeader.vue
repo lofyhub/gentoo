@@ -244,15 +244,20 @@ function addFavourite() {
                 <div class="flex justify-between my-2">
                   <p>Listed on</p>
                   <span class="font-bold ml-16 ml-16">
-                    {{ formatDate(`2022-12-25`) }}</span
+                    {{ formatDate(listing.createdAt) }}</span
                   >
                 </div>
                 <div class="flex justify-between my-2">
                   <p>Availability</p>
                   <div class="ml-16 flex justify-center">
-                    <Bleep v-if="listing.status" class="mr-8 mt-1.5" />
+                    <Bleep
+                      v-if="listing.status === `active`"
+                      class="mr-8 mt-1.5"
+                    />
                     <BleepRed v-else class="mr-8 mt-1.5" />
-                    <span class="font-bold">Yes</span>
+                    <span class="font-bold">{{
+                      listing.status === "active" ? `Yes` : `No`
+                    }}</span>
                   </div>
                 </div>
                 <div class="flex justify-between my-2">
@@ -280,15 +285,17 @@ function addFavourite() {
                 </div>
                 <div class="flex justify-between my-2">
                   <p>Size</p>
-                  <span class="font-bold ml-16">2,173 sqft</span>
+                  <span class="font-bold ml-16">{{ listing.size }}</span>
                 </div>
                 <div class="flex justify-between">
                   <p>Land Size</p>
-                  <span class="font-bold ml-16">9,060 sqft</span>
+                  <span class="font-bold ml-16">{{ listing.size }}</span>
                 </div>
                 <div class="flex justify-between my-2">
                   <p>Parking Area</p>
-                  <span class="font-bold ml-16">Yes</span>
+                  <span class="font-bold ml-16">{{
+                    listing.compartments.parking ? `Yes` : `No`
+                  }}</span>
                 </div>
               </div>
             </div>

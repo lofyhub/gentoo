@@ -48,9 +48,9 @@ async function signIn() {
       config
     );
     const data = await res.data;
-    // TODO: Find a beter way of storing the token i.e HTTPONLY coockie -- security concerns --
-    document.cookie = "x-access-token=" + data.token;
     sessionStore.setSessionData(data.user);
+    // TODO: Find a beter way of storing the token i.e HTTPONLY coockie -- security concerns --
+    localStorage.setItem("kikao-token", `${data.token}`);
     if (res.status === 200) {
       toastSuccess(`Login successful! Welcome back 👋`);
       store.toggleLogin();
@@ -85,14 +85,6 @@ async function signIn() {
           >
             Sign in
           </h2>
-          <p class="mt-2 text-center text-sm text-gray-600">
-            Or
-            <a
-              href="#"
-              class="font-medium text-indigo-500 hover:text-indigo-600"
-              >start your 14-day free trial</a
-            >
-          </p>
         </div>
         <div class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
