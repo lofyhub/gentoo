@@ -22,7 +22,7 @@ const openFaq6 = ref(false);
    openFaq6
    }
    "
-    class="relative z-20 overflow-hidden bg-white pt-4 pb-12 lg:pt-[30px] lg:pb-[90px]"
+    class="overflow-hidden bg-white pt-4 pb-12 lg:pt-[30px] lg:pb-[90px]"
   >
     <div class="container mx-auto">
       <div class="-mx-4 flex flex-wrap">
