@@ -20,7 +20,7 @@ function gotoListing() {
 <template>
   <div class="lg:w-[1200px] mx-auto">
     <div class="text-center mt-10">
-      <h1 class="text-4xl app-text font-black">Featured Listings</h1>
+      <h1 class="text-4xl app-text font-normal">Featured Listings</h1>
       <p class="mt-4 text-lg">Popular and most recent listings</p>
     </div>
     <div class="flex flex-wrap mt-0 pt-0 justify-center">

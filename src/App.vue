@@ -10,7 +10,7 @@ import SignupPopup from "@/components/popups/SignupPopup.vue";
 import { useRootStore } from "@/store/index";
 
 useHead({
-  title: "Kikao | Say goodbye to house hunting forever",
+  title: "Kikao | Find your next home with us",
 });
 
 const store = useRootStore();
