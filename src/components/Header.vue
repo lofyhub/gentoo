@@ -13,6 +13,7 @@ import Bars from "@/components/icons/Bars.vue";
 
 import { useSessionStore } from "@/store/session";
 import { useRootStore } from "@/store/index";
+import router from "@/router";
 
 const session = useSessionStore();
 const store = useRootStore();
@@ -20,10 +21,20 @@ const route = useRoute();
 const isOpen = ref(false);
 const isDropdown = ref(false);
 const userData = computed(() => session.$state);
+
 // methods
 function logOut() {
   session.$reset();
   sessionStorage.removeItem("x-access-token");
+}
+
+function handleListing() {
+  if (session.$state._id) {
+    router.push(`/dashboard`);
+    return;
+  }
+
+  store.toggleLogin();
 }
 </script>
 
@@ -92,11 +103,12 @@ function logOut() {
               class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Sell</a
             >
-            <a
-              href="/addlistings"
+            <div
+              @click="handleListing"
               class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
-              >Add listing</a
             >
+              Add listing
+            </div>
           </div>
           <div class="flex items-center mt-4 lg:mt-0">
             <div v-if="userData._id">

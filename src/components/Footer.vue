@@ -4,7 +4,6 @@ import Twitter from "@/components/icons/socials/Twitter.vue";
 import Youtube from "@/components/icons/socials/Youtube.vue";
 import Linkedin from "@/components/icons/socials/Linkedin.vue";
 import LogoIcon from "./icons/LogoIcon.vue";
-import Bleep from "@/components/icons/Bleep.vue";
 import Phone from "@/components/icons/Phone.vue";
 </script>
 
@@ -113,11 +112,6 @@ import Phone from "@/components/icons/Phone.vue";
               <Linkedin />
             </a>
           </div>
-          <span class="flex inline pb-2">
-            <span class="flex inline">Status</span>
-            <Bleep class="mt-1 mx-2" />
-            <span class="inline">All systems operational</span>
-          </span>
           <p class="text-body-color text-base">&copy; 2023 Kikao</p>
         </div>
       </div>
