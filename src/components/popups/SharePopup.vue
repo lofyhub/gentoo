@@ -2,12 +2,12 @@
 import { defineEmits } from "vue";
 
 import XIcon from "@/components/icons/XIcon.vue";
-import Twitter from "@/components/icons/socials/Twitter.vue";
-import Facebook from "@/components/icons/socials/Facebook.vue";
-import Linkedin from "@/components/icons/socials/Linkedin.vue";
-import Whatsapp from "@/components/icons/socials/Whatsapp.vue";
-import Reddit from "@/components/icons/socials/Reddit.vue";
-import Email from "@/components/icons/socials/Email.vue";
+// import Twitter from "@/components/icons/socials/Twitter.vue";
+// import Facebook from "@/components/icons/socials/Facebook.vue";
+// import Linkedin from "@/components/icons/socials/Linkedin.vue";
+// import Whatsapp from "@/components/icons/socials/Whatsapp.vue";
+// import Reddit from "@/components/icons/socials/Reddit.vue";
+// import Email from "@/components/icons/socials/Email.vue";
 
 defineEmits(["close"]);
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[728px] mx-auto prose">
+  <div class="w-4/5 mx-auto prose pb-6">
     <div class="text-center mt-10 font-normal">
       <h1>Privacy Policy</h1>
     </div>

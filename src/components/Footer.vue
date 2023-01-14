@@ -1,38 +1,49 @@
 <script setup lang="ts">
 import Twitter from "@/components/icons/socials/Twitter.vue";
-import LogoIcon from "@/components/icons/LogoIcon.vue";
 
 const date = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="bg-white py-10 w-full font-normal">
-    <div class="w-4/5 mx-auto">
-      <div class="flex">
-        <LogoIcon class="mr-3" />
-        <div class="mt-3 flex justify-between">
-          <p class="text-2xl inline">Kikao</p>
-          <p class="text-1xl inline mt-1.5 ml-6">
-            Copyright © {{ date }} Kikao Inc. All rights reserved.
-          </p>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between pt-4 w-4/5">
-        <a href="/"> Home</a>
-        <a href="/about">About Us</a>
-        <a href="/policy">Policy </a>
-        <a href="/contact">Help</a>
-        <a href="/contact">Contact</a>
-        <a
-          href="https://twitter.com/kikaoHQ"
-          target="_blank"
-          rel="noopener noreferrer"
-          class=""
-        >
-          <span class="inline">Follow </span>
-          <Twitter class="inline w-5 h-5 mx-3"
-        /></a>
-      </div>
-    </div>
-  </footer>
+  <div class="bg-white shadow bottom-0 left-0 w-full">
+    <footer
+      class="w-4/5 mx-auto p-4 text-base font-normal rounded-lg md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800"
+    >
+      <span class="text-gray-500 sm:text-center dark:text-gray-400 py-2"
+        >Copyright © {{ date }}
+        <a href="https://kikaoo.co.ke" class="hover:underline">Kikao Inc</a>.
+        All Rights Reserved
+      </span>
+      <ul
+        class="flex flex-wrap items-center mt-3 text-gray-500 dark:text-gray-400 sm:mt-0"
+      >
+        <li>
+          <a href="/about" class="mr-4 hover:underline md:mr-6">About</a>
+        </li>
+        <li>
+          <a href="/policy" class="mr-4 hover:underline md:mr-6"
+            >Privacy Policy</a
+          >
+        </li>
+        <li>
+          <a href="/faq" class="mr-4 hover:underline md:mr-6">FAQ's</a>
+        </li>
+        <li>
+          <a href="/contact" class="mr-4 hover:underline md:mr-6">Contact</a>
+        </li>
+        <li>
+          <a href="/listings" class="mr-4 hover:underline md:mr-6">Listings</a>
+        </li>
+        <li class="">
+          <a
+            href="https://twitter.com/kikaoHQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:underline"
+            ><Twitter class="w-5 h-5 fill-gray-500 hover:fill-gray-900"
+          /></a>
+        </li>
+      </ul>
+    </footer>
+  </div>
 </template>
