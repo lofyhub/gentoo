@@ -4,6 +4,7 @@ import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import { computed } from "@vue/reactivity";
+import { formatDate } from "@/helpers/helpers";
 
 const rootStore = useRootStore();
 const homeSample = computed(
@@ -63,9 +64,13 @@ const homeSample = computed(
             </div>
             <div>
               <p class="font-normal text-xl">{{ homeSample.name }}</p>
-              <span class="text-gray-500 py-1 truncate">{{
-                homeSample.location
-              }}</span>
+              <span class="text-gray-500 py-1 truncate flex"
+                >{{ homeSample.location }}
+                <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-3"></p>
+                <span class="text-sm text-gray-500 py-1">{{
+                  formatDate(homeSample.createdAt)
+                }}</span></span
+              >
             </div>
             <hr class="my-2 h-2" />
             <div class="flex justify-between pb-2 text-sm">

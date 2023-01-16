@@ -6,6 +6,7 @@ import heartIcon from "@/components/icons/heartIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import { toastSuccess } from "@/plugins/toast";
+import { formatDate } from "@/helpers/helpers";
 
 const props = withDefaults(
   defineProps<{
@@ -71,10 +72,16 @@ function handleFavourite() {
       </div>
       <router-link :to="'/listing/' + props._id">
         <div>
-          <p class="font-normal text-lg truncate">{{ props.name }}</p>
-          <span class="text-gray-500 py-1 truncate text-sm">{{
-            props.location
-          }}</span>
+          <p class="font-normal text-lg truncate">
+            {{ props.name }}
+          </p>
+          <span class="text-gray-500 py-1 truncate text-sm flex"
+            >{{ props.location }}
+            <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-2"></p>
+            <span class="text-sm text-gray-500">{{
+              formatDate(props.createdAt)
+            }}</span></span
+          >
         </div>
         <hr class="my-1 h-2" />
 
