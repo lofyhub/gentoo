@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 
 export interface Session {
   _id: string;
+  userId: string;
   username: string;
   email: string;
   regDate: string;
@@ -13,6 +14,7 @@ export const useSessionStore = defineStore(`session`, {
   state: (): Session => {
     return {
       _id: ``,
+      userId: ``,
       username: ``,
       email: ``,
       regDate: ``,
@@ -29,7 +31,8 @@ export const useSessionStore = defineStore(`session`, {
         (this.username = data.username),
         (this.email = data.email),
         (this.regDate = data.regDate),
-        (this.kikaotype = data.kikaotype);
+        (this.kikaotype = data.kikaotype),
+        (this.userId = data.userId);
     },
   },
   getters: {},
