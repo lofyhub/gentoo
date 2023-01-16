@@ -1,15 +1,4 @@
-<script setup lang="ts">
-import { withDefaults, defineProps } from "vue";
-
-const props = withDefaults(
-  defineProps<{
-    color?: string;
-  }>(),
-  {
-    color: `rgb(79 70 229)`,
-  }
-);
-</script>
+<script setup lang="ts"></script>
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
