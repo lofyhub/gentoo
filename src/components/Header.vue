@@ -46,20 +46,18 @@ function handleListing() {
     <div class="container px-32 py-3 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
-          <div class="">
-            <a
-              class="text-2xl flex transition-colors duration-300 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
-              href="/"
+          <a
+            class="text-2xl flex transition-colors duration-300 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
+            href="/"
+          >
+            <LogoIcon class="w-8 h-8 inline" />
+            <span
+              v-if="route.name === `Dashboard`"
+              class="text-2xl font-normal ml-2 mt-3"
+              >Dashboard</span
             >
-              <LogoIcon class="w-8 h-8 inline" />
-              <span
-                v-if="route.name === `Dashboard`"
-                class="text-2xl font-extrabold ml-2"
-                >Dashboard</span
-              >
-              <span v-else class="ml-2">Kikao</span></a
-            >
-          </div>
+            <span v-else class="ml-2 mt-3">Kikao</span></a
+          >
 
           <!-- Mobile menu button -->
           <div class="flex lg:hidden">
@@ -105,7 +103,7 @@ function handleListing() {
             >
             <div
               @click="handleListing"
-              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-2 mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
             >
               Add listing
             </div>
@@ -123,10 +121,17 @@ function handleListing() {
                     class="flex items-center text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <img
+                      v-if="session.$state.image"
                       class="flex-shrink-0 object-cover mx-1 rounded-full w-12 h-12"
                       src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1600"
                       alt="kikao avatar profile image"
                     />
+                    <div v-else class="flex">
+                      <Avatar
+                        class="h-6 w-6 flex-shrink-0 object-cover mx-1 rounded-full"
+                      />
+                      <p>{{ session.$state.username }}</p>
+                    </div>
                   </div>
                   <DropdownIcon />
                 </button>
@@ -148,9 +153,14 @@ function handleListing() {
                       class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300"
                     >
                       <img
+                        v-if="session.$state.image"
                         class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
                         src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1600"
                         alt="kikao avatar image"
+                      />
+                      <Avatar
+                        v-else
+                        class="h-8 w-8 flex-shrink-0 object-cover mx-1 rounded-full"
                       />
                     </div>
                     <div class="mx-1">
