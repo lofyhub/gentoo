@@ -4,8 +4,15 @@ import { useSessionStore } from "@/store/session";
 import ListingPreview from "@/components/ListingPreview.vue";
 import { useRootStore } from "@/store";
 
+import { useHead } from "unhead";
+
+useHead({
+  title: "Kikao | Dashboard",
+});
+
 const store = useSessionStore();
 const rootStore = useRootStore();
+
 rootStore.authorListings();
 const authorListings = computed(() => rootStore.$state.userListings);
 
@@ -14,22 +21,13 @@ const authorListings = computed(() => rootStore.$state.userListings);
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
   <div
-    class="flex w-full lg:w-3/4 sm:w-full mx-auto min-h-screen"
+    class="flex flex-wrap min-h-screen w-3/4 mx-auto my-8"
     v-if="store.$state._id"
   >
-    <div class="w-3/4 mx-auto border border-gray-200 bg-white">
-      <h2
-        class="py-6 text-2xl font-normal text-center border-b border-gray-200"
-      >
-        Your listings overview
-      </h2>
-      <div class="w-full">
-        <ListingPreview
-          v-for="listing in authorListings"
-          :key="listing._id"
-          :listing="listing"
-        />
-      </div>
-    </div>
+    <ListingPreview
+      v-for="listing in authorListings"
+      :key="listing._id"
+      :listing="listing"
+    />
   </div>
 </template>

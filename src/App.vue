@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { useHead } from "unhead";
 
 import Footer from "@/components/Footer.vue";
-import HeaderVue from "./components/Header.vue";
+import HeaderVue from "@/components/Header.vue";
 import LoginPopup from "@/components/popups/LoginPopup.vue";
 import SignupPopup from "@/components/popups/SignupPopup.vue";
 
@@ -20,14 +20,16 @@ const showSignup = computed(() => store.$state.showSignup);
 </script>
 
 <template>
-  <HeaderVue />
-  <router-view />
-  <Footer />
+  <div>
+    <HeaderVue />
+    <router-view />
+    <Footer />
 
-  <Teleport to="body">
-    <LoginPopup v-if="showLogin" />
-    <SignupPopup v-if="showSignup" />
-  </Teleport>
+    <Teleport to="body">
+      <LoginPopup v-if="showLogin" />
+      <SignupPopup v-if="showSignup" />
+    </Teleport>
+  </div>
 </template>
 
 <style>

@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { withDefaults, defineProps } from "vue";
+import { withDefaults, defineProps, ref } from "vue";
 import { houseSchema } from "@/temp/housestemp";
 import { formatDate } from "@/helpers/helpers";
+import Delete from "@/components/icons/Delete.vue";
+import BedIcon from "@/components/icons/BedIcon.vue";
+import BathtabIcon from "@/components/icons/BathtabIcon.vue";
+import Yingyang from "@/components/icons/YingYang.vue";
+import ConfirmPopup from "@/components/popups/ConfirmPopup.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -9,29 +14,87 @@ const props = withDefaults(
   }>(),
   {}
 );
+
+const showConfirm = ref(false);
 </script>
 
 <template>
   <div
-    class="flex flex-col items-center bg-white border rounded my-3 shadow-md md:flex-row md:max-w-xl hover:bg-indigo-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+    class="w-[280px] mt-8 mx-3 bg-indigo-50 shadow-md hover:shadow-lg rounded-sm overflow-hidden"
   >
     <img
-      class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-      :src="props.listing.images[0]"
-      alt=""
+      :src="props.listing.images[props.listing.images.length - 1]"
+      alt="listing image from kikao"
+      class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
     />
-    <div class="flex flex-col justify-between p-4 leading-normal">
-      <h5
-        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-      >
-        {{ props.listing.name }}
-      </h5>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        {{ props.listing.location }}
-      </p>
-      <p class="text-gray-500 text-sm">
-        {{ formatDate(props.listing.createdAt) }}
-      </p>
+    <div class="px-3">
+      <div class="mt-2 flex justify-between">
+        <div>
+          <span class="text-base font-bold app-text"
+            >{{ props.listing.rate.price.toLocaleString() }}
+            {{ props.listing.rate.countryCode }}</span
+          >/<span class="font-normal">{{ props.listing.rate.duration }}</span>
+        </div>
+        <div
+          class="w-8 h-8 rounded-full bg-white border-slate-300 border-2 flex items-center justify-center cursor-pointer"
+          @click="showConfirm = true"
+        >
+          <Delete class="w-5 h-5" />
+        </div>
+      </div>
+      <div>
+        <div>
+          <p class="font-normal text-lg truncate">
+            {{ props.listing.name }}
+          </p>
+          <span class="text-gray-500 py-1 truncate text-sm flex"
+            >You posted on
+            <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-2"></p>
+            <span class="text-sm text-gray-500">{{
+              formatDate(props.listing.createdAt)
+            }}</span></span
+          >
+        </div>
+        <hr class="my-1 h-2 border-gray-300" />
+
+        <div class="flex pb-2 text-sm">
+          <div class="flex pr-2">
+            <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
+            <span class="text-gray-600 font-bold ml-1.5"
+              >{{ props.listing.compartments.bedrooms
+              }}<span class="ml-1 font-normal">{{
+                props.listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
+              }}</span></span
+            >
+          </div>
+          <div class="flex pr-3">
+            <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
+            <span class="text-gray-600 ml-1 font-bold"
+              >{{ props.listing.compartments.washRooms
+              }}<span class="ml-2 font-normal">{{
+                props.listing.compartments.washRooms > 1
+                  ? `Bathrooms`
+                  : `Bathroom`
+              }}</span></span
+            >
+          </div>
+          <div class="flex">
+            <Yingyang class="w-4 h-4 inline" />
+            <span class="text-gray-600 ml-1.5 font-bold"
+              >{{ props.listing.size.slice(0, 3)
+              }}<span class="font-normal ml-1">m2</span></span
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <Teleport to="body">
+    <ConfirmPopup
+      v-if="showConfirm"
+      :listingId="props.listing._id"
+      :userId="props.listing.userId"
+      @close="showConfirm = false"
+    />
+  </Teleport>
 </template>

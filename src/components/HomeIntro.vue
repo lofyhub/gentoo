@@ -32,11 +32,11 @@ const homeSample = computed(
       </div>
       <div class="flex mt-8">
         <div class="border-l-2 border-gray-400 pl-8 mr-20 my-2">
-          <P class="text-xl app-text font-normal">50K+</P>
+          <p class="text-xl app-text font-normal">50K+</p>
           <span>tenants</span>
         </div>
         <div class="border-l-2 border-gray-400 my-2 pl-8">
-          <P class="text-xl app-text font-normal">10K+</P>
+          <p class="text-xl app-text font-normal">10K+</p>
           <span>listed properties</span>
         </div>
       </div>
