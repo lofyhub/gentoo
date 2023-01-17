@@ -4,12 +4,6 @@ import { useSessionStore } from "@/store/session";
 import ListingPreview from "@/components/ListingPreview.vue";
 import { useRootStore } from "@/store";
 
-import { useHead } from "unhead";
-
-useHead({
-  title: "Kikao | Dashboard",
-});
-
 const store = useSessionStore();
 const rootStore = useRootStore();
 
@@ -26,8 +20,5 @@ const authorListings = computed(() => rootStore.$state.userListings);
       :key="listing._id"
       :listing="listing"
     />
-  </div>
-  <div v-else class="font-normal text-center grid place-items-center h-screen">
-    <h1 class="text-2xl">You need to login to see your Dashboard</h1>
   </div>
 </template>

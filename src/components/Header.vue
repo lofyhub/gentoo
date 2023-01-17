@@ -94,12 +94,12 @@ function handleListing() {
             <a
               href="/listings"
               class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
-              >Buy</a
+              >Stays</a
             >
             <a
               href="/listings"
               class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
-              >Sell</a
+              >Attractions</a
             >
             <div
               @click="handleListing"
@@ -120,13 +120,7 @@ function handleListing() {
                   <div
                     class="flex items-center text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
-                    <img
-                      v-if="session.$state.image"
-                      class="flex-shrink-0 object-cover mx-1 rounded-full w-12 h-12"
-                      src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                      alt="kikao avatar profile image"
-                    />
-                    <div v-else class="flex">
+                    <div class="flex">
                       <Avatar
                         class="h-6 w-6 flex-shrink-0 object-cover mx-1 rounded-full"
                       />
@@ -152,15 +146,8 @@ function handleListing() {
                     <div
                       class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300"
                     >
-                      <img
-                        v-if="session.$state.image"
-                        class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
-                        src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                        alt="kikao avatar image"
-                      />
                       <Avatar
-                        v-else
-                        class="h-8 w-8 flex-shrink-0 object-cover mx-1 rounded-full"
+                        class="h-6 w-6 flex-shrink-0 object-cover mx-1 rounded-full"
                       />
                     </div>
                     <div class="mx-1">
@@ -177,14 +164,14 @@ function handleListing() {
                   <hr class="border-gray-200 dark:border-gray-700" />
                   <a
                     href="/dashboard"
-                    class="flex items-center p-3 text-base capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
-                    <Avatar class="h-8 w-8" />
+                    <Avatar class="h-6 w-6" />
                     <span class="mx-1"> view profile </span>
                   </a>
                   <a
                     href="/dashboard"
-                    class="flex items-center p-3 text-base text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <MacOptions />
                     <span class="mx-1"> Dashboard</span>
@@ -192,7 +179,7 @@ function handleListing() {
                   <hr class="border-gray-200 dark:border-gray-700" />
                   <a
                     href="/faq"
-                    class="flex items-center p-3 text-base text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <Question />
                     <span class="mx-1"> Help </span>

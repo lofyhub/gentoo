@@ -62,7 +62,7 @@ async function handleDeletion() {
       <div
         class="w-full lg:w-600 bg-white dark:bg-darkBGStop card-animation z-10 overflow-y-auto rounded-lg p-6 pt-4 shadow-lg font-normal mx-10"
       >
-        <div class="items-center text-center my-8">
+        <div class="items-center text-center py-6">
           <p class="text-gray-600 dark:text-black font-normal text-lg">
             <QuestionIcon
               class="mr-2 h-8 w-8 text-gray-500 dark:text-gray-300 inline"
@@ -71,7 +71,7 @@ async function handleDeletion() {
             undone.
           </p>
         </div>
-        <div class="flex justify-center items-center mb-3 mt-8">
+        <div class="flex justify-center items-center py-8">
           <button
             type="button"
             @click="$emit(`close`)"
@@ -80,7 +80,7 @@ async function handleDeletion() {
             Cancel
           </button>
           <button
-            class="text-white hover:text-white border px-8 py-2.5 bg-red-500 focus:outline-none font-medium rounded-lg text-sm text-center ml-2 dark:border-red-500 dark:text-white dark:hover:text-white"
+            class="text-gray-900 hover:bg-red-500 border px-8 py-2 border-red-500 focus:outline-none font-medium rounded-lg text-sm text-center ml-2 dark:border-red-500 dark:text-white dark:hover:text-white"
             @click="handleDeletion"
           >
             <SpinnerIcon v-if="deleting" class="w-4 h-4 my-1" />

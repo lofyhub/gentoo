@@ -7,12 +7,12 @@
       <div class="text-lg pb-10">
         <p class="">
           Welcome to Kikao, the ultimate online platform for finding your next
-          rental home. Whether you're a student looking for a cozy apartment, a
-          family searching for a spacious house, or a professional looking for a
-          place to call your own, we've got you covered. Our website is designed
-          to make your search as easy and stress-free as possible, with a wide
-          variety of listings to choose from, all sourced from locations all
-          across the country.
+          rental home, stays or attractions. Whether you're a student looking
+          for a cozy apartment, a family searching for a spacious house, or a
+          professional looking for a place to call your own, we've got you
+          covered. Our website is designed to make your search as easy and
+          stress-free as possible, with a wide variety of listings to choose
+          from, all sourced from locations all across the country.
         </p>
         <p class="py-2">
           Our listings are more than just pictures and addresses, we offer

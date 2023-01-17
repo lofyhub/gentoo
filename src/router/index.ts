@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "@/pages/HomeView.vue";
+import ProfileListings from "@/pages/profile/Listings.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,8 +34,15 @@ const routes: Array<RouteRecordRaw> = [
     name: "Dashboard",
     component: () =>
       import(
-        /* webpackChunkName: "Applicationsroute" */ "@/pages/Applications.vue"
+        /* webpackChunkName: "Applicationsroute" */ "@/pages/profile/Applications.vue"
       ),
+    children: [
+      {
+        path: "listings",
+        name: "Listings",
+        component: ProfileListings,
+      },
+    ],
   },
   {
     path: "/faq",
