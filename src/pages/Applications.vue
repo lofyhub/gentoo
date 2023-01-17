@@ -27,4 +27,7 @@ const authorListings = computed(() => rootStore.$state.userListings);
       :listing="listing"
     />
   </div>
+  <div v-else class="font-normal text-center grid place-items-center h-screen">
+    <h1 class="text-2xl">You need to login to see your Dashboard</h1>
+  </div>
 </template>
