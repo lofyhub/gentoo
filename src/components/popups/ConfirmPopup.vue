@@ -16,7 +16,6 @@ const props = withDefaults(
 );
 
 const emit = defineEmits(["close", "confirm"]);
-const showInfoBubble = ref<boolean>(false);
 const deleting = ref(false);
 // methods
 

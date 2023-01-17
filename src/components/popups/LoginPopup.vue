@@ -9,6 +9,7 @@ import LockIcon from "@/components/icons/LockIcon.vue";
 import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
 import regex from "@/config/regex";
 import axios from "axios";
+import SignupPopup from "./SignupPopup.vue";
 
 const store = useRootStore();
 const sessionStore = useSessionStore();
@@ -20,6 +21,11 @@ const password = ref(``);
 
 function close() {
   store.toggleLogin();
+}
+
+function signUp() {
+  close();
+  store.toggleSignup();
 }
 
 async function signIn() {
@@ -151,6 +157,12 @@ async function signIn() {
               </span>
               Sign in
             </button>
+          </div>
+          <div class="text-center">
+            <p class="inline">Dont have an account ?</p>
+            <a class="ml-3 text-indigo-600 cursor-pointer" @click="signUp"
+              >Sign Up</a
+            >
           </div>
         </div>
       </div>
