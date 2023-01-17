@@ -53,7 +53,6 @@ async function signIn() {
       config
     );
     const data = await res.data;
-    console.log(data);
     sessionStore.setSessionData(data.user);
     // TODO: Find a beter way of storing the token i.e HTTPONLY coockie -- security concerns --
     localStorage.setItem("kikao-token", `${data.token}`);
