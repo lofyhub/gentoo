@@ -61,32 +61,27 @@ async function handleDeletion() {
     </button>
     <section>
       <div
-        class="w-full lg:w-600 bg-white dark:bg-darkBGStop card-animation z-10 overflow-y-auto rounded-lg p-6 pt-4 shadow-lg font-normal"
+        class="w-full lg:w-600 bg-white dark:bg-darkBGStop card-animation z-10 overflow-y-auto rounded-lg p-6 pt-4 shadow-lg font-normal mx-10"
       >
-        <div class="flex items-center">
-          <div
-            @mouseover="showInfoBubble = true"
-            @mouseleave="showInfoBubble = false"
-          >
+        <div class="items-center text-center my-8">
+          <p class="text-gray-600 dark:text-black font-normal text-lg">
             <QuestionIcon
-              class="mr-4 h-8 w-8 text-gray-500 dark:text-gray-300"
+              class="mr-2 h-8 w-8 text-gray-500 dark:text-gray-300 inline"
             />
-          </div>
-          <p class="my-4 text-gray-600 dark:text-black font-normal">
             Are you sure you want to delete this listing? This action cannot be
             undone.
           </p>
         </div>
-        <div class="flex justify-end items-center">
+        <div class="flex justify-center items-center mb-3 mt-8">
           <button
             type="button"
             @click="$emit(`close`)"
-            class="text-gray-900 border px-8 py-2 border-indigo-700 hover:bg-indigo-50 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm text-center mr-2 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
+            class="text-gray-900 border px-8 py-2 border-indigo-700 hover:bg-indigo-50 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm text-center mr-3 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
           >
             Cancel
           </button>
           <button
-            class="text-white hover:text-white border px-8 py-2 bg-red-500 focus:outline-none font-medium rounded-lg text-sm text-center mr-2 dark:border-red-500 dark:text-white dark:hover:text-white"
+            class="text-white hover:text-white border px-8 py-2.5 bg-red-500 focus:outline-none font-medium rounded-lg text-sm text-center ml-2 dark:border-red-500 dark:text-white dark:hover:text-white"
             @click="handleDeletion"
           >
             <SpinnerIcon v-if="deleting" class="w-4 h-4 my-1" />
