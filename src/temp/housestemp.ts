@@ -1,6 +1,7 @@
 export interface houseSchema {
   _id: string;
   id: string;
+  userId: string;
   name: string;
   location: string;
   images: string[];

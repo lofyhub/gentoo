@@ -22,6 +22,11 @@ function close() {
   store.toggleLogin();
 }
 
+function signUp() {
+  close();
+  store.toggleSignup();
+}
+
 async function signIn() {
   if (!email.value || !password.value) {
     toastWarning(`Please enter all field details`);
@@ -48,7 +53,6 @@ async function signIn() {
       config
     );
     const data = await res.data;
-    console.log(data);
     sessionStore.setSessionData(data.user);
     // TODO: Find a beter way of storing the token i.e HTTPONLY coockie -- security concerns --
     localStorage.setItem("kikao-token", `${data.token}`);
@@ -151,6 +155,12 @@ async function signIn() {
               </span>
               Sign in
             </button>
+          </div>
+          <div class="text-center">
+            <p class="inline">Dont have an account ?</p>
+            <a class="ml-3 text-indigo-600 cursor-pointer" @click="signUp"
+              >Sign Up</a
+            >
           </div>
         </div>
       </div>

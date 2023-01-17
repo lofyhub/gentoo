@@ -49,7 +49,6 @@ export const useRootStore = defineStore(`rootStore`, {
         const data = await res.json();
         this.listings = data.listings;
       } catch (error) {
-        console.log(error);
         handleError(error);
       }
     },
@@ -67,11 +66,9 @@ export const useRootStore = defineStore(`rootStore`, {
           { Id: Id },
           { headers: headers }
         );
-        console.log(res.data.data);
         this.userListings = res.data.data;
-        console.log(this.userListings);
       } catch (error) {
-        console.log(error);
+        handleError(error);
       }
     },
     toggleLogin() {

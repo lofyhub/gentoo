@@ -6,7 +6,7 @@ const props = withDefaults(
     color?: string;
   }>(),
   {
-    color: `rgb(79 70 229)`,
+    color: `#ffffff`,
   }
 );
 </script>

@@ -20,7 +20,10 @@ const loading = ref(false);
 function close() {
   store.toggleSignup();
 }
-
+function signIn() {
+  close();
+  store.toggleLogin();
+}
 async function signUp() {
   if (!name.value || !email.value || !password.value || !kikaotype.value) {
     toastWarning(`Please enter all field details`);
@@ -157,7 +160,12 @@ async function signUp() {
             <div class="flex justify-center pt-3">
               <SpinnerIcon v-show="loading" style="padding: 0.1em" />
             </div>
-
+            <div class="text-center">
+              <p class="inline">Have an account ?</p>
+              <a class="ml-3 text-indigo-600 cursor-pointer" @click="signIn"
+                >Log In</a
+              >
+            </div>
             <div class="flex -space-x-4 py-2 justify-center">
               <img
                 class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
