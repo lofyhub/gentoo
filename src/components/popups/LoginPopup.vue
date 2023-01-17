@@ -9,7 +9,6 @@ import LockIcon from "@/components/icons/LockIcon.vue";
 import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
 import regex from "@/config/regex";
 import axios from "axios";
-import SignupPopup from "./SignupPopup.vue";
 
 const store = useRootStore();
 const sessionStore = useSessionStore();
