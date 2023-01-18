@@ -6,7 +6,7 @@ import Listing from "@/components/Listing.vue";
 import { computed } from "vue";
 
 const store = useRootStore();
-const listings = computed(() => store.$state.listings.slice(0, 12));
+const listings = computed(() => store.$state.listings.slice(0, 8));
 const router = useRouter();
 
 store.fetchListings();
