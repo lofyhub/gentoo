@@ -3,6 +3,7 @@ import { useRootStore } from "@/store";
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
+import MapPin from "@/components/icons/MapPin.vue";
 import { computed } from "@vue/reactivity";
 import { formatDate } from "@/helpers/helpers";
 
@@ -65,7 +66,8 @@ const homeSample = computed(
             <div>
               <p class="font-normal text-xl">{{ homeSample.name }}</p>
               <span class="text-gray-500 py-1 truncate flex"
-                >{{ homeSample.location }}
+                ><MapPin class="w-5 h-5 mr-1 inline" />
+                {{ homeSample.location }}
                 <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-3"></p>
                 <span class="text-sm text-gray-500 py-1">{{
                   formatDate(homeSample.createdAt)

@@ -21,4 +21,13 @@ const authorListings = computed(() => rootStore.$state.userListings);
       :listing="listing"
     />
   </div>
+  <div v-else class="text-center font-normal py-10">
+    <p class="text-2xl">You havent posted any house listing</p>
+    <p class="text-base">Your posted listings will appear here</p>
+    <router-link
+      to="/dashboard/addlisting"
+      class="py-2 px-4 border border-indigo-50 rounded text-gray-900"
+      >Post a listing</router-link
+    >
+  </div>
 </template>

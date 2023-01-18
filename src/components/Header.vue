@@ -21,6 +21,7 @@ const route = useRoute();
 const isOpen = ref(false);
 const isDropdown = ref(false);
 const userData = computed(() => session.$state);
+const dashRoute = computed(() => route.matched[0]?.name);
 
 // methods
 function logOut() {
@@ -39,10 +40,7 @@ function handleListing() {
 </script>
 
 <template>
-  <nav
-    x-data="{ isOpen: false }"
-    class="relative shadow dark:bg-gray-800 sticky top-0 left-0 w-full bg-white"
-  >
+  <nav class="shadow dark:bg-gray-800 sticky top-0 left-0 w-full bg-white">
     <div class="container md:px-10 px-6 py-3 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
@@ -52,7 +50,7 @@ function handleListing() {
           >
             <LogoIcon class="w-6 h-6 inline" />
             <span
-              v-if="route.name === `Dashboard`"
+              v-if="dashRoute === `Dashboard`"
               class="text-2xl font-normal ml-2 mt-3"
               >Dashboard</span
             >

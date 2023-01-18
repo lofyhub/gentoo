@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useSessionStore } from "@/store/session";
+import { useRoute } from "vue-router";
 import Profile from "@/components/Profile.vue";
 
 import { useHead } from "unhead";
@@ -9,8 +10,19 @@ useHead({
 });
 
 const store = useSessionStore();
+const route = useRoute();
 
 // methods
+function getStyles(tab: string) {
+  let res = ``;
+  if (route.name === tab) {
+    res += ` text-indigo-500 font-bold`;
+    return res;
+  }
+
+  res += ` text-gray-900 dark:text-gray-300`;
+  return res;
+}
 </script>
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
@@ -20,14 +32,20 @@ const store = useSessionStore();
   >
     <Profile />
   </div>
-  <div class="flex items-center justify-center my-4 font-semibold text-1xl">
-    <router-link :to="'/dashboard/listings'" class="pb-1">
-      <span class="px-4">Listings</span>
+  <div
+    class="flex items-center justify-center my-4 font-semibold text-1xl pb-1"
+  >
+    <router-link :to="'/dashboard/'" :class="getStyles('Guidelines')">
+      <span class="px-8">Guidelines</span>
     </router-link>
-    <router-link :to="'/dashboard/listings'" class="pb-1">
-      <span class="px-4">Listings</span>
+    <router-link :to="'/dashboard/addlisting'" :class="getStyles('addlisting')">
+      <span class="px-8">Post Listing</span>
+    </router-link>
+    <router-link :to="'/dashboard/listings'" :class="getStyles('Listings')">
+      <span class="px-8">Your Listings</span>
     </router-link>
   </div>
+  <hr class="border-gray-200 dark:border-gray-700" />
 
   <router-view></router-view>
 </template>

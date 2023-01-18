@@ -4,6 +4,7 @@ import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import heartIcon from "@/components/icons/heartIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
+import MapPin from "@/components/icons/MapPin.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import { toastSuccess } from "@/plugins/toast";
 import { formatDate } from "@/helpers/helpers";
@@ -52,6 +53,7 @@ function handleFavourite() {
     <img
       :src="props.images[props.images.length - 1]"
       alt="listing image from kikao"
+      loading="lazy"
       class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
       @click="updateSelectedImg(props.images[props.images.length - 1])"
     />
@@ -76,7 +78,7 @@ function handleFavourite() {
             {{ props.name }}
           </p>
           <span class="text-gray-500 py-1 truncate text-sm flex"
-            >{{ props.location }}
+            ><MapPin class="w-5 h-5 inline mr-1" /> {{ props.location }}
             <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-2"></p>
             <span class="text-sm text-gray-500">{{
               formatDate(props.createdAt)
