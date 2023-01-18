@@ -43,7 +43,7 @@ function getStyles(tab: string) {
       class="flex items-center justify-center my-4 font-semibold text-1xl pb-1"
     >
       <router-link :to="'/dashboard/'" :class="getStyles('Guidelines')">
-        <span class="px-8">Guidelines</span>
+        <span class="px-8">Guides</span>
       </router-link>
       <router-link
         :to="'/dashboard/addlisting'"
