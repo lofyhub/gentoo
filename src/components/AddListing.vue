@@ -103,6 +103,54 @@ function postListing() {
           />
         </div>
       </div>
+      <!-- start end-->
+      <div class="-mx-3 md:flex mb-2">
+        <div class="md:w-1/2 px-3">
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            for="grid-state"
+          >
+            No of Bedrooms
+          </label>
+          <div class="relative">
+            <input
+              class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              type="number"
+              placeholder="0 if bedsitter"
+              required
+            />
+          </div>
+        </div>
+        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            for="grid-city"
+          >
+            No of bathrooms
+          </label>
+          <input
+            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            id="grid-city"
+            type="number"
+            required
+            placeholder="0 if no bathrooms"
+          />
+        </div>
+        <div class="md:w-1/2 px-3">
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+          >
+            SIZE
+          </label>
+          <input
+            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            type="number"
+            placeholder="Size in square fit"
+            required
+          />
+        </div>
+      </div>
+      <!-- end bethrooms -->
       <!-- start second -->
       <div class="-mx-3 md:flex mb-2">
         <div class="md:w-1/2 px-3">
