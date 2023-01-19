@@ -6,7 +6,6 @@
     viewBox="0 0 24 24"
     stroke-width="1.5"
     :stroke="`rgb(79 70 229)`"
-    class="w-12 h-12"
   >
     <path
       stroke-linecap="round"

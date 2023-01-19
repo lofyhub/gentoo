@@ -27,12 +27,12 @@ function triggerAction() {
     :class="
       props.text === 'Login'
         ? `text-indigo-500 border-2 border-gray-200`
-        : `bg-indigo-500 `
+        : `bg-indigo-500 hover:bg-indigo-800`
     "
     :style="
       props.text === 'Login'
         ? `padding: 0.4rem 1.4rem`
-        : `padding: 0.6rem 1.4rem`
+        : `padding: 0.5rem 1.4rem `
     "
     @click="triggerAction()"
   >

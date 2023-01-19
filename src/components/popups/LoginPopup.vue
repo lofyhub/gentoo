@@ -29,12 +29,12 @@ function signUp() {
 
 async function signIn() {
   if (!email.value || !password.value) {
-    toastWarning(`Please enter all field details`);
+    toastWarning(`Please enter email and password`);
     return;
   }
 
   if (!regex.emailRegex.test(email.value)) {
-    toastWarning(`Enter a valid email address`);
+    toastWarning(`Please enter a valid email address`);
     return;
   }
   try {

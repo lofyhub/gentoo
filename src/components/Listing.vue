@@ -77,13 +77,13 @@ function handleFavourite() {
           <p class="font-normal text-lg truncate">
             {{ props.name }}
           </p>
-          <span class="text-gray-500 py-1 truncate text-sm flex"
-            ><MapPin class="w-5 h-5 inline mr-1" /> {{ props.location }}
+          <div class="text-gray-500 py-1 truncate text-sm flex">
+            <MapPin class="w-5 h-5 inline mr-1" /> {{ props.location }}
             <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-2"></p>
             <span class="text-sm text-gray-500">{{
               formatDate(props.createdAt)
-            }}</span></span
-          >
+            }}</span>
+          </div>
         </div>
         <hr class="my-1 h-2" />
 
@@ -97,7 +97,7 @@ function handleFavourite() {
               }}</span></span
             >
           </div>
-          <div class="flex pr-3">
+          <div class="flex pr-2">
             <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
             <span class="text-gray-600 ml-1 font-bold"
               >{{ props.compartments.washRooms
