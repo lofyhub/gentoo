@@ -63,6 +63,6 @@ function getStyles(tab: string) {
 </template>
 <style>
 .back {
-  background-image: url("https://images.pexels.com/photos/950740/pexels-photo-950740.jpeg");
+  background-image: url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&w=1600");
 }
 </style>

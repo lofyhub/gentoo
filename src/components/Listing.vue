@@ -35,6 +35,7 @@ const props = withDefaults(
 
 const selectedimg = ref(``);
 const showImagePopup = ref(false);
+
 // methods
 
 function updateSelectedImg(img: string) {
