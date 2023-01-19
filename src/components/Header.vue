@@ -41,17 +41,17 @@ function handleListing() {
 
 <template>
   <nav class="shadow dark:bg-gray-800 sticky top-0 left-0 w-full bg-white z-20">
-    <div class="container md:px-10 px-6 py-3 mx-auto">
+    <div class="container md:px-10 px-6 py-2 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
           <a
-            class="text-2xl flex transition-colors duration-300 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
+            class="text-2xl flex transition-colors duration-300 ml-10 lg:ml-20 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
             href="/"
           >
-            <LogoIcon class="w-6 h-6 inline" />
+            <LogoIcon class="w-8 h-8 inline mt-2.5" />
             <span
               v-if="dashRoute === `Dashboard`"
-              class="text-2xl font-normal ml-2 mt-3"
+              class="font-normal ml-2 mt-2.5"
               >Dashboard</span
             >
             <span v-else class="ml-2 mt-3">Kikao</span></a
