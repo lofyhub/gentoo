@@ -163,7 +163,7 @@ async function signUp() {
             <div class="text-center">
               <p class="inline">Have an account ?</p>
               <a class="ml-3 text-indigo-600 cursor-pointer" @click="signIn"
-                >Log In</a
+                >Sign In</a
               >
             </div>
             <div class="flex -space-x-4 py-2 justify-center">
