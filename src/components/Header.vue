@@ -31,7 +31,7 @@ function logOut() {
 
 function handleListing() {
   if (session.$state._id) {
-    router.push(`/dashboard`);
+    router.push(`/dashboard/addlisting`);
     return;
   }
 
