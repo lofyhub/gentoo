@@ -4,14 +4,57 @@ import { defineEmits, ref } from "vue";
 import UploadIcon from "@/components/icons/Upload.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 import { counties } from "@/temp/housestemp";
+import { toastMessage, toastError } from "@/plugins/toast";
 
 defineEmits(["close"]);
 
 const loading = ref(false);
+const title = ref(``);
+const town = ref(``);
+const location = ref(``);
+const county = ref(``);
+const rent = ref<number>();
+const bedrooms = ref<number>();
+const bathrooms = ref<number>();
+const size = ref(``);
+const duration = ref(``);
+const parking = ref(false);
+const description = ref(``);
+const images = ref([]);
 
 // methods
 
+async function onFileSelected(event: Event) {
+  if (!event.target) {
+    return;
+  }
+  const target = event.target as HTMLInputElement;
+  if (!target.files) {
+    toastError(`No image selected`);
+    return;
+  }
+  let reader = new FileReader();
+  reader.readAsDataURL(images.value[0]);
+  console.log(images.value);
+  console.log(reader);
+  // handle image upload here
+}
+
 function postListing() {
+  if (
+    !description.value ||
+    !town.value ||
+    !rent.value ||
+    !bedrooms.value ||
+    !bathrooms.value ||
+    !size.value ||
+    !duration.value ||
+    !parking.value ||
+    !title.value
+  ) {
+    toastMessage("Please fill in all the details");
+    return;
+  }
   loading.value = true;
   return;
 }
@@ -35,6 +78,7 @@ function postListing() {
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-first-name"
             type="text"
+            v-model="title"
             required
             placeholder="i.e Bestview Apartments"
           />
@@ -50,6 +94,7 @@ function postListing() {
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-last-name"
             type="text"
+            v-model="location"
             required
             placeholder="i.e Karen"
           />
@@ -67,6 +112,7 @@ function postListing() {
             <select
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               id="grid-state"
+              v-model="county"
             >
               <option v-for="county in counties" :key="county">
                 {{ county }}
@@ -85,6 +131,7 @@ function postListing() {
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-city"
             type="text"
+            v-model="town"
             required
             placeholder="i.e Kisumu"
           />
@@ -98,6 +145,7 @@ function postListing() {
           <input
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             type="text"
+            v-model="rent"
             placeholder="i.e 8,000"
             required
           />
@@ -110,15 +158,19 @@ function postListing() {
             class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
             for="grid-state"
           >
-            No of Bedrooms
+            Duration
           </label>
           <div class="relative">
-            <input
+            <select
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              type="number"
-              placeholder="0 if bedsitter"
+              id="grid-state"
+              v-model="duration"
               required
-            />
+            >
+              <option>Night</option>
+              <option>Week</option>
+              <option>Month</option>
+            </select>
           </div>
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
@@ -132,6 +184,7 @@ function postListing() {
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-city"
             type="number"
+            v-model="bathrooms"
             required
             placeholder="0 if no bathrooms"
           />
@@ -145,6 +198,7 @@ function postListing() {
           <input
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             type="number"
+            v-model="size"
             placeholder="Size in square fit"
             required
           />
@@ -158,18 +212,16 @@ function postListing() {
             class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
             for="grid-state"
           >
-            Duration
+            No of Bedrooms
           </label>
           <div class="relative">
-            <select
+            <input
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              id="grid-state"
+              type="number"
+              v-model="bedrooms"
+              placeholder="0 if bedsitter"
               required
-            >
-              <option>Night</option>
-              <option>Week</option>
-              <option>Month</option>
-            </select>
+            />
           </div>
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
@@ -186,6 +238,7 @@ function postListing() {
                 id="default-radio-1"
                 type="radio"
                 value=""
+                v-model="parking"
                 name="default-radio"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:outline-none dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
@@ -201,6 +254,7 @@ function postListing() {
                 id="default-radio-2"
                 type="radio"
                 value=""
+                v-model="parking"
                 name="default-radio"
                 class="w-4 h-4 ml-2 text-blue-600 bg-gray-100 border-gray-300 focus:outline-none dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
@@ -211,18 +265,6 @@ function postListing() {
               >
             </div>
           </div>
-        </div>
-        <div class="md:w-1/2 px-3">
-          <label
-            class="block tracking-wide text-grey-darker text-xs font-semibold mb-2"
-          >
-            SIZE in square feet
-          </label>
-          <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            type="text"
-            placeholder="i.e 120"
-          />
         </div>
       </div>
       <!-- end second -->
@@ -237,6 +279,7 @@ function postListing() {
           <textarea
             id="comment"
             rows="4"
+            v-model="description"
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Add any additional information for your prospective tenant here"
             required
@@ -252,6 +295,15 @@ function postListing() {
         >
           <div class="flex flex-col items-center justify-center pt-2 pb-6">
             <UploadIcon />
+            <input
+              id="dropzone-file"
+              type="file"
+              class="hidden"
+              accept="image/jpeg"
+              @change="onFileSelected"
+              ref="file"
+              multiple
+            />
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
               <span class="font-semibold">Click to upload</span> or drag and
               drop
@@ -260,7 +312,6 @@ function postListing() {
               PNG, or JPG (MAX. 800x400px)
             </p>
           </div>
-          <input id="dropzone-file" type="file" class="hidden" />
         </label>
       </div>
       <!-- end image upload -->
