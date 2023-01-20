@@ -194,11 +194,12 @@ function handleListing() {
               <!-- end of avatar section -->
             </div>
             <div v-else>
-              <BrandedButton
-                :text="`Login`"
-                :action="store.toggleLogin"
-                class="mr-4 bg-indigo-50 hover:text-white font-normal"
-              />
+              <button
+                @click="store.toggleLogin()"
+                class="mr-4 bg-indigo-100 font-normal py-2 px-6 rounded"
+              >
+                Sign in
+              </button>
               <BrandedButton
                 :text="`Sign up`"
                 :action="store.toggleSignup"
