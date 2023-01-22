@@ -44,3 +44,10 @@
 .bg-none {
   background-color: transparent;
 }
+.h2 {
+  font-size: 2.625rem;
+  line-height: 1.125;
+  letter-spacing: -0.02em;
+  color: rgb(99 102 241);
+  font-weight: normal;
+}

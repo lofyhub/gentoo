@@ -1,11 +1,21 @@
+<script setup lang="ts">
+import { useHead } from "unhead";
+
+useHead({
+  title: "Kikao | Guide",
+});
+</script>
+
 <template>
   <div class="prose mx-auto">
-    <h1>Please read the guidelines below before you post a listing</h1>
+    <h1 class="h2 text-center pt-5">
+      Please read the guidelines below before you post a listing
+    </h1>
     <p>
       Upon adding a listing, we will assume you have read and agreed with the
       guidelines
     </p>
-    <ul class="">
+    <ul class="text-base">
       <li>
         The landlord shall ensure to disclose the correct information about the
         property to be listed (location, amount charged e.t.c). This includes

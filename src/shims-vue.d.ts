@@ -18,3 +18,4 @@ declare module "*.png" {
 }
 declare module "toastify-js";
 declare module "pinia-plugin-persistedstate";
+declare module "vue-multiselect";

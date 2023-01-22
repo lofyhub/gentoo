@@ -3,6 +3,7 @@ import HomeView from "@/pages/HomeView.vue";
 import ProfileListings from "@/pages/profile/Listings.vue";
 import AddListing from "@/components/AddListing.vue";
 import Guidelines from "@/components/Guidelines.vue";
+import Notfound from "@/pages/NotFound.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "Rent",
     component: () =>
       import(/* webpackChunkName: "rent" */ "@/pages/rent/index.vue"),
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: () =>
+      import(/* webpackChunkName: "Signup route" */ "@/pages/SignUp.vue"),
   },
   {
     path: "/listing/:id",
@@ -79,6 +86,21 @@ const routes: Array<RouteRecordRaw> = [
     name: "Guide",
     component: () =>
       import(/* webpackChunkName: "Guide route" */ "@/pages/Guide.vue"),
+  },
+  {
+    path: "/team",
+    name: "Team",
+    component: () =>
+      import(/* webpackChunkName: "Team route" */ "@/pages/Team.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "Not Found",
+    component: Notfound,
+    meta: {
+      requiresAuth: false,
+      title: "Page not found - Kikao",
+    },
   },
 ];
 

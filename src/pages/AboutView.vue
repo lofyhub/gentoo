@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useHead } from "unhead";
+
+useHead({
+  title: "Kikao | About",
+});
+</script>
 
 <template>
   <div class="bg-white">
@@ -60,6 +66,7 @@
             class="w-6 h-6 rounded-full"
             src="https://johnphilip.dev/_nuxt/johnphilipavatar.d4b3753f.jpeg"
             alt="profile picture"
+            loading="lazy"
           />
           <div
             class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700"

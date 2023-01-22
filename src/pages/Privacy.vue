@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import { useHead } from "unhead";
+
+useHead({
+  title: "Kikao | Privacy",
+});
+</script>
 <template>
   <div class="w-4/5 mx-auto prose pb-6">
     <div class="text-center mt-10 font-normal">

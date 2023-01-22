@@ -1,6 +1,6 @@
 <template>
   <div class="prose mx-auto">
-    <h1 class="text-center pt-3">Please read the Guide</h1>
+    <h1 class="text-center pt-3 h2">Please read the Guide</h1>
     <p class="text-center">
       These guides and techniques will make your listing stand out from the rest
     </p>
