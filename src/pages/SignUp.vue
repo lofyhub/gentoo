@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRootStore } from "@/store/index";
 import { useSessionStore } from "@/store/session";
 import LeftIcon from "@/components/icons/LeftIcon.vue";
 import ArrowLeft from "@/components/icons/ArrowLeft.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
+
+import regex from "@/config/regex";
+import axios from "axios";
+import { ref } from "vue";
+
+import { useRootStore } from "@/store/index";
 import VueMultiselect from "vue-multiselect";
 import { counties } from "@/temp/housestemp";
+import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
 
 const store = useRootStore();
 const session = useSessionStore();
@@ -26,11 +31,52 @@ const phone = ref<number>();
 // methods
 
 async function submitForm() {
-  // handle form data and send
-  return;
+  if (!name.value || !email.value || !password.value || !kikaotype.value) {
+    toastWarning(`Please enter all field details`);
+    return;
+  }
+
+  if (password.value !== password2.value) {
+    toastMessage(`Password mismatch`);
+    return;
+  }
+
+  if (!regex.emailRegex.test(email.value)) {
+    toastMessage(`Enter a valid email address`);
+    return;
+  }
+  const bodyData = {
+    email: email.value,
+    password: password.value,
+    username: name.value,
+    kikaotype: kikaotype.value,
+    businesname: businesname.value,
+    location: location.value,
+    phone: phone.value,
+    businessType: businessType.value,
+    city: city.value,
+  };
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  loading.value = true;
+  try {
+    await axios.post("http://localhost:9000/signup", bodyData, config);
+    // reset values here
+    toastSuccess("Sucessfully created your account");
+    step.value = 4;
+    loading.value = false;
+  } catch (error) {
+    toastWarning(error as string);
+  }
 }
 function nextStep() {
-  if (step.value === 4) {
+  if (kikaotype.value === `tenant` && step.value === 1) {
+    submitForm();
+    return;
+  } else if (kikaotype.value === `landlord` && step.value === 3) {
     submitForm();
     return;
   }
@@ -49,7 +95,7 @@ function updateBusinesstype(type: "individual" | "organization") {
 </script>
 
 <template>
-  <div class="bg-white pt-20" v-if="!session.$state.userId">
+  <div class="bg-white pt-20 min-h-screen" v-if="!session.$state.userId">
     <div class="w-3/4 lg:w-1/3 mx-auto relative bg-white">
       <div class="relative">
         <div
@@ -344,7 +390,7 @@ function updateBusinesstype(type: "individual" | "organization") {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="text-emerald-400 inline-flex fill-current w-20 h-20 align-middle"
+            class="text-emerald-500 inline-flex fill-current w-20 h-20 align-middle"
           >
             <path
               fill-rule="evenodd"
@@ -354,7 +400,7 @@ function updateBusinesstype(type: "individual" | "organization") {
           </svg>
 
           <h1 class="text-2xl text-slate-800 font-normal py-3">
-            Nice to have you {{ name }}on Kikao Inc 🙌
+            Nice to have you {{ name }} on Kikao Inc 🙌
           </h1>
           <button
             class="bg-indigo-500 text-white rounded py-2.5 px-10 text-center mt-4"
@@ -366,7 +412,10 @@ function updateBusinesstype(type: "individual" | "organization") {
         </div>
       </div>
       <!-- end of step one -->
-      <div v-show="step !== 4" class="flex items-center justify-between py-8">
+      <div
+        v-show="step !== 4"
+        class="flex items-center justify-between py-8 text-sm"
+      >
         <div class="underline underline-offset-8 text-sm">
           <button
             class="text-gray-600 rounded py-2.5 px-6 flex underline underline-offset-8"
@@ -378,16 +427,37 @@ function updateBusinesstype(type: "individual" | "organization") {
           </button>
         </div>
         <button
-          class="bg-indigo-500 text-white rounded py-2.5 px-6 flex"
+          class="bg-indigo-500 opacity-100 text-white rounded py-2.5 px-6 flex"
           type="button"
           @click="nextStep()"
         >
           <SpinnerIcon v-if="loading" />
           <p v-else class="flex">
-            {{ step === 3 ? `Create account` : `Next Step` }}
+            {{
+              step === 1 && kikaotype === `tenant`
+                ? `Create account`
+                : step === 3
+                ? `Create account`
+                : `Next Step`
+            }}
             <LeftIcon />
           </p>
         </button>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white pt-20 min-h-screen" v-else>
+    <div class="text-center font-normal h-80">
+      <p class="text-2xl font-medium">You have recently signed up</p>
+      <p class="text-base py-8 font-normal">See popular listings</p>
+      <div class="flex justify-center">
+        <router-link
+          to="/listings"
+          class="py-2 px-6 border flex border-indigo-500 opacity-100 rounded text-base text-gray-900 hover:bg-indigo-500 hover:text-white shadow transition transform"
+        >
+          <span>Go to listings</span>
+          <LeftIcon
+        /></router-link>
       </div>
     </div>
   </div>

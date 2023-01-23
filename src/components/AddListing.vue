@@ -100,7 +100,7 @@ async function postListing() {
 
 <template>
   <div class="w-full flex flex-col justify-center items-center pb-6">
-    <h3 class="text-2xl font-bold pt-6 pb-8">
+    <h3 class="text-center text-xl font-medium py-6">
       Register Your Property for Free
     </h3>
     <div class="px-8 flex flex-col">

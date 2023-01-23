@@ -20,9 +20,9 @@ const homeSample = computed(
   <div
     class="flex flex-wrap justify-around my-8 w-full sm:w-4/5 lg:w-[1120px] mx-auto pb-6"
   >
-    <div class="w-full lg:w-2/4 sm:w-full">
+    <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
       <div class="leading-relaxed">
-        <h1 class="text-5xl font-semibold my-4">
+        <h1 class="text-5xl font-medium my-4">
           Say
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-400"

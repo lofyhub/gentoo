@@ -27,7 +27,7 @@ function sortListings() {
 }
 </script>
 <template>
-  <div class="flex justify-center bg-white shadow-md h-24">
+  <div class="flex justify-center bg-white shadow py-6 h-32">
     <table class="table-fixed">
       <thead>
         <tr>
@@ -75,7 +75,7 @@ function sortListings() {
           <td>
             <button
               type="submit"
-              class="py-2 px-12 bg-indigo-500 font-bold text-white rounded mx-4"
+              class="py-2 px-12 bg-indigo-500 opacity-100 font-bold text-white rounded mx-4 hover:bg-indigo-600"
               @click="sortListings"
             >
               Sort

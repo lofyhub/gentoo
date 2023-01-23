@@ -4,7 +4,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
 
 <template>
   <div class="lg:w-[1200px] mx-auto font-normal pt-8">
-    <h2 class="h2 text-center py-4">Why Choose Kikao</h2>
+    <h2 class="h2 text-center py-3">Why Choose Kikao</h2>
     <!-- Why choose kikao -->
     <div class="flex flex-wrap pt-4">
       <div class="w-3/5">

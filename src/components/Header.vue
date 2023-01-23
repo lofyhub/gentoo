@@ -45,14 +45,14 @@ function handleListing() {
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
           <a
-            class="text-2xl font-medium flex transition-colors duration-300 ml-10 lg:ml-20 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
+            class="text-2xl font-normal flex transition-colors duration-300 ml-10 lg:ml-20 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
             href="/"
           >
             <LogoIcon class="w-8 h-8 inline mt-2.5" />
-            <span v-if="dashRoute === `Dashboard`" class="ml-2 mt-2.5"
+            <span v-if="dashRoute === `Dashboard`" class="ml-2 mt-3.5"
               >Dashboard</span
             >
-            <span v-else class="ml-2 mt-3">Kikao</span></a
+            <span v-else class="ml-2 mt-3.5">Kikao</span></a
           >
 
           <!-- Mobile menu button -->
@@ -80,7 +80,7 @@ function handleListing() {
           class="absolute inset-x-0 z-20 w-full px-6 py-4 mr-6 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center"
         >
           <div
-            class="flex flex-col lg:flex-row lg:items-center text-base font-semibold"
+            class="flex flex-col lg:flex-row lg:items-center text-sm font-semibold"
           >
             <a
               href="/listings"
@@ -136,7 +136,7 @@ function handleListing() {
                     x-transition:leave-end="opacity-0 scale-90"
                     class="absolute right-0 z-20 w-56 mt-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
                   >
-                    <div class="flex text-1xl">
+                    <div class="flex text-base">
                       <div
                         class="flex items-center px-3 pt-1 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300"
                       >
@@ -158,7 +158,7 @@ function handleListing() {
                       </div>
                     </div>
                     <hr class="border-gray-200 dark:border-gray-700 mt-2" />
-                    <div class="text-base font-semibold">
+                    <div class="text-sm font-semibold">
                       <a
                         href="/dashboard"
                         class="flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -197,15 +197,15 @@ function handleListing() {
               <div v-else class="mr-8 flex font-semibold">
                 <button
                   @click="store.toggleLogin()"
-                  class="mr-4 border border-indigp-100 py-1.8 px-6 rounded transition-all ease-in hover:bg-indigo-50"
+                  class="mr-4 border border-indigp-100 opacity-100 py-1.8 px-6 rounded transition-all ease-in hover:bg-indigo-50"
                 >
                   Sign in
                 </button>
                 <RouterLink
                   :to="`/signup`"
-                  class="mr-4 bg-indigo-500 text-white hover:bg-indigo-700 py-2 px-5 rounded flex transition-all ease-in"
+                  class="mr-4 bg-indigo-500 opacity-100 text-white hover:bg-indigo-700 py-2 px-5 rounded flex transition-all ease-in"
                 >
-                  Sign up <LeftIcon
+                  Join Kikao <LeftIcon
                 /></RouterLink>
               </div>
             </div>

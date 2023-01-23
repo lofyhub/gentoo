@@ -9,6 +9,7 @@ import LockIcon from "@/components/icons/LockIcon.vue";
 import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
 import regex from "@/config/regex";
 import axios from "axios";
+import router from "@/router";
 
 const store = useRootStore();
 const sessionStore = useSessionStore();
@@ -20,11 +21,6 @@ const password = ref(``);
 
 function close() {
   store.toggleLogin();
-}
-
-function signUp() {
-  close();
-  store.toggleSignup();
 }
 
 async function signIn() {
@@ -59,6 +55,7 @@ async function signIn() {
     if (res.status === 200) {
       toastSuccess(`Login successful! Welcome back 👋`);
       store.toggleLogin();
+      router.push("/");
     }
   } catch (error) {
     toastMessage(error as string);
@@ -164,7 +161,7 @@ async function signIn() {
         <p class="inline">Don't have an account?</p>
         <a
           class="ml-3 text-indigo-600 font-semibold cursor-pointer underline underline-offset-8"
-          @click="signUp"
+          @click="router.push('/signup')"
           >Sign Up</a
         >
       </div>

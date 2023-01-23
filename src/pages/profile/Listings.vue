@@ -37,7 +37,7 @@ const authorListings = computed(() => rootStore.$state.userListings);
     <div class="flex justify-center">
       <router-link
         to="/dashboard/addlisting"
-        class="py-2 px-6 border flex border-indigo-500 rounded text-base text-gray-900 hover:bg-indigo-500 hover:text-white shadow transition transform"
+        class="py-2 px-6 border flex border-indigo-500 opacity-100 rounded text-base text-gray-900 hover:bg-indigo-500 hover:text-white shadow transition transform"
       >
         <span>Post a listing</span>
         <LeftIcon

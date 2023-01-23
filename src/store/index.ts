@@ -19,7 +19,6 @@ export type sortParam = {
 export interface RootState {
   listings: houseSchema[];
   showLogin: boolean;
-  showSignup: boolean;
   userListings: houseSchema[];
 }
 
@@ -28,7 +27,6 @@ export const useRootStore = defineStore(`rootStore`, {
     return {
       listings: [],
       showLogin: false,
-      showSignup: false,
       userListings: [],
     };
   },
@@ -73,9 +71,6 @@ export const useRootStore = defineStore(`rootStore`, {
     },
     toggleLogin() {
       this.showLogin = !this.showLogin;
-    },
-    toggleSignup() {
-      this.showSignup = !this.showSignup;
     },
   },
   getters: {
