@@ -283,7 +283,7 @@ function addFavourite() {
               <div>
                 <div class="flex justify-between my-2">
                   <p>City</p>
-                  <span class="font-bold ml-16">Miami</span>
+                  <span class="font-bold ml-16">{{ listing.location }}</span>
                 </div>
                 <div class="flex justify-between my-2">
                   <p>Year built</p>

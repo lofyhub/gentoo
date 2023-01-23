@@ -20,7 +20,7 @@ const showConfirm = ref(false);
 
 <template>
   <div
-    class="w-[280px] mt-8 mx-3 bg-indigo-50 shadow-md hover:shadow-lg rounded-sm overflow-hidden"
+    class="w-[280px] mt-4 mx-2 bg-indigo-50 shadow-md hover:shadow-lg rounded-sm overflow-hidden"
   >
     <img
       :src="props.listing.images[props.listing.images.length - 1]"

@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useHead } from "unhead";
+
+useHead({
+  title: "Kikao | Faq",
+});
+</script>
 
 <template>
   <div

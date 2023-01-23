@@ -22,8 +22,13 @@ const homeSample = computed(
   >
     <div class="w-full lg:w-2/4 sm:w-full">
       <div class="leading-relaxed">
-        <h1 class="text-5xl font-semi-bold my-4">
-          Say <span class="app-text">Goodbye</span> to house hunting forever
+        <h1 class="text-5xl font-semibold my-4">
+          Say
+          <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-400"
+            >Goodbye</span
+          >
+          to house hunting forever
         </h1>
         <p class="my-3 text-lg">
           Experience the ultimate rental search with Kikao - discover your
@@ -57,7 +62,7 @@ const homeSample = computed(
           <div class="px-4">
             <div class="mt-2 flex justify-between">
               <div>
-                <span class="text-xl font-medium app-text"
+                <span class="text-[20px] font-medium app-text"
                   >{{ homeSample.rate.price.toLocaleString() }}
                   {{ homeSample.rate.countryCode }}</span
                 >/<span class="">{{ homeSample.rate.duration }}</span>
@@ -65,14 +70,16 @@ const homeSample = computed(
             </div>
             <div>
               <p class="font-normal text-xl">{{ homeSample.name }}</p>
-              <span class="text-gray-500 py-1 truncate flex"
-                ><MapPin class="w-5 h-5 mr-1 inline" />
-                {{ homeSample.location }}
+              <div class="flex text-gray-500 py-2">
+                <span class="truncate"
+                  ><MapPin class="w-5 h-5 mr-1 inline mb-1.5" />
+                  {{ homeSample.location }}
+                </span>
                 <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-3"></p>
-                <span class="text-sm text-gray-500 py-1">{{
+                <span class="truncate">{{
                   formatDate(homeSample.createdAt)
-                }}</span></span
-              >
+                }}</span>
+              </div>
             </div>
             <hr class="my-2 h-2" />
             <div class="flex justify-between pb-2 text-sm">

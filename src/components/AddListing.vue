@@ -5,23 +5,29 @@ import UploadIcon from "@/components/icons/Upload.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 import { counties } from "@/temp/housestemp";
 import { toastMessage, toastError } from "@/plugins/toast";
+import { useSessionStore } from "@/store/session";
+import axios from "axios";
+import VueMultiselect from "vue-multiselect";
 
 defineEmits(["close"]);
 
+const store = useSessionStore();
 const loading = ref(false);
 const title = ref(``);
 const town = ref(``);
 const location = ref(``);
 const county = ref(``);
-const rent = ref<number>();
-const bedrooms = ref<number>();
-const bathrooms = ref<number>();
 const size = ref(``);
 const duration = ref(``);
 const parking = ref(false);
 const description = ref(``);
-const images = ref([]);
+const selectedFile = ref<File | null>(null);
+const rent = ref<number>();
+const bedrooms = ref<number>();
+const bathrooms = ref<number>();
+const totalrooms = ref<number>();
 
+const id = store.$state.userId;
 // methods
 
 async function onFileSelected(event: Event) {
@@ -33,14 +39,10 @@ async function onFileSelected(event: Event) {
     toastError(`No image selected`);
     return;
   }
-  let reader = new FileReader();
-  reader.readAsDataURL(images.value[0]);
-  console.log(images.value);
-  console.log(reader);
-  // handle image upload here
+  selectedFile.value = target.files[0];
 }
 
-function postListing() {
+async function postListing() {
   if (
     !description.value ||
     !town.value ||
@@ -55,8 +57,44 @@ function postListing() {
     toastMessage("Please fill in all the details");
     return;
   }
-  loading.value = true;
-  return;
+  try {
+    loading.value = true;
+    const token = localStorage.getItem("kikao-token");
+    if (!token) throw new Error("Token is not found in localStorage");
+    // Create a new FormData object
+    let formData = new FormData();
+    if (selectedFile.value) {
+      formData.append("image", selectedFile.value);
+    }
+    formData.append("title", JSON.stringify(title.value));
+    formData.append("Id", JSON.stringify(id));
+    formData.append("location", JSON.stringify(location.value));
+    formData.append("price", JSON.stringify(rent.value));
+    formData.append("duration", JSON.stringify(duration.value));
+    formData.append("bedrooms", JSON.stringify(bedrooms.value));
+    formData.append("totalrooms", JSON.stringify(totalrooms.value));
+    formData.append("washrooms", JSON.stringify(bathrooms.value));
+    formData.append("parking", JSON.stringify(parking.value));
+    formData.append("size", JSON.stringify(size.value));
+    formData.append("status", JSON.stringify("active"));
+    formData.append("description", JSON.stringify(description.value));
+
+    const res = await axios.post(
+      "http://localhost:9000/user/listings",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-access-token": token,
+        },
+      }
+    );
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 
@@ -88,6 +126,28 @@ function postListing() {
             class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
             for="grid-last-name"
           >
+            County
+          </label>
+          <div class="relative block w-full pr-3">
+            <VueMultiselect
+              v-model="county"
+              :options="counties"
+              :searchable="false"
+              :close-on-select="false"
+              :show-labels="false"
+              placeholder="Pick a county"
+              class="mr-3"
+            >
+            </VueMultiselect>
+          </div>
+        </div>
+      </div>
+      <div class="-mx-3 md:flex mb-2">
+        <div class="md:w-1/2 px-3">
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            for="grid-state"
+          >
             Location/street
           </label>
           <input
@@ -98,27 +158,6 @@ function postListing() {
             required
             placeholder="i.e Karen"
           />
-        </div>
-      </div>
-      <div class="-mx-3 md:flex mb-2">
-        <div class="md:w-1/2 px-3">
-          <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
-            for="grid-state"
-          >
-            County
-          </label>
-          <div class="relative">
-            <select
-              class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              id="grid-state"
-              v-model="county"
-            >
-              <option v-for="county in counties" :key="county">
-                {{ county }}
-              </option>
-            </select>
-          </div>
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
           <label
@@ -160,17 +199,16 @@ function postListing() {
           >
             Duration
           </label>
-          <div class="relative">
-            <select
-              class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              id="grid-state"
+          <div class="relative block w-full">
+            <VueMultiselect
               v-model="duration"
-              required
+              :options="['Month', 'Night', 'Week']"
+              :searchable="false"
+              :close-on-select="false"
+              :show-labels="false"
+              placeholder="Select duration"
             >
-              <option>Night</option>
-              <option>Week</option>
-              <option>Month</option>
-            </select>
+            </VueMultiselect>
           </div>
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
@@ -229,6 +267,22 @@ function postListing() {
             class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
             for="grid-city"
           >
+            Total Rooms
+          </label>
+          <input
+            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            id="grid-city"
+            type="number"
+            v-model="totalrooms"
+            required
+            placeholder="Total no of rooms"
+          />
+        </div>
+        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            for="grid-city"
+          >
             Parking
           </label>
 
@@ -237,7 +291,7 @@ function postListing() {
               <input
                 id="default-radio-1"
                 type="radio"
-                value=""
+                value="true"
                 v-model="parking"
                 name="default-radio"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:outline-none dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -253,7 +307,7 @@ function postListing() {
                 checked
                 id="default-radio-2"
                 type="radio"
-                value=""
+                value="false"
                 v-model="parking"
                 name="default-radio"
                 class="w-4 h-4 ml-2 text-blue-600 bg-gray-100 border-gray-300 focus:outline-none dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -288,7 +342,7 @@ function postListing() {
       </div>
       <!-- start image upload -->
       <p class="text-sm uppercase font-semibold py-2">Upload Images</p>
-      <div class="flex items-center justify-center w-full">
+      <form class="flex items-center justify-center w-full">
         <label
           for="dropzone-file"
           class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -301,7 +355,7 @@ function postListing() {
               class="hidden"
               accept="image/jpeg"
               @change="onFileSelected"
-              ref="file"
+              ref="imageInput"
               multiple
             />
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
@@ -313,7 +367,7 @@ function postListing() {
             </p>
           </div>
         </label>
-      </div>
+      </form>
       <!-- end image upload -->
       <!-- submit button -->
       <div class="py-4">
@@ -330,3 +384,4 @@ function postListing() {
     </div>
   </div>
 </template>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

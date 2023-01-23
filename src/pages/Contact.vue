@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { useHead } from "unhead";
+
+useHead({
+  title: "Kikao | Contact",
+});
+</script>
+
 <template>
   <div class="bg-white">
     <div class="prose w-4/5 mx-auto py-10">

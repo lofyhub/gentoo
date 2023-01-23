@@ -16,6 +16,7 @@ const password = ref(``);
 const password2 = ref(``);
 const kikaotype = ref(``);
 const loading = ref(false);
+const phone = ref<number>();
 // methods
 function close() {
   store.toggleSignup();
@@ -88,10 +89,8 @@ async function signUp() {
         >
           <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
             <LogoIcon class="w-12 h-12 mx-auto w-auto" />
-            <h1
-              class="my-4 text-center text-3xl font-bold tracking-tight text-gray-900"
-            >
-              Sign up
+            <h1 class="text-3xl text-slate-800 font-semibold py-4 text-center">
+              Create your Account ✨
             </h1>
             <input
               type="text"
@@ -108,6 +107,7 @@ async function signUp() {
             <div class="flex my-3">
               <div class="flex items-center mr-6">
                 <input
+                  checked
                   id="tenant"
                   type="radio"
                   v-model="kikaotype"
@@ -122,7 +122,6 @@ async function signUp() {
               </div>
               <div class="flex items-center mr-4">
                 <input
-                  checked
                   id="landlord"
                   value="landlord"
                   type="radio"
@@ -136,6 +135,13 @@ async function signUp() {
                 >
               </div>
             </div>
+            <input
+              v-if="kikaotype === `landlord`"
+              type="number"
+              class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              v-model="phone"
+              placeholder="Phone number"
+            />
             <input
               type="password"
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -155,14 +161,16 @@ async function signUp() {
               class="group relative my-3 flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               @click="signUp()"
             >
-              Create Account
+              Sign Up
             </button>
             <div class="flex justify-center pt-3">
               <SpinnerIcon v-show="loading" style="padding: 0.1em" />
             </div>
             <div class="text-center">
               <p class="inline">Have an account ?</p>
-              <a class="ml-3 text-indigo-600 cursor-pointer" @click="signIn"
+              <a
+                class="ml-3 text-indigo-600 cursor-pointer underline underline-offset-8"
+                @click="signIn"
                 >Sign In</a
               >
             </div>
