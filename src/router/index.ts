@@ -48,8 +48,8 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "",
-        name: "Guidelines",
-        component: Guidelines,
+        name: "Listings",
+        component: ProfileListings,
       },
       {
         path: "addlisting",
@@ -58,8 +58,8 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "listings",
-        name: "Listings",
-        component: ProfileListings,
+        name: "Guidelines",
+        component: Guidelines,
       },
     ],
   },

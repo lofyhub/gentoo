@@ -40,7 +40,7 @@ function getStyles(tab: string) {
       <Profile />
     </div>
     <div class="flex items-center justify-center font-semibold text-1xl pb-3">
-      <router-link :to="'/dashboard/listings'" :class="getStyles('Listings')">
+      <router-link :to="'/dashboard/'" :class="getStyles('Listings')">
         <span class="px-4">Your Listings</span>
       </router-link>
       <router-link
@@ -49,7 +49,7 @@ function getStyles(tab: string) {
       >
         <span class="px-8">Post Listing</span>
       </router-link>
-      <router-link :to="'/dashboard/'" :class="getStyles('Guidelines')">
+      <router-link :to="'/dashboard/listings'" :class="getStyles('Guidelines')">
         <span class="px-8">Guides</span>
       </router-link>
     </div>
