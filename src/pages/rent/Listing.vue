@@ -10,7 +10,7 @@ const houseListing = store.getListingById(idParam);
 </script>
 
 <template>
-  <div class="w-full lg:w-[1130px] sm:w-[640] mx-auto">
+  <div class="w-full lg:w-[1130px] mx-auto">
     <ListingHeader :listing="houseListing!" />
   </div>
 </template>
