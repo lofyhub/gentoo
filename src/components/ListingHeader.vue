@@ -72,32 +72,34 @@ function addFavourite() {
   </div>
   <div v-if="listing">
     <div class="">
-      <h1 class="text-4xl font-normal">{{ listing.name }}</h1>
-      <div class="flex justify-between my-2">
+      <h1 class="text-2xl lg:text-3xl font-normal">{{ listing.name }}</h1>
+      <div class="flex flex-col py-3 lg:flex-row justify-between">
         <div>
-          <p class="text-gray-500 text-xl">{{ listing.location }}</p>
+          <p class="text-gray-500 lg:text-2xl text-xl">
+            {{ listing.location }}
+          </p>
         </div>
-        <div>
+        <div class="flex pt-3 lg:pt-0">
           <button
-            class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50"
+            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50"
             @click="socialShare"
           >
-            <ShareIcon class="inline h-4 w-4" />
+            <ShareIcon class="inline h-3.5 w-3.5" />
             <span class="text-base ml-2">Share</span>
           </button>
           <button
-            class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
+            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3"
             @click="addFavourite"
           >
             <span class="bg-none bg-transparent">
-              <HeartIcon class="inline h-4 w-4" />
+              <HeartIcon class="inline h-3.5 w-3.5" />
             </span>
             <span class="text-base ml-2">Bookmark</span>
           </button>
           <button
-            class="app-text border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-3"
+            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3"
           >
-            <SearchIcon class="inline h-4 w-4" />
+            <SearchIcon class="inline h-3.5 w-3.5" />
             <span class="text-base ml-2">Browse nearby listings</span>
           </button>
         </div>
@@ -105,7 +107,7 @@ function addFavourite() {
     </div>
     <!-- start listing details -->
     <div class="flex">
-      <div class="lg:w-[800px] sm:w-[400px]">
+      <div class="lg:w-[800px] w-full">
         <!-- listing image section -->
         <div class="my-6">
           <img
@@ -113,14 +115,14 @@ function addFavourite() {
             alt=""
             srcset=""
             loading="lazy"
-            class="object-cover object-center overflow-hidden w-full lg:h-[450px] sm:h-[300px]"
+            class="object-cover object-center cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
             @click="showImagePopup = true"
           />
         </div>
         <div>
           <!-- Room details section bathrooms, washrooms e.t.c -->
-          <div class="my-6 border-2 border-gray-200 rounded lg:h-[100px]">
-            <div class="flex justify-around h-32">
+          <div class="my-6 border-2 border-gray-200 rounded lg:h-[100px] h-24">
+            <div class="flex justify-around h-auto">
               <!-- bedrooms -->
               <div class="w-32 py-5 ml-4">
                 <p>
@@ -132,9 +134,11 @@ function addFavourite() {
                   <BedroomIcon class="w-5 h-5 inline fill-indigo-500" />
                   <span class="font-bold mt-4 ml-2 truncate"
                     >{{ listing.compartments.bedrooms }}
-                    {{
-                      listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
-                    }}</span
+                    <span class="lg:inline-block hidden">
+                      {{
+                        listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
+                      }}</span
+                    ></span
                   >
                 </div>
               </div>
@@ -151,12 +155,14 @@ function addFavourite() {
                   <BathtabIcon class="w-5 h-5 inline fill-indigo-500" />
                   <span class="font-bold ml-2 truncate"
                     >{{ listing.compartments.washRooms }}
-                    {{
-                      listing.compartments.washRooms > 1
-                        ? `Bathtabs`
-                        : `Bathtab`
-                    }}</span
-                  >
+                    <span class="lg:inline-block hidden">
+                      {{
+                        listing.compartments.washRooms > 1
+                          ? `Bathtabs`
+                          : `Bathtab`
+                      }}</span
+                    >
+                  </span>
                 </div>
               </div>
               <!-- square area -->
@@ -168,10 +174,11 @@ function addFavourite() {
                 </div>
               </div>
               <!-- repair quality -->
-              <div class="w-32 py-5 ml-2">
+              <div class="w-32 py-5 ml-2 lg:block hidden">
                 <p>Repair Quality</p>
                 <div class="pt-2">
                   <BrushIcon class="w-5 h-5 inline" />
+
                   <span class="font-bold ml-2">Modern Loft</span>
                 </div>
               </div>
@@ -186,33 +193,34 @@ function addFavourite() {
             </div>
           </div>
           <!-- about this home -->
-          <div>
-            <div>
-              <h2 class="text-3xl font-normal">About this home</h2>
-              <p class="py-3">
-                The "About this Home" section in a rental apartment listing is
-                typically a summary of the key features and characteristics of
-                the apartment. It may include information about the size of the
-                apartment, the number of bedrooms and bathrooms, the type of
-                flooring or finishes, and any special amenities or features such
-                as a balcony or in-unit laundry. <br />
-                <br />
-                It may also include details about the location of the apartment,
-                such as the neighborhood it is located in and any nearby public
-                transportation options. This section is intended to provide a
-                general overview of the apartment and help prospective renters
-                get a sense of what the unit is like before they schedule a
-                showing or visit in person.
-              </p>
-            </div>
+          <div class="lg:ml-0 ml-2.5">
+            <h2 class="text-3xl font-normal">About this home</h2>
+            <p class="py-3">
+              The "About this Home" section in a rental apartment listing is
+              typically a summary of the key features and characteristics of the
+              apartment. It may include information about the size of the
+              apartment, the number of bedrooms and bathrooms, the type of
+              flooring or finishes, and any special amenities or features such
+              as a balcony or in-unit laundry. <br />
+              <br />
+              It may also include details about the location of the apartment,
+              such as the neighborhood it is located in and any nearby public
+              transportation options. This section is intended to provide a
+              general overview of the apartment and help prospective renters get
+              a sense of what the unit is like before they schedule a showing or
+              visit in person.
+            </p>
           </div>
+
           <!-- end of about this home -->
           <!-- listed by property owner -->
-          <div class="my-4 border-2 border-gray-300 rounded bg-indigo-50">
+          <div
+            class="my-4 border-2 border-gray-300 rounded bg-indigo-50 mx-3 lg:mx-0"
+          >
             <div class="py-4 mx-4">
               <p class="text-lg font-semibold">Listed by property owner</p>
             </div>
-            <div class="flex justify-between mx-4 mb-6">
+            <div class="flex justify-between px-4 pb-6">
               <div class="flex">
                 <img
                   src="https://images.pexels.com/photos/1722198/pexels-photo-1722198.jpeg?auto=compress&cs=tinysrgb&w=1600"
@@ -225,16 +233,16 @@ function addFavourite() {
                   <p>Rich Capital Properties LLC</p>
                 </div>
               </div>
-              <div>
+              <div class="flex flex-col lg:flex-row justify-between">
                 <button
-                  class="text-indigo-500 border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50"
+                  class="text-indigo-500 border border-gray-200 py-1 px-5 rounded-md bg-white"
                 >
                   Ask a question
                 </button>
                 <button
-                  class="text-indigo-500 border-2 border-gray-200 py-1.5 px-5 rounded-md bg-indigo-50 ml-2"
+                  class="text-indigo-500 border-2 border-gray-200 py-1 px-5 rounded-md bg-white lg:ml-2 pt-2 lg:pt-0 text-center items-center flex justify-center"
                 >
-                  <GlobeIcon class="inline w-5 h-5" />
+                  <GlobeIcon class="inline w-5 h-5 lg:mr-2 mr-0" />
                   Get more info
                 </button>
               </div>
@@ -309,7 +317,7 @@ function addFavourite() {
           <!-- end of rental features -->
         </div>
       </div>
-      <div class="ml-8 my-6">
+      <div class="ml-8 my-6 hidden lg:block">
         <!-- start side images section -->
         <div>
           <div

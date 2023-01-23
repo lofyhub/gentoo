@@ -113,9 +113,10 @@
                 />
               </div>
               <blockquote class="text-xl font-medium mb-4">
-                “Kikao is the best platform to find homes for rental, buying and
-                selling in Kenya! The user-friendly interface made it easy for
-                me to find the perfect property that met all of my needs.“
+                “Kikao is the best platform to find homes for rental, business,
+                buying or selling in Kenya! The user-friendly interface makes it
+                easy to find the perfect listing. A growing platform worth
+                giving a try.“
               </blockquote>
               <cite class="block font-bold text-lg not-italic mb-1"
                 >Peter Sagan</cite
