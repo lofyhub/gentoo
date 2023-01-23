@@ -5,7 +5,6 @@ import { useHead } from "unhead";
 import Footer from "@/components/Footer.vue";
 import HeaderVue from "@/components/Header.vue";
 import LoginPopup from "@/components/popups/LoginPopup.vue";
-import SignupPopup from "@/components/popups/SignupPopup.vue";
 
 import { useRootStore } from "@/store/index";
 
@@ -16,7 +15,6 @@ useHead({
 const store = useRootStore();
 
 const showLogin = computed(() => store.$state.showLogin);
-const showSignup = computed(() => store.$state.showSignup);
 </script>
 
 <template>
@@ -27,7 +25,6 @@ const showSignup = computed(() => store.$state.showSignup);
 
     <Teleport to="body">
       <LoginPopup v-if="showLogin" />
-      <SignupPopup v-if="showSignup" />
     </Teleport>
   </div>
 </template>
@@ -41,6 +38,6 @@ const showSignup = computed(() => store.$state.showSignup);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: rgb(248 250 252);
+  background-color: rgb(255 255 255);
 }
 </style>

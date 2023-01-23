@@ -15,7 +15,7 @@ useHead({
       </h1>
 
       <p
-        class="max-w-2xl text-2xl mx-auto my-[16px] text-center text-gray-500 dark:text-gray-300"
+        class="max-w-2xl text-xl mx-auto my-[16px] text-center text-gray-500 dark:text-gray-300"
       >
         Meet the team behind Kikao
       </p>
@@ -29,18 +29,18 @@ useHead({
             loading="lazy"
           />
 
-          <h1 class="mt-4 text-2xl font-semibold text-gray-700 dark:text-white">
+          <h1 class="mt-4 text-xl font-semibold text-gray-700 dark:text-white">
             John Philip
           </h1>
 
-          <p class="text-gray-500 text-xl dark:text-gray-300">Founder</p>
+          <p class="text-gray-500 text-lg dark:text-gray-300">Founder</p>
 
           <div class="flex mt-3 -mx-2">
             <a
               href="https://twitter.com/amjohnphilip"
               target="_blank"
               rel="noopener noreferrer"
-              class="mx-2 mt-1 text-gray-600 w-[24px] h-[24px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
+              class="mx-2 mt-1 text-gray-600 w-[20px] h-[20px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
               aria-label="Twitter"
             >
               <Twitter class="w-full h-auto fill-current" />
@@ -50,7 +50,7 @@ useHead({
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="mx-2 w-[24px] h-[24px] fill text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
+              class="mx-2 w-[20px] h-[20px] fill text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
               aria-label="Facebook"
             >
               <svg
@@ -69,7 +69,7 @@ useHead({
               href="https://github.com/dxphilo"
               target="_blank"
               rel="noopener noreferrer"
-              class="mx-2 text-gray-600 w-[24px] h-[24px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
+              class="mx-2 text-gray-600 w-[20px] h-[20px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
               aria-label="Github"
             >
               <svg
@@ -93,11 +93,11 @@ useHead({
             loading="lazy"
           />
 
-          <h1 class="mt-4 text-2xl font-semibold text-gray-700 dark:text-white">
+          <h1 class="mt-4 text-xl font-semibold text-gray-700 dark:text-white">
             Your Name here
           </h1>
 
-          <p class="text-slate-500 text-xl dark:text-gray-300">
+          <p class="text-slate-500 text-lg dark:text-gray-300">
             Your role here
           </p>
 
@@ -106,7 +106,7 @@ useHead({
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="mx-2 mt-1 text-gray-600 w-[24px] h-[24px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
+              class="mx-2 mt-1 text-gray-600 w-[20px] h-[20px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
               aria-label="Twitter"
             >
               <Twitter class="w-full h-auto fill-current" />
@@ -116,7 +116,7 @@ useHead({
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="mx-2 w-[24px] h-[24px] fill text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
+              class="mx-2 w-[20px] h-[20px] fill text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
               aria-label="Facebook"
             >
               <svg
@@ -135,7 +135,7 @@ useHead({
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="mx-2 text-gray-600 w-[24px] h-[24px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
+              class="mx-2 text-gray-600 w-[20px] h-[20px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
               aria-label="Github"
             >
               <svg
@@ -152,7 +152,7 @@ useHead({
           </div>
         </div>
       </div>
-      <div class="text-center w-2/3 mx-auto my-12 text-xl">
+      <div class="text-center w-2/3 mx-auto my-12 text-lg">
         <p>
           If you believe in this project, are a team player, ready to roll up
           your sleeves and help drive the project forward and bring our vision

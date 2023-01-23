@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { useSessionStore } from "@/store/session";
-import Map from "@/components/icons/MapPin.vue";
-import Email from "./icons/Email.vue";
 import { formatDate } from "@/helpers/helpers";
 import PencilIcon from "@/components/icons/Pencil.vue";
-import Clock from "@/components/icons/Clock.vue";
+
 const store = useSessionStore();
 // method
 function handleImage() {
@@ -33,21 +31,18 @@ function handleImage() {
         <PencilIcon class="h-5 w-5 fill-current" />
       </span>
     </button>
-    <h2 class="text-3xl font-bold leading-normal my-1 text-gray-700">
+    <h2 class="text-xl font-bold leading-normal my-2 text-gray-700">
       {{ store.$state.username }}
     </h2>
-    <div class="flex flex-col justify-center text-[19px]">
+    <div
+      class="flex flex-col justify-center items-center text-center text-base"
+    >
       <div>
-        <Email class="w-5 h-5 text-gray-500 inline mr-2" />
         {{ store.$state.email }}
       </div>
-      <div class="py-1">
-        <Map class="mr-2 text-gray-500 inline" />
-        Nairobi, Kenya
-      </div>
+      <div class="py-1">Nairobi, Kenya</div>
       <p>{{ store.$state.kikaotype }}</p>
       <div>
-        <Clock class="mr-2 text-gray-500 inline" />
         {{ formatDate(store.$state.regDate) }}
       </div>
     </div>
