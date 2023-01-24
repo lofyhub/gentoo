@@ -6,9 +6,11 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
   <div class="lg:w-[1200px] mx-auto font-normal pt-8">
     <h2 class="h2 text-center py-3">Why Choose Kikao</h2>
     <!-- Why choose kikao -->
-    <div class="flex flex-wrap pt-4">
-      <div class="w-3/5">
-        <div class="text-xl py-3 flex">
+    <div
+      class="flex flex-wrap flex-col lg:flex-row justify-center items-center text-justify ml-6 lg:ml-0 pt-4"
+    >
+      <div class="w-4/5 lg:w-2/5 mr-6 h-40">
+        <div class="text-xl py-3 flex lg:text-left text-center">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
             class="text-[19px] font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
@@ -23,7 +25,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
           needs and preferences.
         </p>
       </div>
-      <div class="w-2/5">
+      <div class="w-4/5 lg:w-2/5 h-40 py-2">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
@@ -38,7 +40,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
           and schedule property tours.
         </p>
       </div>
-      <div class="w-3/5">
+      <div class="w-4/5 lg:w-2/5 mr-6 h-40">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
@@ -54,7 +56,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
           pricing, availability, and photos.
         </p>
       </div>
-      <div class="w-2/5">
+      <div class="w-4/5 lg:w-2/5 h-40">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p

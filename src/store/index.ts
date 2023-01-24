@@ -3,6 +3,8 @@ import { houseSchema } from "@/temp/housestemp";
 import { handleError } from "@/plugins/toast";
 import axios from "axios";
 import { useSessionStore } from "./session";
+
+import { env } from "@/env";
 export type priceRange =
   | `3,000 - 10,000`
   | `10,000 - 25,000`
@@ -43,7 +45,7 @@ export const useRootStore = defineStore(`rootStore`, {
     },
     async fetchListings() {
       try {
-        const res = await fetch(`http://localhost:9000/listings`);
+        const res = await fetch(`${env}/listings`);
         const data = await res.json();
         this.listings = data.listings;
       } catch (error) {
@@ -60,7 +62,7 @@ export const useRootStore = defineStore(`rootStore`, {
           "x-access-token": token,
         };
         const res = await axios.post(
-          "http://localhost:9000/author/listings",
+          `${env}/author/listings`,
           { Id: Id },
           { headers: headers }
         );

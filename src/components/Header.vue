@@ -8,7 +8,7 @@ import Avatar from "@/components/icons/Avatar.vue";
 import SignOut from "@/components/icons/SignOut.vue";
 import MacOptions from "@/components/icons/Mac.vue";
 import Bars from "@/components/icons/Bars.vue";
-import LeftIcon from "@/components/icons/LeftIcon.vue";
+import LeftIcon from "@/components/icons/ArrowDown.vue";
 
 import { useSessionStore } from "@/store/session";
 import { useRootStore } from "@/store/index";
@@ -45,7 +45,7 @@ function handleListing() {
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
           <a
-            class="text-2xl font-normal flex transition-colors duration-300 ml-10 lg:ml-20 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+            class="text-2xl font-medium flex transition-colors duration-300 ml-10 lg:ml-20 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
             href="/"
           >
             <LogoIcon class="w-8 h-8 inline mt-2.5" />
@@ -203,9 +203,9 @@ function handleListing() {
                 </button>
                 <RouterLink
                   :to="`/signup`"
-                  class="mr-4 bg-indigo-500 opacity-100 text-white hover:bg-indigo-700 py-2 px-5 rounded flex transition-all ease-in"
+                  class="mr-4 bg-indigo-500 opacity-100 text-white hover:bg-indigo-700 py-2.5 px-5 rounded flex transition-all ease-in"
                 >
-                  Join Kikao <LeftIcon
+                  Join Kikao <LeftIcon class="mx-2 animate-bounce"
                 /></RouterLink>
               </div>
             </div>

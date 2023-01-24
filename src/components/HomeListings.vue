@@ -20,7 +20,7 @@ function gotoListing() {
 }
 </script>
 <template>
-  <div class="lg:w-[1200px] mx-auto">
+  <div class="w-full lg:w-[1200px] lg:mx-auto">
     <div class="text-center mt-10">
       <h1 class="h2">Featured Listings</h1>
       <p class="py-4 text-lg">Popular and most recent listings</p>

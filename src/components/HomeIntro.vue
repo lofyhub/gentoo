@@ -18,11 +18,11 @@ const homeSample = computed(
 
 <template>
   <div
-    class="flex flex-wrap justify-around my-8 w-full sm:w-4/5 lg:w-[1120px] mx-auto pb-6"
+    class="flex flex-wrap justify-around py-16 w-full sm:w-4/5 lg:w-[1120px] mx-auto pb-6"
   >
     <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
-      <div class="leading-relaxed">
-        <h1 class="text-5xl font-medium my-4">
+      <div>
+        <h1 class="h3">
           Say
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-400"
@@ -31,12 +31,13 @@ const homeSample = computed(
           to house hunting forever
         </h1>
         <p class="my-3 text-lg">
-          Experience the ultimate rental search with Kikao - discover your
-          perfect home from our wide selection of top-quality listings, complete
-          with stunning high-resolution photos from locations nationwide
+          Whether you're looking for a rental, a place for your business, or
+          even a spot for a short-term stay, we've got you covered. Our platform
+          features a wide range of properties, from apartments and houses to
+          commercial spaces and land.
         </p>
       </div>
-      <div class="flex mt-8">
+      <div class="flex py-6 lg:py-4 lg:justify-start justify-center">
         <div class="border-l-2 border-gray-400 pl-8 mr-20 my-2">
           <p class="text-xl app-text font-normal">50K+</p>
           <span>tenants</span>
@@ -48,7 +49,7 @@ const homeSample = computed(
       </div>
     </div>
     <!-- start card img section -->
-    <div v-if="homeSample" class="mt-8">
+    <div v-if="homeSample">
       <router-link
         :to="'/listing/' + homeSample._id"
         class="bg-white leading-relaxed"
