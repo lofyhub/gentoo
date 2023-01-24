@@ -397,6 +397,10 @@ function addFavourite() {
       :image="listing.images[listing.images.length - 1]"
       @close="showImagePopup = false"
     />
-    <SharePopup v-if="showShare" @close="showShare = false" />
+    <SharePopup
+      v-if="showShare"
+      :listing="listing"
+      @close="showShare = false"
+    />
   </Teleport>
 </template>
