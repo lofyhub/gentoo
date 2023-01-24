@@ -10,6 +10,7 @@ import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
 import regex from "@/config/regex";
 import axios from "axios";
 import router from "@/router";
+import { env } from "@/env";
 
 const store = useRootStore();
 const sessionStore = useSessionStore();
@@ -43,11 +44,7 @@ async function signIn() {
         "Content-Type": "application/json",
       },
     };
-    const res = await axios.post(
-      `http://localhost:9000/signin`,
-      bodyData,
-      config
-    );
+    const res = await axios.post(`${env}/signin`, bodyData, config);
     const data = await res.data;
     sessionStore.setSessionData(data.user);
     // TODO: Find a beter way of storing the token i.e HTTPONLY coockie -- security concerns --
@@ -161,7 +158,7 @@ async function signIn() {
         <p class="inline">Don't have an account?</p>
         <a
           class="ml-3 text-indigo-600 font-semibold cursor-pointer underline underline-offset-8"
-          @click="router.push('/signup')"
+          @click="store.toggleLogin(), router.push('/signup')"
           >Sign Up</a
         >
       </div>

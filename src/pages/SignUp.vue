@@ -12,6 +12,7 @@ import { useRootStore } from "@/store/index";
 import VueMultiselect from "vue-multiselect";
 import { counties } from "@/temp/housestemp";
 import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
+import { env } from "@/env";
 
 const store = useRootStore();
 const session = useSessionStore();
@@ -63,7 +64,7 @@ async function submitForm() {
   };
   loading.value = true;
   try {
-    await axios.post("http://localhost:9000/signup", bodyData, config);
+    await axios.post(`${env}/signup`, bodyData, config);
     // reset values here
     toastSuccess("Sucessfully created your account");
     step.value = 4;
@@ -276,7 +277,7 @@ function updateBusinesstype(type: "individual" | "organization") {
             href="#"
             >+99</a
           >
-          <P class="pl-6 mt-2 text-base text-grey-dark">Join others on Kikao</P>
+          <p class="pl-6 mt-2 text-base text-grey-dark">Join others on Kikao</p>
         </div>
 
         <div class="text-center text-base text-grey-dark mt-2">

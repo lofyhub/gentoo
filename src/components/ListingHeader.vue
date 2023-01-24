@@ -195,7 +195,7 @@ function addFavourite() {
           <!-- about this home -->
           <div class="lg:ml-0 ml-2.5">
             <h2 class="text-3xl font-normal">About this home</h2>
-            <p class="py-3">
+            <p class="py-3 text-justify">
               The "About this Home" section in a rental apartment listing is
               typically a summary of the key features and characteristics of the
               apartment. It may include information about the size of the
@@ -223,8 +223,8 @@ function addFavourite() {
             <div class="flex justify-between px-4 pb-6">
               <div class="flex">
                 <img
-                  src="https://images.pexels.com/photos/1722198/pexels-photo-1722198.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt="Headshot photo og Thyrone Paas from Pexels"
+                  src="https://pbs.twimg.com/profile_images/1508979883728424968/exEWXj7I_400x400.png"
+                  alt="default avatar image"
                   srcset=""
                   class="w-14 h-14 rounded-full inline object-cover bg-cover"
                 />
@@ -253,7 +253,9 @@ function addFavourite() {
           <!-- start rentail features -->
           <div>
             <h4 class="font-normal text-3xl">Rental features</h4>
-            <div class="flex justify-between py-4 text-base">
+            <div
+              class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-4 text-base"
+            >
               <div>
                 <div class="flex justify-between my-2">
                   <p>Listed on</p>

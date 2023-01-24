@@ -20,7 +20,7 @@ function handleImage() {
         class="absolute inline-flex w-28 h-28 rounded-full top-0 left-0 object-cover"
       >
         <img
-          alt="..."
+          alt="default profile avatar image"
           src="https://pbs.twimg.com/profile_images/1508979883728424968/exEWXj7I_400x400.png"
           class="shadow-xl rounded-full h-28 w-28 border-none object-cover"
         />

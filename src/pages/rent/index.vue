@@ -13,7 +13,7 @@ function reload() {
 //
 </script>
 <template>
-  <div class="w-[1200px] mx-auto">
+  <div class="w-4/5 lg:w-[1200px] mx-auto">
     <SortListings class="w-full mx-auto mt-8" />
     <div
       v-if="listings.length < 1"
