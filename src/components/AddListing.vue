@@ -13,19 +13,19 @@ defineEmits(["close"]);
 
 const store = useSessionStore();
 const loading = ref(false);
-const title = ref(``);
-const town = ref(``);
-const location = ref(``);
-const county = ref(``);
-const size = ref(``);
-const duration = ref(``);
-const parking = ref(false);
-const description = ref(``);
+const title = ref(`Kim Apartments`);
+const town = ref(`Eldoret`);
+const location = ref(`Kahoya`);
+const county = ref(`UASIN GISHU`);
+const size = ref(`7 * 8`);
+const duration = ref(`Month`);
+const parking = ref(true);
+const description = ref(`this is a test file here`);
 const selectedFile = ref<File | null>(null);
-const rent = ref<number>();
-const bedrooms = ref<number>();
-const bathrooms = ref<number>();
-const totalrooms = ref<number>();
+const rent = ref<number>(6000);
+const bedrooms = ref<number>(2);
+const bathrooms = ref<number>(1);
+const totalrooms = ref<number>(5);
 
 const id = store.$state.userId;
 // methods
@@ -63,21 +63,22 @@ async function postListing() {
     if (!token) throw new Error("Token is not found in localStorage");
     // Create a new FormData object
     let formData = new FormData();
-    if (selectedFile.value) {
-      formData.append("image", selectedFile.value);
-    }
-    formData.append("title", JSON.stringify(title.value));
-    formData.append("Id", JSON.stringify(id));
-    formData.append("location", JSON.stringify(location.value));
+
+    formData.append("title", title.value);
+    formData.append("Id", id);
+    formData.append("location", location.value);
     formData.append("price", JSON.stringify(rent.value));
-    formData.append("duration", JSON.stringify(duration.value));
+    formData.append("duration", duration.value);
     formData.append("bedrooms", JSON.stringify(bedrooms.value));
     formData.append("totalrooms", JSON.stringify(totalrooms.value));
     formData.append("washrooms", JSON.stringify(bathrooms.value));
     formData.append("parking", JSON.stringify(parking.value));
     formData.append("size", JSON.stringify(size.value));
-    formData.append("status", JSON.stringify("active"));
-    formData.append("description", JSON.stringify(description.value));
+    formData.append("status", "active");
+    formData.append("description", description.value);
+    if (selectedFile.value) {
+      formData.append("kikaoimage", selectedFile.value);
+    }
 
     const res = await axios.post(
       "http://localhost:9000/user/listings",
@@ -354,6 +355,7 @@ async function postListing() {
               type="file"
               class="hidden"
               accept="image/jpeg"
+              name="kikaoimage"
               @change="onFileSelected"
               ref="imageInput"
               multiple
