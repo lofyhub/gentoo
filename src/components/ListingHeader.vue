@@ -6,6 +6,7 @@ import { useHead } from "unhead";
 import { formatDate } from "@/helpers/helpers";
 
 import HeartIcon from "@/components/icons/heartIcon.vue";
+import HeartIconDark from "@/components/icons/HeartIconDark.vue";
 import ShareIcon from "@/components/icons/shareIcon.vue";
 import SearchIcon from "@/components/icons/SearchIcon.vue";
 import BedroomIcon from "@/components/icons/BedIcon.vue";
@@ -42,6 +43,7 @@ const dateSelected = ref(``);
 const inPerson = ref(false);
 const virtual = ref(false);
 const showShare = ref(false);
+const bookmarked = ref(false);
 
 // methods
 
@@ -62,7 +64,12 @@ function socialShare() {
 }
 
 function addFavourite() {
-  toastSuccess("Listing added to your favourites");
+  try {
+    bookmarked.value = true;
+    toastSuccess("Listing added to your bookmarks");
+  } catch (error) {
+    console.log(error);
+  }
 }
 </script>
 
@@ -92,7 +99,8 @@ function addFavourite() {
             @click="addFavourite"
           >
             <span class="bg-none bg-transparent">
-              <HeartIcon class="inline h-3.5 w-3.5" />
+              <HeartIcon v-if="bookmarked" class="inline h-3.5 w-3.5" />
+              <HeartIconDark v-else class="inline" />
             </span>
             <span class="text-base ml-2">Bookmark</span>
           </button>
