@@ -56,7 +56,7 @@ function handleFavourite() {
 </script>
 <template>
   <div
-    class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
+    class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-md overflow-hidden"
   >
     <img
       :src="props.images[props.images.length - 1]"
