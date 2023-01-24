@@ -39,5 +39,6 @@ const showLogin = computed(() => store.$state.showLogin);
   padding: 0;
   box-sizing: border-box;
   background-color: rgb(255 255 255);
+  scroll-behavior: smooth;
 }
 </style>

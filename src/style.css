@@ -57,3 +57,8 @@
   letter-spacing: -0.02em;
   font-weight: normal;
 }
+.h1 {
+  line-height: 1.125;
+  letter-spacing: -0.03em;
+  font-weight: normal;
+}
