@@ -13,19 +13,19 @@ defineEmits(["close"]);
 
 const store = useSessionStore();
 const loading = ref(false);
-const title = ref(`Kim Apartments`);
-const town = ref(`Eldoret`);
-const location = ref(`Kahoya`);
-const county = ref(`UASIN GISHU`);
-const size = ref(`7 * 8`);
-const duration = ref(`Month`);
-const parking = ref(true);
-const description = ref(`this is a test file here`);
+const title = ref(``);
+const town = ref(``);
+const location = ref(``);
+const county = ref(``);
+const size = ref(``);
+const duration = ref(``);
+const parking = ref(false);
+const description = ref(``);
 const selectedFile = ref<File | null>(null);
-const rent = ref<number>(6000);
-const bedrooms = ref<number>(2);
-const bathrooms = ref<number>(1);
-const totalrooms = ref<number>(5);
+const rent = ref<number>();
+const bedrooms = ref<number>();
+const bathrooms = ref<number>();
+const totalrooms = ref<number>();
 
 const id = store.$state.userId;
 // methods
