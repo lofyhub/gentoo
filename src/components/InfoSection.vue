@@ -19,7 +19,9 @@
             />
           </svg>
           <div class="p-4">
-            <h3 class="text-2xl font-semibold mb-2">Buy a house</h3>
+            <h3 class="text-2xl font-semibold mb-2 text-indigo-500">
+              Buy a house
+            </h3>
 
             <p class="text-base leading-6 text-gray-600">
               Browse through a variety of properties and find your dream home.
@@ -43,7 +45,7 @@
           </svg>
 
           <div class="p-4">
-            <h3 class="text-2xl font-bold mb-2">Rent a home</h3>
+            <h3 class="text-2xl font-bold mb-2 text-indigo-500">Rent a home</h3>
 
             <p class="text-base leading-6 text-gray-600">
               To start your search, use the filters on the left side of the page
@@ -66,7 +68,7 @@
             />
           </svg>
           <div class="p-4">
-            <h3 class="text-2xl font-bold mb-2">Sell a home</h3>
+            <h3 class="text-2xl font-bold mb-2 text-indigo-500">Sell a home</h3>
 
             <p class="text-base leading-6 text-gray-600">
               We make it effortlesssly easy for you to list and sell your
