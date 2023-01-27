@@ -18,7 +18,10 @@ const authorListings = computed(() => rootStore.$state.userListings);
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
   <div v-if="store.$state._id">
-    <div v-if="authorListings" class="flex flex-wrap w-3/4 mx-auto my-8">
+    <div
+      v-if="authorListings"
+      class="flex justify-center flex-wrap w-3/4 mx-auto my-8"
+    >
       <ListingPreview
         v-for="listing in authorListings"
         :key="listing._id"
