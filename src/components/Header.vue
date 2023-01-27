@@ -80,7 +80,7 @@ function handleListing() {
           class="absolute inset-x-0 z-20 w-full px-6 py-4 mr-6 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center"
         >
           <div
-            class="flex flex-col lg:flex-row lg:items-center text-sm font-semibold"
+            class="flex flex-col lg:flex-row lg:items-center text-sm font-medium"
           >
             <a
               href="/listings"
@@ -113,15 +113,29 @@ function handleListing() {
                   <!-- Dropdown toggle button -->
                   <button
                     @click.stop="isDropdown = !isDropdown"
-                    class="relative z-10 flex items-center transition-all justify-center w-[40px] h-[40px] shadow rounded-full text-base font-semibold text-gray-600 rounded-md hover:bg-indigo-50 focus:outline-none"
+                    class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
                   >
                     <img
                       alt="default avatar image kikao"
                       loading="lazy"
                       decoding="async"
                       src="https://pbs.twimg.com/profile_images/1508979883728424968/exEWXj7I_400x400.png"
-                      class="flex-none w-full h-auto rounded-full object-cover"
+                      class="w-8 h-8 mr-2 rounded-full bg-img"
                     />
+                    {{ userData.username }}
+                    <svg
+                      class="w-4 h-4 mx-1.5"
+                      aria-hidden="true"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
                   </button>
 
                   <!-- Dropdown menu -->
@@ -134,19 +148,10 @@ function handleListing() {
                     x-transition:leave="transition ease-in duration-100"
                     x-transition:leave-start="opacity-100 scale-100"
                     x-transition:leave-end="opacity-0 scale-90"
-                    class="absolute right-0 z-20 w-56 mt-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+                    class="absolute right-0 z-20 w-56 mt-2 mt-2 left-4 lg:left-0 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
                   >
-                    <div class="flex text-base">
-                      <div
-                        class="flex items-center px-3 pt-1 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300"
-                      >
-                        <img
-                          alt="default avatar image kikao"
-                          src="https://pbs.twimg.com/profile_images/1508979883728424968/exEWXj7I_400x400.png"
-                          class="rounded-full h-10 w-10 border-none object-cover"
-                        />
-                      </div>
-                      <div class="mx-1">
+                    <div class="text-base font-medium">
+                      <div class="mx-5">
                         <h1
                           class="text-base font-semibold text-gray-700 dark:text-gray-200"
                         >
@@ -161,14 +166,14 @@ function handleListing() {
                     <div class="text-sm font-semibold">
                       <a
                         href="/dashboard"
-                        class="flex items-center p-3 text-sm capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <Avatar class="h-6 w-6" />
                         <span class="mx-1"> Edit profile </span>
                       </a>
                       <a
                         href="/dashboard"
-                        class="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <MacOptions />
                         <span class="mx-1"> Dashboard</span>
@@ -176,7 +181,7 @@ function handleListing() {
                       <hr class="border-gray-200 dark:border-gray-700" />
                       <a
                         href="/faq"
-                        class="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <Question />
                         <span class="mx-1"> Help </span>

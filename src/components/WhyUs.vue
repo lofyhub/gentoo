@@ -3,7 +3,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
 </script>
 
 <template>
-  <div class="lg:w-[1200px] mx-auto font-normal pt-8">
+  <div class="lg:w-[1200px] mx-auto font-normal pt-8 pb-20">
     <h2 class="h2 text-center py-3">Why Choose Kikao</h2>
     <!-- Why choose kikao -->
     <div
