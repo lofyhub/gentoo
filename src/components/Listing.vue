@@ -88,7 +88,7 @@ function handleFavourite() {
           <heartIcon class="w-5 h-5" />
         </button>
       </div>
-      <a :href="'/listing/' + props._id">
+      <router-link :to="'/listing/' + props._id">
         <div>
           <p class="font-normal text-gray-900 text-lg truncate">
             {{ props.name }}
@@ -129,7 +129,7 @@ function handleFavourite() {
             >
           </div>
         </div>
-      </a>
+      </router-link>
     </div>
   </div>
   <Teleport to="body">
