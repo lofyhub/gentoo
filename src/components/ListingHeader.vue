@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { withDefaults, defineProps, ref } from "vue";
+import { withDefaults, defineProps, ref, computed } from "vue";
 import { houseSchema } from "@/temp/housestemp";
 import { useHead } from "unhead";
 
 import { formatDate } from "@/helpers/helpers";
+import { toastSuccess, toastWarning } from "@/plugins/toast";
+import { convertBuffer } from "@/helpers/helpers";
+import { uselistingStore } from "@/store/listing";
 
 import HeartIcon from "@/components/icons/heartIcon.vue";
 import HeartIconDark from "@/components/icons/HeartIconDark.vue";
@@ -20,7 +23,6 @@ import BleepRed from "@/components/icons/BleepRed.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import BackButton from "@/components/BackButton.vue";
 import SharePopup from "@/components/popups/SharePopup.vue";
-import { toastSuccess, toastWarning } from "@/plugins/toast";
 
 const prop = withDefaults(
   defineProps<{
@@ -38,13 +40,15 @@ const sideImages = [
   "https://images.pexels.com/photos/6903149/pexels-photo-6903149.jpeg?auto=compress&cs=tinysrgb&w=1600",
 ];
 
+const listingStore = uselistingStore();
 const showImagePopup = ref(false);
 const dateSelected = ref(``);
 const inPerson = ref(false);
 const virtual = ref(false);
 const showShare = ref(false);
 const bookmarked = ref(false);
-
+const listingAuthor = computed(() => listingStore.$state.listingAuthor);
+const isBinary = typeof prop.listing.images[0] === "string" ? false : true;
 // methods
 
 function handleTour() {
@@ -71,6 +75,8 @@ function addFavourite() {
     console.log(error);
   }
 }
+
+listingStore.getListingAuthor(prop.listing.userId);
 </script>
 
 <template>
@@ -119,7 +125,11 @@ function addFavourite() {
         <!-- listing image section -->
         <div class="my-6">
           <img
-            :src="listing.images[listing.images.length - 1]"
+            :src="
+              !isBinary
+                ? prop.listing.images[prop.listing.images.length - 1]
+                : convertBuffer(prop.listing.images[0])
+            "
             alt=""
             srcset=""
             loading="lazy"
@@ -237,8 +247,12 @@ function addFavourite() {
                   class="w-14 h-14 rounded-full inline object-cover bg-cover"
                 />
                 <div class="ml-4 p-0 b-0">
-                  <h3 class="font-extrabold p-0 m-0">John Philip</h3>
-                  <p>Rich Capital Properties LLC</p>
+                  <h3 class="font-extrabold p-0 m-0">
+                    {{
+                      listingAuthor.username ? listingAuthor.username : `Kikao`
+                    }}
+                  </h3>
+                  <p>{{ listingAuthor.kikaoType }}</p>
                 </div>
               </div>
               <div class="flex flex-col lg:flex-row justify-between">
@@ -402,7 +416,11 @@ function addFavourite() {
   <Teleport to="body">
     <ImagePopup
       v-if="showImagePopup"
-      :image="listing.images[listing.images.length - 1]"
+      :image="
+        !isBinary
+          ? prop.listing.images[prop.listing.images.length - 1]
+          : convertBuffer(prop.listing.images[0])
+      "
       @close="showImagePopup = false"
     />
     <SharePopup

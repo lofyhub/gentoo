@@ -9,6 +9,7 @@ import { toastSuccess } from "@/plugins/toast";
 import { formatDate } from "@/helpers/helpers";
 import { useSessionStore } from "@/store/session";
 import { useRootStore } from "@/store/index";
+import { convertBuffer } from "@/helpers/helpers";
 
 const props = withDefaults(
   defineProps<{
@@ -36,13 +37,11 @@ const props = withDefaults(
 
 const session = useSessionStore();
 const store = useRootStore();
-const selectedimg = ref(``);
 const showImagePopup = ref(false);
-
+const isBinary = typeof props.images[0] === "string" ? false : true;
 // methods
 
-function updateSelectedImg(img: string) {
-  selectedimg.value = img;
+function updateSelectedImg() {
   showImagePopup.value = true;
 }
 
@@ -59,13 +58,17 @@ function handleFavourite() {
     class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-md overflow-hidden"
   >
     <img
-      :src="props.images[props.images.length - 1]"
+      :src="
+        !isBinary
+          ? props.images[props.images.length - 1]
+          : convertBuffer(props.images[0])
+      "
       alt="listing image from kikao"
       loading="lazy"
       class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
       width="280"
       height="150"
-      @click="updateSelectedImg(props.images[props.images.length - 1])"
+      @click="updateSelectedImg()"
     />
     <div class="px-2.5">
       <div class="mt-1 flex justify-between">
@@ -132,7 +135,11 @@ function handleFavourite() {
   <Teleport to="body">
     <ImagePopup
       v-if="showImagePopup"
-      :image="selectedimg"
+      :image="
+        !isBinary
+          ? props.images[props.images.length - 1]
+          : convertBuffer(props.images[0])
+      "
       @close="showImagePopup = false"
     />
   </Teleport>

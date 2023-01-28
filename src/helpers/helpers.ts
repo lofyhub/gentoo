@@ -93,3 +93,9 @@ export function formatDate(input: string | Date | number, dateOnly = false) {
 
   return getFormat(date);
 }
+
+export function convertBuffer(file: any) {
+  const buffer = file.data.toString("base64");
+  const data = `data:${file.contentType};base64,${buffer}`;
+  return data;
+}

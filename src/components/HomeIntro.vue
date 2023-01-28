@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useRootStore } from "@/store";
+import { computed } from "@vue/reactivity";
+import { formatDate } from "@/helpers/helpers";
+
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import MapPin from "@/components/icons/MapPin.vue";
-import { computed } from "@vue/reactivity";
-import { formatDate } from "@/helpers/helpers";
+import ListingSkeleton from "@/components/ListingSkeleton.vue";
 
 const rootStore = useRootStore();
 const homeSample = computed(
@@ -49,7 +51,10 @@ const homeSample = computed(
       </div>
     </div>
     <!-- start card img section -->
-    <div v-if="homeSample">
+    <div v-if="!homeSample" class="flex flex-wrap">
+      <ListingSkeleton v-for="i in 1" :key="i" />
+    </div>
+    <div v-else>
       <router-link
         :to="'/listing/' + homeSample._id"
         class="bg-white leading-relaxed"

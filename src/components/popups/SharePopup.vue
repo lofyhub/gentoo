@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { withDefaults, defineProps, ref, defineEmits } from "vue";
 import { houseSchema } from "@/temp/housestemp";
+import { convertBuffer } from "@/helpers/helpers";
 
 import XIcon from "@/components/icons/XIcon.vue";
 import Twitter from "@/components/icons/socials/Twitter.vue";
@@ -16,6 +17,7 @@ const prop = withDefaults(
   }>(),
   {}
 );
+const isBinary = typeof prop.listing.images[0] === "string" ? false : true;
 
 defineEmits(["close"]);
 
@@ -65,9 +67,13 @@ function mailShare() {
       </div>
       <div class="flex bg-gray-100 p-4 rounded">
         <img
-          :src="prop.listing.images[prop.listing.images.length - 1]"
+          :src="
+            !isBinary
+              ? prop.listing.images[prop.listing.images.length - 1]
+              : convertBuffer(prop.listing.images[0])
+          "
           alt="social share image from kikao"
-          class="h-32 w-48 rounded bg-cover bg-img"
+          class="h-32 w-48 rounded bg-cover bg-img object-cover bg-cover"
         />
         <div class="flex items-center justify-center h-auto">
           <div class="flex flex-col ml-6">

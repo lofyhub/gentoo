@@ -25,7 +25,7 @@ function gotoListing() {
       <h1 class="h2">Featured Listings</h1>
       <p class="py-4 text-lg">Popular and most recent listings</p>
     </div>
-    <div v-if="listings">
+    <div v-if="listings.length > 0">
       <div class="flex flex-wrap mt-0 pt-0 justify-center">
         <Listing
           v-for="listing in listings"

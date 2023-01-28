@@ -7,6 +7,7 @@ import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import ConfirmPopup from "@/components/popups/ConfirmPopup.vue";
+import { convertBuffer } from "@/helpers/helpers";
 
 const props = withDefaults(
   defineProps<{
@@ -16,6 +17,7 @@ const props = withDefaults(
 );
 
 const showConfirm = ref(false);
+const isBinary = typeof props.listing.images[0] === "string" ? false : true;
 </script>
 
 <template>
@@ -23,7 +25,11 @@ const showConfirm = ref(false);
     class="w-[280px] mt-4 mx-2 bg-indigo-50 shadow-md hover:shadow-lg rounded-sm overflow-hidden"
   >
     <img
-      :src="props.listing.images[props.listing.images.length - 1]"
+      :src="
+        !isBinary
+          ? props.listing.images[props.listing.images.length - 1]
+          : convertBuffer(props.listing.images[0])
+      "
       alt="listing image from kikao"
       class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
     />
