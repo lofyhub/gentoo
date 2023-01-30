@@ -71,9 +71,11 @@ const homeSample = computed(
             <div class="mt-2 flex justify-between">
               <div>
                 <span class="text-[20px] font-medium app-text"
-                  >{{ homeSample.rate.price.toLocaleString() }}
-                  {{ homeSample.rate.countryCode }}</span
-                >/<span class="">{{ homeSample.rate.duration }}</span>
+                  >{{ homeSample.rate.price.toLocaleString() }} </span
+                ><span class="text-base font-medium text-indigo-500 ml-1">{{
+                  homeSample.rate.countryCode
+                }}</span>
+                <span class="">/{{ homeSample.rate.duration }}</span>
               </div>
             </div>
             <div>

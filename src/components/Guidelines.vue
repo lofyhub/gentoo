@@ -1,5 +1,5 @@
 <template>
-  <div class="prose mx-auto">
+  <div class="prose mx-auto min-h-screen">
     <p class="text-center pt-3">
       These guides and techniques will make your listing stand out from the rest
     </p>

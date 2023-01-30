@@ -89,7 +89,9 @@ function handleFavourite() {
             >{{ (props.rate.price * 1).toLocaleString("en") }} </span
           ><span class="text-base font-medium app-text pl-1">
             {{ props.rate.countryCode.toLowerCase() }}</span
-          >/<span class="font-medium text-base">{{ props.rate.duration }}</span>
+          >/<span class="font-medium text-base">{{
+            props.rate.duration.toLowerCase()
+          }}</span>
         </div>
         <button
           class="flex-none flex items-center justify-center w-9 h-9 rounded-full text-slate-300 border border-slate-200"

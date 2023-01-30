@@ -52,7 +52,8 @@ async function postListing() {
     !size.value ||
     !duration.value ||
     !parking.value ||
-    !title.value
+    !title.value ||
+    !county.value
   ) {
     toastMessage("Please fill in all the details");
     return;
@@ -75,6 +76,7 @@ async function postListing() {
     formData.append("parking", JSON.stringify(parking.value));
     formData.append("size", JSON.stringify(size.value));
     formData.append("status", "active");
+    formData.append("county", county.value);
     formData.append("description", description.value);
     if (selectedFile.value) {
       formData.append("kikaoimage", selectedFile.value);

@@ -3,7 +3,7 @@ import { withDefaults, defineProps, ref, computed } from "vue";
 import { houseSchema } from "@/temp/housestemp";
 import { useHead } from "unhead";
 
-import { formatDate } from "@/helpers/helpers";
+import { file, formatDate } from "@/helpers/helpers";
 import { toastWarning } from "@/plugins/toast";
 import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
@@ -25,6 +25,7 @@ import BleepRed from "@/components/icons/BleepRed.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import BackButton from "@/components/BackButton.vue";
 import SharePopup from "@/components/popups/SharePopup.vue";
+import Listing from "@/components/Listing.vue";
 
 const prop = withDefaults(
   defineProps<{
@@ -59,6 +60,7 @@ const bookmarked = computed(
 
 const listingAuthor = computed(() => listingStore.$state.listingAuthor);
 const isBinary = typeof prop.listing.images[0] === "string" ? false : true;
+const listings = computed(() => rootStore.$state.listings.slice(0, 9));
 // methods
 
 function handleTour() {
@@ -95,16 +97,16 @@ listingStore.getListingAuthor(prop.listing.userId);
   <div class="pt-6">
     <BackButton class="my-3" />
   </div>
-  <div v-if="listing">
+  <div v-if="listing" class="pb-10">
     <div class="">
-      <h1 class="text-2xl lg:text-3xl font-normal">{{ listing.name }}</h1>
+      <h1 class="text-2xl lg:text-3xl font-medium">{{ listing.name }}</h1>
       <div class="flex flex-col py-3 lg:flex-row justify-between">
-        <div>
-          <p class="text-gray-500 lg:text-2xl text-xl">
-            {{ listing.location }}
-          </p>
+        <div
+          class="text-gray-500 lg:text-2xl text-xl flex items-center justify-center font-normal"
+        >
+          {{ listing.location }}
         </div>
-        <div class="flex pt-3 lg:pt-0 font-medium">
+        <div class="flex pt-2 lg:pt-0 font-medium">
           <button
             class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50"
             @click="socialShare"
@@ -140,7 +142,7 @@ listingStore.getListingAuthor(prop.listing.userId);
             :src="
               !isBinary
                 ? prop.listing.images[prop.listing.images.length - 1]
-                : convertBuffer(prop.listing.images[0])
+                : convertBuffer(prop.listing.images[0] as unknown as file)
             "
             alt=""
             srcset=""
@@ -224,7 +226,9 @@ listingStore.getListingAuthor(prop.listing.userId);
           </div>
           <!-- about this home -->
           <div class="lg:ml-0 ml-2.5">
-            <h2 class="text-3xl font-normal">About this home</h2>
+            <h2 class="text-2xl font-medium text-indigo-500">
+              About this home
+            </h2>
             <p class="py-3 text-justify">
               The "About this Home" section in a rental apartment listing is
               typically a summary of the key features and characteristics of the
@@ -296,7 +300,9 @@ listingStore.getListingAuthor(prop.listing.userId);
           <hr class="my-10" />
           <!-- start rentail features -->
           <div>
-            <h4 class="font-normal text-3xl">Rental features</h4>
+            <h4 class="font-medium text-2xl text-indigo-500">
+              Rental features
+            </h4>
             <div
               class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-4 text-base"
             >
@@ -434,6 +440,29 @@ listingStore.getListingAuthor(prop.listing.userId);
         <!-- end of apply/contact sections -->
       </div>
     </div>
+    <!-- start similar listings section -->
+    <div class="w-full">
+      <h2 class="text-indigo-500 text-2xl font-medium py-6">
+        Similar properties
+      </h2>
+      <div class="flex flex-wrap mt-0 pt-0">
+        <Listing
+          v-for="listing in listings"
+          :key="listing._id"
+          :_id="listing._id"
+          :name="listing.name"
+          :location="listing.location"
+          :images="listing.images"
+          :rate="listing.rate"
+          :compartments="listing.compartments"
+          :created-at="listing.createdAt"
+          :status="listing.status"
+          :size="listing.size"
+        />
+      </div>
+    </div>
+
+    <!--  end of similar listing section-->
   </div>
   <Teleport to="body">
     <ImagePopup
@@ -441,7 +470,7 @@ listingStore.getListingAuthor(prop.listing.userId);
       :image="
         !isBinary
           ? prop.listing.images[prop.listing.images.length - 1]
-          : convertBuffer(prop.listing.images[0])
+          : convertBuffer(prop.listing.images[0] as unknown as file)
       "
       @close="showImagePopup = false"
     />
