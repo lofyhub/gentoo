@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { withDefaults, defineProps, ref } from "vue";
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
 import heartIcon from "@/components/icons/heartIcon.vue";
-import { toastSuccess } from "@/plugins/toast";
+import HeartIconDark from "@/components/icons/HeartIconDark.vue";
+
+import { withDefaults, defineProps, ref, computed } from "vue";
 import { formatDate } from "@/helpers/helpers";
 import { useSessionStore } from "@/store/session";
 import { useRootStore } from "@/store/index";
 import { convertBuffer } from "@/helpers/helpers";
+import { uselistingStore } from "@/store/listing";
 
 const props = withDefaults(
   defineProps<{
@@ -36,9 +38,14 @@ const props = withDefaults(
 );
 
 const session = useSessionStore();
+const listing = uselistingStore();
 const store = useRootStore();
 const showImagePopup = ref(false);
 const isBinary = typeof props.images[0] === "string" ? false : true;
+const isBookmarked = computed(
+  () => listing.$state.bookmarks.findIndex((elem) => elem === props._id) !== -1
+);
+
 // methods
 
 function updateSelectedImg() {
@@ -49,13 +56,16 @@ function handleFavourite() {
   if (!session.$state.userId) {
     store.toggleLogin();
     return;
+  } else if (isBookmarked.value) {
+    listing.deleteBookmark(props._id);
+  } else {
+    listing.addBookmark(props._id);
   }
-  toastSuccess(`Listing added to favourite`);
 }
 </script>
 <template>
   <div
-    class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-md overflow-hidden"
+    class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
   >
     <img
       :src="
@@ -85,7 +95,8 @@ function handleFavourite() {
           aria-label="Like"
           @click="handleFavourite"
         >
-          <heartIcon class="w-5 h-5" />
+          <HeartIconDark v-if="isBookmarked" class="w-5 h-5" />
+          <heartIcon v-else class="w-5 h-5" />
         </button>
       </div>
       <router-link :to="'/listing/' + props._id">
