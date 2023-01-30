@@ -8,7 +8,7 @@ useHead({
 </script>
 
 <template>
-  <section class="bg-white dark:bg-gray-900">
+  <section class="bg-white dark:bg-gray-900 min-h-screen">
     <div class="container px-6 py-10 mx-auto">
       <h1 class="text-center h2 dark:text-white">
         <span class="text-black mx-2">Our</span>Team
@@ -152,7 +152,7 @@ useHead({
           </div>
         </div>
       </div>
-      <div class="text-center w-2/3 mx-auto my-12 text-lg">
+      <div class="text-center w-[700px] mx-auto my-12 text-lg">
         <p>
           If you believe in this project, are a team player, ready to roll up
           your sleeves and help drive the project forward and bring our vision

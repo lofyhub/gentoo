@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { withDefaults, defineProps, ref } from "vue";
 import { houseSchema } from "@/temp/housestemp";
-import { formatDate } from "@/helpers/helpers";
+import { file, formatDate } from "@/helpers/helpers";
 import Delete from "@/components/icons/Delete.vue";
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
@@ -21,14 +21,15 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
 </script>
 
 <template>
-  <div
-    class="w-[280px] mt-4 mx-2 bg-indigo-50 shadow-md hover:shadow-lg rounded-sm overflow-hidden"
+  <router-link
+    :to="'/listing/' + props.listing._id"
+    class="w-[280px] mt-4 mx-2 bg-white shadow-md hover:shadow-lg hover:bg-gray-100 rounded-sm overflow-hidden"
   >
     <img
       :src="
         !isBinary
           ? props.listing.images[props.listing.images.length - 1]
-          : convertBuffer(props.listing.images[0])
+          : convertBuffer(props.listing.images[0] as unknown as file)
       "
       alt="listing image from kikao"
       class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
@@ -93,7 +94,7 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
         </div>
       </div>
     </div>
-  </div>
+  </router-link>
   <Teleport to="body">
     <ConfirmPopup
       v-if="showConfirm"

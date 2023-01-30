@@ -59,7 +59,9 @@ const homeSample = computed(
         :to="'/listing/' + homeSample._id"
         class="bg-white leading-relaxed"
       >
-        <div class="rounded-sm shadow-md hover:shadow-lg overflow-hidden w-80">
+        <div
+          class="rounded-sm shadow-md hover:shadow-lg hover:bg-gray-100 overflow-hidden w-80"
+        >
           <img
             :src="homeSample.images[homeSample.images.length - 1]"
             alt=""

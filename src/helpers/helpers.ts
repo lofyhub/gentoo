@@ -93,9 +93,31 @@ export function formatDate(input: string | Date | number, dateOnly = false) {
 
   return getFormat(date);
 }
-
-export function convertBuffer(file: any) {
+export interface file {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any;
+  contentType: string;
+  fileName: string;
+}
+export function convertBuffer(file: file) {
   const buffer = file.data.toString("base64");
   const data = `data:${file.contentType};base64,${buffer}`;
   return data;
+}
+
+export function getAuthHeaders() {
+  const minTokenLength = 1;
+
+  const userInfo = localStorage.getItem("kikao-token");
+
+  if (typeof userInfo !== "string") throw new Error("User info not found");
+
+  if (!(typeof userInfo === "string" && userInfo.length >= minTokenLength)) {
+    throw new Error("Invalid user access token");
+  }
+  const header = {
+    "Content-Type": "application/json",
+    "x-access-token": userInfo,
+  };
+  return header;
 }

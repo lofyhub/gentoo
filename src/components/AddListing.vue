@@ -4,7 +4,7 @@ import { defineEmits, ref } from "vue";
 import UploadIcon from "@/components/icons/Upload.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 import { counties } from "@/temp/housestemp";
-import { toastMessage, toastError } from "@/plugins/toast";
+import { toastMessage, toastError, toastSuccess } from "@/plugins/toast";
 import { useSessionStore } from "@/store/session";
 import axios from "axios";
 import VueMultiselect from "vue-multiselect";
@@ -90,7 +90,22 @@ async function postListing() {
         },
       }
     );
+
+    toastSuccess("Your listing has been succesffuly posted");
     console.log(res);
+    title.value = "";
+    town.value = ``;
+    location.value = ``;
+    county.value = ``;
+    size.value = ``;
+    duration.value = ``;
+    parking.value = false;
+    description.value = ``;
+    selectedFile.value = null;
+    rent.value = 0;
+    bedrooms.value = 0;
+    bathrooms.value = 0;
+    totalrooms.value = 0;
   } catch (error) {
     console.log(error);
   } finally {

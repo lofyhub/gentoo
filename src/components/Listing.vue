@@ -13,6 +13,8 @@ import { useRootStore } from "@/store/index";
 import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
 
+import { file } from "@/helpers/helpers";
+
 const props = withDefaults(
   defineProps<{
     _id: string;
@@ -65,13 +67,13 @@ function handleFavourite() {
 </script>
 <template>
   <div
-    class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden"
+    class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden hover:bg-gray-100"
   >
     <img
       :src="
         !isBinary
           ? props.images[props.images.length - 1]
-          : convertBuffer(props.images[0])
+          : convertBuffer(props.images[0] as unknown as file)
       "
       alt="listing image from kikao"
       loading="lazy"
@@ -84,9 +86,9 @@ function handleFavourite() {
       <div class="mt-1 flex justify-between">
         <div>
           <span class="text-[20px] font-medium app-text"
-            >{{ props.rate.price.toLocaleString() }} </span
-          ><span class="text-[20px] font-medium app-text pl-1">
-            {{ props.rate.countryCode }}</span
+            >{{ (props.rate.price * 1).toLocaleString("en") }} </span
+          ><span class="text-base font-medium app-text pl-1">
+            {{ props.rate.countryCode.toLowerCase() }}</span
           >/<span class="font-medium text-base">{{ props.rate.duration }}</span>
         </div>
         <button
@@ -149,7 +151,7 @@ function handleFavourite() {
       :image="
         !isBinary
           ? props.images[props.images.length - 1]
-          : convertBuffer(props.images[0])
+          : convertBuffer(props.images[0] as unknown as file)
       "
       @close="showImagePopup = false"
     />

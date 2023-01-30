@@ -12,7 +12,7 @@ function goBack() {
 </script>
 <template>
   <button
-    class="text-white focus:outline-none transform rounded-md font-normal transition duration-500 ease-in-out text-indigo-500"
+    class="text-white focus:outline-none transform rounded-md font-semibold transition duration-500 ease-in-out text-indigo-500"
     @click="goBack()"
   >
     <ArrowLeft class="fill-indigo-500 inline w-6 h-6" />

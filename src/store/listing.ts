@@ -5,8 +5,13 @@ import { toastSuccess } from "@/plugins/toast";
 import axios from "axios";
 import { env } from "@/env";
 
+interface listing {
+  listingAuthor: unknown[];
+  bookmarks: string[];
+}
+
 export const uselistingStore = defineStore(`listingStore`, {
-  state: () => {
+  state: (): listing => {
     return {
       listingAuthor: [],
       bookmarks: [],
@@ -77,8 +82,7 @@ export const uselistingStore = defineStore(`listingStore`, {
         if (res.status === 200) {
           toastSuccess(`Listing added to your bookmarks`);
         }
-        // trigger fetching of bookmarks
-        this.fetchBookmarks();
+        this.bookmarks.push(id);
       } catch (error) {
         console.log(error);
       }
@@ -103,7 +107,7 @@ export const uselistingStore = defineStore(`listingStore`, {
         if (res.status === 200) {
           toastSuccess(`Listing removed from bookmarks`);
         }
-        this.fetchBookmarks();
+        this.bookmarks = this.bookmarks.filter((item) => item !== id);
       } catch (error) {
         console.log(error);
       }

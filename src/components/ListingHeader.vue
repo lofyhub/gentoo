@@ -4,9 +4,11 @@ import { houseSchema } from "@/temp/housestemp";
 import { useHead } from "unhead";
 
 import { formatDate } from "@/helpers/helpers";
-import { toastSuccess, toastWarning } from "@/plugins/toast";
+import { toastWarning } from "@/plugins/toast";
 import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
+import { useSessionStore } from "@/store/session";
+import { useRootStore } from "@/store";
 
 import HeartIcon from "@/components/icons/heartIcon.vue";
 import HeartIconDark from "@/components/icons/HeartIconDark.vue";
@@ -40,13 +42,21 @@ const sideImages = [
   "https://images.pexels.com/photos/6903149/pexels-photo-6903149.jpeg?auto=compress&cs=tinysrgb&w=1600",
 ];
 
+const store = useSessionStore();
 const listingStore = uselistingStore();
+const rootStore = useRootStore();
 const showImagePopup = ref(false);
 const dateSelected = ref(``);
 const inPerson = ref(false);
 const virtual = ref(false);
 const showShare = ref(false);
-const bookmarked = ref(false);
+const bookmarked = computed(
+  () =>
+    listingStore.$state.bookmarks.findIndex(
+      (elem) => elem === prop.listing._id
+    ) !== -1
+);
+
 const listingAuthor = computed(() => listingStore.$state.listingAuthor);
 const isBinary = typeof prop.listing.images[0] === "string" ? false : true;
 // methods
@@ -68,11 +78,13 @@ function socialShare() {
 }
 
 function addFavourite() {
-  try {
-    toastSuccess("Listing added to your bookmarks");
-    bookmarked.value = !bookmarked.value;
-  } catch (error) {
-    console.log(error);
+  if (!store.$state.userId) {
+    rootStore.toggleLogin();
+    return;
+  } else if (bookmarked.value) {
+    listingStore.deleteBookmark(prop.listing._id);
+  } else {
+    listingStore.addBookmark(prop.listing._id);
   }
 }
 
@@ -92,7 +104,7 @@ listingStore.getListingAuthor(prop.listing.userId);
             {{ listing.location }}
           </p>
         </div>
-        <div class="flex pt-3 lg:pt-0">
+        <div class="flex pt-3 lg:pt-0 font-medium">
           <button
             class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50"
             @click="socialShare"
@@ -105,8 +117,8 @@ listingStore.getListingAuthor(prop.listing.userId);
             @click="addFavourite"
           >
             <span class="bg-none bg-transparent">
-              <HeartIcon v-if="bookmarked" class="inline h-3.5 w-3.5" />
-              <HeartIconDark v-else class="inline h-3.5 w-3.5" />
+              <HeartIconDark v-if="bookmarked" class="inline h-3.5 w-3.5" />
+              <HeartIcon v-else class="inline h-3.5 w-3.5" />
             </span>
             <span class="text-base ml-2">Bookmark</span>
           </button>
@@ -249,13 +261,23 @@ listingStore.getListingAuthor(prop.listing.userId);
                 <div class="ml-4 p-0 b-0">
                   <h3 class="font-extrabold p-0 m-0">
                     {{
-                      listingAuthor.username ? listingAuthor.username : `Kikao`
+                      listingAuthor.username
+                        ? listingAuthor.username
+                        : listing.name
                     }}
                   </h3>
-                  <p>{{ listingAuthor.kikaoType }}</p>
+                  <p>
+                    {{
+                      listingAuthor.kikaoType
+                        ? listingAuthor.kikaoType
+                        : `Housing Agency`
+                    }}
+                  </p>
                 </div>
               </div>
-              <div class="flex flex-col lg:flex-row justify-between">
+              <div
+                class="flex flex-col lg:flex-row justify-between font-medium"
+              >
                 <button
                   class="text-indigo-500 border border-gray-200 py-1 px-5 rounded-md bg-white"
                 >

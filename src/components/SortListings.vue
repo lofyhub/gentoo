@@ -6,7 +6,7 @@ import VueMultiselect from "vue-multiselect";
 
 const store = useRootStore();
 const selectedPrice = ref(`Select price range`);
-const selectedType = ref(`Select house type`);
+const selectedType = ref(`Select property type`);
 const location = ref(`Select location`);
 const price = [
   "3,000 - 10,000",
