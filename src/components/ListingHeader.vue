@@ -69,8 +69,8 @@ function socialShare() {
 
 function addFavourite() {
   try {
-    bookmarked.value = true;
     toastSuccess("Listing added to your bookmarks");
+    bookmarked.value = !bookmarked.value;
   } catch (error) {
     console.log(error);
   }
@@ -106,7 +106,7 @@ listingStore.getListingAuthor(prop.listing.userId);
           >
             <span class="bg-none bg-transparent">
               <HeartIcon v-if="bookmarked" class="inline h-3.5 w-3.5" />
-              <HeartIconDark v-else class="inline" />
+              <HeartIconDark v-else class="inline h-3.5 w-3.5" />
             </span>
             <span class="text-base ml-2">Bookmark</span>
           </button>
