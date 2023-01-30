@@ -11,10 +11,12 @@ import Bars from "@/components/icons/Bars.vue";
 import LeftIcon from "@/components/icons/ArrowDown.vue";
 
 import { useSessionStore } from "@/store/session";
+import { uselistingStore } from "@/store/listing";
 import { useRootStore } from "@/store/index";
 
 const session = useSessionStore();
 const store = useRootStore();
+const listingStore = uselistingStore();
 const route = useRoute();
 const router = useRouter();
 const isOpen = ref(false);
@@ -25,6 +27,7 @@ const dashRoute = computed(() => route.matched[0]?.name);
 // methods
 function logOut() {
   session.$reset();
+  listingStore.$reset();
   localStorage.removeItem("kikao-token");
   router.push("/");
 }

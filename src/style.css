@@ -62,3 +62,6 @@
   letter-spacing: -0.03em;
   font-weight: normal;
 }
+.multiselect__option--highlight {
+  background-color: rgb(99 102 241);
+}
