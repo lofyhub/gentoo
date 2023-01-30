@@ -443,7 +443,7 @@ listingStore.getListingAuthor(prop.listing.userId);
     <!-- start similar listings section -->
     <div class="w-full">
       <h2 class="text-indigo-500 text-2xl font-medium py-6">
-        Similar properties
+        Similar Listings
       </h2>
       <div class="flex flex-wrap mt-0 pt-0">
         <Listing
