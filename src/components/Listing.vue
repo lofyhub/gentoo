@@ -20,7 +20,7 @@ const props = withDefaults(
     _id: string;
     name: string;
     location: string;
-    county: string;
+    county?: string;
     images: string[];
     rate: {
       price: number;
