@@ -4,6 +4,7 @@ export interface houseSchema {
   userId: string;
   name: string;
   location: string;
+  county: string;
   images: string[];
   rate: {
     price: number;

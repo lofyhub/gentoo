@@ -17,7 +17,7 @@ const authorListings = computed(() => rootStore.$state.userListings);
 </script>
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
-  <div v-if="store.$state._id">
+  <div v-if="store.$state._id" class="min-h-screen">
     <div
       v-if="authorListings"
       class="flex justify-center flex-wrap w-3/4 mx-auto my-8"

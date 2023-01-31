@@ -48,9 +48,9 @@
             <h3 class="text-2xl font-bold mb-2 text-indigo-500">Rent a home</h3>
 
             <p class="text-base leading-6 text-gray-600">
-              To start your search, use the filters on the left side of the page
-              to narrow down your options by location, price range, number of
-              bedrooms and bathrooms, and more.
+              To start your search, use the filters on the top side of the page
+              to narrow down your options by location, price range, and property
+              type.
             </p>
           </div>
         </div>

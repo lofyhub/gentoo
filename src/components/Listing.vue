@@ -20,6 +20,7 @@ const props = withDefaults(
     _id: string;
     name: string;
     location: string;
+    county: string;
     images: string[];
     rate: {
       price: number;
@@ -85,9 +86,9 @@ function handleFavourite() {
     <div class="px-2.5">
       <div class="mt-1 flex justify-between">
         <div>
-          <span class="text-[19px] font-semibold app-text"
+          <span class="text-[19px] font-semibold app-text opacity-100"
             >{{ (props.rate.price * 1).toLocaleString("en") }} </span
-          ><span class="text-base font-semibold app-text pl-1">
+          ><span class="text-base font-semibold app-text pl-1 opacity-100">
             {{ props.rate.countryCode.toLowerCase() }}</span
           >/<span class="font-medium text-base">{{
             props.rate.duration.toLowerCase()
@@ -110,7 +111,7 @@ function handleFavourite() {
           </p>
           <hr class="my-1 h-2" />
           <div class="pt-1 truncate text-base text-gray-600 font-normal flex">
-            <span>{{ props.location }}</span>
+            <span>{{ props.county ? props.county : props.location }}</span>
             <p class="h-1 w-1 rounded bg-gray-700 mx-2 my-2.5"></p>
             <span>{{ formatDate(props.createdAt) }}</span>
           </div>

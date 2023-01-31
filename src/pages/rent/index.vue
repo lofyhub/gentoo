@@ -32,6 +32,7 @@ function reload() {
         :_id="listing._id"
         :name="listing.name"
         :location="listing.location"
+        :county="listing.county"
         :images="listing.images"
         :rate="listing.rate"
         :compartments="listing.compartments"

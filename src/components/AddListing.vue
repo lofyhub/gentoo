@@ -93,7 +93,7 @@ async function postListing() {
       }
     );
 
-    toastSuccess("Your listing has been succesffuly posted");
+    toastSuccess("Your listing has been successfuly posted");
     console.log(res);
     title.value = "";
     town.value = ``;
