@@ -22,6 +22,7 @@ export interface RootState {
   listings: houseSchema[];
   showLogin: boolean;
   userListings: houseSchema[];
+  sortListings: houseSchema[];
 }
 
 export const useRootStore = defineStore(`rootStore`, {
@@ -30,24 +31,18 @@ export const useRootStore = defineStore(`rootStore`, {
       listings: [],
       showLogin: false,
       userListings: [],
+      sortListings: [],
     };
   },
   persist: true,
   actions: {
-    sortListing(location: string) {
-      const sorted = this.listings.filter((listing: houseSchema) =>
-        listing.location.toLowerCase().includes(location.toLowerCase())
-      );
-      if (sorted.length < 1) {
-        this.listings = [];
-      }
-      this.listings = sorted;
-    },
     async fetchListings() {
       try {
         const res = await fetch(`${env}/listings`);
         const data = await res.json();
-        this.listings = data.listings;
+        const listings = data.listings;
+        this.listings = listings;
+        this.sortListings = listings;
       } catch (error) {
         handleError(error);
       }
@@ -70,6 +65,9 @@ export const useRootStore = defineStore(`rootStore`, {
       } catch (error) {
         handleError(error);
       }
+    },
+    sortListings() {
+      // TODO: handle sorting of listings here
     },
     toggleLogin() {
       this.showLogin = !this.showLogin;

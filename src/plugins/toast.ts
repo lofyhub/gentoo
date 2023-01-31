@@ -128,11 +128,11 @@ export function toastMessage(text: string) {
     stopOnFocus: true, // Prevents dismissing of toast on hover
     avatar: MesageAvatar,
     style: {
-      background: `#E8E8E8`,
+      background: `#eef2ff`,
       border: `1px solid`,
-      borderColor: `#686868`,
+      borderColor: `#818cf8`,
       borderRadius: `0.5rem`,
-      color: `#686868`,
+      color: `#6366f1`,
       paddingLeft: `1rem`,
       paddingRight: `1rem`,
       paddingTop: `0.8rem`,
