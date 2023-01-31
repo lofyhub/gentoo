@@ -75,12 +75,12 @@ async function handleDeletion() {
           <button
             type="button"
             @click="$emit(`close`)"
-            class="text-gray-900 border px-8 py-2 border-indigo-700 hover:bg-indigo-50 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm text-center mr-3 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
+            class="text-gray-900 border px-8 py-2 border-indigo-700 hover:bg-indigo-50 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-sm text-sm text-center mr-3 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
           >
             Cancel
           </button>
           <button
-            class="text-gray-900 hover:bg-red-500 border px-8 py-2 border-red-500 focus:outline-none font-medium rounded-lg text-sm text-center ml-2 dark:border-red-500 dark:text-white dark:hover:text-white"
+            class="bg-red-500 text-white opacity-100 hover:bg-red-700 border px-8 py-2 border-red-500 focus:outline-none font-medium rounded-sm text-sm text-center ml-2 dark:border-red-500 dark:text-white dark:hover:text-white"
             @click="handleDeletion"
           >
             <SpinnerIcon v-if="deleting" class="w-4 h-4 my-1" />

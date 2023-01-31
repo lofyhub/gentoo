@@ -21,8 +21,7 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
 </script>
 
 <template>
-  <router-link
-    :to="'/listing/' + props.listing._id"
+  <div
     class="w-[280px] mt-4 mx-2 bg-white shadow-md hover:shadow-lg hover:bg-gray-100 rounded-sm overflow-hidden"
   >
     <img
@@ -38,7 +37,7 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
       <div class="mt-2 flex justify-between">
         <div>
           <span class="text-base font-bold app-text"
-            >{{ props.listing.rate.price.toLocaleString() }}
+            >{{ (props.listing.rate.price * 1).toLocaleString("en") }}
             {{ props.listing.rate.countryCode }}</span
           >/<span class="font-normal">{{
             props.listing.rate.duration.toLowerCase()
@@ -96,7 +95,7 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
         </div>
       </div>
     </div>
-  </router-link>
+  </div>
   <Teleport to="body">
     <ConfirmPopup
       v-if="showConfirm"

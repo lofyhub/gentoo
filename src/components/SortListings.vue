@@ -3,12 +3,13 @@ import { ref } from "vue";
 import { useRootStore } from "@/store/index";
 import { counties } from "@/temp/housestemp";
 import VueMultiselect from "vue-multiselect";
+import { toastMessage } from "@/plugins/toast";
 
-const store = useRootStore();
+const rootStore = useRootStore();
 const selectedPrice = ref(`Select price range`);
 const selectedType = ref(`Select property type`);
 const location = ref(`Select location`);
-const price = [
+const prices = [
   "3,000 - 10,000",
   "10,000 - 25,000",
   "25,000 - 55,000",
@@ -16,18 +17,26 @@ const price = [
 ];
 const property = ["Rental", "Airbnb", "Business", "Stays", "Attractions"];
 
+const priceMap: { [key: string]: number } = {
+  "3,000 - 10,000": 10000,
+  "10,000 - 25,000": 25000,
+  "25,000 - 55,000": 55000,
+  "55,000 - 300,000": 300000,
+};
 // methods
 
 function sortListings() {
-  if (!location.value || location.value === `Select location`) {
+  if (selectedPrice.value === `Select price range`) {
+    toastMessage("Please select a price range");
     return;
   }
 
-  store.sortListing(location.value);
+  const price = priceMap[selectedPrice.value] || 0;
+  rootStore.sortListings(price);
 }
 </script>
 <template>
-  <div class="flex justify-center bg-white shadow py-6 h-32">
+  <div class="flex justify-center bg-white py-6 h-32">
     <table class="table-fixed">
       <thead>
         <tr>
@@ -43,21 +52,19 @@ function sortListings() {
             <VueMultiselect
               v-model="location"
               :options="counties"
-              :searchable="false"
-              :close-on-select="false"
+              :searchable="true"
+              :close-on-select="true"
               :show-labels="false"
-              placeholder="Select duration"
             >
             </VueMultiselect>
           </td>
           <td>
             <VueMultiselect
               v-model="selectedPrice"
-              :options="price"
+              :options="prices"
               :searchable="false"
-              :close-on-select="false"
+              :close-on-select="true"
               :show-labels="false"
-              placeholder="Select duration"
             >
             </VueMultiselect>
           </td>
@@ -66,9 +73,8 @@ function sortListings() {
               v-model="selectedType"
               :options="property"
               :searchable="false"
-              :close-on-select="false"
+              :close-on-select="true"
               :show-labels="false"
-              placeholder="Select duration"
             >
             </VueMultiselect>
           </td>

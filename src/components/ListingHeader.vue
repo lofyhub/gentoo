@@ -101,9 +101,7 @@ listingStore.getListingAuthor(prop.listing.userId);
     <div class="">
       <h1 class="text-2xl lg:text-3xl font-medium">{{ listing.name }}</h1>
       <div class="flex flex-col py-3 lg:flex-row justify-between">
-        <div
-          class="text-gray-500 lg:text-2xl text-xl flex items-center justify-center font-normal"
-        >
+        <div class="text-gray-500 lg:text-2xl text-xl font-normal">
           {{ listing.location }}
         </div>
         <div class="flex pt-2 lg:pt-0 font-medium">
@@ -395,7 +393,9 @@ listingStore.getListingAuthor(prop.listing.userId);
               <span class="text-lg font-bold app-text"
                 >{{ listing.rate.price.toLocaleString() }}
                 {{ listing.rate.countryCode }}</span
-              >/<span class="">{{ listing.rate.duration }}</span>
+              >/<span class="font-medium">{{
+                listing.rate.duration.toLowerCase()
+              }}</span>
             </div>
             <button
               class="py-2 px-20 bg-indigo-500 text-white text-base rounded my-2"

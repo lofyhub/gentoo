@@ -1,1 +1,1 @@
-export const env = "https://kikao-backend.onrender.com";
+export const env = "http://localhost:9000";

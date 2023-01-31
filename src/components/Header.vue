@@ -28,6 +28,7 @@ const dashRoute = computed(() => route.matched[0]?.name);
 function logOut() {
   session.$reset();
   listingStore.$reset();
+  store.$reset();
   localStorage.removeItem("kikao-token");
   router.push("/");
 }
@@ -115,7 +116,7 @@ function handleListing() {
                 <div x-data="{ isOpen: true }" class="relative inline-block">
                   <!-- Dropdown toggle button -->
                   <button
-                    @click.stop="isDropdown = !isDropdown"
+                    @click="isDropdown = !isDropdown"
                     class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
                   >
                     <img
@@ -143,7 +144,7 @@ function handleListing() {
 
                   <!-- Dropdown menu -->
                   <div
-                    v-if="isDropdown"
+                    v-show="isDropdown"
                     @mouseleave="isDropdown = false"
                     x-transition:enter="transition ease-out duration-100"
                     x-transition:enter-start="opacity-0 scale-90"
