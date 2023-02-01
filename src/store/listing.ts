@@ -21,6 +21,7 @@ export const uselistingStore = defineStore(`listingStore`, {
   actions: {
     clearBookmarks() {
       this.bookmarks = [];
+      this.listingAuthor = [];
     },
     async getListingAuthor(id: string) {
       try {
