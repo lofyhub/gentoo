@@ -22,7 +22,7 @@ function gotoListing() {
 <template>
   <div class="w-full lg:w-[1200px] lg:mx-auto">
     <div class="text-center mt-10">
-      <h1 class="h2">Featured Listings</h1>
+      <h1 class="h2 lg:text-3xl text-3xl">Featured Listings</h1>
       <p class="py-4 text-lg">Popular and most recent listings</p>
     </div>
     <div v-if="listings.length > 0">

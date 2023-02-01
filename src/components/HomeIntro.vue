@@ -26,8 +26,8 @@ const isBinary = computed(() =>
     class="flex flex-wrap justify-around py-16 w-full sm:w-4/5 lg:w-[1120px] mx-auto pb-6"
   >
     <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
-      <div>
-        <h1 class="h3">
+      <div class="lg:w-full w-4/5 mx-auto">
+        <h1 class="h3 lg:text-5xl text-3xl pb-3">
           Say
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-400"
@@ -35,7 +35,7 @@ const isBinary = computed(() =>
           >
           to house hunting forever
         </h1>
-        <p class="my-3 text-lg">
+        <p class="my-3 text-base lg:text-lg">
           Whether you're looking for a rental, a place for your business, or
           even a spot for a short-term stay, we've got you covered. Our platform
           features a wide range of properties, from apartments and houses to
