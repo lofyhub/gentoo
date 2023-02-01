@@ -36,6 +36,7 @@ function logOut() {
 function handleListing() {
   if (session.$state._id) {
     router.push(`/dashboard/addlisting`);
+    isOpen.value = false;
     return;
   }
 
@@ -107,7 +108,7 @@ function handleListing() {
             <div class="hover:bg-indigo-50 dark:hover:bg-gray-700">
               <button
                 type="button"
-                @click="handleListing, (isOpen = false)"
+                @click="handleListing"
                 class="px-4 py-2 mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200"
               >
                 Create Listing
