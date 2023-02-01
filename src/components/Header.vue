@@ -28,16 +28,16 @@ const dashRoute = computed(() => route.matched[0]?.name);
 // methods
 function logOut() {
   session.$reset();
-  listingStore.$reset();
   store.$reset();
+  listingStore.clearBookmarks();
   localStorage.removeItem("kikao-token");
   router.push("/");
 }
 
 function handleListing() {
+  isOpen.value = false;
   if (session.$state._id) {
     router.push(`/dashboard/addlisting`);
-    isOpen.value = false;
     return;
   }
 
