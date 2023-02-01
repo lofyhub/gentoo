@@ -170,6 +170,7 @@ function handleListing() {
                     <div class="text-sm font-semibold">
                       <a
                         href="/dashboard"
+                        @click="isDropdown = !isDropdown"
                         class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <Avatar class="h-6 w-6" />
@@ -177,6 +178,7 @@ function handleListing() {
                       </a>
                       <a
                         href="/dashboard"
+                        @click="isDropdown = !isDropdown"
                         class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <MacOptions />
@@ -185,6 +187,7 @@ function handleListing() {
                       <hr class="border-gray-200 dark:border-gray-700" />
                       <a
                         href="/faq"
+                        @click="isDropdown = !isDropdown"
                         class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <Question />
