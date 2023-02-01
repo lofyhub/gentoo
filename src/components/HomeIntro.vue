@@ -16,7 +16,9 @@ const homeSample = computed(
       Math.floor(Math.random() * (rootStore.$state.listings.length - 2) + 1)
     ]
 );
-const isBinary = typeof homeSample.value.images[0] === "string" ? false : true;
+const isBinary = computed(() =>
+  typeof homeSample.value.images[0] === "string" ? false : true
+);
 </script>
 
 <template>
