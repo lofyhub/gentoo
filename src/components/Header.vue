@@ -49,7 +49,7 @@ function handleListing() {
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
           <a
-            class="text-2xl font-medium flex transition-colors duration-300 ml-10 lg:ml-20 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+            class="text-2xl font-medium flex transition-colors duration-300 ml-2 lg:ml-20 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
             href="/"
           >
             <LogoIcon class="w-8 h-8 inline mt-2.5" />
