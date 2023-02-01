@@ -2,7 +2,6 @@
 import { useSessionStore } from "@/store/session";
 import { useRoute } from "vue-router";
 import { useRootStore } from "@/store/index";
-import Profile from "@/components/Profile.vue";
 
 import { useHead } from "unhead";
 import { onMounted } from "vue";
@@ -34,26 +33,31 @@ function getStyles(tab: string) {
 }
 </script>
 <template>
-  <div v-if="store.$state._id">
+  <div v-if="store.$state._id" class="min-h-screen">
     <!-- Dashboard to add, delete, edit and view listings -->
-    <div class="h-[310px] pt-3">
-      <Profile />
-    </div>
-    <div class="flex items-center justify-center font-semibold text-1xl pb-3">
-      <router-link :to="'/dashboard/'" :class="getStyles('Listings')">
+    <div class="flex font-semibold text-1xl pt-10 pb-3 justify-center">
+      <router-link
+        :to="'/dashboard/'"
+        class="border border-gray-200 py-2 px-3 rounded-sm"
+        :class="getStyles('Listings')"
+      >
         <span class="px-4">Your Listings</span>
       </router-link>
       <router-link
         :to="'/dashboard/addlisting'"
+        class="border border-gray-200 py-2 px-3 rounded-sm"
         :class="getStyles('addlisting')"
       >
         <span class="px-8">Post Listing</span>
       </router-link>
-      <router-link :to="'/dashboard/listings'" :class="getStyles('Guidelines')">
+      <router-link
+        :to="'/dashboard/listings'"
+        class="border border-gray-200 py-2 px-3 rounded-sm"
+        :class="getStyles('Guidelines')"
+      >
         <span class="px-8">Guides</span>
       </router-link>
     </div>
-    <hr class="border-gray-200 dark:border-gray-700" />
     <router-view></router-view>
   </div>
 </template>

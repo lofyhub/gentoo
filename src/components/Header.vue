@@ -9,6 +9,7 @@ import SignOut from "@/components/icons/SignOut.vue";
 import MacOptions from "@/components/icons/Mac.vue";
 import Bars from "@/components/icons/Bars.vue";
 import LeftIcon from "@/components/icons/ArrowDown.vue";
+import XIcon from "@/components/icons/XIcon.vue";
 
 import { useSessionStore } from "@/store/session";
 import { uselistingStore } from "@/store/listing";
@@ -69,7 +70,8 @@ function handleListing() {
               class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
               aria-label="toggle menu"
             >
-              <Bars class="w-8 h-8" />
+              <XIcon v-if="isOpen" class="w-8 h-8 transition-all transform" />
+              <Bars v-else class="w-8 h-8" />
             </button>
           </div>
         </div>
