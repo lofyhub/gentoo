@@ -88,23 +88,26 @@ function handleListing() {
           >
             <a
               href="/listings"
+              @click="isOpen = false"
               class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Rent
             </a>
             <a
               href="/listings"
+              @click="isOpen = false"
               class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Stays</a
             >
             <a
               href="/listings"
+              @click="isOpen = false"
               class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Attractions</a
             >
             <div class="hover:bg-indigo-50 dark:hover:bg-gray-700">
               <button
                 type="button"
-                @click="handleListing"
+                @click="handleListing, (isOpen = false)"
                 class="px-4 py-2 mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200"
               >
                 Create Listing
