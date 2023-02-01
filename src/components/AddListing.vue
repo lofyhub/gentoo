@@ -151,7 +151,7 @@ async function postListing() {
               v-model="county"
               :options="counties"
               :searchable="false"
-              :close-on-select="false"
+              :close-on-select="true"
               :show-labels="false"
               placeholder="Pick a county"
               class="mr-3"
@@ -222,7 +222,7 @@ async function postListing() {
               v-model="duration"
               :options="['Month', 'Night', 'Week']"
               :searchable="false"
-              :close-on-select="false"
+              :close-on-select="true"
               :show-labels="false"
               placeholder="Select duration"
             >

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRootStore } from "@/store";
 import { computed } from "@vue/reactivity";
-import { formatDate } from "@/helpers/helpers";
+import { file, formatDate, convertBuffer } from "@/helpers/helpers";
 
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
@@ -16,6 +16,7 @@ const homeSample = computed(
       Math.floor(Math.random() * (rootStore.$state.listings.length - 2) + 1)
     ]
 );
+const isBinary = typeof homeSample.value.images[0] === "string" ? false : true;
 </script>
 
 <template>
@@ -63,7 +64,11 @@ const homeSample = computed(
           class="rounded-sm shadow-md hover:shadow-lg hover:bg-gray-100 overflow-hidden w-80"
         >
           <img
-            :src="homeSample.images[homeSample.images.length - 1]"
+            :src="
+        !isBinary
+          ? homeSample.images[homeSample.images.length - 1]
+          : convertBuffer( homeSample.images[0] as unknown as file)
+      "
             alt=""
             class="object-cover object-center overflow-hidden w-full h-40"
           />
