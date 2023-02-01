@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { withDefaults, defineProps, ref, defineEmits } from "vue";
 import { houseSchema } from "@/temp/housestemp";
-import { convertBuffer } from "@/helpers/helpers";
+import { convertBuffer, file } from "@/helpers/helpers";
 
 import XIcon from "@/components/icons/XIcon.vue";
 import Twitter from "@/components/icons/socials/Twitter.vue";
@@ -28,7 +28,7 @@ function twitterShare() {
   window.open(
     `https://twitter.com/share?url=${encodeURIComponent(
       baseurl.value.toString()
-    )}&hashtags=blogchain&text=${prop.listing.name} by ${prop.listing.location}`
+    )}&hashtags=@kikaoHq&text=${prop.listing.name} by ${prop.listing.location}`
   );
 }
 function facebookShare() {
@@ -70,7 +70,7 @@ function mailShare() {
           :src="
             !isBinary
               ? prop.listing.images[prop.listing.images.length - 1]
-              : convertBuffer(prop.listing.images[0])
+              : convertBuffer(prop.listing.images[0] as unknown as file)
           "
           alt="social share image from kikao"
           class="h-32 w-48 rounded bg-cover bg-img object-cover bg-cover"
