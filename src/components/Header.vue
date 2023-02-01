@@ -28,7 +28,6 @@ const dashRoute = computed(() => route.matched[0]?.name);
 // methods
 function logOut() {
   session.$reset();
-  store.$reset();
   listingStore.clearBookmarks();
   localStorage.removeItem("kikao-token");
   router.push("/");
