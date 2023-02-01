@@ -9,7 +9,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
     <div
       class="flex flex-wrap flex-col lg:flex-row justify-center items-center text-justify ml-6 lg:ml-0 pt-4"
     >
-      <div class="w-4/5 lg:w-2/5 mr-6 h-40">
+      <div class="w-4/5 lg:w-2/5 mr-6 h-auto py-4">
         <div class="text-xl py-3 flex lg:text-left text-center">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
@@ -25,7 +25,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
           needs and preferences.
         </p>
       </div>
-      <div class="w-4/5 lg:w-2/5 h-40 py-2">
+      <div class="w-4/5 lg:w-2/5 h-auto my-2">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
@@ -40,7 +40,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
           and schedule property tours.
         </p>
       </div>
-      <div class="w-4/5 lg:w-2/5 mr-6 h-40">
+      <div class="w-4/5 lg:w-2/5 mr-6 h-auto py-2">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
@@ -56,7 +56,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
           pricing, availability, and photos.
         </p>
       </div>
-      <div class="w-4/5 lg:w-2/5 h-40">
+      <div class="w-4/5 lg:w-2/5 h-auto py-2">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
