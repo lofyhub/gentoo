@@ -60,7 +60,7 @@ async function handleDeletion() {
     </button>
     <section>
       <div
-        class="w-full lg:w-600 bg-white dark:bg-darkBGStop card-animation z-10 overflow-y-auto rounded-lg p-6 pt-4 shadow-lg font-normal mx-10"
+        class="w-auto lg:w-600 bg-white dark:bg-darkBGStop card-animation z-10 overflow-y-auto rounded-lg p-6 pt-4 shadow-lg font-normal mx-10"
       >
         <div class="items-center text-center py-6">
           <p class="text-gray-600 dark:text-black font-normal text-lg">
