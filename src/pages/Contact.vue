@@ -7,7 +7,7 @@ useHead({
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-white min-h-screen">
     <div class="prose w-4/5 mx-auto py-10">
       <h1>Contact Kikao</h1>
       <h3>Your premier destination for all your house listing needs!</h3>
@@ -29,6 +29,5 @@ useHead({
       <!-- contact form -->
       <span>Thank you for choosing Kikao! 👊</span>
     </div>
-    <hr class="border-gray-200 dark:border-gray-700" />
   </div>
 </template>

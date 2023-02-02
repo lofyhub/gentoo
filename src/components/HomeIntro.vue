@@ -82,7 +82,9 @@ const isBinary = computed(() =>
                 ><span class="text-base font-medium text-indigo-500 ml-1">{{
                   homeSample.rate.countryCode
                 }}</span>
-                <span class="">/{{ homeSample.rate.duration }}</span>
+                <span class=""
+                  >/{{ homeSample.rate.duration.toLowerCase() }}</span
+                >
               </div>
             </div>
             <div>

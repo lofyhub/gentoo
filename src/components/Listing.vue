@@ -68,7 +68,7 @@ function handleFavourite() {
 </script>
 <template>
   <div
-    class="w-[284px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden hover:bg-gray-100"
+    class="w-[280px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden hover:bg-gray-100"
   >
     <img
       :src="
@@ -111,7 +111,9 @@ function handleFavourite() {
           </p>
           <hr class="my-1 h-2" />
           <div class="pt-1 truncate text-base text-gray-600 font-normal flex">
-            <span>{{ props.county ? props.county : props.location }}</span>
+            <span class="text-base">{{
+              props.county ? props.county : props.location
+            }}</span>
             <p class="h-1 w-1 rounded bg-gray-700 mx-2 my-2.5"></p>
             <span>{{ formatDate(props.createdAt) }}</span>
           </div>

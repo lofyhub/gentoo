@@ -7,7 +7,7 @@ useHead({
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-white min-h-screen">
     <div class="w-full mx-auto lg:w-2/5">
       <h1 class="text-4xl text-center font-bold py-10">About Kikao</h1>
       <div class="text-lg pb-10">
