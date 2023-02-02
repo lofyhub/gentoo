@@ -86,7 +86,7 @@ async function handleDeletion() {
           <button
             type="button"
             @click="$emit(`close`)"
-            class="text-gray-900 font-bold px-8 py-2 hover:bg-indigo-50 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-sm text-sm text-center mr-3 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
+            class="text-gray-900 font-bold px-8 py-2 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-sm text-sm text-center mr-3 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
           >
             Cancel
           </button>
