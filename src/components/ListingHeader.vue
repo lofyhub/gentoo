@@ -138,7 +138,7 @@ if (store.$state.userId) {
     <div class="flex">
       <div class="lg:w-[900px] w-full">
         <!-- listing image section -->
-        <div class="my-6">
+        <div class="mt-6 mb-[48px]">
           <img
             :src="
               !isBinary
@@ -154,80 +154,85 @@ if (store.$state.userId) {
         </div>
         <div>
           <!-- Room details section bathrooms, washrooms e.t.c -->
-          <div class="my-6 border-2 border-gray-200 rounded lg:h-[100px] h-24">
-            <div class="flex justify-around h-auto">
+          <div
+            class="mb-[48px] border-2 border-gray-200 rounded lg:h-[110px] h-auto"
+          >
+            <div class="flex justify-around h-auto mt-2">
               <!-- bedrooms -->
               <div class="w-32 py-5 ml-4">
-                <p>
+                <p class="text-base font-semibold">
                   {{
                     listing.compartments.bedrooms > 1 ? `Bedrooms` : `Bedroom`
                   }}
                 </p>
-                <div class="pt-2">
+                <div class="pt-3">
                   <BedroomIcon class="w-5 h-5 inline fill-indigo-500" />
                   <span class="font-bold mt-4 ml-2 truncate"
                     >{{ listing.compartments.bedrooms }}
-                    <span class="lg:inline-block hidden">
-                      {{
-                        listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
-                      }}</span
-                    ></span
+                  </span>
+                  <span class="lg:inline-block hidden text-gray-500 ml-1">
+                    {{
+                      listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
+                    }}</span
                   >
                 </div>
               </div>
               <!-- bathtabs -->
               <div class="w-32 py-5 ml-2">
-                <p>
+                <p class="text-base font-semibold">
                   {{
                     listing.compartments.washRooms > 1
                       ? `Washrooms`
                       : `Washroom`
                   }}
                 </p>
-                <div class="pt-2">
+                <div class="pt-3">
                   <BathtabIcon class="w-5 h-5 inline fill-indigo-500" />
                   <span class="font-bold ml-2 truncate"
                     >{{ listing.compartments.washRooms }}
-                    <span class="lg:inline-block hidden">
-                      {{
-                        listing.compartments.washRooms > 1
-                          ? `Bathtabs`
-                          : `Bathtab`
-                      }}</span
-                    >
                   </span>
+                  <span class="lg:inline-block hidden ml-1 text-gray-500">
+                    {{
+                      listing.compartments.washRooms > 1
+                        ? `Bathtabs`
+                        : `Bathtab`
+                    }}</span
+                  >
                 </div>
               </div>
               <!-- square area -->
               <div class="w-32 py-5 ml-2">
-                <p>Square Area</p>
-                <div class="pt-2">
+                <p class="text-base font-semibold">Square Area</p>
+                <div class="pt-3">
                   <HouseIcon class="w-5 h-5 inline" />
-                  <span class="font-bold ml-2">{{ listing.size }}</span>
+                  <span class="font-bold ml-2">{{
+                    listing.size.slice(0, 3)
+                  }}</span>
+                  <span class="text-gray-500 ml-1">sq feet</span>
                 </div>
               </div>
               <!-- repair quality -->
               <div class="w-32 py-5 ml-2 lg:block hidden">
-                <p>Repair Quality</p>
-                <div class="pt-2">
+                <p class="text-base font-semibold">Repair Quality</p>
+                <div class="pt-3">
                   <BrushIcon class="w-5 h-5 inline" />
 
-                  <span class="font-bold ml-2">Modern Loft</span>
+                  <span class="ml-2 text-gray-500">Modern Loft</span>
                 </div>
               </div>
               <!-- Rooms booking status-->
               <div class="w-32 py-5 ml-2">
-                <p>Status</p>
-                <div class="pt-2">
+                <p class="text-base font-semibold">Status</p>
+                <div class="pt-3">
                   <ActiveIcon class="w-5 h-5 inline" />
-                  <span class="font-bold ml-2">Active</span>
+                  <span class="text-gray-500 ml-2">Active</span>
                 </div>
               </div>
             </div>
           </div>
           <!-- about this home -->
-          <div class="lg:mx-0 mx-4">
-            <h2 class="text-2xl font-medium text-indigo-500">
+          <div class="lg:mx-0 mx-4 mb-[48px]">
+            <h2 class="text-2xl font-medium text-indigo-500 mb-[14px]">
               About this home
             </h2>
             <p class="py-3 text-justify">
@@ -250,7 +255,7 @@ if (store.$state.userId) {
           <!-- end of about this home -->
           <!-- listed by property owner -->
           <div
-            class="my-4 border-2 border-gray-300 rounded bg-indigo-50 mx-3 lg:mx-0"
+            class="border-2 border-gray-300 rounded bg-indigo-50 mx-3 lg:mx-0 mb-[48px]"
           >
             <div class="py-4 mx-4">
               <p class="text-lg font-semibold">Listed by property owner</p>
@@ -380,7 +385,7 @@ if (store.$state.userId) {
           >
             <img
               :src="image"
-              class="w-[250px] h-58 p-1 rounded overflow-hidden"
+              class="w-[250px] h-[210px] p-1 rounded overflow-hidden bg-img bg-cover"
               alt="apartment image here"
               loading="lazy"
               srcset=""
@@ -389,7 +394,9 @@ if (store.$state.userId) {
         </div>
         <!-- end side-images section  -->
         <!-- apply contact setion -->
-        <div class="border-2 border-gray-200 h-[400px] rounded w-[250px]">
+        <div
+          class="border-2 border-gray-200 h-[400px] rounded w-[250px] mt-[46px]"
+        >
           <div class="my-4 ml-4">
             <p class="text-lg my-1 font-extrabold">Rent Price</p>
             <div class="my-1">

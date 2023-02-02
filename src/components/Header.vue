@@ -46,7 +46,7 @@ function handleListing() {
 
 <template>
   <nav class="shadow dark:bg-gray-800 sticky top-0 left-0 w-full bg-white z-20">
-    <div class="container md:px-10 px-6 py-2 mx-auto">
+    <div class="container md:px-10 p-0 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between">
           <a
@@ -57,7 +57,7 @@ function handleListing() {
             <span v-if="dashRoute === `Dashboard`" class="ml-2 mt-3.5"
               >Dashboard</span
             >
-            <span v-else class="ml-2 mt-3.5">Kikao</span></a
+            <span v-else class="ml-2 mt-3">Kikao</span></a
           >
 
           <!-- Mobile menu button -->
@@ -74,8 +74,6 @@ function handleListing() {
             </button>
           </div>
         </div>
-
-        <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
         <div
           x-cloak
           :class="[
@@ -91,30 +89,43 @@ function handleListing() {
             <a
               href="/listings"
               @click="isOpen = false"
-              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              :class="
+                route.name === `Rent`
+                  ? `font-bold border-b-2 border-indigo-500`
+                  : `text-gray-800`
+              "
               >Rent
             </a>
             <a
               href="/listings"
               @click="isOpen = false"
-              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Stays</a
             >
             <a
               href="/listings"
               @click="isOpen = false"
-              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Attractions</a
             >
-            <div class="hover:bg-indigo-50 dark:hover:bg-gray-700">
-              <button
-                type="button"
-                @click="handleListing"
-                class="px-4 py-2 mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
-              >
-                Create Listing
-              </button>
-            </div>
+
+            <button
+              type="button"
+              @click="handleListing"
+              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 hover:bg-indigo-50 transition-all transform mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
+              :class="
+                route.name === `Dashboard` ||
+                route.name === `Listings` ||
+                route.name === `addlisting` ||
+                route.name === `Guidelines`
+                  ? `border-b-2 border-indigo-500 font-bold`
+                  : `text-gray-800`
+              "
+            >
+              Create Listing
+            </button>
+
             <div class="flex items-center mt-4 lg:mt-0 mx-6">
               <div v-if="userData._id">
                 <!-- start avatar seciton -->

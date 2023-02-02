@@ -19,7 +19,7 @@ function reload() {
 <template>
   <div class="w-4/5 lg:w-[1200px] mx-auto min-h-screen">
     <SortListings
-      class="w-full mx-auto my-10 z-10"
+      class="w-full mx-auto mt-10 z-10"
       style="position: fixed; top: 20px; left: 0; right: 0"
     />
     <div
