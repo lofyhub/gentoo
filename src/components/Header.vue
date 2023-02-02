@@ -86,31 +86,31 @@ function handleListing() {
           class="absolute inset-x-0 z-20 w-full px-6 py-4 mr-6 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center"
         >
           <div
-            class="flex flex-col lg:flex-row lg:items-center text-sm font-medium"
+            class="flex flex-col lg:flex-row lg:items-center text-[14px] font-medium"
           >
             <a
               href="/listings"
               @click="isOpen = false"
-              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Rent
             </a>
             <a
               href="/listings"
               @click="isOpen = false"
-              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Stays</a
             >
             <a
               href="/listings"
               @click="isOpen = false"
-              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Attractions</a
             >
             <div class="hover:bg-indigo-50 dark:hover:bg-gray-700">
               <button
                 type="button"
                 @click="handleListing"
-                class="px-4 py-2 mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200"
+                class="px-4 py-2 mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
               >
                 Create Listing
               </button>
