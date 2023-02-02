@@ -89,8 +89,9 @@ function addFavourite() {
     listingStore.addBookmark(prop.listing._id);
   }
 }
-
-listingStore.getListingAuthor(prop.listing.userId);
+if (store.$state.userId) {
+  listingStore.getListingAuthor(prop.listing.userId);
+}
 </script>
 
 <template>
@@ -110,7 +111,7 @@ listingStore.getListingAuthor(prop.listing.userId);
             @click="socialShare"
           >
             <ShareIcon class="inline h-3.5 w-3.5" />
-            <span class="text-base ml-2">Share</span>
+            <span class="text-base ml-2 hidden lg:inline-block">Share</span>
           </button>
           <button
             class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3"
@@ -120,13 +121,15 @@ listingStore.getListingAuthor(prop.listing.userId);
               <HeartIconDark v-if="bookmarked" class="inline h-3.5 w-3.5" />
               <HeartIcon v-else class="inline h-3.5 w-3.5" />
             </span>
-            <span class="text-base ml-2">Bookmark</span>
+            <span class="text-base ml-2 hidden lg:inline-block">Bookmark</span>
           </button>
           <button
             class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3"
           >
             <SearchIcon class="inline h-3.5 w-3.5" />
-            <span class="text-base ml-2">Browse nearby listings</span>
+            <span class="text-base ml-2 hidden lg:inline-block"
+              >Browse nearby listings</span
+            >
           </button>
         </div>
       </div>
@@ -297,7 +300,7 @@ listingStore.getListingAuthor(prop.listing.userId);
           <!-- end of listed by property owner -->
           <hr class="my-10" />
           <!-- start rentail features -->
-          <div>
+          <div class="px-4 lg:px-0">
             <h4 class="font-medium text-2xl text-indigo-500">
               Rental features
             </h4>
@@ -441,7 +444,7 @@ listingStore.getListingAuthor(prop.listing.userId);
       </div>
     </div>
     <!-- start similar listings section -->
-    <div class="w-full">
+    <div class="w-full px-4 lg:px-0">
       <h2 class="text-indigo-500 text-2xl font-medium py-6">
         Similar Listings
       </h2>

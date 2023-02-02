@@ -4,16 +4,22 @@ import { toastError, toastSuccess, toastWarning } from "@/plugins/toast";
 
 import axios from "axios";
 import { env } from "@/env";
-
+interface lAuthor {
+  _id: number;
+  username: string;
+  email: string;
+  regDate: string;
+  kikaoType: string;
+}
 interface listing {
-  listingAuthor: unknown[];
+  listingAuthor: lAuthor;
   bookmarks: string[];
 }
 
 export const uselistingStore = defineStore(`listingStore`, {
   state: (): listing => {
     return {
-      listingAuthor: [],
+      listingAuthor: {} as lAuthor,
       bookmarks: [],
     };
   },
@@ -21,7 +27,7 @@ export const uselistingStore = defineStore(`listingStore`, {
   actions: {
     clearBookmarks() {
       this.bookmarks = [];
-      this.listingAuthor = [];
+      this.listingAuthor = {} as lAuthor;
     },
     async getListingAuthor(id: string) {
       try {
