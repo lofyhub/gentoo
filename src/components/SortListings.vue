@@ -36,14 +36,13 @@ function sortListings() {
 }
 </script>
 <template>
-  <div class="flex justify-center bg-white py-6 h-32">
-    <table class="table-fixed">
-      <thead>
-        <tr>
-          <th class="w-56">Location</th>
-          <th>Price</th>
-          <th>Property type</th>
-          <th>Sort</th>
+  <div class="flex justify-center bg-white py-5 h-32">
+    <table class="table-fixed py-10">
+      <thead class="">
+        <tr class="font-bold text-xs text-[#909CAB] tracking-[1.2px]">
+          <th class="lg:w-56 w-auto">LOCATION</th>
+          <th class="lg:w-56 w-auto">PRICE</th>
+          <th class="lg:w-56 w-auto">PROPERTY TYPE</th>
         </tr>
       </thead>
       <tbody>
