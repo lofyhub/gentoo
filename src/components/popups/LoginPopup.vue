@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRootStore } from "@/store/index";
-import { useSessionStore } from "@/store/session";
-
 import XIcon from "@/components/icons/XIcon.vue";
 import LogoIcon from "@/components/icons/LogoIcon.vue";
 import LockIcon from "@/components/icons/LockIcon.vue";
-import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
+import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
+import { toastError, toastSuccess, toastWarning } from "@/plugins/toast";
+
+import { ref } from "vue";
+import { useRootStore } from "@/store/index";
+import { useSessionStore } from "@/store/session";
 import regex from "@/config/regex";
 import axios from "axios";
 import router from "@/router";
@@ -17,6 +18,7 @@ const sessionStore = useSessionStore();
 // refs
 const email = ref(``);
 const password = ref(``);
+const loading = ref(false);
 
 // methods
 
@@ -35,6 +37,7 @@ async function signIn() {
     return;
   }
   try {
+    loading.value = true;
     const bodyData = {
       email: email.value,
       password: password.value,
@@ -55,7 +58,13 @@ async function signIn() {
       router.push("/");
     }
   } catch (error) {
-    toastMessage(error as string);
+    if (axios.isAxiosError(error) && error.response) {
+      toastWarning(error.response.data.message);
+    } else {
+      toastError(error as string);
+    }
+  } finally {
+    loading.value = false;
   }
 }
 </script>
@@ -63,7 +72,7 @@ async function signIn() {
 <template>
   <!-- Photo popup -->
   <div
-    class="popup bg-gray-600 modal-animation fixed top-0 bottom-0 left-0 right-0 z-30 h-screen w-full flex flex-col justify-center items-center py-16 bg-opacity-50 dark:bg-opacity-50"
+    class="popup bg-gray-600 modal-animation transition-all transform fixed top-0 bottom-0 left-0 right-0 z-30 h-screen w-full flex flex-col justify-center items-center py-16 bg-opacity-50 dark:bg-opacity-50"
     @click.self="close"
   >
     <button
@@ -75,7 +84,7 @@ async function signIn() {
     <!-- start of form -->
     <div class="rounded-sm overflow-hidden">
       <div
-        class="flex flex-col w-96 mx-auto items-center justify-center py-10 px-4 sm:px-6 lg:px-8 bg-white border-t-4 border-indigo-500"
+        class="flex flex-col w-full lg:w-96 mx-auto h-auto items-center justify-center py-10 px-4 sm:px-6 lg:px-8 bg-white border-t-4 border-indigo-500"
       >
         <div class="w-full max-w-md space-y-8">
           <div>
@@ -148,7 +157,8 @@ async function signIn() {
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockIcon />
                 </span>
-                Sign in
+                <SpinnerIcon v-if="loading" />
+                <p v-else>Sign in</p>
               </button>
             </div>
           </div>

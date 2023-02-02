@@ -11,7 +11,12 @@ import { ref } from "vue";
 import { useRootStore } from "@/store/index";
 import VueMultiselect from "vue-multiselect";
 import { counties } from "@/temp/housestemp";
-import { toastMessage, toastSuccess, toastWarning } from "@/plugins/toast";
+import {
+  toastError,
+  toastMessage,
+  toastSuccess,
+  toastWarning,
+} from "@/plugins/toast";
 import { env } from "@/env";
 
 const store = useRootStore();
@@ -31,9 +36,13 @@ const phone = ref<number>();
 
 // methods
 
-async function submitForm() {
+async function submitForm(): Promise<void> {
   if (!name.value || !email.value || !password.value || !kikaotype.value) {
     toastWarning(`Please enter all field details`);
+    return;
+  }
+  if (!regex.emailRegex.test(email.value)) {
+    toastMessage(`Enter a valid email address`);
     return;
   }
 
@@ -42,10 +51,6 @@ async function submitForm() {
     return;
   }
 
-  if (!regex.emailRegex.test(email.value)) {
-    toastMessage(`Enter a valid email address`);
-    return;
-  }
   const bodyData = {
     email: email.value,
     password: password.value,
@@ -67,13 +72,27 @@ async function submitForm() {
     await axios.post(`${env}/signup`, bodyData, config);
     // reset values here
     toastSuccess("Sucessfully created your account");
-    step.value = 4;
-    loading.value = false;
+    (email.value = ``),
+      (password.value = ``),
+      (name.value = ``),
+      (kikaotype.value = ``),
+      (businesname.value = ``),
+      (location.value = ``),
+      (phone.value = 0),
+      (businessType.value = ``),
+      (city.value = ``),
+      (step.value = 4);
   } catch (error) {
-    toastWarning(error as string);
+    if (axios.isAxiosError(error) && error.response) {
+      toastWarning(error.response.data.message);
+    } else {
+      toastError(error as string);
+    }
+  } finally {
+    loading.value = false;
   }
 }
-function nextStep() {
+function nextStep(): void {
   if (kikaotype.value === `tenant` && step.value === 1) {
     submitForm();
     return;
@@ -83,14 +102,14 @@ function nextStep() {
   }
   step.value = step.value += 1;
 }
-function stepBack() {
+function stepBack(): void {
   step.value = step.value -= 1;
 }
 
-function updateKikaotype(type: string) {
+function updateKikaotype(type: string): void {
   kikaotype.value = type;
 }
-function updateBusinesstype(type: "individual" | "organization") {
+function updateBusinesstype(type: "individual" | "organization"): void {
   businessType.value = type;
 }
 </script>
@@ -152,13 +171,13 @@ function updateBusinesstype(type: "individual" | "organization") {
       </div>
 
       <!-- start of step one -->
-      <div v-if="step === 0" class="pt-16">
+      <div v-if="step === 0" class="pt-16 transition-all transform">
         <h1 class="text-3xl text-slate-800 font-bold">
           Tell us what’s your situation ✨
         </h1>
         <div class="flex flex-col py-8">
           <div
-            class="flex items-center bg-white text-sm shadow cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
+            class="flex items-center bg-white transition-all transform text-sm cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
             :class="
               kikaotype === `landlord`
                 ? `border-indigo-500`
@@ -187,7 +206,7 @@ function updateBusinesstype(type: "individual" | "organization") {
             <h2 class="text-xl font-normal">I am a Landlord</h2>
           </div>
           <div
-            class="flex items-center bg-white text-sm shadow cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
+            class="flex items-center transition-all transform bg-white text-sm cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
             :class="
               kikaotype === `tenant` ? `border-indigo-500` : `border-slate-200`
             "
@@ -207,7 +226,7 @@ function updateBusinesstype(type: "individual" | "organization") {
           </div>
         </div>
       </div>
-      <div v-if="step === 1" class="pt-16">
+      <div v-if="step === 1" class="pt-16 transition-all transform">
         <h1 class="text-3xl text-slate-800 font-bold">
           Create your profile Account ✨
         </h1>
@@ -357,7 +376,7 @@ function updateBusinesstype(type: "individual" | "organization") {
           </div>
         </div>
       </div>
-      <div v-if="step === 3" class="pt-16">
+      <div v-if="step === 3" class="pt-16 transition-all transform">
         <h1 class="text-3xl text-slate-800 font-bold">
           Business information ✨
         </h1>
@@ -415,7 +434,7 @@ function updateBusinesstype(type: "individual" | "organization") {
       <!-- end of step one -->
       <div
         v-show="step !== 4"
-        class="flex items-center justify-between py-8 text-sm"
+        class="flex items-center justify-between py-8 text-sm transition-all transform"
       >
         <div class="underline underline-offset-8 text-sm">
           <button
@@ -428,7 +447,7 @@ function updateBusinesstype(type: "individual" | "organization") {
           </button>
         </div>
         <button
-          class="bg-indigo-500 opacity-100 text-white rounded py-2.5 px-6 flex"
+          class="bg-indigo-500 opacity-100 text-white text-sm rounded py-2.5 px-6 flex"
           type="button"
           @click="nextStep()"
         >

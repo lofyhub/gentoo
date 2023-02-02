@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { houseSchema } from "@/temp/housestemp";
-import { handleError } from "@/plugins/toast";
+import { handleError, toastError, toastWarning } from "@/plugins/toast";
 import axios from "axios";
 import { useSessionStore } from "./session";
 
@@ -63,7 +63,11 @@ export const useRootStore = defineStore(`rootStore`, {
         );
         this.userListings = res.data.data;
       } catch (error) {
-        handleError(error);
+        if (axios.isAxiosError(error) && error.response) {
+          toastWarning(error.response.data.message);
+        } else {
+          toastError(error as string);
+        }
       }
     },
     sortListings() {

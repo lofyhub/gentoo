@@ -86,7 +86,7 @@ function handleFavourite() {
     <div class="px-2.5">
       <div class="mt-1 flex justify-between">
         <div>
-          <span class="text-[19px] font-semibold app-text opacity-100"
+          <span class="text-[18px] font-semibold app-text opacity-100"
             >{{ (props.rate.price * 1).toLocaleString("en") }} </span
           ><span class="text-base font-semibold app-text pl-1 opacity-100">
             {{ props.rate.countryCode.toLowerCase() }}</span
