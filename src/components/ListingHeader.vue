@@ -95,11 +95,11 @@ if (store.$state.userId) {
 </script>
 
 <template>
-  <div class="pt-6">
+  <div class="pt-6 px-4 lg:px-0">
     <BackButton class="my-3" />
   </div>
   <div v-if="listing" class="pb-10">
-    <div class="">
+    <div class="px-4 lg:px-0">
       <h1 class="text-2xl lg:text-3xl font-medium">{{ listing.name }}</h1>
       <div class="flex flex-col py-3 lg:flex-row justify-between">
         <div class="text-gray-500 lg:text-2xl text-xl font-normal">
@@ -107,14 +107,14 @@ if (store.$state.userId) {
         </div>
         <div class="flex pt-2 lg:pt-0 font-medium">
           <button
-            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50"
+            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 transition-all transform"
             @click="socialShare"
           >
             <ShareIcon class="inline h-3.5 w-3.5" />
             <span class="text-base ml-2 hidden lg:inline-block">Share</span>
           </button>
           <button
-            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3"
+            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3 transition-all transform"
             @click="addFavourite"
           >
             <span class="bg-none bg-transparent">
@@ -136,7 +136,7 @@ if (store.$state.userId) {
     </div>
     <!-- start listing details -->
     <div class="flex">
-      <div class="lg:w-[800px] w-full">
+      <div class="lg:w-[900px] w-full">
         <!-- listing image section -->
         <div class="my-6">
           <img
@@ -226,7 +226,7 @@ if (store.$state.userId) {
             </div>
           </div>
           <!-- about this home -->
-          <div class="lg:ml-0 ml-2.5">
+          <div class="lg:mx-0 mx-4">
             <h2 class="text-2xl font-medium text-indigo-500">
               About this home
             </h2>
@@ -370,7 +370,7 @@ if (store.$state.userId) {
           <!-- end of rental features -->
         </div>
       </div>
-      <div class="ml-8 my-6 hidden lg:block">
+      <div class="ml-5 my-6 hidden lg:block">
         <!-- start side images section -->
         <div>
           <div
@@ -380,7 +380,7 @@ if (store.$state.userId) {
           >
             <img
               :src="image"
-              class="w-[300px] h-58 p-1 rounded overflow-hidden"
+              class="w-[250px] h-58 p-1 rounded overflow-hidden"
               alt="apartment image here"
               loading="lazy"
               srcset=""
@@ -389,7 +389,7 @@ if (store.$state.userId) {
         </div>
         <!-- end side-images section  -->
         <!-- apply contact setion -->
-        <div class="border-2 border-gray-200 h-[400px] rounded w-[300px]">
+        <div class="border-2 border-gray-200 h-[400px] rounded w-[250px]">
           <div class="my-4 ml-4">
             <p class="text-lg my-1 font-extrabold">Rent Price</p>
             <div class="my-1">
@@ -401,7 +401,7 @@ if (store.$state.userId) {
               }}</span>
             </div>
             <button
-              class="py-2 px-20 bg-indigo-500 text-white text-base rounded my-2"
+              class="py-2 px-14 bg-indigo-500 text-white text-base rounded my-2"
             >
               <GlobeIcon class="inline w-5 h-5" :color="`#ffffff`" /> Apply now
             </button>
@@ -411,13 +411,13 @@ if (store.$state.userId) {
             <p class="font-extrabold text-lg">Request a home tour</p>
             <div class="my-3 flex">
               <button
-                class="py-1 px-8 border-2 border-gray-200 rounded"
+                class="py-1 px-5 border-2 border-gray-200 rounded"
                 @click="inPerson = !inPerson"
               >
                 InPerson
               </button>
               <button
-                class="py-1 px-8 border-2 border-indigo-500 bg-indigo-50 app-text rounded ml-2"
+                class="py-1 px-5 border-2 border-indigo-500 bg-indigo-50 app-text rounded ml-2"
                 @click="virtual = !virtual"
               >
                 Virtual
@@ -429,10 +429,10 @@ if (store.$state.userId) {
                 name=""
                 id=""
                 v-model="dateSelected"
-                class="py-1 px-16 border-2 border-gray-200 my-2 rounded"
+                class="py-1 px-9 border-2 border-gray-200 my-2 rounded"
               />
               <button
-                class="py-2.5 px-20 rounded bg-black text-white my-2"
+                class="py-2.5 px-14 rounded bg-black text-white my-2"
                 @click="handleTour"
               >
                 Request a tour
