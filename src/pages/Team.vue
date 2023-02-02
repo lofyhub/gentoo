@@ -9,13 +9,15 @@ useHead({
 
 <template>
   <section class="bg-white dark:bg-gray-900 min-h-screen">
-    <div class="container px-6 py-10 mx-auto">
-      <h1 class="text-center h2 dark:text-white">
+    <div class="container px-6 py-24 mx-auto">
+      <h1
+        class="text-center h2 dark:text-white lg:text-4xl text-3xl font-medium"
+      >
         <span class="text-black mx-2">Our</span>Team
       </h1>
 
       <p
-        class="max-w-2xl text-xl mx-auto my-[16px] text-center text-gray-500 dark:text-gray-300"
+        class="max-w-2xl text-base lg:text-xl mx-auto my-[16px] text-center text-gray-500 dark:text-gray-300"
       >
         Meet the team behind Kikao
       </p>
@@ -152,7 +154,9 @@ useHead({
           </div>
         </div>
       </div>
-      <div class="text-center w-[700px] mx-auto my-12 text-lg">
+      <div
+        class="text-center w-full lg:w-[700px] mx-auto my-12 text-base lg:text-lg"
+      >
         <p>
           If you believe in this project, are a team player, ready to roll up
           your sleeves and help drive the project forward and bring our vision

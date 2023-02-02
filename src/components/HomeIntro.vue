@@ -27,7 +27,7 @@ const isBinary = computed(() =>
   >
     <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
       <div class="lg:w-full w-4/5 mx-auto">
-        <h1 class="h3 lg:text-5xl text-3xl pb-3">
+        <h1 class="h3 lg:text-5xl text-4xl pb-3 font-bold">
           Say
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-400"
@@ -78,7 +78,7 @@ const isBinary = computed(() =>
             <div class="mt-2 flex justify-between">
               <div>
                 <span class="text-[20px] font-medium app-text"
-                  >{{ homeSample.rate.price.toLocaleString() }} </span
+                  >{{ (homeSample.rate.price * 1).toLocaleString("en") }} </span
                 ><span class="text-base font-medium text-indigo-500 ml-1">{{
                   homeSample.rate.countryCode
                 }}</span>

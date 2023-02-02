@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useSessionStore } from "./session";
-import { toastSuccess } from "@/plugins/toast";
+import { toastError, toastSuccess, toastWarning } from "@/plugins/toast";
 
 import axios from "axios";
 import { env } from "@/env";
@@ -41,7 +41,11 @@ export const uselistingStore = defineStore(`listingStore`, {
         const res = await axios.post(`${env}/listing/author`, data, config);
         this.listingAuthor = await res.data.data;
       } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error) && error.response) {
+          toastWarning(error.response.data.message);
+        } else {
+          toastError(error as string);
+        }
       }
     },
     async fetchBookmarks() {
@@ -63,7 +67,11 @@ export const uselistingStore = defineStore(`listingStore`, {
         const bookmarks = await res.data.bookmarks[0].bookmarks;
         this.bookmarks = bookmarks;
       } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error) && error.response) {
+          toastWarning(error.response.data.message);
+        } else {
+          toastError(error as string);
+        }
       }
     },
     async addBookmark(id: string) {
@@ -88,7 +96,11 @@ export const uselistingStore = defineStore(`listingStore`, {
         }
         this.bookmarks.push(id);
       } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error) && error.response) {
+          toastWarning(error.response.data.message);
+        } else {
+          toastError(error as string);
+        }
       }
     },
     async deleteBookmark(id: string) {
@@ -113,7 +125,11 @@ export const uselistingStore = defineStore(`listingStore`, {
         }
         this.bookmarks = this.bookmarks.filter((item) => item !== id);
       } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error) && error.response) {
+          toastWarning(error.response.data.message);
+        } else {
+          toastError(error as string);
+        }
       }
     },
   },
