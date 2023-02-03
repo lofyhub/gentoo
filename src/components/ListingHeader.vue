@@ -26,6 +26,7 @@ import ImagePopup from "@/components/popups/ImagePopup.vue";
 import BackButton from "@/components/BackButton.vue";
 import SharePopup from "@/components/popups/SharePopup.vue";
 import Listing from "@/components/Listing.vue";
+import Avatar from "@/components/icons/Avatar.vue";
 
 const prop = withDefaults(
   defineProps<{
@@ -105,7 +106,7 @@ if (store.$state.userId) {
         <div class="text-gray-500 lg:text-2xl text-xl font-normal">
           {{ listing.location }}
         </div>
-        <div class="flex pt-2 lg:pt-0 font-medium">
+        <div class="flex pt-5 lg:pt-0 font-medium">
           <button
             class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 transition-all transform"
             @click="socialShare"
@@ -262,12 +263,12 @@ if (store.$state.userId) {
             </div>
             <div class="flex justify-between px-4 pb-6">
               <div class="flex">
-                <img
-                  src="https://pbs.twimg.com/profile_images/1508979883728424968/exEWXj7I_400x400.png"
-                  alt="default avatar image"
-                  srcset=""
-                  class="w-14 h-14 rounded-full inline object-cover bg-cover"
-                />
+                <div
+                  class="border-2 border-gray-200 rounded-full inline w-12 h-12"
+                >
+                  <Avatar class="w-9 h-9" />
+                </div>
+
                 <div class="ml-4 p-0 b-0">
                   <h3 class="font-extrabold p-0 m-0">
                     {{

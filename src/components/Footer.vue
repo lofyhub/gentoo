@@ -9,16 +9,18 @@ const date = new Date().getFullYear();
     <footer
       class="w-4/5 mx-auto p-4 text-base text-gray-600 font-medium rounded-lg md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800"
     >
-      <span class="sm:text-center dark:text-gray-400 py-2"
-        >Copyright © {{ date }}
+      <p class="sm:text-center dark:text-gray-400 py-2">
+        Copyright © {{ date }}
         <a
           href="https://kikaoo.co.ke"
           class="hover:underline-offset-8 hover:underline"
           >Kikao Inc</a
         >. All Rights Reserved
-      </span>
-      <ul class="flex flex-wrap items-center mt-3 dark:text-gray-400 sm:mt-0">
-        <li>
+      </p>
+      <ul
+        class="flex flex-wrap items-center mt-3 dark:text-gray-400 sm:mt-0 lg:py-0 pb-4"
+      >
+        <li class="lg:py-0 py-4">
           <a
             href="/about"
             class="mr-4 hover:underline-offset-8 hover:underline md:mr-6"
@@ -67,7 +69,7 @@ const date = new Date().getFullYear();
             >Team</a
           >
         </li>
-        <li class="">
+        <li class="pt-4 lg:pt-0">
           <a
             href="https://twitter.com/kikaoHQ"
             target="_blank"

@@ -49,6 +49,13 @@ function mailShare() {
     `mailto:?subject=${prop.listing.name}&body=${prop.listing.location}%0D%0A%0D%0A${baseurl.value}`
   );
 }
+function whatsappShare() {
+  window.open(
+    `https://wa.me/?text=${encodeURIComponent(
+      `${prop.listing.name}\n\n${baseurl.value}`
+    )}`
+  );
+}
 </script>
 <template>
   <div
@@ -108,6 +115,7 @@ function mailShare() {
           <Linkedin class="h-5 w-5" />
         </button>
         <button
+          @click="whatsappShare()"
           class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full mr-4"
         >
           <Whatsapp class="h-6 w-6" />

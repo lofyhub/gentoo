@@ -75,7 +75,7 @@ async function handleDeletion() {
             undone.
           </p>
         </div>
-        <div class="flex flex-row-reverse py-8 bg-gray-100 px-8">
+        <div class="flex flex-row-reverse py-6 bg-gray-100 px-8">
           <button
             class="bg-red-500 text-white opacity-100 hover:bg-red-700 border px-8 py-2.5 border-red-500 focus:outline-none font-medium rounded-md text-sm text-center ml-2 dark:border-red-500 dark:text-white dark:hover:text-white"
             @click="handleDeletion"
