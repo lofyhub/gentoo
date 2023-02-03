@@ -90,7 +90,7 @@ function handleFavourite() {
             >{{ (props.rate.price * 1).toLocaleString("en") }} </span
           ><span class="text-base font-semibold app-text pl-1 opacity-100">
             {{ props.rate.countryCode.toLowerCase() }}</span
-          >/<span class="text-gray-700 text-base">{{
+          >/<span class="text-gray-500 text-base">{{
             props.rate.duration.toLowerCase()
           }}</span>
         </div>
@@ -106,7 +106,7 @@ function handleFavourite() {
       </div>
       <router-link :to="'/listing/' + props._id">
         <div>
-          <p class="font-medium text-gray-900 text-lg truncate">
+          <p class="font-normal text-gray-900 text-lg truncate">
             {{ props.name }}
           </p>
           <hr class="my-1 h-2" />

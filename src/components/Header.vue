@@ -70,7 +70,7 @@ function handleListing() {
               aria-label="toggle menu"
             >
               <XIcon v-if="isOpen" class="w-8 h-8 transition-all transform" />
-              <Bars v-else class="w-9 h-9 text-gray-800" />
+              <Bars v-else class="w-10 h-10 text-gray-800" />
             </button>
           </div>
         </div>
@@ -110,10 +110,10 @@ function handleListing() {
               >Attractions</a
             >
 
-            <button
+            <a
               type="button"
               @click="handleListing"
-              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 hover:bg-indigo-50 transition-all transform mx-3 mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
+              class="py-5 px-3 hover:border-b-2 mx-4 hover:border-indigo-500 hover:bg-indigo-50 transition-all transform mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
               :class="
                 route.name === `Dashboard` ||
                 route.name === `Listings` ||
@@ -124,7 +124,7 @@ function handleListing() {
               "
             >
               Create Listing
-            </button>
+            </a>
 
             <div class="flex items-center mt-4 lg:mt-0 mx-6">
               <div v-if="userData._id">
@@ -190,7 +190,9 @@ function handleListing() {
                         class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <Avatar class="h-6 w-6" />
-                        <span class="mx-1"> Edit profile </span>
+                        <span class="mx-2 font-normal text-base">
+                          Edit profile
+                        </span>
                       </a>
                       <a
                         href="/dashboard"
@@ -198,7 +200,9 @@ function handleListing() {
                         class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <MacOptions />
-                        <span class="mx-1"> Dashboard</span>
+                        <span class="mx-2 font-normal text-base">
+                          Dashboard</span
+                        >
                       </a>
                       <hr class="border-gray-200 dark:border-gray-700" />
                       <a
@@ -207,7 +211,7 @@ function handleListing() {
                         class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                       >
                         <Question />
-                        <span class="mx-1"> Help </span>
+                        <span class="mx-2 font-normal text-base"> Help </span>
                       </a>
                       <button
                         type="button"

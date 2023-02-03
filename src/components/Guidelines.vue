@@ -1,8 +1,8 @@
 <template>
   <div class="prose mx-auto min-h-screen">
-    <p class="text-center pt-3">
-      These guides and techniques will make your listing stand out from the rest
-    </p>
+    <h3 class="text-center py-8 uppercase text-base">
+      guide to make your listing stand out from the rest
+    </h3>
     <ul class="pb-6">
       <li>
         Always disclose the correct information about the property you are

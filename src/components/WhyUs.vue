@@ -13,7 +13,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
         <div class="text-xl py-3 flex lg:text-left text-center">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
-            class="text-[19px] font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
+            class="text-lg font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
           >
             Comprehensive listings
           </p>
@@ -25,26 +25,26 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
           needs and preferences.
         </p>
       </div>
-      <div class="w-4/5 lg:w-2/5 h-auto my-2">
+      <div class="w-4/5 lg:w-2/5 h-auto mr-6 h-auto py-4">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
-            class="text-[19px] font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
+            class="text-lg font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
           >
             User-friendly interface
           </p>
         </div>
         <p class="text-[16px] font-normal leading-[26px]">
           Kikao's website is designed with user experience in mind, making it
-          easy for you to search for properties, save your favorite listings,
-          and schedule property tours.
+          easy for you to search for properties. You can bookmark to save your
+          favourite listings and schedule virtual or physical property tours.
         </p>
       </div>
       <div class="w-4/5 lg:w-2/5 mr-6 h-auto py-2">
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
-            class="text-[19px] font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
+            class="text-lg font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
           >
             Up-to-date information
           </p>
@@ -60,7 +60,7 @@ import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
         <div class="text-xl py-3 flex">
           <CheckCircleIcon class="fill-indigo-50 mx-3 w-7 h-7" />
           <p
-            class="text-[19px] font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
+            class="text-lg font-extrabold leading-7 tracking-wider mb-[8px] font-normal text-gray-700 capitalize dark:text-white"
           >
             Advanced search filters
           </p>
