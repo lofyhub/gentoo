@@ -1,15 +1,4 @@
 <script setup lang="ts">
-import { withDefaults, defineProps, ref, computed } from "vue";
-import { houseSchema } from "@/temp/housestemp";
-import { useHead } from "unhead";
-
-import { file, formatDate } from "@/helpers/helpers";
-import { toastWarning } from "@/plugins/toast";
-import { convertBuffer } from "@/helpers/helpers";
-import { uselistingStore } from "@/store/listing";
-import { useSessionStore } from "@/store/session";
-import { useRootStore } from "@/store";
-
 import HeartIcon from "@/components/icons/heartIcon.vue";
 import HeartIconDark from "@/components/icons/HeartIconDark.vue";
 import ShareIcon from "@/components/icons/shareIcon.vue";
@@ -27,6 +16,25 @@ import BackButton from "@/components/BackButton.vue";
 import SharePopup from "@/components/popups/SharePopup.vue";
 import Listing from "@/components/Listing.vue";
 import Avatar from "@/components/icons/Avatar.vue";
+import MapPin from "@/components/icons/MapPin.vue";
+import ClockIcon from "@/components/icons/Clock.vue";
+import LeftIcon from "@/components/icons/LeftIcon.vue";
+import CheckCircleIcon from "@/components/icons/CheckCircleIcon.vue";
+import WifiIcon from "@/components/icons/WifiIcon.vue";
+import ShieldIcon from "@/components/icons/ShieldIcon.vue";
+import TrashIcon from "@/components/icons/TrashIcon.vue";
+import CheckIcon from "@/components/icons/CheckIcon.vue";
+
+import { withDefaults, defineProps, ref, computed } from "vue";
+import { houseSchema } from "@/temp/housestemp";
+import { useHead } from "unhead";
+
+import { file, formatDate, maskNumber } from "@/helpers/helpers";
+import { toastWarning } from "@/plugins/toast";
+import { convertBuffer } from "@/helpers/helpers";
+import { uselistingStore } from "@/store/listing";
+import { useSessionStore } from "@/store/session";
+import { useRootStore } from "@/store";
 
 const prop = withDefaults(
   defineProps<{
@@ -101,10 +109,13 @@ if (store.$state.userId) {
   </div>
   <div v-if="listing" class="pb-10">
     <div class="px-4 lg:px-0">
-      <h1 class="text-2xl lg:text-3xl font-medium">{{ listing.name }}</h1>
+      <h1 class="text-xl text-gray-500 font-normal py-2">
+        {{ listing.name }}
+      </h1>
       <div class="flex flex-col py-3 lg:flex-row justify-between">
-        <div class="text-gray-500 lg:text-2xl text-xl font-normal">
-          {{ listing.location }}
+        <div class="lg:text-3xl text-xl font-normal flex gap-3">
+          <MapPin class="inline w-8 h-8" />
+          <span>{{ listing.location }}</span>
         </div>
         <div class="flex pt-5 lg:pt-0 font-medium">
           <button
@@ -133,6 +144,10 @@ if (store.$state.userId) {
             >
           </button>
         </div>
+      </div>
+      <div class="text-gray-500 flex gap-4 text-base font-normal">
+        <ClockIcon class="w-4 h-4" />
+        <span>{{ formatDate(prop.listing.createdAt) }}</span>
       </div>
     </div>
     <!-- start listing details -->
@@ -289,10 +304,8 @@ if (store.$state.userId) {
               <div
                 class="flex flex-col lg:flex-row justify-between font-medium"
               >
-                <button
-                  class="text-indigo-500 border border-gray-200 py-1 px-5 rounded-md bg-white"
-                >
-                  Ask a question
+                <button class="text-indigo-500 py-1 px-5 font-medium">
+                  {{ maskNumber("0707996340", 4, 3) }}
                 </button>
                 <button
                   class="text-indigo-500 border-2 border-gray-200 py-1 px-5 rounded-md bg-white lg:ml-2 pt-2 lg:pt-0 text-center items-center flex justify-center"
@@ -303,24 +316,51 @@ if (store.$state.userId) {
               </div>
             </div>
           </div>
+          <!-- start facilities -->
+          <div class="px-4 lg:px-0">
+            <h4 class="font-normal text-2xl text-gray-500">
+              Rental facilities
+            </h4>
+            <div
+              class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[24px] text-base"
+            >
+              <div class="flex justify-between my-2">
+                <CheckCircleIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+
+                <span class="font-bold">Room Name</span>
+              </div>
+
+              <div class="flex justify-between my-2">
+                <WifiIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+                <span class="font-bold">WIFI</span>
+              </div>
+              <div class="flex justify-between my-2">
+                <ShieldIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+                <span class="font-bold">Security</span>
+              </div>
+              <div class="flex justify-between my-2">
+                <TrashIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+                <span class="font-bold">Garbage Collection</span>
+              </div>
+            </div>
+          </div>
+          <!-- end facilities -->
           <!-- end of listed by property owner -->
           <hr class="my-10" />
           <!-- start rentail features -->
           <div class="px-4 lg:px-0">
-            <h4 class="font-medium text-2xl text-indigo-500">
-              Rental features
-            </h4>
+            <h4 class="font-normal text-2xl text-gray-500">Rental features</h4>
             <div
-              class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-4 text-base"
+              class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[24px] text-base"
             >
               <div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>Listed on</p>
                   <span class="font-bold ml-16 ml-16">
                     {{ formatDate(listing.createdAt) }}</span
                   >
                 </div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>Availability</p>
                   <div class="ml-16 flex justify-center">
                     <Bleep
@@ -333,30 +373,36 @@ if (store.$state.userId) {
                     }}</span>
                   </div>
                 </div>
-                <div class="flex justify-between my-2">
+
+                <div class="flex justify-between my-4">
                   <p>Type</p>
-                  <span class="font-bold ml-16">Home</span>
+                  <span class="font-bold ml-16">{{
+                    prop.listing.compartments.bedrooms === 0 ||
+                    prop.listing.compartments.bedrooms === 1
+                      ? `BedSitter`
+                      : `${prop.listing.compartments.bedrooms} Bedrooms`
+                  }}</span>
                 </div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>Laundry</p>
                   <span class="font-bold ml-16">in unit</span>
                 </div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>Cooling</p>
                   <span class="font-bold ml-16">Air conditioner</span>
                 </div>
               </div>
               <!-- 2nd part -->
               <div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>City</p>
                   <span class="font-bold ml-16">{{ listing.location }}</span>
                 </div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>Year built</p>
                   <span class="font-bold ml-16">2018</span>
                 </div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>Size</p>
                   <span class="font-bold ml-16">{{ listing.size }}</span>
                 </div>
@@ -364,7 +410,7 @@ if (store.$state.userId) {
                   <p>Land Size</p>
                   <span class="font-bold ml-16">{{ listing.size }}</span>
                 </div>
-                <div class="flex justify-between my-2">
+                <div class="flex justify-between my-4">
                   <p>Parking Area</p>
                   <span class="font-bold ml-16">{{
                     listing.compartments.parking ? `Yes` : `No`
@@ -374,6 +420,33 @@ if (store.$state.userId) {
             </div>
           </div>
           <!-- end of rental features -->
+          <hr class="my-10" />
+          <!-- start safety -->
+          <div class="px-4 lg:px-0">
+            <h4 class="font-normal text-2xl text-gray-500">Safety tips</h4>
+            <div
+              class="flex justify-between flex-col mx-2 lg:flex-row py-[24px] text-base"
+            >
+              <ul class="my-3 text-base text-gray-800">
+                <li class="flex py-1">
+                  <CheckIcon />
+                  <p class="ml-2">Don't pay before inspecting the property</p>
+                </li>
+                <li class="flex py-1">
+                  <CheckIcon />
+                  <p class="ml-2">
+                    Inspect the property thoroughly before committing to a lease
+                  </p>
+                </li>
+
+                <li class="flex py-1">
+                  <CheckIcon />
+                  <p class="ml-2">Only pay when satisfied with the property</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- end of safety -->
         </div>
       </div>
       <div class="ml-5 my-6 hidden lg:block">
@@ -395,28 +468,29 @@ if (store.$state.userId) {
         </div>
         <!-- end side-images section  -->
         <!-- apply contact setion -->
-        <div
-          class="border-2 border-gray-200 h-[400px] rounded w-[250px] mt-[46px]"
-        >
+        <div class="border-2 border-gray-200 h- rounded w-[250px] mt-[46px]">
           <div class="my-4 ml-4">
-            <p class="text-lg my-1 font-extrabold">Rent Price</p>
+            <p class="text-lg my-3 font-extrabold">Rent Price</p>
             <div class="my-1">
               <span class="text-lg font-bold app-text"
-                >{{ listing.rate.price.toLocaleString() }}
+                >{{ (listing.rate.price * 1).toLocaleString("en") }}
                 {{ listing.rate.countryCode }}</span
-              >/<span class="font-medium">{{
+              >/<span class="font-medium text-gray-500 font-normal">{{
                 listing.rate.duration.toLowerCase()
               }}</span>
             </div>
-            <button
-              class="py-2 px-14 bg-indigo-500 text-white text-base rounded my-2"
-            >
-              <GlobeIcon class="inline w-5 h-5" :color="`#ffffff`" /> Apply now
-            </button>
+            <div class="py-[10px]">
+              <button
+                class="py-2 px-14 bg-indigo-500 text-white text-base rounded my-2 flex"
+              >
+                <span>Book now</span>
+                <LeftIcon class="w-4 h-4" />
+              </button>
+            </div>
             <hr class="my-3" />
           </div>
           <div class="ml-4">
-            <p class="font-extrabold text-lg">Request a home tour</p>
+            <p class="text-lg font-normal text-gray-500">Request a home tour</p>
             <div class="my-3 flex">
               <button
                 class="py-1 px-5 border-2 border-gray-200 rounded"
@@ -431,7 +505,7 @@ if (store.$state.userId) {
                 Virtual
               </button>
             </div>
-            <div>
+            <div class="w-full my-[30px]">
               <input
                 type="date"
                 name=""
@@ -440,7 +514,7 @@ if (store.$state.userId) {
                 class="py-1 px-9 border-2 border-gray-200 my-2 rounded"
               />
               <button
-                class="py-2.5 px-14 rounded bg-black text-white my-2"
+                class="py-2.5 px-14 rounded border bg-indigo-50 text-indigo-800 font-normal my-[10px] flex"
                 @click="handleTour"
               >
                 Request a tour

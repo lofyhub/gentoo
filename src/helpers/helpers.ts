@@ -121,3 +121,13 @@ export function getAuthHeaders() {
   };
   return header;
 }
+export function maskNumber(
+  numberString: string,
+  startDigits: number,
+  endDigits: number
+) {
+  const start = numberString.slice(0, startDigits);
+  const end = numberString.slice(-endDigits);
+  const middle = "".padEnd(numberString.length - startDigits - endDigits, "x");
+  return start + middle + end;
+}
