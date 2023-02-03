@@ -23,7 +23,7 @@ const isBinary = computed(() =>
 
 <template>
   <div
-    class="flex flex-wrap justify-around py-16 w-full sm:w-4/5 lg:w-[1120px] mx-auto pb-6"
+    class="flex flex-wrap justify-around py-16 w-full sm:w-4/5 lg:w-[1180px] mx-auto pb-6"
   >
     <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
       <div class="lg:w-full w-4/5 mx-auto">

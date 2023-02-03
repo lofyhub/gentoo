@@ -62,7 +62,7 @@ function whatsappShare() {
     class="popup bg-gray-600 modal-animation fixed top-0 bottom-0 left-0 right-0 z-30 h-screen w-full flex flex-col justify-center items-center py-16 bg-opacity-50 dark:bg-opacity-50"
     @click.self="$emit(`close`)"
   >
-    <div class="bg-white rounded py-12 px-5 font-normal w-[600px]">
+    <div class="bg-white rounded py-12 px-5 font-normal lg:w-[600px] w-auto">
       <div class="flex justify-between pb-6">
         <h2 class="text-2xl text-center font-normal">Share this listing</h2>
         <button
