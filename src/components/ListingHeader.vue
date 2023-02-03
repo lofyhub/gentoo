@@ -327,7 +327,7 @@ if (store.$state.userId) {
               <div class="flex justify-between my-2">
                 <CheckCircleIcon class="fill-indigo-50 mr-2 w-6 h-6" />
 
-                <span class="font-bold">Room Name</span>
+                <span class="font-bold">Room Number</span>
               </div>
 
               <div class="flex justify-between my-2">
