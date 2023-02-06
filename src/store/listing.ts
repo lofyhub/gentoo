@@ -4,9 +4,10 @@ import { toastError, toastSuccess, toastWarning } from "@/plugins/toast";
 
 import axios from "axios";
 import { env } from "@/env";
-interface lAuthor {
+export interface lAuthor {
   _id: number;
   username: string;
+  userId: string;
   email: string;
   regDate: string;
   kikaoType: string;
