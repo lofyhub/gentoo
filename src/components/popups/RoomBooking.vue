@@ -6,7 +6,12 @@ import XIcon from "@/components/icons/XIcon.vue";
 import { houseSchema } from "@/temp/housestemp";
 import { useSessionStore } from "@/store/session";
 import { env } from "@/env";
-import { toastWarning, toastError, toastSuccess } from "@/plugins/toast";
+import {
+  toastWarning,
+  toastError,
+  toastSuccess,
+  toastMessage,
+} from "@/plugins/toast";
 import { lAuthor } from "@/store/listing";
 import axios from "axios";
 
@@ -27,8 +32,12 @@ const selectedTime = ref(``);
 
 // methods
 async function handleBooking() {
-  loading.value = true;
+  if (!telephoneNumber.value || !selectedDate.value || !selectedTime.value) {
+    toastMessage("Please fill all the details");
+    return;
+  }
   try {
+    loading.value = true;
     const token = localStorage.getItem("kikao-token");
     const headers = {
       "Content-Type": "application/json",
