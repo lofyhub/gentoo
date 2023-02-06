@@ -74,6 +74,7 @@ const listings = computed(() => rootStore.$state.listings.slice(0, 9));
 const imageIndex = ref(0);
 const displayImage = computed(() => prop.listing.images[imageIndex.value]);
 const isImageBinary = typeof displayImage.value === "string" ? false : true;
+const showNextPrevButtons = prop.listing.images.length > 1;
 const image = displayImage.value;
 
 // methods
@@ -215,7 +216,7 @@ function handlePreviousImage() {
               type="button"
               class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
               data-carousel-prev
-              v-if="prop.listing.images.length > 1"
+              v-if="showNextPrevButtons"
               @click="handlePreviousImage"
             >
               <span
@@ -243,7 +244,7 @@ function handlePreviousImage() {
               type="button"
               class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
               data-carousel-next
-              v-if="prop.listing.images.length > 1"
+              v-if="showNextPrevButtons"
               @click="handleNextImage"
             >
               <span
