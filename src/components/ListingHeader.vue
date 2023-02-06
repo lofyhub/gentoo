@@ -215,6 +215,7 @@ function handlePreviousImage() {
               type="button"
               class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
               data-carousel-prev
+              v-if="prop.listing.images.length > 1"
               @click="handlePreviousImage"
             >
               <span
@@ -242,6 +243,7 @@ function handlePreviousImage() {
               type="button"
               class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
               data-carousel-next
+              v-if="prop.listing.images.length > 1"
               @click="handleNextImage"
             >
               <span
