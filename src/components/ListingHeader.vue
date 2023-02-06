@@ -24,6 +24,7 @@ import WifiIcon from "@/components/icons/WifiIcon.vue";
 import ShieldIcon from "@/components/icons/ShieldIcon.vue";
 import TrashIcon from "@/components/icons/TrashIcon.vue";
 import CheckIcon from "@/components/icons/CheckIcon.vue";
+import RoomBooking from "@/components/popups/RoomBooking.vue";
 
 import { withDefaults, defineProps, ref, computed } from "vue";
 import { houseSchema } from "@/temp/housestemp";
@@ -60,6 +61,7 @@ const dateSelected = ref(``);
 const inPerson = ref(false);
 const virtual = ref(false);
 const showShare = ref(false);
+const showBookingPopup = ref(false);
 const bookmarked = computed(
   () =>
     listingStore.$state.bookmarks.findIndex(
@@ -68,8 +70,12 @@ const bookmarked = computed(
 );
 
 const listingAuthor = computed(() => listingStore.$state.listingAuthor);
-const isBinary = typeof prop.listing.images[0] === "string" ? false : true;
 const listings = computed(() => rootStore.$state.listings.slice(0, 9));
+const imageIndex = ref(0);
+const displayImage = computed(() => prop.listing.images[imageIndex.value]);
+const isImageBinary = typeof displayImage.value === "string" ? false : true;
+const image = displayImage.value;
+
 // methods
 
 function handleTour() {
@@ -100,6 +106,26 @@ function addFavourite() {
 }
 if (store.$state.userId) {
   listingStore.getListingAuthor(prop.listing.userId);
+}
+
+function handleBooking() {
+  if (!store.$state._id) {
+    rootStore.toggleLogin();
+    return;
+  }
+  showBookingPopup.value = !showBookingPopup.value;
+}
+
+function handleNextImage() {
+  if (imageIndex.value < prop.listing.images.length - 1) {
+    imageIndex.value++;
+  }
+}
+
+function handlePreviousImage() {
+  if (imageIndex.value > 0) {
+    imageIndex.value--;
+  }
 }
 </script>
 
@@ -155,18 +181,91 @@ if (store.$state.userId) {
       <div class="lg:w-[900px] w-full">
         <!-- listing image section -->
         <div class="mt-6 mb-[48px]">
-          <img
-            :src="
-              !isBinary
-                ? prop.listing.images[prop.listing.images.length - 1]
-                : convertBuffer(prop.listing.images[0] as unknown as file)
+          <div id="default-carousel" class="relative" data-carousel="static">
+            <!-- Carousel wrapper -->
+            <img
+              :src="
+              isImageBinary
+                ? convertBuffer(displayImage as unknown as file) 
+                : displayImage
             "
-            alt=""
-            srcset=""
-            loading="lazy"
-            class="object-cover object-center cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
-            @click="showImagePopup = true"
-          />
+              alt=""
+              srcset=""
+              loading="lazy"
+              class="object-cover object-center cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
+              @click="showImagePopup = true"
+            />
+
+            <!-- Slider indicators -->
+            <div
+              class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"
+            >
+              <button
+                v-for="but in prop.listing.images"
+                :key="but"
+                type="button"
+                class="w-3 h-3 rounded-full bg-gray-200"
+                aria-current="false"
+                aria-label="Slide 1"
+                data-carousel-slide-to="0"
+              ></button>
+            </div>
+            <!-- Slider controls -->
+            <button
+              type="button"
+              class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              data-carousel-prev
+              @click="handlePreviousImage"
+            >
+              <span
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-5 h-5 sm:w-6 sm:h-6 dark:text-gray-800"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  ></path>
+                </svg>
+                <span class="sr-only">Previous</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              data-carousel-next
+              @click="handleNextImage"
+            >
+              <span
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-5 h-5 sm:w-6 sm:h-6 dark:text-gray-800"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+                <span class="sr-only">Next</span>
+              </span>
+            </button>
+          </div>
         </div>
         <div>
           <!-- Room details section bathrooms, washrooms e.t.c -->
@@ -217,7 +316,7 @@ if (store.$state.userId) {
                 </div>
               </div>
               <!-- square area -->
-              <div class="w-32 py-5 ml-2">
+              <div class="w-32 py-5 ml-2 lg:block hidden">
                 <p class="text-base font-semibold">Square Area</p>
                 <div class="pt-3">
                   <HouseIcon class="w-5 h-5 inline" />
@@ -305,7 +404,7 @@ if (store.$state.userId) {
                 class="flex flex-col lg:flex-row justify-between font-medium"
               >
                 <button class="text-indigo-500 py-1 px-5 font-medium">
-                  {{ maskNumber("0707996340", 4, 3) }}
+                  {{ maskNumber("0707996340", 3, 3) }}
                 </button>
                 <button
                   class="text-indigo-500 border-2 border-gray-200 py-1 px-5 rounded-md bg-white lg:ml-2 pt-2 lg:pt-0 text-center items-center flex justify-center"
@@ -324,22 +423,22 @@ if (store.$state.userId) {
             <div
               class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[24px] text-base"
             >
-              <div class="flex justify-between my-2">
-                <CheckCircleIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+              <div class="flex my-2">
+                <CheckCircleIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
 
                 <span class="font-bold">Room Number</span>
               </div>
 
-              <div class="flex justify-between my-2">
-                <WifiIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+              <div class="flex my-2">
+                <WifiIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
                 <span class="font-bold">WIFI</span>
               </div>
-              <div class="flex justify-between my-2">
-                <ShieldIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+              <div class="flex my-2">
+                <ShieldIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
                 <span class="font-bold">Security</span>
               </div>
-              <div class="flex justify-between my-2">
-                <TrashIcon class="fill-indigo-50 mr-2 w-6 h-6" />
+              <div class="flex my-2">
+                <TrashIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
                 <span class="font-bold">Garbage Collection</span>
               </div>
             </div>
@@ -482,6 +581,7 @@ if (store.$state.userId) {
             <div class="py-[10px]">
               <button
                 class="py-2 px-14 bg-indigo-500 text-white text-base rounded my-2 flex"
+                @click="handleBooking()"
               >
                 <span>Book now</span>
                 <LeftIcon class="w-4 h-4" />
@@ -553,9 +653,9 @@ if (store.$state.userId) {
     <ImagePopup
       v-if="showImagePopup"
       :image="
-        !isBinary
-          ? prop.listing.images[prop.listing.images.length - 1]
-          : convertBuffer(prop.listing.images[0] as unknown as file)
+        isImageBinary 
+          ? convertBuffer(image as unknown as file) 
+          : image
       "
       @close="showImagePopup = false"
     />
@@ -563,6 +663,12 @@ if (store.$state.userId) {
       v-if="showShare"
       :listing="listing"
       @close="showShare = false"
+    />
+    <RoomBooking
+      v-if="showBookingPopup"
+      :listing="listing"
+      :listing-author="listingAuthor"
+      @close="showBookingPopup = false"
     />
   </Teleport>
 </template>
