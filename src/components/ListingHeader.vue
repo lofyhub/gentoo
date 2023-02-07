@@ -146,14 +146,14 @@ function handlePreviousImage() {
         </div>
         <div class="flex pt-5 lg:pt-0 font-medium">
           <button
-            class="app-text border border-gray-200 py-1.5 px-14 lg:px-5 rounded bg-indigo-50 transition-all transform"
+            class="app-text border border-gray-200 py-1.5 px-10 lg:px-5 rounded bg-indigo-50 transition-all transform"
             @click="socialShare"
           >
             <ShareIcon class="inline h-3.5 w-3.5" />
             <span class="text-base ml-2 hidden lg:inline-block">Share</span>
           </button>
           <button
-            class="app-text border border-gray-200 py-1.5 px-14 lg:px-5 rounded bg-indigo-50 ml-3 transition-all transform"
+            class="app-text border border-gray-200 py-1.5 px-10 lg:px-5 rounded bg-indigo-50 ml-3 transition-all transform"
             @click="addFavourite"
           >
             <span class="bg-none bg-transparent">
@@ -163,7 +163,7 @@ function handlePreviousImage() {
             <span class="text-base ml-2 hidden lg:inline-block">Bookmark</span>
           </button>
           <button
-            class="app-text border border-gray-200 py-1.5 px-14 lg:px-5 rounded bg-indigo-50 ml-3"
+            class="app-text border border-gray-200 py-1.5 px-10 lg:px-5 rounded bg-indigo-50 ml-3"
           >
             <SearchIcon class="inline h-3.5 w-3.5" />
             <span class="text-base ml-2 hidden lg:inline-block"
