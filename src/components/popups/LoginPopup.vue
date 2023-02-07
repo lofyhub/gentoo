@@ -164,7 +164,7 @@ async function signIn() {
           </div>
         </div>
       </div>
-      <div class="text-center bg-indigo-50 py-6 text-gray-600">
+      <div class="text-center bg-indigo-50 py-6 text-gray-600 w-full h-auto">
         <p class="inline">Don't have an account?</p>
         <a
           class="ml-3 text-indigo-600 font-semibold cursor-pointer underline underline-offset-8"

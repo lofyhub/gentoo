@@ -246,7 +246,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             <div>
               <h2 class="text-xl font-normal">I am a Tenant</h2>
               <p class="text-gray-500 text-sm py-1">
-                I am looking for available listings
+                I am searching for a house
               </p>
             </div>
           </div>

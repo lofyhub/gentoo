@@ -27,7 +27,7 @@ const isBinary = computed(() =>
   >
     <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
       <div class="lg:w-full w-4/5 mx-auto">
-        <h1 class="h3 lg:text-5xl text-4xl pb-3 font-bold">
+        <h1 class="h3 lg:text-6xl text-5xl pb-3 font-bold">
           Say
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-400"

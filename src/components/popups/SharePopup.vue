@@ -92,38 +92,40 @@ function whatsappShare() {
           </div>
         </div>
       </div>
-      <div class="flex flex-wrap pt-10">
+      <div
+        class="flex flex-wrap pt-10 gap-2 lg:gap-4 items-center flex justify-center"
+      >
         <button
           type="button"
           @click="twitterShare()"
-          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full mr-4"
+          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full"
         >
           <Twitter class="h-6 w-6" />
         </button>
         <button
           @click="facebookShare()"
           type="button"
-          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full mr-4"
+          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full"
         >
           <Facebook class="h-6 w-6" />
         </button>
         <button
           @click="linkedinShare()"
           type="button"
-          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full mr-4"
+          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full"
         >
           <Linkedin class="h-5 w-5" />
         </button>
         <button
           @click="whatsappShare()"
-          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full mr-4"
+          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full"
         >
           <Whatsapp class="h-6 w-6" />
         </button>
         <button
           type="button"
           @click="redditShare()"
-          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full mr-4"
+          class="w-12 h-12 bg-indigo-50 text-center items-center flex justify-center rounded-full"
         >
           <Reddit class="h-6 w-6 fill-indigo-400" />
         </button>
