@@ -212,12 +212,12 @@ const date = new Date().getFullYear();
           </div>
         </div>
       </div>
-      <div className="bg-primary/10 pb-8">
-        <div className="container">
-          <p className="text-center text-base text-body-color dark:text-white">
-            Copyright © {{ date }} Kikao Inc. All Rights Reserved
-          </p>
-        </div>
+    </div>
+    <div class="bg-primary/10 pb-8">
+      <div class="flexjustify-center items-center text-center">
+        <p class="text-center text-base text-body-color dark:text-white">
+          Copyright © {{ date }} Kikao Inc. All Rights Reserved
+        </p>
       </div>
     </div>
   </footer>
