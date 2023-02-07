@@ -42,6 +42,10 @@ function handleListing() {
 
   store.toggleLogin();
 }
+
+function toggleDropdown() {
+  isDropdown.value = !isDropdown.value;
+}
 </script>
 
 <template>
@@ -66,11 +70,11 @@ function handleListing() {
               x-cloak
               @click="isOpen = !isOpen"
               type="button"
-              class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+              class="text-black dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
               aria-label="toggle menu"
             >
-              <XIcon v-if="isOpen" class="w-8 h-8 transition-all transform" />
-              <Bars v-else class="w-10 h-10 text-gray-800" />
+              <XIcon v-if="isOpen" class="w-6 h-6 transition-all transform" />
+              <Bars v-else class="w-10 h-10" />
             </button>
           </div>
         </div>
@@ -113,6 +117,10 @@ function handleListing() {
             <a
               type="button"
               @click="handleListing"
+              v-if="
+                !session.$state.userId ||
+                session.$state.kikaotype === 'landlord'
+              "
               class="py-5 px-3 hover:border-b-2 mx-4 hover:border-indigo-500 hover:bg-indigo-50 transition-all transform mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
               :class="
                 route.name === `Dashboard` ||
@@ -123,109 +131,110 @@ function handleListing() {
                   : `text-gray-800`
               "
             >
-              Create Listing
+              {{
+                session.$state.kikaotype === "landlord"
+                  ? `Dashboard`
+                  : `Create listing`
+              }}
             </a>
 
             <div class="flex items-center mt-4 lg:mt-0 mx-6">
-              <div v-if="userData._id">
-                <!-- start avatar seciton -->
-                <div x-data="{ isOpen: true }" class="relative inline-block">
-                  <!-- Dropdown toggle button -->
-                  <button
-                    @click="isDropdown = !isDropdown"
-                    class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+              <!-- start avatar seciton -->
+              <div
+                x-data="{ isOpen: true }"
+                v-if="userData._id"
+                class="relative inline-block"
+              >
+                <!-- Dropdown toggle button -->
+                <button
+                  @click="toggleDropdown"
+                  class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+                >
+                  <div class="flex mx-1.5">
+                    <Avatar class="w-5 h-5" />
+                    <span class="mt-[3px] ml-2"> {{ userData.username }}</span>
+                  </div>
+                  <svg
+                    class="w-4 h-4 mx-1.5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <img
-                      alt="default avatar image kikao"
-                      loading="lazy"
-                      decoding="async"
-                      src="https://pbs.twimg.com/profile_images/1508979883728424968/exEWXj7I_400x400.png"
-                      class="w-8 h-8 mr-2 rounded-full bg-img"
-                    />
-                    {{ userData.username }}
-                    <svg
-                      class="w-4 h-4 mx-1.5"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
 
-                  <!-- Dropdown menu -->
-                  <div
-                    v-show="isDropdown"
-                    @mouseleave="isDropdown = false"
-                    x-transition:enter="transition ease-out duration-100"
-                    x-transition:enter-start="opacity-0 scale-90"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-100"
-                    x-transition:leave-start="opacity-100 scale-100"
-                    x-transition:leave-end="opacity-0 scale-90"
-                    class="absolute right-0 z-20 w-56 mt-2 mt-2 left-4 lg:left-0 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
-                  >
-                    <div class="text-base font-medium">
-                      <div class="mx-5">
-                        <h1
-                          class="text-base font-semibold text-gray-700 dark:text-gray-200"
-                        >
-                          {{ userData.username }}
-                        </h1>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                          {{ userData.email }}
-                        </p>
-                      </div>
-                    </div>
-                    <hr class="border-gray-200 dark:border-gray-700 mt-2" />
-                    <div class="text-sm font-semibold">
-                      <a
-                        href="/dashboard"
-                        @click="isDropdown = !isDropdown"
-                        class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                <!-- Dropdown menu -->
+                <div
+                  v-if="isDropdown"
+                  @mouseleave="isDropdown = false"
+                  x-transition:enter="transition ease-out duration-100"
+                  x-transition:enter-start="opacity-0 scale-90"
+                  x-transition:enter-end="opacity-100 scale-100"
+                  x-transition:leave="transition ease-in duration-100"
+                  x-transition:leave-start="opacity-100 scale-100"
+                  x-transition:leave-end="opacity-0 scale-90"
+                  class="absolute right-0 z-20 w-56 mt-4 left-4 lg:left-0 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+                >
+                  <div class="text-base font-medium">
+                    <div class="mx-5">
+                      <h1
+                        class="text-base font-semibold text-gray-700 dark:text-gray-200"
                       >
-                        <Avatar class="h-6 w-6" />
-                        <span class="mx-2 font-normal text-base">
-                          Edit profile
-                        </span>
-                      </a>
-                      <a
-                        href="/dashboard"
-                        @click="isDropdown = !isDropdown"
-                        class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        <MacOptions />
-                        <span class="mx-2 font-normal text-base">
-                          Dashboard</span
-                        >
-                      </a>
-                      <hr class="border-gray-200 dark:border-gray-700" />
-                      <a
-                        href="/faq"
-                        @click="isDropdown = !isDropdown"
-                        class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        <Question />
-                        <span class="mx-2 font-normal text-base"> Help </span>
-                      </a>
-                      <button
-                        type="button"
-                        @click="logOut"
-                        class="flex font-bold items-center w-full cursor-pointer hover:text-white p-3 text-base text-red-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-red-500 hover:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        <SignOut class="text-red-500 hover:text-white" />
-                        <span class="mx-1 font-extrabold ml-3"> Sign Out </span>
-                      </button>
+                        {{ userData.username }}
+                      </h1>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">
+                        {{ userData.email }}
+                      </p>
                     </div>
                   </div>
+                  <hr class="border-gray-200 dark:border-gray-700 mt-2" />
+                  <div class="text-sm font-semibold">
+                    <a
+                      href="/dashboard"
+                      @click="isDropdown = !isDropdown"
+                      class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <Avatar class="h-6 w-6" />
+                      <span class="mx-2 font-normal text-base">
+                        Edit profile
+                      </span>
+                    </a>
+                    <a
+                      href="/dashboard"
+                      @click="isDropdown = !isDropdown"
+                      class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <MacOptions />
+                      <span class="mx-2 font-normal text-base"> Dashboard</span>
+                    </a>
+                    <hr class="border-gray-200 dark:border-gray-700" />
+                    <a
+                      href="/faq"
+                      @click="isDropdown = !isDropdown"
+                      class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <Question />
+                      <span class="mx-2 font-normal text-base"> Help </span>
+                    </a>
+                    <button
+                      type="button"
+                      @click="logOut"
+                      class="flex font-bold items-center w-full cursor-pointer hover:text-white p-3 text-base text-red-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-red-500 hover:text-white dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <SignOut class="text-red-500 hover:text-white" />
+                      <span class="mx-1 font-extrabold ml-3"> Sign Out </span>
+                    </button>
+                  </div>
                 </div>
-                <!-- end of avatar section -->
               </div>
+              <!-- end of avatar section -->
+
               <div v-else class="mr-8 flex font-semibold">
                 <button
                   @click="store.toggleLogin(), (isOpen = false)"

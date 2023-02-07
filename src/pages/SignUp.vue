@@ -18,6 +18,7 @@ import {
   toastWarning,
 } from "@/plugins/toast";
 import { env } from "@/env";
+import router from "@/router";
 
 const store = useRootStore();
 const session = useSessionStore();
@@ -32,7 +33,7 @@ const businessType = ref<`individual` | `organization` | ``>(``);
 const businesname = ref(``);
 const location = ref(``);
 const loading = ref(false);
-const phone = ref<number>();
+const phone = ref();
 const showPass = ref(false);
 
 // methods
@@ -51,7 +52,7 @@ async function submitForm(): Promise<void> {
     toastMessage(`Password mismatch`);
     return;
   }
-
+  console.log(phone.value);
   const bodyData = {
     email: email.value.trim(),
     password: password.value.trim(),
@@ -190,7 +191,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
 
       <!-- start of step one -->
       <div v-if="step === 0" class="transition-all transform pt-20">
-        <h1 class="text-3xl text-slate-800 font-bold py-[48px]">
+        <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
           Tell us what’s your situation ✨
         </h1>
         <div class="flex flex-col">
@@ -254,7 +255,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
       </div>
       <div v-if="step === 1" class="pt-20">
         <div v-if="kikaotype === `landlord`">
-          <h1 class="text-3xl text-slate-800 font-bold py-[48px]">
+          <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
             Tell us about your business ✨
           </h1>
           <div class="flex py-8">
@@ -314,7 +315,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           </div>
         </div>
         <div v-if="kikaotype === `tenant`" class="transition-all transform">
-          <h1 class="text-3xl text-slate-800 font-bold py-[48px]">
+          <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
             Create your profile Account ✨
           </h1>
           <div class="flex flex-col pt-4">
@@ -329,6 +330,12 @@ function updateBusinesstype(type: "individual" | "organization"): void {
               class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               v-model="email"
               placeholder="Email"
+            />
+            <input
+              type="text"
+              class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              v-model="phone"
+              placeholder="Telephone number"
             />
             <div class="relative">
               <input
@@ -408,7 +415,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
         </div>
       </div>
       <div v-if="step === 2" class="transition-all transform pt-20">
-        <h1 class="text-3xl text-slate-800 font-bold py-[48px]">
+        <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
           Create your profile Account ✨
         </h1>
         <div class="flex flex-col pt-4">
@@ -425,7 +432,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             placeholder="Email"
           />
           <input
-            type="number"
+            type="text"
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             v-model="phone"
             placeholder="Telephone number"
@@ -505,7 +512,9 @@ function updateBusinesstype(type: "individual" | "organization"): void {
         </div>
       </div>
       <div v-if="step === 3" class="pt-20">
-        <div class="text-center items-center justify-center py-[48px]">
+        <div
+          class="text-center items-center justify-center lg:py-[48px] py-[20px]"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -519,13 +528,15 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             />
           </svg>
 
-          <h1 class="text-2xl text-slate-800 font-normal py-[48px]">
+          <h1
+            class="text-2xl text-slate-800 font-normal lg:py-[48px] py-[20px]"
+          >
             Nice to have you {{ name }} on Kikao Inc 🙌
           </h1>
           <button
             class="bg-indigo-500 text-white rounded-sm py-2.5 px-10 text-center mt-4 hover:bg-indigo-600 opacity-100"
             type="button"
-            @click="store.toggleLogin()"
+            @click="store.toggleLogin(), (step = 0), router.push('/')"
           >
             Log In
           </button>
@@ -567,7 +578,10 @@ function updateBusinesstype(type: "individual" | "organization"): void {
       </div>
     </div>
   </div>
-  <div class="bg-white pt-20 min-h-screen" v-else>
+  <div
+    class="bg-white py-64 flex justify-center items-center text-center"
+    v-else
+  >
     <div class="text-center font-normal h-80">
       <p class="text-2xl font-medium">You have recently signed up</p>
       <p class="text-base py-8 font-normal">See popular listings</p>
