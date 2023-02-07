@@ -17,7 +17,7 @@ const date = new Date().getFullYear();
           <div class="mb-12 max-w-[360px]">
             <a
               href="/"
-              class="mb-4 flex justify-center items-center text-center font-bold text-xl"
+              class="mb-4 flex justify-center items-center text-center font-medium text-xl"
             >
               <LogoIcon class="w-20 h-[30px]" />
               <span class="h-auto">Kikao</span>
@@ -108,7 +108,7 @@ const date = new Date().getFullYear();
           class="w-full px-4 sm:w-1/2 flex justify-center lg:justify-start text-center items-center lg:text-start md:w-1/2 lg:w-2/12 xl:w-2/12"
         >
           <div class="mb-8">
-            <h2 class="mb-5 text-xl font-bold text-black dark:text-white">
+            <h2 class="mb-5 text-xl font-medium text-black dark:text-white">
               Useful Links
             </h2>
             <ul>
@@ -144,7 +144,7 @@ const date = new Date().getFullYear();
           class="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12 flex justify-center lg:justify-start text-center items-center lg:text-start"
         >
           <div class="mb-8">
-            <h2 class="mb-5 text-xl font-bold text-black dark:text-white">
+            <h2 class="mb-5 text-xl font-medium text-black dark:text-white">
               Terms
             </h2>
             <ul>
@@ -180,7 +180,7 @@ const date = new Date().getFullYear();
           class="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12 flex justify-center lg:justify-start text-center items-center lg:text-start"
         >
           <div class="mb-8">
-            <h2 class="mb-5 text-xl font-bold text-black dark:text-white">
+            <h2 class="mb-5 text-xl font-medium text-black dark:text-white">
               Support & Help
             </h2>
             <ul>
