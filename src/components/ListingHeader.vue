@@ -146,14 +146,14 @@ function handlePreviousImage() {
         </div>
         <div class="flex pt-5 lg:pt-0 font-medium">
           <button
-            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 transition-all transform"
+            class="app-text border border-gray-200 py-1.5 px-14 lg:px-5 rounded bg-indigo-50 transition-all transform"
             @click="socialShare"
           >
             <ShareIcon class="inline h-3.5 w-3.5" />
             <span class="text-base ml-2 hidden lg:inline-block">Share</span>
           </button>
           <button
-            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3 transition-all transform"
+            class="app-text border border-gray-200 py-1.5 px-14 lg:px-5 rounded bg-indigo-50 ml-3 transition-all transform"
             @click="addFavourite"
           >
             <span class="bg-none bg-transparent">
@@ -163,7 +163,7 @@ function handlePreviousImage() {
             <span class="text-base ml-2 hidden lg:inline-block">Bookmark</span>
           </button>
           <button
-            class="app-text border border-gray-200 py-1.5 px-5 rounded bg-indigo-50 ml-3"
+            class="app-text border border-gray-200 py-1.5 px-14 lg:px-5 rounded bg-indigo-50 ml-3"
           >
             <SearchIcon class="inline h-3.5 w-3.5" />
             <span class="text-base ml-2 hidden lg:inline-block"
@@ -343,7 +343,9 @@ function handlePreviousImage() {
                 <p class="text-base font-semibold">Status</p>
                 <div class="pt-3">
                   <ActiveIcon class="w-5 h-5 inline" />
-                  <span class="text-gray-500 ml-2">Active</span>
+                  <span class="lg:text-gray-500 ml-2 font-bold lg:font-normal"
+                    >Active</span
+                  >
                 </div>
               </div>
             </div>
@@ -381,9 +383,9 @@ function handlePreviousImage() {
             <div class="flex justify-between px-4 pb-6">
               <div class="flex">
                 <div
-                  class="border-2 border-gray-200 rounded-full inline w-12 h-12"
+                  class="border-2 border-gray-200 rounded-full inline w-12 h-12 flex justify-center items-center"
                 >
-                  <Avatar class="w-9 h-9" />
+                  <Avatar class="w-6 h-6" />
                 </div>
 
                 <div class="ml-4 p-0 b-0">
@@ -424,7 +426,7 @@ function handlePreviousImage() {
               Rental facilities
             </h4>
             <div
-              class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[24px] text-base"
+              class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-8 text-base"
             >
               <div class="flex my-2">
                 <CheckCircleIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
@@ -448,9 +450,9 @@ function handlePreviousImage() {
           </div>
           <!-- end facilities -->
           <!-- end of listed by property owner -->
-          <hr class="my-10" />
+          <hr class="mt-4" />
           <!-- start rentail features -->
-          <div class="px-4 lg:px-0">
+          <div class="px-4 lg:px-0 pt-8">
             <h4 class="font-normal text-2xl text-gray-500">Rental features</h4>
             <div
               class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[24px] text-base"
@@ -522,12 +524,12 @@ function handlePreviousImage() {
             </div>
           </div>
           <!-- end of rental features -->
-          <hr class="my-10" />
+          <hr class="my" />
           <!-- start safety -->
-          <div class="px-4 lg:px-0">
+          <div class="px-4 lg:px-0 pt-8">
             <h4 class="font-normal text-2xl text-gray-500">Safety tips</h4>
             <div
-              class="flex justify-between flex-col mx-2 lg:flex-row py-[24px] text-base"
+              class="flex justify-between flex-col mx-2 lg:flex-row pt-3 text-base"
             >
               <ul class="my-3 text-base text-gray-800">
                 <li class="flex py-1">
@@ -629,11 +631,13 @@ function handlePreviousImage() {
       </div>
     </div>
     <!-- start similar listings section -->
-    <div class="w-full px-4 lg:px-0">
-      <h2 class="text-indigo-500 text-2xl font-medium py-6">
+    <div class="w-full px-4 lg:px-0 pt-5">
+      <h2
+        class="text-indigo-500 text-2xl font-medium pb-4 lg:text-start text-center"
+      >
         Similar Listings
       </h2>
-      <div class="flex flex-wrap mt-0 pt-0">
+      <div class="flex flex-wrap mt-0 pt-0 lg:justify-start justify-center">
         <Listing
           v-for="listing in listings"
           :key="listing._id"

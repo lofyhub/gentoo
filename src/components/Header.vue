@@ -231,14 +231,14 @@ function handleListing() {
                   @click="store.toggleLogin(), (isOpen = false)"
                   class="mr-4 border border-indigp-100 opacity-100 py-1.8 px-6 rounded transition-all ease-in hover:bg-indigo-50"
                 >
-                  Sign in
+                  Log In
                 </button>
                 <RouterLink
                   :to="`/signup`"
                   @click="isOpen = false"
                   class="mr-4 bg-indigo-500 opacity-100 text-white hover:bg-indigo-700 py-2.5 px-5 rounded flex transition-all ease-in"
                 >
-                  Join Kikao <LeftIcon class="mx-2 animate-bounce"
+                  Sign Up <LeftIcon class="mx-2 animate-bounce"
                 /></RouterLink>
               </div>
             </div>
