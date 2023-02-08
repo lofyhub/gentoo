@@ -8,6 +8,7 @@ import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import MapPin from "@/components/icons/MapPin.vue";
 import ListingSkeleton from "@/components/ListingSkeleton.vue";
+import { onMounted } from "vue";
 
 const rootStore = useRootStore();
 const homeSample = computed(
@@ -19,6 +20,34 @@ const homeSample = computed(
 const isBinary = computed(() =>
   typeof homeSample.value.images[0] === "string" ? false : true
 );
+
+function animateValue(
+  obj: HTMLElement | null,
+  start: number,
+  end: number,
+  duration: number
+) {
+  let startTimestamp: number | null = null;
+  const step = (timestamp: number) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    if (obj !== null) {
+      obj.innerHTML = Math.floor(progress * (end - start) + start).toString();
+    }
+
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
+onMounted(() => {
+  const obj = document.getElementById("value");
+  const obj2 = document.getElementById("valuee");
+  animateValue(obj, 0, 50, 500);
+  animateValue(obj2, 0, 10, 500);
+});
 </script>
 
 <template>
@@ -44,11 +73,17 @@ const isBinary = computed(() =>
       </div>
       <div class="flex py-6 lg:py-4 lg:justify-start justify-center">
         <div class="border-l-2 border-gray-400 pl-8 mr-20 my-2">
-          <p class="text-xl app-text font-normal">50K+</p>
+          <div class="text-xl app-text font-normal flex">
+            <p id="value">50</p>
+            <p>K+</p>
+          </div>
           <span>tenants</span>
         </div>
         <div class="border-l-2 border-gray-400 my-2 pl-8">
-          <p class="text-xl app-text font-normal">10K+</p>
+          <div class="text-xl app-text font-normal flex">
+            <p id="valuee">10</p>
+            <p>K+</p>
+          </div>
           <span>listed properties</span>
         </div>
       </div>

@@ -90,8 +90,8 @@ function toggleDropdown() {
           <div
             class="flex flex-col lg:flex-row lg:items-center text-[14px] font-medium"
           >
-            <a
-              href="/listings"
+            <router-link
+              to="/listings"
               @click="isOpen = false"
               class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               :class="
@@ -100,22 +100,21 @@ function toggleDropdown() {
                   : `text-gray-800`
               "
               >Rent
-            </a>
-            <a
-              href="/listings"
+            </router-link>
+            <router-link
+              to="/listings"
               @click="isOpen = false"
               class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
-              >Stays</a
+              >Stays</router-link
             >
-            <a
-              href="/listings"
+            <router-link
+              to="/listings"
               @click="isOpen = false"
               class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
-              >Attractions</a
+              >Attractions</router-link
             >
 
             <a
-              type="button"
               @click="handleListing"
               v-if="session.$state.kikaotype === 'landlord'"
               class="py-5 px-3 hover:border-b-2 mx-4 hover:border-indigo-500 hover:bg-indigo-50 transition-all transform mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"

@@ -20,6 +20,7 @@ export interface houseSchema {
   size: string;
   createdAt: string;
   status: string;
+  description: string;
 }
 
 export const counties = [

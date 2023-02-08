@@ -355,7 +355,8 @@ function handlePreviousImage() {
             <h2 class="text-2xl font-medium text-indigo-500 mb-[14px]">
               About this home
             </h2>
-            <p class="py-3 text-justify">
+
+            <p v-if="!prop.listing.description" class="py-3 text-justify">
               The "About this Home" section in a rental apartment listing is
               typically a summary of the key features and characteristics of the
               apartment. It may include information about the size of the
@@ -369,6 +370,9 @@ function handlePreviousImage() {
               general overview of the apartment and help prospective renters get
               a sense of what the unit is like before they schedule a showing or
               visit in person.
+            </p>
+            <p class="py-3 text-justify">
+              {{ prop.listing.description }}
             </p>
           </div>
 
