@@ -161,7 +161,7 @@ onMounted(() => {
                 <Yingyang class="w-4 h-4 inline" />
                 <span class="text-gray-600 ml-2 font-bold"
                   >{{ homeSample.size.slice(0, homeSample.size.length - 2) }}
-                  <span class="font-normal">m2</span></span
+                  <span class="font-normal">sqft</span></span
                 >
               </div>
             </div>
