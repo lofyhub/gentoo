@@ -326,7 +326,7 @@ function handlePreviousImage() {
                   <span class="font-bold ml-2">{{
                     listing.size.slice(0, 3)
                   }}</span>
-                  <span class="text-gray-500 ml-1">sq feet</span>
+                  <span class="text-gray-500 ml-1">sqft</span>
                 </div>
               </div>
               <!-- repair quality -->
@@ -516,7 +516,7 @@ function handlePreviousImage() {
                 </div>
                 <div class="flex justify-between">
                   <p>Land Size</p>
-                  <span class="font-bold ml-16">{{ listing.size }}</span>
+                  <span class="font-bold ml-16">{{ listing.size }}sqft</span>
                 </div>
                 <div class="flex justify-between my-4">
                   <p>Parking Area</p>
