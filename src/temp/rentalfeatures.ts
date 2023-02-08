@@ -33,3 +33,34 @@ export const houseFeature: housefeatures = {
   landSize: "9,060 sqft",
   parkingArea: true,
 };
+
+export const commonSizes = [
+  {
+    name: "Studio Apartments",
+    size: 600,
+  },
+  {
+    name: "1-bedroom apartments",
+    size: 900,
+  },
+  {
+    name: "2-bedroom apartments",
+    size: 1200,
+  },
+  {
+    name: "3-bedroom apartments",
+    size: 1500,
+  },
+  {
+    name: "Single-family home",
+    size: 2500,
+  },
+  {
+    name: "Multi-family home",
+    size: 3000,
+  },
+  {
+    name: "Attractions",
+    size: 5000,
+  },
+];

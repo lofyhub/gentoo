@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, ref } from "vue";
-
-import UploadIcon from "@/components/icons/Upload.vue";
-import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
-import GeneratingSpinner from "@/components/icons/generatingSpinner.vue";
-import { counties } from "@/temp/housestemp";
+import { defineEmits, ref, watch } from "vue";
 import {
   toastMessage,
   toastError,
@@ -16,35 +11,60 @@ import { env } from "@/env";
 import axios from "axios";
 import VueMultiselect from "vue-multiselect";
 
+import UploadIcon from "@/components/icons/Upload.vue";
+import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
+import GeneratingSpinner from "@/components/icons/generatingSpinner.vue";
+import { counties } from "@/temp/housestemp";
+import { commonSizes } from "@/temp/rentalfeatures";
+
 defineEmits(["close"]);
 
 const store = useSessionStore();
 const loading = ref(false);
-const title = ref(`Lana Apartments`);
-const town = ref(`Eldoret`);
-const location = ref(`Eldoret`);
-const county = ref(`Kahoya`);
-const size = ref(`14`);
-const duration = ref(`Month`);
+const title = ref(``);
+const town = ref(``);
+const location = ref(``);
+const county = ref(``);
+const size = ref(``);
+const duration = ref(``);
 const parking = ref<boolean>(false);
 const description = ref(``);
 const selectedFile = ref<File | null>(null);
-const rent = ref<number>(8000);
-const bedrooms = ref<number>(1);
-const bathrooms = ref<number>(1);
-const totalrooms = ref<number>(4);
-const wifi = ref<boolean>(true);
-const security = ref<boolean>(true);
-const roomNumber = ref<boolean>(true);
-const garbageCollection = ref<boolean>(true);
+const rent = ref<number>();
+const bedrooms = ref<number>();
+const bathrooms = ref<number>();
+const totalrooms = ref<number>();
+const wifi = ref<boolean>(false);
+const security = ref<boolean>(false);
+const roomNumber = ref<boolean>(false);
+const garbageCollection = ref<boolean>(false);
 const availability = ref<boolean>(true);
 const laundry = ref<"off-site" | "in-unit ">("in-unit ");
 const isLaundryAvailable = ref<boolean>(false);
-const yearBuilt = ref<number>(2022);
+const yearBuilt = ref<number>();
 const isGenerating = ref<boolean>(false);
+const housetype = ref();
 
 const id = store.$state.userId;
+const houseSizes = [
+  "Studio Apartments",
+  "1-bedroom apartments",
+  "2-bedroom apartments",
+  "3-bedroom apartments",
+  "Single-family home",
+  "Multi-family home",
+  "Attractions",
+];
+
 // methods
+
+watch(housetype, (newValue, oldValue) => {
+  for (let i = 0; i < commonSizes.length; i++) {
+    if (newValue === commonSizes[i].name) {
+      size.value = commonSizes[i].size;
+    }
+  }
+});
 
 async function onFileSelected(event: Event) {
   if (!event.target) {
@@ -59,6 +79,22 @@ async function onFileSelected(event: Event) {
 }
 
 async function generateListingDescription() {
+  if (
+    !town.value ||
+    !rent.value ||
+    !bedrooms.value ||
+    !bathrooms.value ||
+    !size.value ||
+    !duration.value ||
+    !title.value ||
+    !county.value ||
+    !totalrooms.value ||
+    !yearBuilt.value ||
+    !housetype.value
+  ) {
+    toastMessage("Fill some details to generate description");
+    return;
+  }
   try {
     isGenerating.value = true;
     const token = localStorage.getItem("kikao-token");
@@ -83,11 +119,13 @@ async function generateListingDescription() {
       availability.value
     },size of the house is ${
       size.value
-    } square feet(sqft),duration of the rent period is in ${
+    }square feet(sqft),duration of the rent period is in ${
       duration.value
     },number of bathrooms is ${bathrooms.value}, number of totalrooms is ${
       totalrooms.value
-    }, availability of parking space is set to ${parking.value}`;
+    }, availability of parking space is set to ${
+      parking.value
+    }, the apartment is of ${housetype.value}`;
     const data = {
       promptText: promptText,
     };
@@ -185,6 +223,14 @@ async function postListing() {
     bedrooms.value = 0;
     bathrooms.value = 0;
     totalrooms.value = 0;
+    housetype.value = "";
+    yearBuilt.value = 0;
+    (roomNumber.value = false),
+      (wifi.value = false),
+      (garbageCollection.value = false),
+      (security.value = false),
+      (isLaundryAvailable.value = false),
+      (parking.value = false);
   } catch (error) {
     console.log(error);
   } finally {
@@ -227,7 +273,7 @@ async function postListing() {
             <VueMultiselect
               v-model="county"
               :options="counties"
-              :searchable="false"
+              :searchable="true"
               :close-on-select="true"
               :show-labels="false"
               placeholder="Pick a county"
@@ -251,7 +297,7 @@ async function postListing() {
             type="text"
             v-model="location"
             required
-            placeholder="i.e Karen"
+            placeholder="i.e Opposite Olando plaza"
           />
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
@@ -278,7 +324,7 @@ async function postListing() {
           </label>
           <input
             class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 font-semibold text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            type="text"
+            type="number"
             v-model="rent"
             placeholder="i.e 8,000"
             required
@@ -302,12 +348,12 @@ async function postListing() {
               :close-on-select="true"
               :show-labels="false"
               placeholder="Select duration"
-              class="font-semibold text-gray-900"
+              class="font-semibold text-gray-900 placeholder-gray-500"
             >
             </VueMultiselect>
           </div>
         </div>
-        <div class="md:w-1/2 px-3 mt-5 md:mb-0">
+        <div class="md:w-1/2 px-3 md:mb-0">
           <label
             class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
             for="grid-city"
@@ -315,7 +361,7 @@ async function postListing() {
             No of bathrooms
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border font-semibold border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 rounded border font-semibold border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-city"
             type="number"
             v-model="bathrooms"
@@ -329,13 +375,16 @@ async function postListing() {
           >
             SIZE
           </label>
-          <input
-            class="relative block w-full appearance-none my-2 rounded border font-semibold border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            type="number"
-            v-model="size"
-            placeholder="Size in square fit"
-            required
-          />
+          <VueMultiselect
+            v-model="housetype"
+            :options="houseSizes"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            placeholder="Pick house size"
+            class="mr-3 font-semibold"
+          >
+          </VueMultiselect>
         </div>
       </div>
       <!-- end bethrooms -->
@@ -404,7 +453,7 @@ async function postListing() {
             <div class="flex items-center text-center justify-center mr-4">
               <p
                 @click.self="roomNumber = !roomNumber"
-                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
                 :class="roomNumber ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -416,7 +465,7 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="wifi = !wifi"
-                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
                 :class="wifi ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -428,30 +477,30 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="garbageCollection = !garbageCollection"
-                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
                 :class="garbageCollection ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
                 for="purple-radio"
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >Garbage collection</label
+                >Garbage Collection</label
               >
             </div>
             <div class="flex items-center mr-4">
               <p
                 @click="security = !security"
-                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
                 :class="security ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >Secutity</label
+                >Security</label
               >
             </div>
             <div class="flex items-center mr-4">
               <p
                 @click="handleLaundry"
-                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
                 :class="isLaundryAvailable ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -462,7 +511,7 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="parking = !parking"
-                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
                 :class="parking ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
