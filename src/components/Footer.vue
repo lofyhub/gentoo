@@ -9,10 +9,10 @@ const date = new Date().getFullYear();
     class="wow fadeInUp relative z-10 bg-primary bg-opacity-5 pt-8 md:pt-20 lg:pt-14 border-t border-gray-200"
     data-wow-delay=".1s"
   >
-    <div class="container">
+    <div class="container mx-auto pt-0">
       <div class="-mx-4 flex flex-wrap justify-center lg:justify-start">
         <div
-          class="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12 flex flex-wrap justify-center lg:justify-start text-center items-center lg:text-start"
+          class="w-full pl-4 md:w-1/2 lg:w-4/12 xl:w-5/12 flex flex-wrap justify-center lg:justify-start text-center items-center lg:text-start"
         >
           <div class="mb-12 max-w-[360px]">
             <a
@@ -26,7 +26,9 @@ const date = new Date().getFullYear();
               <div class="mb-3 text-black leading-relaxed">
                 Say Goodbye to house hunting forever
               </div>
-              <div class="flex items-center">
+              <div
+                class="flex justify-center lg:justify-start text-center items-center lg:text-start"
+              >
                 <a
                   href="https://facebook.com/kikaoHQ"
                   target="_blank"
@@ -177,7 +179,7 @@ const date = new Date().getFullYear();
         </div>
 
         <div
-          class="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12 flex justify-center lg:justify-start text-center items-center lg:text-start"
+          class="w-full pl-4 md:w-1/2 lg:w-4/12 xl:w-3/12 flex justify-center lg:justify-start text-center items-center lg:text-start"
         >
           <div class="mb-8">
             <h2 class="mb-5 text-xl font-medium text-black dark:text-white">

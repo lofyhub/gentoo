@@ -52,7 +52,6 @@ async function submitForm(): Promise<void> {
     toastMessage(`Password mismatch`);
     return;
   }
-  console.log(phone.value);
   const bodyData = {
     email: email.value.trim(),
     password: password.value.trim(),

@@ -3,8 +3,14 @@ import { defineEmits, ref } from "vue";
 
 import UploadIcon from "@/components/icons/Upload.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
+import GeneratingSpinner from "@/components/icons/generatingSpinner.vue";
 import { counties } from "@/temp/housestemp";
-import { toastMessage, toastError, toastSuccess } from "@/plugins/toast";
+import {
+  toastMessage,
+  toastError,
+  toastSuccess,
+  toastWarning,
+} from "@/plugins/toast";
 import { useSessionStore } from "@/store/session";
 import { env } from "@/env";
 import axios from "axios";
@@ -14,19 +20,28 @@ defineEmits(["close"]);
 
 const store = useSessionStore();
 const loading = ref(false);
-const title = ref(``);
-const town = ref(``);
-const location = ref(``);
-const county = ref(``);
-const size = ref(``);
-const duration = ref(``);
-const parking = ref(false);
+const title = ref(`Lana Apartments`);
+const town = ref(`Eldoret`);
+const location = ref(`Eldoret`);
+const county = ref(`Kahoya`);
+const size = ref(`14`);
+const duration = ref(`Month`);
+const parking = ref<boolean>(false);
 const description = ref(``);
 const selectedFile = ref<File | null>(null);
-const rent = ref<number>();
-const bedrooms = ref<number>();
-const bathrooms = ref<number>();
-const totalrooms = ref<number>();
+const rent = ref<number>(8000);
+const bedrooms = ref<number>(1);
+const bathrooms = ref<number>(1);
+const totalrooms = ref<number>(4);
+const wifi = ref<boolean>(true);
+const security = ref<boolean>(true);
+const roomNumber = ref<boolean>(true);
+const garbageCollection = ref<boolean>(true);
+const availability = ref<boolean>(true);
+const laundry = ref<"off-site" | "in-unit ">("in-unit ");
+const isLaundryAvailable = ref<boolean>(false);
+const yearBuilt = ref<number>(2022);
+const isGenerating = ref<boolean>(false);
 
 const id = store.$state.userId;
 // methods
@@ -43,6 +58,63 @@ async function onFileSelected(event: Event) {
   selectedFile.value = target.files[0];
 }
 
+async function generateListingDescription() {
+  try {
+    isGenerating.value = true;
+    const token = localStorage.getItem("kikao-token");
+    if (!token) throw new Error("Token is not found in localStorage");
+    const promptText = `generate a house listing description based on the following details, title of the house listing is ${
+      title.value
+    }, location of the listing is ${
+      location.value
+    }, availability of roomNumber is either ${roomNumber.value},county is ${
+      county.value
+    }, wifi availability is either ${wifi.value}, laundry availability is ${
+      laundry.value
+    },the paratment was built on ${yearBuilt.value},number of bedrooms is ${
+      bedrooms.value
+    }, rent price is ${rent.value.toLocaleString(
+      "en"
+    )} and is always in kshs, the apartment also offers security ${
+      security.value
+    }, the apartment garbage collection can also be either ${
+      garbageCollection.value
+    }, availability if the house should be set to either ${
+      availability.value
+    },size of the house is ${
+      size.value
+    } square feet(sqft),duration of the rent period is in ${
+      duration.value
+    },number of bathrooms is ${bathrooms.value}, number of totalrooms is ${
+      totalrooms.value
+    }, availability of parking space is set to ${parking.value}`;
+    const data = {
+      promptText: promptText,
+    };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+      },
+    };
+
+    const res = await axios.post(`${env}/description`, data, config);
+    const generatedText = await res.data.generatedText.trim();
+    description.value = generatedText;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      toastWarning(error.response.data.message);
+    } else {
+      toastError(error as string);
+    }
+  } finally {
+    isGenerating.value = false;
+  }
+}
+
+function handleLaundry() {
+  isLaundryAvailable.value = !isLaundryAvailable.value;
+}
 async function postListing() {
   if (
     !description.value ||
@@ -52,7 +124,6 @@ async function postListing() {
     !bathrooms.value ||
     !size.value ||
     !duration.value ||
-    !parking.value ||
     !title.value ||
     !county.value
   ) {
@@ -76,9 +147,18 @@ async function postListing() {
     formData.append("washrooms", JSON.stringify(bathrooms.value));
     formData.append("parking", JSON.stringify(parking.value));
     formData.append("size", JSON.stringify(size.value));
+    formData.append("wifi", JSON.stringify(wifi.value));
+    formData.append("security", JSON.stringify(security.value));
+    formData.append("roomnumber", JSON.stringify(roomNumber.value));
+    formData.append(
+      "garbagecollection",
+      JSON.stringify(garbageCollection.value)
+    );
+    formData.append("laundry", JSON.stringify(isLaundryAvailable.value));
+    formData.append("yearbuilt", JSON.stringify(yearBuilt.value));
     formData.append("status", "active");
     formData.append("county", county.value);
-    formData.append("description", description.value);
+    formData.append("description", description.value.trim());
     if (selectedFile.value) {
       formData.append("kikaoimage", selectedFile.value);
     }
@@ -115,20 +195,20 @@ async function postListing() {
 
 <template>
   <div class="w-full flex flex-col justify-center items-center pb-6">
-    <h3 class="text-center text-xl font-medium py-6">
+    <h3 class="text-center text-xl font-semibold my-8">
       Register Your Property for Free
     </h3>
     <div class="flex flex-col">
       <div class="-mx-3 md:flex mb-6">
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
             for="grid-first-name"
           >
             Title of the listing
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 rounded border font-semibold border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-first-name"
             type="text"
             v-model="title"
@@ -138,7 +218,7 @@ async function postListing() {
         </div>
         <div class="md:w-1/2 px-3">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
             for="grid-last-name"
           >
             County
@@ -151,7 +231,7 @@ async function postListing() {
               :close-on-select="true"
               :show-labels="false"
               placeholder="Pick a county"
-              class="mr-3"
+              class="mr-3 font-semibold"
             >
             </VueMultiselect>
           </div>
@@ -160,13 +240,13 @@ async function postListing() {
       <div class="-mx-3 md:flex mb-2">
         <div class="md:w-1/2 px-3">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
             for="grid-state"
           >
             Location/street
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 font-semibold placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-last-name"
             type="text"
             v-model="location"
@@ -176,13 +256,13 @@ async function postListing() {
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
             for="grid-city"
           >
             City/Town
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 font-semibold py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-city"
             type="text"
             v-model="town"
@@ -192,12 +272,12 @@ async function postListing() {
         </div>
         <div class="md:w-1/2 px-3">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
           >
             RENT PRICE
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 font-semibold text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             type="text"
             v-model="rent"
             placeholder="i.e 8,000"
@@ -206,15 +286,15 @@ async function postListing() {
         </div>
       </div>
       <!-- start end-->
-      <div class="-mx-3 md:flex mb-2">
+      <div class="-mx-3 md:flex mb-2 mt-3">
         <div class="md:w-1/2 px-3">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
             for="grid-state"
           >
             Duration
           </label>
-          <div class="relative block w-full">
+          <div class="relative block w-full font-semibold">
             <VueMultiselect
               v-model="duration"
               :options="['Month', 'Night', 'Week']"
@@ -222,19 +302,20 @@ async function postListing() {
               :close-on-select="true"
               :show-labels="false"
               placeholder="Select duration"
+              class="font-semibold text-gray-900"
             >
             </VueMultiselect>
           </div>
         </div>
-        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <div class="md:w-1/2 px-3 mt-5 md:mb-0">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-4 justify-center flex lg:justify-start"
             for="grid-city"
           >
             No of bathrooms
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 rounded border font-semibold border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-city"
             type="number"
             v-model="bathrooms"
@@ -244,12 +325,12 @@ async function postListing() {
         </div>
         <div class="md:w-1/2 px-3">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 font-medium text-xs mb-4 justify-center flex lg:justify-start"
           >
             SIZE
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 rounded border font-semibold border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             type="number"
             v-model="size"
             placeholder="Size in square fit"
@@ -259,17 +340,17 @@ async function postListing() {
       </div>
       <!-- end bethrooms -->
       <!-- start second -->
-      <div class="-mx-3 md:flex mb-2">
+      <div class="-mx-3 md:flex mt-3">
         <div class="md:w-1/2 px-3">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 font-medium text-xs mb-4 justify-center flex lg:justify-start"
             for="grid-state"
           >
             No of Bedrooms
           </label>
           <div class="relative">
             <input
-              class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              class="relative block w-full appearance-none my-2 font-semibold rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               type="number"
               v-model="bedrooms"
               placeholder="0 if bedsitter"
@@ -279,13 +360,13 @@ async function postListing() {
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 font-medium text-xs mb-4 justify-center flex lg:justify-start"
             for="grid-city"
           >
             Total Rooms
           </label>
           <input
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full appearance-none my-2 font-semibold rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             id="grid-city"
             type="number"
             v-model="totalrooms"
@@ -295,52 +376,109 @@ async function postListing() {
         </div>
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 font-medium text-xs mb-4 justify-center flex lg:justify-start"
             for="grid-city"
           >
-            Parking
+            Year Built
           </label>
+          <input
+            class="relative block w-full appearance-none my-2 font-semibold rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            id="grid-city"
+            type="number"
+            v-model="yearBuilt"
+            required
+            placeholder="Year built"
+          />
+        </div>
+      </div>
 
-          <div class="flex items-center mt-4">
-            <div class="flex items-center">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value="true"
-                v-model="parking"
-                name="default-radio"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:outline-none dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
+      <div class="md:w-full my-5">
+        <label
+          class="block uppercase tracking-wide text-gray-500 text-sm mb-2 justify-center flex lg:justify-start"
+          for="grid-password"
+        >
+          Select available rental facilities
+        </label>
+        <div class="flex items-center mt-6">
+          <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <div class="flex items-center text-center justify-center mr-4">
+              <p
+                @click.self="roomNumber = !roomNumber"
+                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                :class="roomNumber ? `bg-indigo-500` : `bg-white`"
+              ></p>
               <label
-                for="default-radio-1"
-                class="mr-5 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >YES</label
+                for="red-radio"
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Room Number</label
               >
             </div>
-            <div class="flex items-center">
-              <input
-                checked
-                id="default-radio-2"
-                type="radio"
-                value="false"
-                v-model="parking"
-                name="default-radio"
-                class="w-4 h-4 ml-2 text-blue-600 bg-gray-100 border-gray-300 focus:outline-none dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
+            <div class="flex items-center mr-4">
+              <p
+                @click="wifi = !wifi"
+                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                :class="wifi ? `bg-indigo-500` : `bg-white`"
+              ></p>
               <label
-                for="default-radio-2"
+                for="green-radio"
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >NO</label
+                >WIFI</label
+              >
+            </div>
+            <div class="flex items-center mr-4">
+              <p
+                @click="garbageCollection = !garbageCollection"
+                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                :class="garbageCollection ? `bg-indigo-500` : `bg-white`"
+              ></p>
+              <label
+                for="purple-radio"
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Garbage collection</label
+              >
+            </div>
+            <div class="flex items-center mr-4">
+              <p
+                @click="security = !security"
+                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                :class="security ? `bg-indigo-500` : `bg-white`"
+              ></p>
+              <label
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Secutity</label
+              >
+            </div>
+            <div class="flex items-center mr-4">
+              <p
+                @click="handleLaundry"
+                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                :class="isLaundryAvailable ? `bg-indigo-500` : `bg-white`"
+              ></p>
+              <label
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Laundry</label
+              >
+            </div>
+            <div class="flex items-center mr-4">
+              <p
+                @click="parking = !parking"
+                class="w-4 h-4 rounded-full border border-gray-200 ring-2"
+                :class="parking ? `bg-indigo-500` : `bg-white`"
+              ></p>
+              <label
+                for="orange-radio"
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Parking</label
               >
             </div>
           </div>
         </div>
       </div>
       <!-- end second -->
-      <div class="-mx-3 md:flex">
+      <div class="-mx-3 md:flex mt-2">
         <div class="md:w-full px-3">
           <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-semibold mb-2"
+            class="block uppercase tracking-wide text-gray-500 text-xs font-medium mb-5 flex justify-center lg:justify-start"
             for="grid-password"
           >
             Description
@@ -349,14 +487,41 @@ async function postListing() {
             id="comment"
             rows="4"
             v-model="description"
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            placeholder="Add any additional information for your prospective tenant here"
+            class="relative block w-full appearance-none my-2 rounded border border-gray-300 px-3 py-2 text-gray-900 font-semibold placeholder-gray-700 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            :placeholder="
+              isGenerating
+                ? `Generating your description ...`
+                : `Add any additional information for your prospective tenant here`
+            "
             required
           ></textarea>
         </div>
       </div>
+      <div
+        class="py-4 flex justify-center items-center text-center lg:text-start lg:justify-start"
+      >
+        <div>
+          <button
+            @click="generateListingDescription"
+            class="font-medium py-2 px-6 text-white rounded"
+            :class="
+              isGenerating ? `bg-white border border-gray-200` : `bg-indigo-500`
+            "
+          >
+            <GeneratingSpinner v-if="isGenerating" />
+            <p v-else>Generate Description</p>
+          </button>
+          <p class="text-gray-500 text-sm pt-3">
+            Description is generated based on the details you have provided
+          </p>
+        </div>
+      </div>
       <!-- start image upload -->
-      <p class="text-sm uppercase font-semibold py-2">Upload Images</p>
+      <p
+        class="text-sm uppercase font-semibold pb-5 justify-center flex lg:justify-start"
+      >
+        Upload Images
+      </p>
       <form class="flex items-center justify-center w-full">
         <label
           for="dropzone-file"
@@ -368,7 +533,7 @@ async function postListing() {
               id="dropzone-file"
               type="file"
               class="hidden"
-              accept="image/jpeg"
+              accept="image/jpeg, image/png"
               name="kikaoimage"
               @change="onFileSelected"
               ref="imageInput"

@@ -8,13 +8,12 @@ import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import router from "@/router";
 
 const rootStore = useRootStore();
-const sortedListings = computed(() => rootStore.$state.listings);
+const sortedListings = computed(() => rootStore.listings);
 
 // methods
 function reload() {
   router.push("/listings");
 }
-//
 </script>
 <template>
   <div class="w-4/5 lg:w-[1200px] mx-auto min-h-screen">
