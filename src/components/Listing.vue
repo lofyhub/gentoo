@@ -143,8 +143,7 @@ function handleFavourite() {
           <div class="flex">
             <Yingyang class="w-4 h-4 inline" />
             <span class="text-gray-600 ml-1.5 font-bold"
-              >{{ props.size.slice(0, 3)
-              }}<span class="font-normal ml-1">sqft</span></span
+              >{{ props.size }}<span class="font-normal ml-1">sqft</span></span
             >
           </div>
         </div>
