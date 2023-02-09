@@ -127,7 +127,7 @@ onMounted(() => {
               <div class="flex text-gray-500 py-2">
                 <span class="truncate"
                   ><MapPin class="w-5 h-5 mr-1 inline mb-1.5" />
-                  {{ homeSample.location }}
+                  {{ homeSample.county }}
                 </span>
                 <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-3"></p>
                 <span class="truncate">{{
@@ -160,7 +160,7 @@ onMounted(() => {
               <div class="flex justify-between">
                 <Yingyang class="w-4 h-4 inline" />
                 <span class="text-gray-600 ml-2 font-bold"
-                  >{{ homeSample.size.slice(0, homeSample.size.length - 2) }}
+                  >{{ (homeSample.size * 1).toLocaleString("en") }}
                   <span class="font-normal">sqft</span></span
                 >
               </div>
