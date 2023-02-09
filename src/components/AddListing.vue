@@ -15,7 +15,7 @@ import UploadIcon from "@/components/icons/Upload.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 import GeneratingSpinner from "@/components/icons/generatingSpinner.vue";
 import { counties } from "@/temp/housestemp";
-import { commonSizes } from "@/temp/rentalfeatures";
+import { commonSizes, houseType } from "@/temp/rentalfeatures";
 
 defineEmits(["close"]);
 
@@ -46,15 +46,6 @@ const isGenerating = ref<boolean>(false);
 const housetype = ref();
 
 const id = store.$state.userId;
-const houseSizes = [
-  "Studio Apartments",
-  "1-bedroom apartments",
-  "2-bedroom apartments",
-  "3-bedroom apartments",
-  "Single-family home",
-  "Multi-family home",
-  "Attractions",
-];
 
 // methods
 
@@ -377,7 +368,7 @@ async function postListing() {
           </label>
           <VueMultiselect
             v-model="housetype"
-            :options="houseSizes"
+            :options="houseType"
             :searchable="false"
             :close-on-select="true"
             :show-labels="false"

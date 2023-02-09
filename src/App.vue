@@ -8,7 +8,7 @@ import LoginPopup from "@/components/popups/LoginPopup.vue";
 
 import { useRootStore } from "@/store/index";
 import { uselistingStore } from "@/store/listing";
-import { useSessionStore } from "./store/session";
+import { useSessionStore } from "@/store/session";
 
 useHead({
   title: "Kikao | Find your next home with us",
