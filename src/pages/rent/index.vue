@@ -2,7 +2,6 @@
 import { computed } from "vue";
 import { useRootStore } from "@/store";
 
-import SortListings from "@/components/SortListings.vue";
 import Listing from "@/components/Listing.vue";
 import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import router from "@/router";
@@ -17,13 +16,9 @@ function reload() {
 </script>
 <template>
   <div class="w-4/5 lg:w-[1200px] mx-auto min-h-screen">
-    <SortListings
-      class="w-full mx-auto mt-10 z-10"
-      style="position: fixed; top: 20px; left: 0; right: 0"
-    />
     <div
       v-if="sortedListings.length > 0"
-      class="flex flex-wrap mt-4 mb-20 pt-32 justify-center w-full"
+      class="flex flex-wrap mt-20 mb-20 justify-center w-full"
     >
       <Listing
         v-for="listing in sortedListings"
@@ -40,17 +35,14 @@ function reload() {
         :size="listing.size"
       />
     </div>
-    <div
-      v-else
-      class="flex flex-wrap mt-4 pt-32 mb-20 justify-center w-full z-0"
-    >
+    <div v-else class="flex flex-wrap mt-4 mb-20 justify-center w-full">
       <ListingSkeleton v-for="i in 12" :key="i" />
     </div>
 
     <div>
       <div
         v-if="sortedListings.length === 0"
-        class="flex flex-wrap mt-4 mb-20 pt-32 justify-center w-full"
+        class="flex flex-wrap mt-4 mb-20 pt-10 justify-center w-full"
       >
         <div
           class="text-center my-20 w-96 pt-32 mx-auto tracking-normal font-bold"

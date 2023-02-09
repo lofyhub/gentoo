@@ -3,9 +3,10 @@ import { ref } from "vue";
 import { useRootStore } from "@/store/index";
 import { counties } from "@/temp/housestemp";
 import VueMultiselect from "vue-multiselect";
+import { houseType } from "@/temp/rentalfeatures";
 import { toastMessage } from "@/plugins/toast";
 
-const rootStore = useRootStore();
+const store = useRootStore();
 const selectedPrice = ref(`Select price range`);
 const selectedType = ref(`Select property type`);
 const location = ref(`Select location`);
@@ -15,29 +16,18 @@ const prices = [
   "25,000 - 55,000",
   "55,000 - 300,000",
 ];
-const property = ["Rental", "Airbnb", "Business", "Stays", "Attractions"];
 
-const priceMap: { [key: string]: number } = {
-  "3,000 - 10,000": 10000,
-  "10,000 - 25,000": 25000,
-  "25,000 - 55,000": 55000,
-  "55,000 - 300,000": 300000,
-};
 // methods
-
 function sortListings() {
-  if (selectedPrice.value === `Select price range`) {
-    toastMessage("Please select a price range");
-    return;
+  if (!location.value || !selectedPrice.value) {
+    toastMessage("Please select location and price");
   }
-
-  const price = priceMap[selectedPrice.value] || 0;
-  rootStore.sortListings(price);
+  return store;
 }
 </script>
 <template>
   <div class="flex justify-center bg-white py-5 h-32">
-    <table class="table-fixed py-10">
+    <table class="table-fixed">
       <thead class="hidden lg:inline-block">
         <tr class="font-bold text-xs text-[#909CAB] tracking-[1.2px]">
           <th class="lg:w-56 w-auto">LOCATION</th>
@@ -70,7 +60,7 @@ function sortListings() {
           <td>
             <VueMultiselect
               v-model="selectedType"
-              :options="property"
+              :options="houseType"
               :searchable="false"
               :close-on-select="true"
               :show-labels="false"

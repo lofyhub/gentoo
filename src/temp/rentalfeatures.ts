@@ -64,3 +64,12 @@ export const commonSizes = [
     size: 5000,
   },
 ];
+export const houseType = [
+  "Studio Apartments",
+  "1-bedroom apartments",
+  "2-bedroom apartments",
+  "3-bedroom apartments",
+  "Single-family home",
+  "Multi-family home",
+  "Attractions",
+];

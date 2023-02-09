@@ -5,13 +5,12 @@ import { useRouter } from "vue-router";
 import Listing from "@/components/Listing.vue";
 import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import LeftIcon from "@/components/icons/LeftIcon.vue";
+import SortListings from "@/components/SortListings.vue";
 import { computed } from "vue";
 
 const store = useRootStore();
-const listings = computed(() => store.$state.listings.slice(0, 8));
+const listings = computed(() => store.$state.listings);
 const router = useRouter();
-
-store.fetchListings();
 
 // methods
 
@@ -21,10 +20,7 @@ function gotoListing() {
 </script>
 <template>
   <div class="w-full lg:w-[1200px] lg:mx-auto">
-    <div class="text-center mt-10">
-      <h1 class="h2 lg:text-3xl text-3xl">Featured Listings</h1>
-      <p class="py-4 text-lg">Popular and most recent listings</p>
-    </div>
+    <SortListings class="w-full mx-auto mt-10" />
     <div v-if="listings.length > 0">
       <div class="flex flex-wrap mt-0 pt-0 justify-center">
         <Listing
@@ -52,7 +48,7 @@ function gotoListing() {
         </button>
       </div>
     </div>
-    <div v-else class="flex flex-wrap">
+    <div v-else class="flex flex-wrap mt-0 pt-0 justify-center">
       <ListingSkeleton v-for="i in 8" :key="i" />
     </div>
   </div>
