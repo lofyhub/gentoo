@@ -227,7 +227,7 @@ async function postListing() {
       formData.append("kikaoimage", selectedFile.value[i]);
     }
 
-    await axios.post("http://localhost:9000/user/listings", formData, {
+    await axios.post(`${env}/user/listings`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "x-access-token": token,
