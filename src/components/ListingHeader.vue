@@ -26,7 +26,7 @@ import TrashIcon from "@/components/icons/TrashIcon.vue";
 import CheckIcon from "@/components/icons/CheckIcon.vue";
 import RoomBooking from "@/components/popups/RoomBooking.vue";
 
-import { withDefaults, defineProps, ref, computed } from "vue";
+import { withDefaults, defineProps, ref, computed, onMounted } from "vue";
 import { houseSchema } from "@/temp/housestemp";
 import { useHead } from "unhead";
 
@@ -91,6 +91,12 @@ function handleTour() {
   // send tht data to backend
 }
 
+onMounted(async () => {
+  if (store.$state.userId) {
+    listingStore.getListingAuthor(prop.listing.userId);
+  }
+});
+
 function socialShare() {
   showShare.value = !showShare.value;
 }
@@ -104,9 +110,6 @@ function addFavourite() {
   } else {
     listingStore.addBookmark(prop.listing._id);
   }
-}
-if (store.$state.userId) {
-  listingStore.getListingAuthor(prop.listing.userId);
 }
 
 function handleBooking() {
@@ -199,6 +202,7 @@ function handlePreviousImage() {
 
             <!-- Slider indicators -->
             <div
+              v-if="prop.listing.images.length > 1"
               class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"
             >
               <button
@@ -355,22 +359,6 @@ function handlePreviousImage() {
             <h2 class="text-2xl font-medium text-indigo-500 mb-[14px]">
               About this home
             </h2>
-
-            <p v-if="!prop.listing.description" class="py-3 text-justify">
-              The "About this Home" section in a rental apartment listing is
-              typically a summary of the key features and characteristics of the
-              apartment. It may include information about the size of the
-              apartment, the number of bedrooms and bathrooms, the type of
-              flooring or finishes, and any special amenities or features such
-              as a balcony or in-unit laundry. <br />
-              <br />
-              It may also include details about the location of the apartment,
-              such as the neighborhood it is located in and any nearby public
-              transportation options. This section is intended to provide a
-              general overview of the apartment and help prospective renters get
-              a sense of what the unit is like before they schedule a showing or
-              visit in person.
-            </p>
             <p class="py-3 text-justify">
               {{ prop.listing.description }}
             </p>
@@ -432,21 +420,24 @@ function handlePreviousImage() {
             <div
               class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-8 text-base"
             >
-              <div class="flex my-2">
+              <div class="flex my-2" v-if="listing.compartments.roomNumber">
                 <CheckCircleIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
 
                 <span class="font-bold">Room Number</span>
               </div>
 
-              <div class="flex my-2">
+              <div class="flex my-2" v-if="listing.compartments.WIFI">
                 <WifiIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
                 <span class="font-bold">WIFI</span>
               </div>
-              <div class="flex my-2">
+              <div class="flex my-2" v-if="listing.compartments.security">
                 <ShieldIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
                 <span class="font-bold">Security</span>
               </div>
-              <div class="flex my-2">
+              <div
+                class="flex my-2"
+                v-if="listing.compartments.garbageCollection"
+              >
                 <TrashIcon class="fill-indigo-50 mr-8 lg:mr-2 w-6 h-6" />
                 <span class="font-bold">Garbage Collection</span>
               </div>
@@ -487,13 +478,17 @@ function handlePreviousImage() {
                   <span class="font-bold ml-16">{{
                     prop.listing.compartments.bedrooms === 0 ||
                     prop.listing.compartments.bedrooms === 1
-                      ? `BedSitter`
+                      ? `Studio Apartment`
                       : `${prop.listing.compartments.bedrooms} Bedrooms`
                   }}</span>
                 </div>
                 <div class="flex justify-between my-4">
                   <p>Laundry</p>
-                  <span class="font-bold ml-16">in unit</span>
+                  <span class="font-bold ml-16">
+                    {{
+                      listing.compartments.washRooms ? `in unit` : `off site`
+                    }}</span
+                  >
                 </div>
                 <div class="flex justify-between my-4">
                   <p>Cooling</p>
@@ -508,15 +503,17 @@ function handlePreviousImage() {
                 </div>
                 <div class="flex justify-between my-4">
                   <p>Year built</p>
-                  <span class="font-bold ml-16">2018</span>
+                  <span class="font-bold ml-16">{{
+                    listing.yearbuilt ? listing.yearbuilt : `2019`
+                  }}</span>
                 </div>
                 <div class="flex justify-between my-4">
                   <p>Size</p>
-                  <span class="font-bold ml-16">{{ listing.size }}</span>
+                  <span class="font-bold ml-16">{{ listing.size }} sqft</span>
                 </div>
                 <div class="flex justify-between">
                   <p>Land Size</p>
-                  <span class="font-bold ml-16">{{ listing.size }}sqft</span>
+                  <span class="font-bold ml-16">{{ listing.size }} sqft</span>
                 </div>
                 <div class="flex justify-between my-4">
                   <p>Parking Area</p>

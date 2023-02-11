@@ -16,6 +16,10 @@ export interface houseSchema {
     totalRooms: string;
     washRooms: number;
     parking: boolean;
+    roomNumber: boolean;
+    security: boolean;
+    WIFI: boolean;
+    garbageCollection: boolean;
   };
   size: string;
   createdAt: string;

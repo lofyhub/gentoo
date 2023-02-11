@@ -2,15 +2,41 @@
 import { useRoute } from "vue-router";
 
 import ListingHeader from "@/components/ListingHeader.vue";
-import { useRootStore } from "@/store";
+import Loading from "@/components/icons/Loading.vue";
+import { env } from "@/env";
+import axios from "axios";
+import { onBeforeMount, ref } from "vue";
+import { houseSchema } from "@/temp/housestemp";
 
-const store = useRootStore();
-const idParam = useRoute().params.id as string;
-const houseListing = store.getListingById(idParam);
+const route = useRoute();
+const houseListing = ref<houseSchema>();
+const id = route.params.id as string;
+
+// methods
+async function fetchListing() {
+  try {
+    const res = await axios.post(`${env}/user/listing`, { id: id });
+    const listing = await res.data.listing;
+    houseListing.value = listing;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Fetch listing
+onBeforeMount(async () => {
+  await fetchListing();
+});
 </script>
 
 <template>
-  <div class="w-full lg:w-[1130px] mx-auto">
-    <ListingHeader :listing="houseListing!" />
+  <div class="w-full lg:w-[1130px] mx-auto h-auto">
+    <div
+      v-if="!houseListing"
+      class="flex justify-center items-center text-center h-[860px]"
+    >
+      <Loading />
+    </div>
+    <ListingHeader v-else :listing="houseListing!" />
   </div>
 </template>

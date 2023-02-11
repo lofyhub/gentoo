@@ -14,6 +14,7 @@ import VueMultiselect from "vue-multiselect";
 import UploadIcon from "@/components/icons/Upload.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 import GeneratingSpinner from "@/components/icons/generatingSpinner.vue";
+import Delete from "./icons/Delete.vue";
 import { counties } from "@/temp/housestemp";
 import { commonSizes, houseType } from "@/temp/rentalfeatures";
 
@@ -29,7 +30,7 @@ const size = ref(``);
 const duration = ref(``);
 const parking = ref<boolean>(false);
 const description = ref(``);
-const selectedFile = ref<File | null>(null);
+const selectedFile = ref();
 const rent = ref<number>();
 const bedrooms = ref<number>();
 const bathrooms = ref<number>();
@@ -38,36 +39,25 @@ const wifi = ref<boolean>(false);
 const security = ref<boolean>(false);
 const roomNumber = ref<boolean>(false);
 const garbageCollection = ref<boolean>(false);
-const availability = ref<boolean>(true);
+const availability = ref<boolean>(false);
 const laundry = ref<"off-site" | "in-unit ">("in-unit ");
 const isLaundryAvailable = ref<boolean>(false);
 const yearBuilt = ref<number>();
 const isGenerating = ref<boolean>(false);
-const housetype = ref();
+const housetype = ref(``);
+const previewImages = ref<string[]>([]);
 
 const id = store.$state.userId;
 
 // methods
 
-watch(housetype, (newValue, oldValue) => {
+watch(housetype, (newValue) => {
   for (let i = 0; i < commonSizes.length; i++) {
     if (newValue === commonSizes[i].name) {
-      size.value = commonSizes[i].size;
+      size.value = commonSizes[i].size as unknown as string;
     }
   }
 });
-
-async function onFileSelected(event: Event) {
-  if (!event.target) {
-    return;
-  }
-  const target = event.target as HTMLInputElement;
-  if (!target.files) {
-    toastError(`No image selected`);
-    return;
-  }
-  selectedFile.value = target.files[0];
-}
 
 async function generateListingDescription() {
   if (
@@ -144,6 +134,47 @@ async function generateListingDescription() {
 function handleLaundry() {
   isLaundryAvailable.value = !isLaundryAvailable.value;
 }
+
+async function onFileSelected(event: Event) {
+  if (!event.target) {
+    return;
+  }
+  const target = event.target as HTMLInputElement;
+  if (!target.files) {
+    toastError(`No image selected`);
+    return;
+  }
+
+  selectedFile.value = target.files;
+
+  let imageUrl = [];
+  for (const imageFile of target.files) {
+    const imageSrc = await getImageDataURL(imageFile);
+    imageUrl.push(imageSrc as string);
+    previewImages.value = [...imageUrl];
+  }
+}
+
+function clearPreview(index: number) {
+  previewImages.value.splice(index, 1);
+  const newSelectedFiles = Array.from(selectedFile.value).slice();
+  newSelectedFiles.splice(index, 1);
+  selectedFile.value = newSelectedFiles;
+}
+
+function getImageDataURL(imageFile: File) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      resolve(reader.result);
+    });
+    reader.addEventListener("error", () => {
+      reject(reader.error);
+    });
+    reader.readAsDataURL(imageFile);
+  });
+}
+
 async function postListing() {
   if (
     !description.value ||
@@ -154,7 +185,9 @@ async function postListing() {
     !size.value ||
     !duration.value ||
     !title.value ||
-    !county.value
+    !county.value ||
+    !selectedFile.value ||
+    !yearBuilt.value
   ) {
     toastMessage("Please fill in all the details");
     return;
@@ -187,12 +220,14 @@ async function postListing() {
     formData.append("yearbuilt", JSON.stringify(yearBuilt.value));
     formData.append("status", "active");
     formData.append("county", county.value);
+    formData.append("year", JSON.stringify(yearBuilt.value));
     formData.append("description", description.value.trim());
-    if (selectedFile.value) {
-      formData.append("kikaoimage", selectedFile.value);
+
+    for (let i = 0; i < selectedFile.value.length; i++) {
+      formData.append("kikaoimage", selectedFile.value[i]);
     }
 
-    const res = await axios.post(`${env}/user/listings`, formData, {
+    await axios.post("http://localhost:9000/user/listings", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "x-access-token": token,
@@ -200,7 +235,6 @@ async function postListing() {
     });
 
     toastSuccess("Your listing has been successfuly posted");
-    console.log(res);
     title.value = "";
     town.value = ``;
     location.value = ``;
@@ -222,8 +256,10 @@ async function postListing() {
       (security.value = false),
       (isLaundryAvailable.value = false),
       (parking.value = false);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    if (error.response) {
+      toastError(error.response.data.error);
+    }
   } finally {
     loading.value = false;
   }
@@ -444,7 +480,7 @@ async function postListing() {
             <div class="flex items-center text-center justify-center mr-4">
               <p
                 @click.self="roomNumber = !roomNumber"
-                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2 cursor-pointer"
                 :class="roomNumber ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -456,7 +492,7 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="wifi = !wifi"
-                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2 cursor-pointer"
                 :class="wifi ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -468,7 +504,7 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="garbageCollection = !garbageCollection"
-                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2 cursor-pointer"
                 :class="garbageCollection ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -480,7 +516,7 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="security = !security"
-                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2 cursor-pointer"
                 :class="security ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -491,7 +527,7 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="handleLaundry"
-                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2 cursor-pointer"
                 :class="isLaundryAvailable ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -502,7 +538,7 @@ async function postListing() {
             <div class="flex items-center mr-4">
               <p
                 @click="parking = !parking"
-                class="w-3 h-3 rounded-full border border-gray-200 ring-2"
+                class="w-3 h-3 rounded-full border border-gray-200 ring-2 cursor-pointer"
                 :class="parking ? `bg-indigo-500` : `bg-white`"
               ></p>
               <label
@@ -551,17 +587,41 @@ async function postListing() {
             <GeneratingSpinner v-if="isGenerating" />
             <p v-else>Generate Description</p>
           </button>
-          <p class="text-gray-500 text-sm pt-3">
+          <p class="text-gray-400 text-sm pt-3">
             Description is generated based on the details you have provided
           </p>
         </div>
       </div>
       <!-- start image upload -->
-      <p
-        class="text-sm uppercase font-semibold pb-5 justify-center flex lg:justify-start"
-      >
-        Upload Images
-      </p>
+      <div class="pb-5">
+        <p
+          class="text-sm uppercase font-semibold justify-center pb-2 flex lg:justify-start"
+        >
+          Upload Images
+        </p>
+        <p class="text-gray-400 text-sm">
+          You can upload upto 4 images (1MB each)
+        </p>
+      </div>
+      <div class="flex mb-5">
+        <div v-for="(image, index) in previewImages" :key="index">
+          <img
+            :src="image"
+            class="w-32 h-20 rounded mr-2 mb-1 border border-indigo-500 object-cover cursor-pointer"
+            srcset=""
+          />
+          <div class="mt-2">
+            <button
+              type="button"
+              class="flex justify-around text-gray-400 hover:text-gray-500 hover:fill-gray-500 transition-all transform"
+              @click="clearPreview(index)"
+            >
+              <Delete class="fill-gray-400 w-3 h-3 mr-3" />
+              <span>Remove</span>
+            </button>
+          </div>
+        </div>
+      </div>
       <form class="flex items-center justify-center w-full">
         <label
           for="dropzone-file"

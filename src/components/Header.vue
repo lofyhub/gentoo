@@ -116,7 +116,7 @@ function toggleDropdown() {
 
             <a
               @click="handleListing"
-              v-if="session.$state.kikaotype === 'landlord'"
+              v-if="session.$state.userId"
               class="py-5 px-3 hover:border-b-2 mx-4 hover:border-indigo-500 hover:bg-indigo-50 transition-all transform mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
               :class="
                 route.name === `Dashboard` ||
@@ -127,11 +127,7 @@ function toggleDropdown() {
                   : `text-gray-800`
               "
             >
-              {{
-                session.$state.kikaotype === "landlord"
-                  ? `Dashboard`
-                  : `Create listing`
-              }}
+              Dashboard
             </a>
 
             <div class="flex items-center mt-4 lg:mt-0 mx-6">

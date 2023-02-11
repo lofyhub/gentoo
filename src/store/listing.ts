@@ -50,8 +50,6 @@ export const uselistingStore = defineStore(`listingStore`, {
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           toastWarning(error.response.data.message);
-        } else {
-          toastError(error as string);
         }
       }
     },
@@ -105,8 +103,6 @@ export const uselistingStore = defineStore(`listingStore`, {
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           toastWarning(error.response.data.message);
-        } else {
-          toastError(error as string);
         }
       }
     },

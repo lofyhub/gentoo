@@ -6,7 +6,7 @@ const date = new Date().getFullYear();
 
 <template>
   <footer
-    class="wow fadeInUp relative z-10 bg-primary bg-opacity-5 pt-8 md:pt-20 lg:pt-14 border-t border-gray-200"
+    class="wow fadeInUp relative bg-primary bg-opacity-5 pt-8 md:pt-20 lg:pt-14 border-t border-gray-200"
     data-wow-delay=".1s"
   >
     <div class="container mx-auto pt-0">
