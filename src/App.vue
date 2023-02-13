@@ -7,21 +7,14 @@ import HeaderVue from "@/components/Header.vue";
 import LoginPopup from "@/components/popups/LoginPopup.vue";
 
 import { useRootStore } from "@/store/index";
-import { uselistingStore } from "@/store/listing";
-import { useSessionStore } from "@/store/session";
 
 useHead({
   title: "Kikao | Find your next home with us",
 });
 
 const store = useRootStore();
-const listingStore = uselistingStore();
-const session = useSessionStore();
 
 const showLogin = computed(() => store.$state.showLogin);
-if (session.$state.userId) {
-  listingStore.fetchBookmarks();
-}
 </script>
 <template>
   <div>

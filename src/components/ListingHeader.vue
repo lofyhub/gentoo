@@ -26,7 +26,7 @@ import TrashIcon from "@/components/icons/TrashIcon.vue";
 import CheckIcon from "@/components/icons/CheckIcon.vue";
 import RoomBooking from "@/components/popups/RoomBooking.vue";
 
-import { withDefaults, defineProps, ref, computed, onMounted } from "vue";
+import { withDefaults, defineProps, ref, computed } from "vue";
 import { houseSchema } from "@/temp/housestemp";
 import { useHead } from "unhead";
 
@@ -75,7 +75,7 @@ const imageIndex = ref(0);
 const displayImage = computed(() => prop.listing.images[imageIndex.value]);
 const isImageBinary = typeof displayImage.value === "string" ? false : true;
 const showNextPrevButtons = prop.listing.images.length > 1;
-const image = displayImage.value;
+const image = computed(() => prop.listing.images[imageIndex.value]);
 
 // methods
 
@@ -91,11 +91,7 @@ function handleTour() {
   // send tht data to backend
 }
 
-onMounted(async () => {
-  if (store.$state.userId) {
-    listingStore.getListingAuthor(prop.listing.userId);
-  }
-});
+listingStore.getListingAuthor(prop.listing.userId);
 
 function socialShare() {
   showShare.value = !showShare.value;
@@ -252,7 +248,7 @@ function handlePreviousImage() {
               @click="handleNextImage"
             >
               <span
-                class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-gray/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
               >
                 <svg
                   aria-hidden="true"
@@ -327,9 +323,7 @@ function handlePreviousImage() {
                 <p class="text-base font-semibold">Square Area</p>
                 <div class="pt-3">
                   <HouseIcon class="w-5 h-5 inline" />
-                  <span class="font-bold ml-2">{{
-                    listing.size.slice(0, 3)
-                  }}</span>
+                  <span class="font-bold ml-2">{{ listing.size }}</span>
                   <span class="text-gray-500 ml-1">sqft</span>
                 </div>
               </div>

@@ -24,33 +24,37 @@ export interface RootState {
   userListings: houseSchema[];
   sortListings: houseSchema[];
 }
-
-export const useRootStore = defineStore(`rootStore`, {
+export const useRootStore = defineStore("rootStore", {
   state: (): RootState => {
     return {
       listings: [],
       showLogin: false,
       userListings: [],
-      sortListings: [],
+      sortListings: [], // already defined in the state object
     };
   },
   persist: true,
   actions: {
     async fetchListings() {
       try {
-        const res = await fetch(`${env}/listings`);
-        const data = await res.json();
+        const res = await axios.get(`${env}/listings`, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+        console.log(res);
+        const data = await res.data.listings;
         const listings = data.listings;
         this.listings = listings;
-        this.sortListings = listings;
+        // remove duplicate sortListings property
       } catch (error) {
         handleError(error);
       }
     },
-    // fetch user listing for dashbboard
     async authorListings() {
+      const { $state } = useSessionStore(); // move useSessionStore inside action
       try {
-        const Id: string = useSessionStore().$state.userId;
+        const Id: string = $state.userId;
         const token = localStorage.getItem("kikao-token");
         const headers = {
           "Content-Type": "application/json",
@@ -70,7 +74,15 @@ export const useRootStore = defineStore(`rootStore`, {
         }
       }
     },
-    sortListings() {
+    removeDeletedListing(id: string) {
+      const index = this.userListings.findIndex(
+        (listing) => listing._id === id
+      );
+      if (index !== -1) {
+        this.userListings.splice(index, 1);
+      }
+    },
+    handleSortListings() {
       // TODO: handle sorting of listings here
     },
     toggleLogin() {

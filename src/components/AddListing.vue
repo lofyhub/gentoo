@@ -17,24 +17,27 @@ import GeneratingSpinner from "@/components/icons/generatingSpinner.vue";
 import Delete from "./icons/Delete.vue";
 import { counties } from "@/temp/housestemp";
 import { commonSizes, houseType } from "@/temp/rentalfeatures";
+import router from "@/router";
 
 defineEmits(["close"]);
 
 const store = useSessionStore();
 const loading = ref(false);
-const title = ref(``);
-const town = ref(``);
-const location = ref(``);
-const county = ref(``);
-const size = ref(``);
-const duration = ref(``);
+const title = ref(`Rubics Courts`);
+const town = ref(`Eldoret`);
+const location = ref(`Eldoret`);
+const county = ref(`Uasin Gishu`);
+const size = ref(2500);
+const duration = ref(`Month`);
 const parking = ref<boolean>(false);
-const description = ref(``);
+const description = ref(
+  `Rubics Courts, located in the industrial city of Eldoret, County Uasin Gishu, is a one-bed apartment featuring 4 total rooms, 2500sqft in size, wifi available, an in-unit laundry facility, and parking space provided. Security is available at all times, with garbage collection service also provided. Built in 2012, the apartment is available for rent at KShs. 6000 per month.`
+);
 const selectedFile = ref();
-const rent = ref<number>();
-const bedrooms = ref<number>();
-const bathrooms = ref<number>();
-const totalrooms = ref<number>();
+const rent = ref<number>(6000);
+const bedrooms = ref<number>(1);
+const bathrooms = ref<number>(1);
+const totalrooms = ref<number>(4);
 const wifi = ref<boolean>(false);
 const security = ref<boolean>(false);
 const roomNumber = ref<boolean>(false);
@@ -42,9 +45,9 @@ const garbageCollection = ref<boolean>(false);
 const availability = ref<boolean>(false);
 const laundry = ref<"off-site" | "in-unit ">("in-unit ");
 const isLaundryAvailable = ref<boolean>(false);
-const yearBuilt = ref<number>();
+const yearBuilt = ref<number>(2012);
 const isGenerating = ref<boolean>(false);
-const housetype = ref(``);
+const housetype = ref(`1-bedroom apartments`);
 const previewImages = ref<string[]>([]);
 
 const id = store.$state.userId;
@@ -227,19 +230,21 @@ async function postListing() {
       formData.append("kikaoimage", selectedFile.value[i]);
     }
 
-    await axios.post(`${env}/user/listings`, formData, {
+    const res = await axios.post(`${env}/user/listings`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "x-access-token": token,
       },
     });
+    if (res.status === 200) {
+      toastSuccess("Your listing has been successfuly posted");
+    }
 
-    toastSuccess("Your listing has been successfuly posted");
     title.value = "";
     town.value = ``;
     location.value = ``;
     county.value = ``;
-    size.value = ``;
+    size.value = 0;
     duration.value = ``;
     parking.value = false;
     description.value = ``;
@@ -256,9 +261,13 @@ async function postListing() {
       (security.value = false),
       (isLaundryAvailable.value = false),
       (parking.value = false);
+    router.push("/dashboard");
   } catch (error: any) {
-    if (error.response) {
-      toastError(error.response.data.error);
+    if (axios.isAxiosError(error) && error.response) {
+      toastWarning(error.response.data.message);
+    } else {
+      console.log(error);
+      toastError(error as string);
     }
   } finally {
     loading.value = false;

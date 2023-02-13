@@ -4,7 +4,9 @@ import { withDefaults, defineProps, ref, defineEmits } from "vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 import XIcon from "@/components/icons/XIcon.vue";
 import axios from "axios";
+import { env } from "@/env";
 import { toastError, toastSuccess } from "@/plugins/toast";
+import { useRootStore } from "@/store";
 
 const props = withDefaults(
   defineProps<{
@@ -14,6 +16,7 @@ const props = withDefaults(
   {}
 );
 
+const store = useRootStore();
 const emit = defineEmits(["close", "confirm"]);
 const deleting = ref(false);
 // methods
@@ -30,12 +33,13 @@ async function handleDeletion() {
       "x-access-token": token,
     };
     const data = { _id: id, accountId: accountId };
-    const res = await axios.delete("http://localhost:9000/user/listings", {
+    const res = await axios.delete(`${env}/user/listings`, {
       data: data,
       headers: headers,
     });
     if (res.status === 200) {
       toastSuccess("Successfully deleted your listing");
+      store.removeDeletedListing(props.listingId);
       emit("close");
     }
   } catch (error) {

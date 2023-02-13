@@ -35,7 +35,7 @@ function getStyles(tab: string) {
   <div v-if="store.$state._id" class="min-h-screen mb-20">
     <!-- Dashboard to add, delete, edit and view listings -->
     <profile />
-    <div class="w-full lg:w-2/5 mx-auto border-t border-gray-200">
+    <div class="w-full lg:w-4/5 mx-auto border-t border-gray-200">
       <div class="flex">
         <router-link
           :to="'/dashboard/'"
