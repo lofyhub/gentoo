@@ -42,10 +42,9 @@ export const useRootStore = defineStore("rootStore", {
             "Access-Control-Allow-Origin": "*",
           },
         });
-        console.log(res);
-        const data = await res.data.listings;
-        const listings = data.listings;
-        this.listings = listings;
+        const { listings } = await res.data;
+
+        this.listings = [...listings];
         // remove duplicate sortListings property
       } catch (error) {
         handleError(error);
