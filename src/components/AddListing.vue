@@ -45,7 +45,7 @@ const laundry = ref<"off-site" | "in-unit ">("in-unit ");
 const isLaundryAvailable = ref<boolean>(false);
 const yearBuilt = ref<number>();
 const isGenerating = ref<boolean>(false);
-const housetype = ref(`1-bedroom apartments`);
+const housetype = ref<string>();
 const previewImages = ref<string[]>([]);
 
 const id = store.$state.userId;
