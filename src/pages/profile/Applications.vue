@@ -88,7 +88,7 @@ function getStyles(tab: string) {
         >
           <div
             class="flex items-center justify-center py-4"
-            :class="getStyles('Guidelines')"
+            :class="getStyles('Bookings')"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ function getStyles(tab: string) {
               />
             </svg>
 
-            <span>Guides</span>
+            <span>Bookings</span>
           </div>
         </router-link>
       </div>

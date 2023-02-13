@@ -15,7 +15,7 @@
         <div class="h-1 mt-2 w-1/3 rounded-sm bg-gray-300"></div>
         <div class="h-1 mt-2 w-2/3 rounded-sm bg-gray-300"></div>
         <div class="h-1 mt-2 rounded-sm bg-gray-300"></div>
-        <div class="h-1 mt-2 rounded-sm bg-gray-300"></div>
+        <div class="h-1 bg-gray-300"></div>
         <div class="h-2 rounded-sm bg-gray-300"></div>
       </div>
     </div>

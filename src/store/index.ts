@@ -67,7 +67,7 @@ export const useRootStore = defineStore("rootStore", {
         this.userListings = res.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
-          toastWarning(error.response.data.message);
+          toastWarning(error.response.data.error);
         } else {
           toastError(error as string);
         }

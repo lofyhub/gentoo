@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "@/pages/HomeView.vue";
 import ProfileListings from "@/pages/profile/Listings.vue";
 import AddListing from "@/components/AddListing.vue";
-import Guidelines from "@/components/Guidelines.vue";
+import Bookings from "@/components/Bookings.vue";
 import Notfound from "@/pages/NotFound.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -58,8 +58,8 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "listings",
-        name: "Guidelines",
-        component: Guidelines,
+        name: "Bookings",
+        component: Bookings,
       },
     ],
   },
