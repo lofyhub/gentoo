@@ -23,6 +23,7 @@ export interface houseSchema {
   };
   size: string;
   createdAt: string;
+  yearbuilt: number;
   status: string;
   description: string;
 }

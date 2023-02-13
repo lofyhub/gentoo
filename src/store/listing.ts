@@ -49,7 +49,9 @@ export const uselistingStore = defineStore(`listingStore`, {
         this.listingAuthor = await res.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
-          toastWarning(error.response.data.message);
+          toastWarning(error.response.data.error);
+        } else {
+          toastError("Something went wrong");
         }
       }
     },
@@ -75,6 +77,7 @@ export const uselistingStore = defineStore(`listingStore`, {
         if (axios.isAxiosError(error) && error.response) {
           toastWarning(error.response.data.message);
         } else {
+          console.log(error);
           toastError(error as string);
         }
       }
