@@ -33,7 +33,7 @@ onBeforeMount(async () => {
   <div class="w-full lg:w-[1130px] mx-auto h-auto">
     <div
       v-if="!houseListing"
-      class="flex justify-center items-center text-center h-[860px]"
+      class="flex justify-center items-center text-center lg:h-[860px] h-96"
     >
       <Loading />
     </div>
