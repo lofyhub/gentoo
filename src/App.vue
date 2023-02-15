@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onBeforeMount } from "vue";
 import { useHead } from "unhead";
 
 import Footer from "@/components/Footer.vue";
@@ -13,6 +13,9 @@ useHead({
 });
 
 const store = useRootStore();
+onBeforeMount(() => {
+  store.fetchListings();
+});
 
 const showLogin = computed(() => store.$state.showLogin);
 </script>

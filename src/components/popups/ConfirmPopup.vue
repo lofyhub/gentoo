@@ -73,7 +73,7 @@ async function handleDeletion() {
               <XIcon class="w-6 h-6" />
             </button>
           </div>
-          <p class="text-gray-500 dark:text-black font-normal text-lg py-2">
+          <p class="text-gray-400 dark:text-black font-normal text-lg py-2">
             Are you sure you want to delete this listing? By doing so, you will
             loose all details related to this listing. This action cannot be
             undone.

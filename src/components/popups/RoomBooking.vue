@@ -14,6 +14,7 @@ import {
 } from "@/plugins/toast";
 import { lAuthor } from "@/store/listing";
 import axios from "axios";
+import { formatDate } from "@/helpers/helpers";
 
 const props = withDefaults(
   defineProps<{
@@ -87,9 +88,33 @@ async function handleBooking() {
               >
                 Book {{ props.listing.name }}
               </p>
-              <span class="text-gray-500 font-normal py-3 text-base">
-                Location : {{ props.listing.location }}</span
-              >
+              <table class="table-auto mt-3 w-full">
+                <thead
+                  class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400"
+                >
+                  <tr>
+                    <th scope="col" class="px-6 py-3">location</th>
+                    <th scope="col" class="px-6 py-3">Price</th>
+                    <th scope="col" class="px-6 py-3">Listed on</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-gray-400 px-2 py-2">
+                      {{ props.listing.location }}
+                    </td>
+                    <td class="text-indigo-500 px-2 py-2">
+                      {{ props.listing.rate.price.toLocaleString() }} Kshs
+                      <span class="text-gray-400"
+                        >/{{ props.listing.rate.duration.toLowerCase() }}</span
+                      >
+                    </td>
+                    <td class="text-gray-400 px-2 py-2">
+                      {{ formatDate(props.listing.createdAt) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <button
               class="bg-gray-300 dark:bg-gray-500 focus:outline-none mb-5 rounded-full p-1 w-8 h-8"
@@ -99,7 +124,7 @@ async function handleBooking() {
             </button>
           </div>
           <!-- start booking form -->
-          <div class="flex items-center justify-center p-12">
+          <div class="flex items-center justify-center pt-4">
             <div class="mx-auto w-full max-w-[550px]">
               <form>
                 <div class="-mx-3 flex flex-wrap">
@@ -126,7 +151,7 @@ async function handleBooking() {
                     for="guest"
                     class="mb-3 block text-base font-medium text-[#07074D]"
                   >
-                    Whats your working phone number?
+                    What's your working phone number?
                   </label>
                   <input
                     type="number"
@@ -191,7 +216,7 @@ async function handleBooking() {
           <button
             type="button"
             @click="emit(`close`)"
-            class="text-gray-900 font-bold px-8 py-2 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-sm text-sm text-center mr-3 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
+            class="text-gray-900 font-bold px-8 py-2 font-medium rounded-sm text-sm text-center mr-3 dark:border-indigo-500 dark:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-800"
           >
             Cancel
           </button>

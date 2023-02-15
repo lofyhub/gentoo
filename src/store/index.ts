@@ -22,7 +22,6 @@ export interface RootState {
   listings: houseSchema[];
   showLogin: boolean;
   userListings: houseSchema[];
-  sortListings: houseSchema[];
 }
 export const useRootStore = defineStore("rootStore", {
   state: (): RootState => {
@@ -30,7 +29,6 @@ export const useRootStore = defineStore("rootStore", {
       listings: [],
       showLogin: false,
       userListings: [],
-      sortListings: [], // already defined in the state object
     };
   },
   persist: true,
@@ -44,14 +42,13 @@ export const useRootStore = defineStore("rootStore", {
         });
         const { listings } = await res.data;
 
-        this.listings = [...listings];
-        // remove duplicate sortListings property
+        this.listings = listings;
       } catch (error) {
         handleError(error);
       }
     },
     async authorListings() {
-      const { $state } = useSessionStore(); // move useSessionStore inside action
+      const { $state } = useSessionStore();
       try {
         const Id: string = $state.userId;
         const token = localStorage.getItem("kikao-token");
@@ -80,9 +77,6 @@ export const useRootStore = defineStore("rootStore", {
       if (index !== -1) {
         this.userListings.splice(index, 1);
       }
-    },
-    handleSortListings() {
-      // TODO: handle sorting of listings here
     },
     toggleLogin() {
       this.showLogin = !this.showLogin;

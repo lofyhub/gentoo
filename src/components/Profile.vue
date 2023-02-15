@@ -19,7 +19,7 @@ const open = ref(false);
           <div class="flex justify-between items-start">
             <!-- Image + name -->
             <header>
-              <div class="flex my-10 lg:gap-20">
+              <div class="flex my-3 lg:gap-20">
                 <div class="items-start mr-5">
                   <img
                     class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] bg-cover object-cover shadow transition-opacity"

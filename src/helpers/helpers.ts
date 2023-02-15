@@ -101,10 +101,10 @@ export interface file {
 }
 export function convertBuffer(file: file) {
   let buffer;
-  if (file.data) {
+  if (file?.data) {
     buffer = file.data.toString("base64");
   } else {
-    return;
+    return "";
   }
 
   const data = `data:${file.contentType};base64,${buffer}`;

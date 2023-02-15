@@ -12,10 +12,10 @@ function goBack() {
 </script>
 <template>
   <button
-    class="focus:outline-none transform rounded-md font-normal transition duration-500 ease-in-out text-indigo-500 lowercase"
+    class="focus:outline-none transform rounded-md font-normal transition duration-500 ease-in-out text-indigo-400 lowercase"
     @click="goBack()"
   >
-    <ArrowLeft class="fill-indigo-500 inline w-5 h-6" />
+    <ArrowLeft class="fill-indigo-400 inline w-5 h-6" />
     <span class="font-sans ml-2" style="font-size: 1rem">
       Back to {{ route.name ? `${route.name as string}` : `` }}
     </span>

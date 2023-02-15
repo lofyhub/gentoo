@@ -26,7 +26,7 @@ import TrashIcon from "@/components/icons/TrashIcon.vue";
 import CheckIcon from "@/components/icons/CheckIcon.vue";
 import RoomBooking from "@/components/popups/RoomBooking.vue";
 
-import { withDefaults, defineProps, ref, computed } from "vue";
+import { withDefaults, defineProps, ref, computed, onBeforeMount } from "vue";
 import { houseSchema } from "@/temp/housestemp";
 import { useHead } from "unhead";
 
@@ -91,7 +91,7 @@ function handleTour() {
   // send tht data to backend
 }
 
-listingStore.getListingAuthor(prop.listing.userId);
+onBeforeMount(() => listingStore.getListingAuthor(prop.listing.userId));
 
 function socialShare() {
   showShare.value = !showShare.value;
@@ -171,7 +171,7 @@ function handlePreviousImage() {
           </button>
         </div>
       </div>
-      <div class="text-gray-500 flex gap-4 text-base font-normal">
+      <div class="text-gray-400 flex gap-4 text-base font-normal">
         <ClockIcon class="w-4 h-4" />
         <span>{{ formatDate(prop.listing.createdAt) }}</span>
       </div>
@@ -199,7 +199,7 @@ function handlePreviousImage() {
             <!-- Slider indicators -->
             <div
               v-if="prop.listing.images.length > 1"
-              class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"
+              class="absolute z-10 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"
             >
               <button
                 v-for="but in prop.listing.images"
@@ -214,7 +214,7 @@ function handlePreviousImage() {
             <!-- Slider controls -->
             <button
               type="button"
-              class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              class="absolute top-0 left-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
               data-carousel-prev
               v-if="showNextPrevButtons"
               @click="handlePreviousImage"
@@ -242,13 +242,13 @@ function handlePreviousImage() {
             </button>
             <button
               type="button"
-              class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              class="absolute top-0 right-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
               data-carousel-next
               v-if="showNextPrevButtons"
               @click="handleNextImage"
             >
               <span
-                class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-gray/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
               >
                 <svg
                   aria-hidden="true"
@@ -636,15 +636,7 @@ function handlePreviousImage() {
         <Listing
           v-for="listing in listings"
           :key="listing._id"
-          :_id="listing._id"
-          :name="listing.name"
-          :location="listing.location"
-          :images="listing.images"
-          :rate="listing.rate"
-          :compartments="listing.compartments"
-          :created-at="listing.createdAt"
-          :status="listing.status"
-          :size="listing.size"
+          :listing="listing"
         />
       </div>
     </div>

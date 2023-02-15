@@ -80,11 +80,11 @@ function whatsappShare() {
               : convertBuffer(prop.listing.images[0] as unknown as file)
           "
           alt="social share image from kikao"
-          class="h-32 w-48 rounded bg-cover bg-img object-cover bg-cover"
+          class="h-32 w-32 lg:w-48 rounded bg-cover bg-img object-cover bg-cover"
         />
         <div class="flex items-center justify-center h-auto">
           <div class="flex flex-col ml-6">
-            <p class="text-gray-500 font-normal text-sm">kikao.co.ke</p>
+            <p class="text-gray-400 font-normal text-sm">kikao.co.ke</p>
             <h3 class="text-xl font-normal">{{ prop.listing.name }}</h3>
             <p class="text-base text-gray-500 font-normal">
               {{ prop.listing.location }}

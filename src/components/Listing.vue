@@ -14,28 +14,11 @@ import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
 
 import { file } from "@/helpers/helpers";
+import { houseSchema } from "@/temp/housestemp";
 
 const props = withDefaults(
   defineProps<{
-    _id: string;
-    name: string;
-    location: string;
-    county?: string;
-    images: string[];
-    rate: {
-      price: number;
-      duration: string;
-      countryCode: string;
-    };
-    compartments: {
-      bedrooms: number;
-      totalRooms: string;
-      washRooms: number;
-      parking: boolean;
-    };
-    size: string;
-    createdAt: string;
-    status: string;
+    listing: houseSchema;
   }>(),
   {}
 );
@@ -44,9 +27,11 @@ const session = useSessionStore();
 const listing = uselistingStore();
 const store = useRootStore();
 const showImagePopup = ref(false);
-const isBinary = typeof props.images[0] === "string" ? false : true;
+const isBinary = typeof props.listing.images[0] === "string" ? false : true;
 const isBookmarked = computed(
-  () => listing.$state.bookmarks.findIndex((elem) => elem === props._id) !== -1
+  () =>
+    listing.$state.bookmarks.findIndex((elem) => elem === props.listing._id) !==
+    -1
 );
 
 // methods
@@ -60,9 +45,9 @@ function handleFavourite() {
     store.toggleLogin();
     return;
   } else if (isBookmarked.value) {
-    listing.deleteBookmark(props._id);
+    listing.deleteBookmark(props.listing._id);
   } else {
-    listing.addBookmark(props._id);
+    listing.addBookmark(props.listing._id);
   }
 }
 </script>
@@ -73,8 +58,8 @@ function handleFavourite() {
     <img
       :src="
         !isBinary
-          ? props.images[props.images.length - 1]
-          : convertBuffer(props.images[0] as unknown as file)
+          ? props.listing.images[props.listing.images.length - 1]
+          : convertBuffer(props.listing.images[0] as unknown as file)
       "
       alt="listing image from kikao"
       loading="lazy"
@@ -87,11 +72,11 @@ function handleFavourite() {
       <div class="mt-1 flex justify-between">
         <div>
           <span class="text-[18px] font-semibold app-text opacity-100"
-            >{{ (props.rate.price * 1).toLocaleString("en") }} </span
+            >{{ (props.listing.rate.price * 1).toLocaleString("en") }} </span
           ><span class="text-base font-semibold app-text pl-1 opacity-100">
-            {{ props.rate.countryCode.toLowerCase() }}</span
+            {{ props.listing.rate.countryCode.toLowerCase() }}</span
           >/<span class="text-gray-500 text-base">{{
-            props.rate.duration.toLowerCase()
+            props.listing.rate.duration.toLowerCase()
           }}</span>
         </div>
         <button
@@ -104,18 +89,16 @@ function handleFavourite() {
           <heartIcon v-else class="w-5 h-5" />
         </button>
       </div>
-      <router-link :to="'/listing/' + props._id">
+      <router-link :to="'/listing/' + props.listing._id">
         <div>
           <p class="font-normal text-gray-900 text-lg truncate">
-            {{ props.name }}
+            {{ props.listing.name }}
           </p>
           <hr class="my-1 h-2" />
           <div class="py-.5 truncate text-base text-gray-600 font-normal flex">
-            <span class="text-base">
-              {{ props.county ? props.county : props.location }}</span
-            >
+            <span class="text-base"> {{ props.listing.county }}</span>
             <p class="h-1 w-1 rounded bg-gray-700 mx-2 my-2.5"></p>
-            <span>{{ formatDate(props.createdAt) }}</span>
+            <span>{{ formatDate(props.listing.createdAt) }}</span>
           </div>
         </div>
 
@@ -125,25 +108,28 @@ function handleFavourite() {
           <div class="flex pr-2">
             <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
             <span class="text-gray-600 font-bold ml-1.5"
-              >{{ props.compartments.bedrooms
+              >{{ props.listing.compartments.bedrooms
               }}<span class="ml-1 font-normal">{{
-                props.compartments.bedrooms > 1 ? `Beds` : `Bed`
+                props.listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
               }}</span></span
             >
           </div>
           <div class="flex pr-2">
             <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
             <span class="text-gray-600 ml-1 font-bold"
-              >{{ props.compartments.washRooms
+              >{{ props.listing.compartments.washRooms
               }}<span class="ml-1 font-normal">{{
-                props.compartments.washRooms > 1 ? `Bathrooms` : `Bathroom`
+                props.listing.compartments.washRooms > 1
+                  ? `Bathrooms`
+                  : `Bathroom`
               }}</span></span
             >
           </div>
           <div class="flex">
             <Yingyang class="w-4 h-4 inline" />
             <span class="text-gray-600 ml-1.5 font-bold"
-              >{{ props.size }}<span class="font-normal ml-1">sqft</span></span
+              >{{ props.listing.size.toLocaleString()
+              }}<span class="font-normal ml-[2px]">sqft</span></span
             >
           </div>
         </div>
@@ -155,8 +141,8 @@ function handleFavourite() {
       v-if="showImagePopup"
       :image="
         !isBinary
-          ? props.images[props.images.length - 1]
-          : convertBuffer(props.images[0] as unknown as file)
+          ? props.listing.images[props.listing.images.length - 1]
+          : convertBuffer(props.listing.images[0] as unknown as file)
       "
       @close="showImagePopup = false"
     />

@@ -7,7 +7,7 @@ import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import router from "@/router";
 
 const rootStore = useRootStore();
-const sortedListings = computed(() => rootStore.listings);
+const sortedListings = computed(() => rootStore.$state.listings);
 
 // methods
 function reload() {
@@ -23,20 +23,11 @@ function reload() {
       <Listing
         v-for="listing in sortedListings"
         :key="listing._id"
-        :_id="listing._id"
-        :name="listing.name"
-        :location="listing.location"
-        :county="listing.county"
-        :images="listing.images"
-        :rate="listing.rate"
-        :compartments="listing.compartments"
-        :created-at="listing.createdAt"
-        :status="listing.status"
-        :size="listing.size"
+        :listing="listing"
       />
     </div>
     <div v-else class="flex flex-wrap mt-4 mb-20 justify-center w-full">
-      <ListingSkeleton v-for="i in 12" :key="i" />
+      <ListingSkeleton v-for="i in 8" :key="i" />
     </div>
 
     <div>
@@ -44,10 +35,8 @@ function reload() {
         v-if="sortedListings.length === 0"
         class="flex flex-wrap mt-4 mb-20 pt-10 justify-center w-full"
       >
-        <div
-          class="text-center my-20 w-96 pt-32 mx-auto tracking-normal font-bold"
-        >
-          <h2 class="text-2xl">
+        <div class="text-center my-20 w-96 pt-32 mx-auto tracking-normal">
+          <h2 class="text-2xl text-gray-400">
             Sorry, we couldn't find listings that match your search at this
             time.
           </h2>

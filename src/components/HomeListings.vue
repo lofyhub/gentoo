@@ -26,15 +26,7 @@ function gotoListing() {
         <Listing
           v-for="listing in listings"
           :key="listing._id"
-          :_id="listing._id"
-          :name="listing.name"
-          :location="listing.location"
-          :images="listing.images"
-          :rate="listing.rate"
-          :compartments="listing.compartments"
-          :created-at="listing.createdAt"
-          :status="listing.status"
-          :size="listing.size"
+          :listing="listing"
         />
       </div>
       <div class="my-8 flex justify-center">

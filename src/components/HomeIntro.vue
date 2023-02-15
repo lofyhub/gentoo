@@ -52,11 +52,11 @@ onMounted(() => {
 
 <template>
   <div
-    class="flex flex-wrap justify-around py-16 w-full sm:w-4/5 lg:w-[1180px] mx-auto pb-6"
+    class="flex flex-wrap justify-around py-5 w-full sm:w-4/5 lg:w-[1200px] mx-auto"
   >
     <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
       <div class="lg:w-full w-4/5 mx-auto">
-        <h1 class="h3 lg:text-6xl text-5xl pb-3 font-bold">
+        <h1 class="h3 lg:text-5xl text-4xl pb-2 font-bold">
           Say
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-400"
@@ -64,14 +64,14 @@ onMounted(() => {
           >
           to house hunting forever
         </h1>
-        <p class="my-3 text-base lg:text-lg">
+        <p class="my-2 text-base">
           Whether you're looking for a rental, a place for your business, or
           even a spot for a short-term stay, we've got you covered. Our platform
           features a wide range of properties, from apartments and houses to
           commercial spaces and land.
         </p>
       </div>
-      <div class="flex py-6 lg:py-4 lg:justify-start justify-center">
+      <div class="flex py-2 lg:justify-start justify-center">
         <div class="border-l-2 border-gray-400 pl-8 mr-20 my-2">
           <div class="text-xl app-text font-normal flex">
             <p id="value">50</p>
@@ -90,7 +90,7 @@ onMounted(() => {
     </div>
     <!-- start card img section -->
     <div v-if="!homeSample" class="flex flex-wrap">
-      <ListingSkeleton v-for="i in 1" :key="i" />
+      <ListingSkeleton v-for="i in 1" :key="i" class="w-full" />
     </div>
     <div v-else>
       <router-link
