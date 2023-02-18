@@ -107,7 +107,7 @@ onMounted(() => {
           : convertBuffer( homeSample.images[0] as unknown as file)
       "
             alt=""
-            class="object-cover object-center overflow-hidden w-full h-40"
+            class="object-cover object-center overflow-hidden w-full h-32"
           />
           <div class="px-4">
             <div class="mt-2 flex justify-between">

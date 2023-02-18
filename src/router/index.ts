@@ -4,6 +4,7 @@ import ProfileListings from "@/pages/profile/Listings.vue";
 import AddListing from "@/components/AddListing.vue";
 import Bookings from "@/components/Bookings.vue";
 import Notfound from "@/pages/NotFound.vue";
+import Reviews from "@/components/CustomerReviews.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -39,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "listingroute" */ "@/pages/rent/Listing.vue"),
   },
   {
-    path: "/dashboard",
+    path: "/:id",
     name: "Dashboard",
     component: () =>
       import(
@@ -57,9 +58,14 @@ const routes: Array<RouteRecordRaw> = [
         component: AddListing,
       },
       {
-        path: "listings",
+        path: "bookings",
         name: "Bookings",
         component: Bookings,
+      },
+      {
+        path: "reviews",
+        name: "reviews",
+        component: Reviews,
       },
     ],
   },

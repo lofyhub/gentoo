@@ -7,7 +7,6 @@ import axios from "axios";
 
 const session = useSessionStore();
 const bookings = ref([]);
-console.log("this run fast");
 
 onBeforeMount(async () => {
   await getBookings();
@@ -28,14 +27,12 @@ async function getBookings() {
     );
     const { bookings } = res.data;
     bookings.value = [...bookings];
-    console.log(bookings.value);
-    console.log("this also run fast");
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      toastWarning(error.response.data.error);
-    } else {
-      toastError(error as string);
+      return toastWarning(error.response.data.error);
     }
+    console.log(error);
+    toastError(error as string);
   }
 }
 </script>

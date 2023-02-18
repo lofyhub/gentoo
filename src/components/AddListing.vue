@@ -15,8 +15,8 @@ import UploadIcon from "@/components/icons/Upload.vue";
 import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 import GeneratingSpinner from "@/components/icons/generatingSpinner.vue";
 import Delete from "./icons/Delete.vue";
-import { counties } from "@/temp/housestemp";
-import { commonSizes, houseType } from "@/temp/rentalfeatures";
+import { counties } from "@/temp/types";
+import { commonSizes, houseType } from "@/temp/types";
 import router from "@/router";
 
 defineEmits(["close"]);
@@ -259,14 +259,13 @@ async function postListing() {
       (security.value = false),
       (isLaundryAvailable.value = false),
       (parking.value = false);
-    router.push("/dashboard");
-  } catch (error: any) {
+    router.push(`/${id}`);
+  } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      toastWarning(error.response.data.message);
-    } else {
-      console.log(error);
-      toastError(error as string);
+      return toastWarning(error.response.data.message);
     }
+    console.log(error);
+    toastError(error as string);
   } finally {
     loading.value = false;
   }

@@ -1,28 +1,48 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRootStore } from "@/store/index";
-import { counties } from "@/temp/housestemp";
-import VueMultiselect from "vue-multiselect";
-import { houseType } from "@/temp/rentalfeatures";
-import { toastMessage } from "@/plugins/toast";
+import { ref, defineEmits } from "vue";
 
-const store = useRootStore();
+import { counties } from "@/temp/types";
+import VueMultiselect from "vue-multiselect";
+import { toastMessage } from "@/plugins/toast";
+import {
+  commonSizes,
+  housePrice,
+  prices,
+  emitParams,
+  houseType,
+} from "@/temp/types";
+
 const selectedPrice = ref(`Select price range`);
 const selectedType = ref(`Select property type`);
 const location = ref(`Select location`);
-const prices = [
-  "3,000 - 10,000",
-  "10,000 - 25,000",
-  "25,000 - 55,000",
-  "55,000 - 300,000",
-];
+const price = ref<number>();
+const size = ref<string>(``);
+
+const emit = defineEmits(["sortParams"]);
 
 // methods
 function sortListings() {
   if (!location.value || !selectedPrice.value) {
     toastMessage("Please select location and price");
   }
-  return store;
+
+  housePrice.forEach((house) => {
+    if (house.pString === selectedPrice.value) {
+      price.value = house.price;
+    }
+  });
+
+  commonSizes.forEach((house) => {
+    if (house.name === selectedType.value) {
+      size.value = house.size;
+    }
+  });
+  const params: emitParams = {
+    location: location.value,
+    price: price.value as number,
+    size: size.value,
+  };
+  emit("sortParams", params);
 }
 </script>
 <template>
@@ -67,15 +87,14 @@ function sortListings() {
             >
             </VueMultiselect>
           </td>
-          <td>
-            <button
-              type="submit"
-              class="py-2 px-12 bg-indigo-500 opacity-100 font-bold text-white rounded mx-4 hover:bg-indigo-600"
-              @click="sortListings"
-            >
-              Sort
-            </button>
-          </td>
+
+          <button
+            type="submit"
+            class="py-2 px-12 bg-indigo-500 opacity-100 font-bold text-white rounded mx-4 hover:bg-indigo-600"
+            @click="sortListings"
+          >
+            Sort
+          </button>
         </tr>
       </tbody>
     </table>

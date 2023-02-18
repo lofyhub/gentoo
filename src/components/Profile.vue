@@ -1,11 +1,16 @@
-<!-- eslint-disable vue/valid-v-on -->
 <script setup lang="ts">
 import { formatDate } from "@/helpers/helpers";
-import { useSessionStore } from "@/store/session";
-import { ref } from "vue";
+import { ref, defineProps, withDefaults } from "vue";
+import { userPublisher } from "@/temp/types";
 
-const store = useSessionStore();
 const open = ref(false);
+
+const prop = withDefaults(
+  defineProps<{
+    profile: userPublisher;
+  }>(),
+  {}
+);
 </script>
 <template>
   <section
@@ -36,17 +41,17 @@ const open = ref(false);
                     <h2
                       class="text-xl leading-snug justify-center font-semibold"
                     >
-                      {{ store.$state.username }}
+                      {{ prop.profile.username }}
                     </h2>
                   </a>
                   <!-- Bio -->
                   <div class="mt-2">
-                    <div class="text-gray-400">{{ store.$state.email }}</div>
+                    <div class="text-gray-400">{{ prop.profile.email }}</div>
                   </div>
                   <div class="mt-2">
                     <div class="text-sm">
                       {{
-                        store.$state.kikaotype === "landlord"
+                        prop.profile.kikaoType === "Landlord"
                           ? "Landlord"
                           : "Tenant"
                       }}
@@ -54,7 +59,7 @@ const open = ref(false);
                   </div>
                   <div class="mt-2">
                     <div class="text-sm">
-                      {{ formatDate(store.$state.regDate) }}
+                      {{ formatDate(prop.profile.date) }}
                     </div>
                   </div>
                 </div>

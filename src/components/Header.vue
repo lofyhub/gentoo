@@ -36,7 +36,7 @@ function logOut() {
 function handleListing() {
   isOpen.value = false;
   if (session.$state._id) {
-    router.push(`/dashboard/addlisting`);
+    router.push(`/${session.$state.userId}/addlisting`);
     return;
   }
 
@@ -58,9 +58,9 @@ function toggleDropdown() {
             href="/"
           >
             <LogoIcon class="w-8 h-8 inline mt-2.5" />
-            <span v-if="dashRoute === `Dashboard`" class="ml-2 mt-3.5"
-              >Dashboard</span
-            >
+            <span v-if="dashRoute === `Dashboard`" class="ml-2 mt-3.5">{{
+              session.$state.userId ? `Dashboard` : `Profile`
+            }}</span>
             <span v-else class="ml-2 mt-3">Kikao</span></a
           >
 
@@ -127,7 +127,7 @@ function toggleDropdown() {
                   : `text-gray-800`
               "
             >
-              Dashboard
+              Create Listing
             </a>
 
             <div class="flex items-center mt-4 lg:mt-0 mx-6">
@@ -188,7 +188,7 @@ function toggleDropdown() {
                   <hr class="border-gray-200 dark:border-gray-700 mt-2" />
                   <div class="text-sm font-semibold">
                     <a
-                      href="/dashboard"
+                      href="/profile"
                       @click="isDropdown = !isDropdown"
                       class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
@@ -198,7 +198,7 @@ function toggleDropdown() {
                       </span>
                     </a>
                     <a
-                      href="/dashboard"
+                      href="/profile"
                       @click="isDropdown = !isDropdown"
                       class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >

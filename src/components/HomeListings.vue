@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { useRootStore } from "@/store";
-import { useRouter } from "vue-router";
-
 import Listing from "@/components/Listing.vue";
 import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import LeftIcon from "@/components/icons/LeftIcon.vue";
 import SortListings from "@/components/SortListings.vue";
+
 import { computed } from "vue";
+import { useRootStore } from "@/store";
+import { useRouter } from "vue-router";
+import { emitParams } from "@/temp/types";
 
 const store = useRootStore();
 const listings = computed(() => store.$state.listings);
@@ -17,10 +18,21 @@ const router = useRouter();
 function gotoListing() {
   router.push(`/listings`);
 }
+
+function handleSort(events: emitParams) {
+  const sortedListing = listings.value.filter((house) => {
+    return (
+      (events.price === undefined || house.rate.price <= events.price) &&
+      (events.location === undefined || house.location === events.location) &&
+      (events.size === undefined || house.size === events.size)
+    );
+  });
+  console.log(sortedListing);
+}
 </script>
 <template>
   <div class="w-full lg:w-[1200px] lg:mx-auto">
-    <SortListings class="w-full mx-auto mt-10" />
+    <SortListings class="w-full mx-auto mt-10" @sort-params="handleSort" />
     <div v-if="listings.length > 0">
       <div class="flex flex-wrap mt-0 pt-0 justify-center">
         <Listing

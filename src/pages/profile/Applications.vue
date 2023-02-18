@@ -1,26 +1,34 @@
 <script setup lang="ts">
-import { useSessionStore } from "@/store/session";
-import { useRoute } from "vue-router";
-import { useRootStore } from "@/store/index";
+import Profile from "@/components/Profile.vue";
+import ChatIcon from "@/components/icons/ChatIcon.vue";
 
+import { useRoute } from "vue-router";
+import { onBeforeMount } from "vue";
 import { useHead } from "unhead";
-import { onMounted } from "vue";
-import profile from "@/components/Profile.vue";
+
+import { useSessionStore } from "@/store/session";
+import { uselistingStore } from "@/store/listing";
+import { computed } from "@vue/reactivity";
 
 useHead({
-  title: "Kikao | Dashboard",
+  title: "Kikao | Profile",
 });
 
 const store = useSessionStore();
-const rootStore = useRootStore();
+const listingStore = uselistingStore();
 const route = useRoute();
-
-onMounted(async () => {
-  if (!store.$state._id) {
-    rootStore.toggleLogin();
+const id = computed(() => {
+  if (typeof route.params.id === "string") {
+    return route.params.id;
   }
-});
 
+  throw new Error("Id must be a string!");
+});
+const authorProfile = computed(() => listingStore.getProfile(id.value));
+
+onBeforeMount(() => {
+  listingStore.getListingAuthor(id.value);
+});
 // methods
 function getStyles(tab: string) {
   let res = ``;
@@ -32,13 +40,14 @@ function getStyles(tab: string) {
 }
 </script>
 <template>
-  <div v-if="store.$state._id" class="min-h-screen mb-20">
+  <div class="min-h-screen mb-20">
     <!-- Dashboard to add, delete, edit and view listings -->
-    <profile />
+    <Profile :profile="authorProfile" />
     <div class="w-full lg:w-4/5 mx-auto border-t border-gray-200">
       <div class="flex">
         <router-link
-          :to="'/dashboard/'"
+          :to="'/' + id"
+          v-if="store.$state.userId && store.$state.userId === id"
           class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
         >
           <div
@@ -64,7 +73,8 @@ function getStyles(tab: string) {
           </div>
         </router-link>
         <router-link
-          :to="'/dashboard/addlisting'"
+          :to="'/' + id + '/addlisting'"
+          v-if="store.$state.userId && store.$state.userId === id"
           class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
         >
           <div
@@ -83,8 +93,9 @@ function getStyles(tab: string) {
           </div>
         </router-link>
         <router-link
-          :to="'/dashboard/listings'"
-          class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
+          :to="'/' + id + '/bookings'"
+          v-if="store.$state.userId && store.$state.userId === id"
+          class="flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
         >
           <div
             class="flex items-center justify-center py-4"
@@ -106,6 +117,19 @@ function getStyles(tab: string) {
             </svg>
 
             <span>Bookings</span>
+          </div>
+        </router-link>
+        <router-link
+          :to="'/' + id + '/reviews'"
+          class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
+        >
+          <div
+            class="flex items-center justify-center py-4"
+            :class="getStyles('reviews')"
+          >
+            <ChatIcon></ChatIcon>
+
+            <span>Reviews</span>
           </div>
         </router-link>
       </div>

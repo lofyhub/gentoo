@@ -17,7 +17,7 @@ const date = new Date().getFullYear();
           <div class="mb-12 max-w-[360px]">
             <a
               href="/"
-              class="mb-4 flex justify-center items-center text-center font-medium text-xl"
+              class="mb-3 flex justify-center items-center text-center font-medium text-xl"
             >
               <LogoIcon class="w-20 h-[30px]" />
               <span class="h-auto">Kikao</span>
@@ -117,7 +117,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/blog"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primar"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primar"
                 >
                   Blog
                 </a>
@@ -125,7 +125,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/about"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   About
                 </a>
@@ -133,7 +133,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/team"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   Team
                 </a>
@@ -153,7 +153,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/privacy"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   TOS
                 </a>
@@ -161,7 +161,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/privacy"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   Privacy Policy
                 </a>
@@ -169,7 +169,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/guide"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   Guide
                 </a>
@@ -189,7 +189,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/contact"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   Contact
                 </a>
@@ -197,7 +197,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/privacy"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   Terms of Use
                 </a>
@@ -205,7 +205,7 @@ const date = new Date().getFullYear();
               <li>
                 <a
                   href="/faq"
-                  class="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                  class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   FAQ's
                 </a>

@@ -1,28 +1,11 @@
 import { defineStore } from "pinia";
-import { houseSchema } from "@/temp/housestemp";
+import { RootState } from "@/temp/types";
 import { handleError, toastError, toastWarning } from "@/plugins/toast";
 import axios from "axios";
 import { useSessionStore } from "./session";
 
 import { env } from "@/env";
-export type priceRange =
-  | `3,000 - 10,000`
-  | `10,000 - 25,000`
-  | ` 25,000 - 55,000`
-  | `55,000 - 300,000`;
 
-export type productType = `rental` | `airbnb`;
-export type sortParam = {
-  prdType: productType;
-  date: string;
-  price: priceRange;
-  location: string;
-};
-export interface RootState {
-  listings: houseSchema[];
-  showLogin: boolean;
-  userListings: houseSchema[];
-}
 export const useRootStore = defineStore("rootStore", {
   state: (): RootState => {
     return {

@@ -4,57 +4,62 @@ import { toastError, toastSuccess, toastWarning } from "@/plugins/toast";
 
 import axios from "axios";
 import { env } from "@/env";
-export interface lAuthor {
-  _id: number;
-  username: string;
-  userId: string;
-  email: string;
-  regDate: string;
-  kikaoType: string;
-}
-interface listing {
-  listingAuthor: lAuthor;
-  bookmarks: string[];
-}
+import {
+  createDefaultListing,
+  createDefaultProfile,
+  listing,
+  userPublisher,
+} from "@/temp/types";
 
 export const uselistingStore = defineStore(`listingStore`, {
   state: (): listing => {
     return {
-      listingAuthor: {} as lAuthor,
+      listingAuthor: {},
       bookmarks: [],
+      houseListing: {},
     };
   },
   persist: true,
   actions: {
     clearBookmarks() {
       this.bookmarks = [];
-      this.listingAuthor = {} as lAuthor;
     },
     async getListingAuthor(id: string) {
       try {
-        const data = {
+        const bodyData = {
           _id: id,
         };
-
-        const token = localStorage.getItem("kikao-token");
-        if (!token) throw new Error("Token is not found in localStorage");
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "x-access-token": token,
           },
         };
 
-        const res = await axios.post(`${env}/listing/author`, data, config);
-        this.listingAuthor = await res.data.data;
+        const res = await axios.post<userPublisher>(
+          `${env}/listing/author`,
+          bodyData,
+          config
+        );
+        const { data } = await res.data;
+        this.listingAuthor[id] = data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
-          toastWarning(error.response.data.error);
-        } else {
-          toastError("Something went wrong");
+          return toastWarning(error.response.data.message);
         }
+        console.log(error);
+        toastError("Something went wrong");
       }
     },
+    async fetchListing(id: string) {
+      try {
+        const res = await axios.post(`${env}/user/listing`, { id: id });
+        const listing = await res.data.listing;
+        this.houseListing[id] = listing;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async fetchBookmarks() {
       try {
         const token = localStorage.getItem("kikao-token");
@@ -139,5 +144,20 @@ export const uselistingStore = defineStore(`listingStore`, {
       }
     },
   },
-  getters: {},
+  getters: {
+    getProfile: (state: listing) => (id: string) => {
+      if (state.listingAuthor[id]) {
+        return state.listingAuthor[id];
+      }
+
+      return createDefaultProfile(id);
+    },
+    getListingDetails: (state: listing) => (id: string) => {
+      if (state.houseListing[id]) {
+        return state.houseListing[id];
+      }
+
+      return createDefaultListing(id);
+    },
+  },
 });
