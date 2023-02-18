@@ -8,7 +8,6 @@ import {
   createDefaultListing,
   createDefaultProfile,
   listing,
-  userPublisher,
 } from "@/temp/types";
 
 export const uselistingStore = defineStore(`listingStore`, {
@@ -35,13 +34,9 @@ export const uselistingStore = defineStore(`listingStore`, {
           },
         };
 
-        const res = await axios.post<userPublisher>(
-          `${env}/listing/author`,
-          bodyData,
-          config
-        );
-        const data = await res.data;
-        console.log(res);
+        const res = await axios.post(`${env}/listing/author`, bodyData, config);
+        const { data } = await res.data;
+        console.log(data);
         this.listingAuthor[id] = data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
