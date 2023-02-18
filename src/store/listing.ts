@@ -36,7 +36,6 @@ export const uselistingStore = defineStore(`listingStore`, {
 
         const res = await axios.post(`${env}/listing/author`, bodyData, config);
         const { data } = await res.data;
-        console.log(data);
         this.listingAuthor[id] = data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
