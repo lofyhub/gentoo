@@ -40,14 +40,14 @@ export const uselistingStore = defineStore(`listingStore`, {
           bodyData,
           config
         );
-        const { data } = await res.data;
+        const data = await res.data;
+        console.log(res);
         this.listingAuthor[id] = data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           return toastWarning(error.response.data.message);
         }
         console.log(error);
-        toastError("Something went wrong");
       }
     },
     async fetchListing(id: string) {
