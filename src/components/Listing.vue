@@ -14,7 +14,7 @@ import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
 
 import { file } from "@/helpers/helpers";
-import { houseSchema } from "@/temp/housestemp";
+import { houseSchema } from "@/temp/types";
 
 const props = withDefaults(
   defineProps<{
@@ -95,7 +95,7 @@ function handleFavourite() {
             {{ props.listing.name }}
           </p>
           <hr class="my-1 h-2" />
-          <div class="py-.5 truncate text-base text-gray-600 font-normal flex">
+          <div class="py-.5 truncate text-base text-gray-500 font-normal flex">
             <span class="text-base"> {{ props.listing.county }}</span>
             <p class="h-1 w-1 rounded bg-gray-700 mx-2 my-2.5"></p>
             <span>{{ formatDate(props.listing.createdAt) }}</span>

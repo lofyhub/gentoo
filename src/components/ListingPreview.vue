@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { withDefaults, defineProps, ref } from "vue";
-import { houseSchema } from "@/temp/housestemp";
+import { houseSchema } from "@/temp/types";
 import { file, formatDate } from "@/helpers/helpers";
 import Delete from "@/components/icons/Delete.vue";
 import BedIcon from "@/components/icons/BedIcon.vue";
@@ -8,6 +8,7 @@ import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import ConfirmPopup from "@/components/popups/ConfirmPopup.vue";
 import { convertBuffer } from "@/helpers/helpers";
+import { useSessionStore } from "@/store/session";
 
 const props = withDefaults(
   defineProps<{
@@ -17,6 +18,7 @@ const props = withDefaults(
 );
 
 const showConfirm = ref(false);
+const session = useSessionStore();
 const isBinary = typeof props.listing.images[0] === "string" ? false : true;
 </script>
 
@@ -44,6 +46,7 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
           }}</span>
         </div>
         <div
+          v-if="session.$state.userId === listing.userId"
           class="w-8 h-8 rounded-full bg-white border-slate-300 border-2 flex items-center justify-center cursor-pointer"
           @click="showConfirm = true"
         >
@@ -56,6 +59,7 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
           <p class="font-normal text-lg truncate">
             {{ props.listing.name }}
           </p>
+          <hr class="my-1 h-2" />
           <span class="text-gray-500 py-1 truncate text-sm flex"
             >You posted on
             <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-2"></p>
