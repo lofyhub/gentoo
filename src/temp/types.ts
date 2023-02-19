@@ -127,11 +127,18 @@ export interface houseFeature {
   landSize: string;
   parkingArea: boolean;
 }
-
+export interface userReview {
+  house_id: string;
+  user_id: string;
+  rating: number;
+  comment: string;
+  listing_author_id: string;
+}
 export interface listing {
   listingAuthor: Record<string, userPublisher>;
   bookmarks: string[];
   houseListing: Record<string, houseSchema>;
+  authorReviews: Record<string, userReview>;
 }
 
 export function createDefaultListing(id: string): houseSchema {
@@ -257,8 +264,10 @@ export type sortParam = {
   price: priceRange;
   location: string;
 };
+
+export type house = houseSchema[];
 export interface RootState {
   listings: houseSchema[];
   showLogin: boolean;
-  userListings: houseSchema[];
+  userListings: Record<string, house>;
 }

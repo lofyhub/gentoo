@@ -16,12 +16,38 @@ export const uselistingStore = defineStore(`listingStore`, {
       listingAuthor: {},
       bookmarks: [],
       houseListing: {},
+      authorReviews: {},
     };
   },
   persist: true,
   actions: {
     clearBookmarks() {
       this.bookmarks = [];
+    },
+    async fetchAuthorReviews(id: string) {
+      try {
+        const bodyData = {
+          author_id: id,
+        };
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        const res = await axios.post(
+          `${env}/author/reviews/`,
+          bodyData,
+          config
+        );
+        const reviews = await res.data;
+        this.authorReviews[id] = reviews;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          return toastWarning(error.response.data.message);
+        }
+        console.log(error);
+      }
     },
     async getListingAuthor(id: string) {
       try {
@@ -145,6 +171,12 @@ export const uselistingStore = defineStore(`listingStore`, {
       }
 
       return createDefaultProfile(id);
+    },
+    getAuthorReviews: (state: listing) => (id: string) => {
+      if (state.authorReviews[id]) {
+        return state.authorReviews[id];
+      }
+      return [];
     },
     getListingDetails: (state: listing) => (id: string) => {
       if (state.houseListing[id]) {

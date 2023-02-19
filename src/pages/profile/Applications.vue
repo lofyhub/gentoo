@@ -47,7 +47,6 @@ function getStyles(tab: string) {
       <div class="flex">
         <router-link
           :to="'/' + id"
-          v-if="store.$state.userId && store.$state.userId === id"
           class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
         >
           <div
@@ -69,7 +68,11 @@ function getStyles(tab: string) {
               />
             </svg>
 
-            <span>Your Listings</span>
+            <span>{{
+              store.$state.userId && store.$state.userId === id
+                ? `Your Listings`
+                : `Homes listed by this owner`
+            }}</span>
           </div>
         </router-link>
         <router-link

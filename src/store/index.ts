@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { RootState } from "@/temp/types";
 import { handleError, toastError, toastWarning } from "@/plugins/toast";
 import axios from "axios";
-import { useSessionStore } from "./session";
 
 import { env } from "@/env";
 
@@ -11,7 +10,7 @@ export const useRootStore = defineStore("rootStore", {
     return {
       listings: [],
       showLogin: false,
-      userListings: [],
+      userListings: {},
     };
   },
   persist: true,
@@ -30,36 +29,26 @@ export const useRootStore = defineStore("rootStore", {
         handleError(error);
       }
     },
-    async authorListings() {
-      const { $state } = useSessionStore();
+    async authorListings(id: string) {
       try {
-        const Id: string = $state.userId;
-        const token = localStorage.getItem("kikao-token");
         const headers = {
           "Content-Type": "application/json",
-          "x-access-token": token,
         };
         const res = await axios.post(
           `${env}/author/listings`,
-          { Id: Id },
+          { Id: id },
           { headers: headers }
         );
-        this.userListings = res.data.data;
+        this.userListings[id] = res.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
-          toastWarning(error.response.data.error);
-        } else {
-          toastError(error as string);
+          return toastWarning(error.response.data.error);
         }
+        toastError(error as string);
       }
     },
     removeDeletedListing(id: string) {
-      const index = this.userListings.findIndex(
-        (listing) => listing._id === id
-      );
-      if (index !== -1) {
-        this.userListings.splice(index, 1);
-      }
+      delete this.userListings[id];
     },
     toggleLogin() {
       this.showLogin = !this.showLogin;
@@ -69,6 +58,12 @@ export const useRootStore = defineStore("rootStore", {
     getListingById: (state) => {
       return (id: string) =>
         state.listings.find((listing) => listing._id === id);
+    },
+    getAuthorReviews: (state) => (id: string) => {
+      if (state.userListings[id]) {
+        return state.userListings[id];
+      }
+      return [];
     },
   },
 });

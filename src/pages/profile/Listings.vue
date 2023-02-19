@@ -1,24 +1,35 @@
 <script setup lang="ts">
-import { useSessionStore } from "@/store/session";
 import ListingPreview from "@/components/ListingPreview.vue";
 import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import LeftIcon from "@/components/icons/LeftIcon.vue";
 
-import { computed } from "vue";
+import { computed, onBeforeMount } from "vue";
 import { useRootStore } from "@/store";
+import { useRoute } from "vue-router";
 
-const store = useSessionStore();
 const rootStore = useRootStore();
+const route = useRoute();
+const id = computed(() => {
+  if (typeof route.params.id === "string") {
+    return route.params.id;
+  }
 
-rootStore.authorListings();
-const authorListings = computed(() => rootStore.$state.userListings);
+  throw new Error("Id should be a string!");
+});
 
-// methods
+onBeforeMount(() => {
+  rootStore.authorListings(id.value);
+});
+
+const authorListings = computed(() => rootStore.getAuthorReviews(id.value));
 </script>
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
-  <div v-if="store.$state._id" class="">
-    <div v-if="authorListings.length < 1" class="flex flex-wrap my-2">
+  <div>
+    <div
+      v-if="Object.keys(authorListings).length < 1"
+      class="flex flex-wrap my-2"
+    >
       <ListingSkeleton v-for="i in 4" :key="i" />
     </div>
     <div v-else class="flex justify-center flex-wrap my-2">
