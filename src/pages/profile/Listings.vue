@@ -5,9 +5,11 @@ import LeftIcon from "@/components/icons/LeftIcon.vue";
 
 import { computed, onBeforeMount } from "vue";
 import { useRootStore } from "@/store";
+import { useSessionStore } from "@/store/session";
 import { useRoute } from "vue-router";
 
 const rootStore = useRootStore();
+const session = useSessionStore();
 const route = useRoute();
 const id = computed(() => {
   if (typeof route.params.id === "string") {
@@ -17,11 +19,11 @@ const id = computed(() => {
   throw new Error("Id should be a string!");
 });
 
+const authorListings = computed(() => rootStore.getAuthorListings(id.value));
+
 onBeforeMount(() => {
   rootStore.authorListings(id.value);
 });
-
-const authorListings = computed(() => rootStore.getAuthorReviews(id.value));
 </script>
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
@@ -41,9 +43,16 @@ const authorListings = computed(() => rootStore.getAuthorReviews(id.value));
     </div>
   </div>
   <div v-if="!authorListings" class="text-center font-normal h-80 mt-20">
-    <p class="text-2xl font-medium">You haven't posted any house listing</p>
+    <p class="text-2xl font-medium">
+      {{
+        session.$state.userId === id
+          ? `You haven't posted any house listing`
+          : `There are currently no listings posted by this homeowner`
+      }}
+    </p>
     <p class="text-base py-3 font-normal">
-      Your posted listings will appear here
+      {{ session.$state.userId === id ? `Your` : `The` }}
+      posted listings will appear here
     </p>
     <div class="flex justify-center">
       <router-link

@@ -39,7 +39,8 @@ export const useRootStore = defineStore("rootStore", {
           { Id: id },
           { headers: headers }
         );
-        this.userListings[id] = res.data.data;
+        console.log("this is running");
+        this.userListings[id] = await res.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           return toastWarning(error.response.data.error);
@@ -59,7 +60,7 @@ export const useRootStore = defineStore("rootStore", {
       return (id: string) =>
         state.listings.find((listing) => listing._id === id);
     },
-    getAuthorReviews: (state) => (id: string) => {
+    getAuthorListings: (state) => (id: string) => {
       if (state.userListings[id]) {
         return state.userListings[id];
       }

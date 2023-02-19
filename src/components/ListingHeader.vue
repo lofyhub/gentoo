@@ -74,7 +74,6 @@ const bookmarked = computed(
 );
 const imageIndex = ref(0);
 const displayImage = computed(() => listing.value.images[imageIndex.value]);
-const showNextPrevButtons = computed(() => listing.value.images.length > 1);
 const image = computed(() => listing.value.images[imageIndex.value]);
 
 onBeforeMount(() => {
@@ -220,7 +219,6 @@ function handlePreviousImage() {
                 type="button"
                 class="absolute top-0 left-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                 data-carousel-prev
-                v-if="showNextPrevButtons && imageIndex > 0"
                 @click="handlePreviousImage"
               >
                 <span
@@ -248,10 +246,6 @@ function handlePreviousImage() {
                 type="button"
                 class="absolute top-0 right-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                 data-carousel-next
-                v-if="
-                  showNextPrevButtons &&
-                  imageIndex !== listing.images.length - 1
-                "
                 @click="handleNextImage"
               >
                 <span
