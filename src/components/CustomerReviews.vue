@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Reviews from "@/components/Reviews.vue";
+
 import { uselistingStore } from "@/store/listing";
 import { useSessionStore } from "@/store/session";
 import { computed } from "@vue/reactivity";
@@ -63,7 +65,10 @@ function handleReviewButton() {
     </div>
   </div>
 
-  <div v-else class="flex justify-center flex-wrap item-center text-center">
+  <div v-else class="flex flex-wrap">
     <!-- TODO: handle review showcse cards here -->
+    <div v-for="i in 8" :key="i">
+      <Reviews />
+    </div>
   </div>
 </template>

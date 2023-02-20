@@ -15,7 +15,6 @@ import ImagePopup from "@/components/popups/ImagePopup.vue";
 import BackButton from "@/components/BackButton.vue";
 import SharePopup from "@/components/popups/SharePopup.vue";
 import Listing from "@/components/Listing.vue";
-import Avatar from "@/components/icons/Avatar.vue";
 import MapPin from "@/components/icons/MapPin.vue";
 import ClockIcon from "@/components/icons/Clock.vue";
 import LeftIcon from "@/components/icons/LeftIcon.vue";
@@ -30,7 +29,12 @@ import XIcon from "@/components/icons/Xcircle.vue";
 
 import { ref, computed, onBeforeMount } from "vue";
 
-import { file, formatDate, maskNumber } from "@/helpers/helpers";
+import {
+  file,
+  formatDate,
+  maskNumber,
+  stringToHslColor,
+} from "@/helpers/helpers";
 import { toastWarning } from "@/plugins/toast";
 import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
@@ -61,7 +65,7 @@ const id = computed(() => {
   throw new Error("Id should be a string!");
 });
 
-const similarListings = computed(() => rootStore.$state.listings.slice(0, 9));
+const similarListings = computed(() => rootStore.$state.listings.slice(0, 6));
 const listing = computed(() => listingStore.getListingDetails(id.value));
 const listingAuthor = computed(() =>
   listingStore.getProfile(listing.value.userId)
@@ -75,6 +79,7 @@ const bookmarked = computed(
 const imageIndex = ref(0);
 const displayImage = computed(() => listing.value.images[imageIndex.value]);
 const image = computed(() => listing.value.images[imageIndex.value]);
+const backgroundColor = stringToHslColor(listingAuthor.value.username);
 
 onBeforeMount(() => {
   listingStore.fetchListing(id.value);
@@ -371,9 +376,10 @@ function handlePreviousImage() {
                 <div class="flex">
                   <router-link
                     :to="'/' + listing.userId + '/reviews/'"
-                    class="border-2 border-gray-200 rounded-full inline w-12 h-12 flex justify-center items-center"
+                    class="w-14 h-14 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
+                    :style="{ backgroundColor: backgroundColor }"
                   >
-                    <Avatar class="w-6 h-6" />
+                    <span>{{ listingAuthor.username.slice(0, 2) }}</span>
                   </router-link>
                   <div class="ml-4 p-0 b-0">
                     <h3 class="font-extrabold p-0 m-0">
@@ -634,6 +640,55 @@ function handlePreviousImage() {
             </div>
           </div>
           <!-- end of apply/contact sections -->
+        </div>
+      </div>
+      <!-- comment section -->
+      <div>
+        <!-- component -->
+        <!-- comment form -->
+        <div class="flex items-center justify-center shadow-lg my-8 mb-4 w-3/5">
+          <form class="w-full max-w-xl bg-white rounded-lg px-4 pt-2">
+            <div class="flex flex-wrap -mx-3 mb-6">
+              <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">
+                Give your review
+              </h2>
+              <div class="w-full md:w-full px-3 mb-2 mt-2">
+                <textarea
+                  class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+                  name="body"
+                  placeholder="type your review here"
+                  required
+                ></textarea>
+              </div>
+              <div
+                class="w-full md:w-full flex items-start md:w-full px-3 pt-3"
+              >
+                <div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
+                  <svg
+                    fill="none"
+                    class="w-5 h-5 text-gray-600 mr-1"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <p class="text-xs md:text-sm pt-px">Give your review</p>
+                </div>
+                <div class="-mr-1">
+                  <input
+                    type="submit"
+                    class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-md tracking-wide mr-1 hover:bg-gray-100"
+                    value="Submit Review"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
       <!-- start similar listings section -->

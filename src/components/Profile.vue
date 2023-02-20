@@ -3,6 +3,8 @@ import { formatDate } from "@/helpers/helpers";
 import { ref, defineProps, withDefaults } from "vue";
 import { userPublisher } from "@/temp/types";
 
+import { stringToHslColor } from "@/helpers/helpers";
+
 const open = ref(false);
 
 const prop = withDefaults(
@@ -11,6 +13,8 @@ const prop = withDefaults(
   }>(),
   {}
 );
+
+const backgroundColor = stringToHslColor(prop.profile.business.name);
 </script>
 <template>
   <section
@@ -26,12 +30,12 @@ const prop = withDefaults(
             <header>
               <div class="flex my-3 lg:gap-20">
                 <div class="items-start mr-5">
-                  <img
-                    class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] bg-cover object-cover shadow transition-opacity"
-                    src="https://images.pexels.com/photos/2755167/pexels-photo-2755167.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                    alt="kikao dashboard user avatar image"
-                    loading="lazy"
-                  />
+                  <div
+                    class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] shadow transition-opacity text-center flex justify-center items-center uppercase text-white text-5xl"
+                    :style="{ backgroundColor: backgroundColor }"
+                  >
+                    {{ profile.username.slice(0, 2) }}
+                  </div>
                 </div>
                 <div class="mt-1 pr-1">
                   <a
