@@ -41,7 +41,7 @@ const isBinary = typeof props.listing.images[0] === "string" ? false : true;
           <span class="text-base font-bold app-text"
             >{{ (props.listing.rate.price * 1).toLocaleString("en") }}
             {{ props.listing.rate.countryCode }}</span
-          >/<span class="font-normal">{{
+          >/<span class="text-gray-500">{{
             props.listing.rate.duration.toLowerCase()
           }}</span>
         </div>

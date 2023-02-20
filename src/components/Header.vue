@@ -70,10 +70,10 @@ function toggleDropdown() {
               x-cloak
               @click="isOpen = !isOpen"
               type="button"
-              class="text-black dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+              class="text-black dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 border border-gray-200 rounded focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
               aria-label="toggle menu"
             >
-              <XIcon v-if="isOpen" class="w-6 h-6 transition-all transform" />
+              <XIcon v-if="isOpen" class="w-8 h-8 transition-all transform" />
               <Bars v-else class="w-10 h-10" />
             </button>
           </div>

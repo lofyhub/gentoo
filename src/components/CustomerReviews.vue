@@ -53,13 +53,11 @@ function handleReviewButton() {
         }}
       </p>
       <button
-        class="py-3 px-6 rounded bg-indigo-50 text-indigo-500 mt-2"
+        class="py-2.5 px-6 rounded-md border border-indigo-500 text-indigo-500 mt-2"
         @click="handleReviewButton"
       >
         {{
-          store.$state.userId === id
-            ? `Go to your listings`
-            : `Leave a review !`
+          store.$state.userId === id ? `Go to your listings` : `Leave a review`
         }}
       </button>
     </div>
