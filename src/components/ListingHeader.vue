@@ -367,10 +367,10 @@ function handlePreviousImage() {
             <!-- end of about this home -->
             <!-- listed by property owner -->
             <div
-              class="border-2 border-gray-300 rounded bg-indigo-50 mx-3 lg:mx-0 mb-[48px]"
+              class="border-2 border-gray-200 rounded mx-3 lg:mx-0 mb-[48px]"
             >
               <div class="py-4 mx-4">
-                <p class="text-lg font-semibold">Listed by property owner</p>
+                <p class="text-lg font-semibold">Listed by</p>
               </div>
               <div class="flex justify-between px-4 pb-6">
                 <div class="flex">
