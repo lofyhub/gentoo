@@ -100,7 +100,7 @@ export const uselistingStore = defineStore(`listingStore`, {
         this.bookmarks = bookmarks;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
-          toastWarning(error.response.data.message);
+          return toastWarning(error.response.data.message);
         } else {
           console.log(error);
           toastError(error as string);
