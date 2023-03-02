@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { RootState } from "@/temp/types";
-import { handleError, toastError, toastWarning } from "@/plugins/toast";
+import { handleError, toastSuccess, toastWarning } from "@/plugins/toast";
 import axios from "axios";
 
 import { env } from "@/env";
@@ -39,13 +39,43 @@ export const useRootStore = defineStore("rootStore", {
           { Id: id },
           { headers: headers }
         );
-        console.log("this is running");
+
         this.userListings[id] = await res.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           return toastWarning(error.response.data.error);
         }
-        toastError(error as string);
+      }
+    },
+    async handleReviewPosting(
+      rating: number,
+      comment: string,
+      userId: string,
+      listingId: string,
+      authorId: string
+    ) {
+      try {
+        const token = localStorage.getItem("kikao-token");
+        if (!token) throw new Error("Token is not found in localStorage");
+        const bodyData = {
+          data: {
+            house_id: listingId,
+            user_id: userId,
+            rating: rating,
+            comment: comment,
+            listing_author_id: authorId,
+          },
+        };
+        const headers = {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        };
+        await axios.post(`${env}/reviews`, bodyData, { headers: headers });
+        toastSuccess("Your review has been successfully recorded");
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          return toastWarning(error.response.data.error);
+        }
       }
     },
     removeDeletedListing(id: string) {

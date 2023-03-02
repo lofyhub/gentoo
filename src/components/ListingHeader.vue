@@ -36,7 +36,7 @@ import {
   maskNumber,
   stringToHslColor,
 } from "@/helpers/helpers";
-import { toastWarning } from "@/plugins/toast";
+import { toastError, toastWarning } from "@/plugins/toast";
 import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
 import { useSessionStore } from "@/store/session";
@@ -81,6 +81,8 @@ const imageIndex = ref(0);
 const displayImage = computed(() => listing.value.images[imageIndex.value]);
 const image = computed(() => listing.value.images[imageIndex.value]);
 const backgroundColor = stringToHslColor(listingAuthor.value.username);
+const selected = ref<number>(0);
+const review = ref<string>(``);
 
 onBeforeMount(() => {
   listingStore.fetchListing(id.value);
@@ -88,8 +90,30 @@ onBeforeMount(() => {
 // methods
 listingStore.getListingAuthor(listing.value.userId);
 
-function handleStars() {
-  return;
+function handleStars(index: number) {
+  selected.value = index;
+}
+
+function handleReviews() {
+  if (!selected.value) {
+    toastError("Please give a start rating");
+    return;
+  }
+
+  if (!review.value) {
+    toastError("Please write a review");
+    return;
+  }
+
+  rootStore.handleReviewPosting(
+    selected.value,
+    review.value,
+    store.$state.userId,
+    id.value,
+    listingAuthor.value.userId
+  );
+  selected.value = 0;
+  review.value = ``;
 }
 
 function handleTour() {
@@ -651,29 +675,42 @@ function handlePreviousImage() {
       <div>
         <!-- component -->
         <!-- comment form -->
-        <div class="mt-4">
+        <div v-if="store.$state.userId" class="mt-4 lg:w-[600px] w-full">
           <div>
-            <p class="font-normal text-2xl text-gray-500">Give star rating</p>
+            <p class="font-normal text-xl text-gray-900 dark:text-white">
+              Give star rating
+            </p>
             <div class="flex mt-4">
               <StarEmpty
                 v-for="i in 5"
                 :key="i"
-                class="w-8 h-8 cursor-pointer"
-                @click="handleStars"
-                {{
-                i
-                }}
+                class="w-10 h-10 cursor-pointer"
+                :class="i <= selected ? 'text-yellow-400' : ' '"
+                @click="handleStars(i)"
               />
             </div>
-            <div>
+            <div class="sm:col-span-2 mt-4">
+              <label
+                for="description"
+                class="block mb-2 text-xl font-normal text-gray-900 dark:text-white"
+                >Write your review</label
+              >
               <textarea
-                name="review"
-                id=""
-                cols="80"
+                id="description"
                 rows="5"
-                placeholder="Write your review here"
-                class="border border-gray-300 rounded mt-4"
+                class="block p-2.5 w-full text-base text-gray-900 mt-4 bg-gray-50 rounded-md border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Your review description here"
+                v-model="review"
               ></textarea>
+            </div>
+            <div class="flex flex-row-reverse mt-5">
+              <button
+                class="py-2 px-8 border border-indigo-500 rounded bg-white hover:bg-indigo-50 text-indigo-500"
+                type="submit"
+                @click="handleReviews"
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
