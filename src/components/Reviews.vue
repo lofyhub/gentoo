@@ -14,7 +14,7 @@ const backgroundColor = stringToHslColor(name.value);
 </script>
 
 <template>
-  <article class="w-[500px] border border-gray-200 mt-3 mx-3 rounded">
+  <article class="w-[420px] border border-gray-200 mt-3 mx-3 rounded">
     <div class="mx-5 mt-6">
       <div class="flex items-center mb-4 space-x-4">
         <span

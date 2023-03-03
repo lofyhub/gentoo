@@ -52,7 +52,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="flex flex-wrap justify-around py-5 w-full sm:w-4/5 lg:w-[1200px] mx-auto"
+    class="flex flex-wrap justify-around py-5 w-full sm:w-4/5 lg:w-[1200px] mx-auto my-5"
   >
     <div class="w-full lg:w-2/4 sm:w-full text-center lg:text-left">
       <div class="lg:w-full w-4/5 mx-auto">

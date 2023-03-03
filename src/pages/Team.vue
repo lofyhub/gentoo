@@ -68,7 +68,7 @@ useHead({
             </a>
 
             <a
-              href="https://github.com/dxphilo"
+              href="https://github.com/lofyhub"
               target="_blank"
               rel="noopener noreferrer"
               class="mx-2 text-gray-600 w-[20px] h-[20px] fill transition-colors duration-300 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400"
@@ -165,7 +165,7 @@ useHead({
           <a
             class="text-indigo-600"
             href="mailto:developerphilo@gmail.com?subject=Kikao&body=Lets%20Build%20Kikao"
-            >developerphilo@gmail.com</a
+            >contactkikao@gmail.com</a
           >. Together, we can build something truly special and make a real
           impact in the Kenyan real estate market.
         </p>
