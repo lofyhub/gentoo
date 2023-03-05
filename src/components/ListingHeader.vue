@@ -83,13 +83,18 @@ const image = computed(() => listing.value.images[imageIndex.value]);
 const backgroundColor = stringToHslColor(listingAuthor.value.username);
 const selected = ref<number>(0);
 const review = ref<string>(``);
+const showPrevNext = ref<boolean>(listing.value.images.length > 1);
 
 onBeforeMount(() => {
   listingStore.fetchListing(id.value);
 });
-// methods
-listingStore.getListingAuthor(listing.value.userId);
 
+// TODO: Better way to handle this
+if (listing.value) {
+  listingStore.getListingAuthor(listing.value.userId);
+}
+
+// methods
 function handleStars(index: number) {
   selected.value = index;
 }
@@ -110,7 +115,8 @@ function handleReviews() {
     review.value,
     store.$state.userId,
     id.value,
-    listingAuthor.value.userId
+    listingAuthor.value.userId,
+    store.$state.username
   );
   selected.value = 0;
   review.value = ``;
@@ -251,6 +257,7 @@ function handlePreviousImage() {
               <!-- Slider controls -->
               <button
                 type="button"
+                v-if="showPrevNext"
                 class="absolute top-0 left-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                 data-carousel-prev
                 @click="handlePreviousImage"
@@ -280,6 +287,7 @@ function handlePreviousImage() {
                 type="button"
                 class="absolute top-0 right-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                 data-carousel-next
+                v-if="showPrevNext"
                 @click="handleNextImage"
               >
                 <span
@@ -685,7 +693,7 @@ function handlePreviousImage() {
                 v-for="i in 5"
                 :key="i"
                 class="w-10 h-10 cursor-pointer"
-                :class="i <= selected ? 'text-yellow-400' : ' '"
+                :class="i <= selected ? 'fill-yellow-400' : ' '"
                 @click="handleStars(i)"
               />
             </div>

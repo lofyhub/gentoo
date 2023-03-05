@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useSessionStore } from "./session";
-import { toastError, toastSuccess, toastWarning } from "@/plugins/toast";
+import { toastSuccess, toastWarning } from "@/plugins/toast";
 
 import axios from "axios";
 import { env } from "@/env";
@@ -101,10 +101,8 @@ export const uselistingStore = defineStore(`listingStore`, {
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           return toastWarning(error.response.data.message);
-        } else {
-          console.log(error);
-          toastError(error as string);
         }
+        console.log(error);
       }
     },
     async addBookmark(id: string) {
@@ -158,9 +156,8 @@ export const uselistingStore = defineStore(`listingStore`, {
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           toastWarning(error.response.data.message);
-        } else {
-          toastError(error as string);
         }
+        console.log(error);
       }
     },
   },

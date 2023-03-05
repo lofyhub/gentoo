@@ -52,7 +52,8 @@ export const useRootStore = defineStore("rootStore", {
       comment: string,
       userId: string,
       listingId: string,
-      authorId: string
+      authorId: string,
+      name: string
     ) {
       try {
         const token = localStorage.getItem("kikao-token");
@@ -64,6 +65,7 @@ export const useRootStore = defineStore("rootStore", {
             rating: rating,
             comment: comment,
             listing_author_id: authorId,
+            name: name,
           },
         };
         const headers = {

@@ -133,6 +133,8 @@ export interface userReview {
   rating: number;
   comment: string;
   listing_author_id: string;
+  created_at: string;
+  name: string;
 }
 export interface listing {
   listingAuthor: Record<string, userPublisher>;
