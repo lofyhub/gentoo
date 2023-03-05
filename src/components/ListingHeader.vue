@@ -683,7 +683,10 @@ function handlePreviousImage() {
       <div>
         <!-- component -->
         <!-- comment form -->
-        <div v-if="store.$state.userId" class="mt-4 lg:w-[600px] w-full">
+        <div
+          v-if="store.$state.userId && store.$state.userId !== listing.userId"
+          class="mt-4 lg:w-[600px] w-full"
+        >
           <div>
             <p class="font-normal text-xl text-gray-900 dark:text-white">
               Give star rating
