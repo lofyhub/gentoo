@@ -1,6 +1,6 @@
 <template>
   <div class="w-[280px] bg-white rounded-md shadow-xl mx-2 my-3">
-    <div class="h-[150px] bg-gray-300 rounded-t-md animate-pulse"></div>
+    <div class="h-[220px] bg-gray-300 rounded-t-md animate-pulse"></div>
     <div class="p-5">
       <div class="flex justify-between">
         <div

@@ -49,7 +49,7 @@ function toggleDropdown() {
 </script>
 
 <template>
-  <nav class="shadow dark:bg-gray-800 sticky top-0 left-0 w-full bg-white z-20">
+  <nav class="shadow dark:bg-gray-800 sticky top-0 left-0 w-full bg-white z-30">
     <div class="container md:px-10 p-0 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between mx-6 py-2">

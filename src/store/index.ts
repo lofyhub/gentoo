@@ -8,7 +8,7 @@ import { env } from "@/env";
 export const useRootStore = defineStore("rootStore", {
   state: (): RootState => {
     return {
-      listings: [],
+      listings: {},
       showLogin: false,
       userListings: {},
     };
@@ -24,7 +24,7 @@ export const useRootStore = defineStore("rootStore", {
         });
         const { listings } = await res.data;
 
-        this.listings = listings;
+        this.listings["all"] = listings;
       } catch (error) {
         handleError(error);
       }
@@ -90,7 +90,7 @@ export const useRootStore = defineStore("rootStore", {
   getters: {
     getListingById: (state) => {
       return (id: string) =>
-        state.listings.find((listing) => listing._id === id);
+        state.listings["all"].find((listing) => listing._id === id);
     },
     getAuthorListings: (state) => (id: string) => {
       if (state.userListings[id]) {

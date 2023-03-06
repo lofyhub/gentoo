@@ -7,7 +7,7 @@ import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import router from "@/router";
 
 const rootStore = useRootStore();
-const sortedListings = computed(() => rootStore.$state.listings);
+const sortedListings = computed(() => rootStore.$state.listings["all"]);
 
 // methods
 function reload() {
@@ -15,7 +15,7 @@ function reload() {
 }
 </script>
 <template>
-  <div class="w-4/5 lg:w-[1200px] mx-auto min-h-screen">
+  <div class="w-4/5 lg:w-[1400px] mx-auto min-h-screen">
     <div
       v-if="sortedListings.length > 0"
       class="flex flex-wrap mt-20 mb-20 justify-center w-full"

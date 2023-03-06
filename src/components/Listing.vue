@@ -53,21 +53,39 @@ function handleFavourite() {
 </script>
 <template>
   <div
-    class="w-[280px] my-4 mx-2 bg-white shadow-md hover:shadow-lg rounded-sm overflow-hidden hover:bg-gray-100"
+    class="w-[300px] my-4 mx-2 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
   >
-    <img
-      :src="
+    <div id="default-carousel" class="relative" data-carousel="static">
+      <img
+        :src="
         !isBinary
           ? props.listing.images[props.listing.images.length - 1]
           : convertBuffer(props.listing.images[0] as unknown as file)
       "
-      alt="listing image from kikao"
-      loading="lazy"
-      class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
-      width="280"
-      height="150"
-      @click="updateSelectedImg()"
-    />
+        alt="listing image from kikao"
+        loading="eager"
+        fetchpriority="true"
+        class="object-cover object-center overflow-hidden h-[230px] w-full hover:cursor-pointer"
+        width="280"
+        height="240"
+        @click="updateSelectedImg()"
+      />
+      <!-- Slider indicators -->
+      <div
+        v-if="props.listing.images.length > 1"
+        class="absolute z-10 flex space-x-3 -translate-x-1/2 bottom-3 left-1/2"
+      >
+        <button
+          v-for="but in props.listing.images"
+          :key="but"
+          type="button"
+          class="w-1.5 h-1.5 rounded-full bg-gray-200"
+          aria-current="false"
+          aria-label="Slide 1"
+          data-carousel-slide-to="0"
+        ></button>
+      </div>
+    </div>
     <div class="px-2.5">
       <div class="mt-1 flex justify-between">
         <div>
@@ -94,17 +112,15 @@ function handleFavourite() {
           <p class="font-normal text-gray-900 text-lg truncate">
             {{ props.listing.name }}
           </p>
-          <hr class="my-1 h-2" />
-          <div class="py-.5 truncate text-base text-gray-500 font-normal flex">
+
+          <div class="my-1 truncate text-base text-gray-500 font-normal flex">
             <span class="text-base"> {{ props.listing.county }}</span>
             <p class="h-1 w-1 rounded bg-gray-700 mx-2 my-2.5"></p>
             <span>{{ formatDate(props.listing.createdAt) }}</span>
           </div>
         </div>
 
-        <hr class="my-1 h-2" />
-
-        <div class="flex pb-2 text-sm">
+        <div class="flex pb-2 text-sm my-2">
           <div class="flex pr-2">
             <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
             <span class="text-gray-600 font-bold ml-1.5"

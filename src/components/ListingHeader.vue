@@ -66,7 +66,12 @@ const id = computed(() => {
   throw new Error("Id should be a string!");
 });
 
-const similarListings = computed(() => rootStore.$state.listings.slice(0, 6));
+const similarListings = computed(() => {
+  if (rootStore.$state.listings["all"]) {
+    return rootStore.$state.listings["all"].slice(0, 6);
+  }
+  return [];
+});
 const listing = computed(() => listingStore.getListingDetails(id.value));
 const listingAuthor = computed(() =>
   listingStore.getProfile(listing.value.userId)
@@ -141,9 +146,10 @@ function addFavourite() {
     return rootStore.toggleLogin();
   } else if (bookmarked.value) {
     return listingStore.deleteBookmark(listing.value._id);
-  } else {
-    return listingStore.addBookmark(listing.value._id);
   }
+  console.log("this is triggered");
+  listingStore.addBookmark(listing.value._id);
+  return;
 }
 
 function handleBooking() {
@@ -217,7 +223,7 @@ function handlePreviousImage() {
             </button>
           </div>
         </div>
-        <div class="text-gray-400 flex gap-4 text-base font-normal">
+        <div class="text-gray-400 flex gap-4 text-sm font-normal">
           <ClockIcon class="w-4 h-4" />
           <span>{{ formatDate(listing.createdAt) }}</span>
         </div>
@@ -493,16 +499,16 @@ function handlePreviousImage() {
                 Rental features
               </h4>
               <div
-                class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[24px] text-base"
+                class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[20px] text-base"
               >
                 <div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Listed on</p>
                     <span class="font-bold ml-16 ml-16">
                       {{ formatDate(listing.createdAt) }}</span
                     >
                   </div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Availability</p>
                     <div class="ml-16 flex justify-center">
                       <Bleep
@@ -516,7 +522,7 @@ function handlePreviousImage() {
                     </div>
                   </div>
 
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Type</p>
                     <span class="font-bold ml-16">{{
                       listing.compartments.bedrooms === 0 ||
@@ -525,7 +531,7 @@ function handlePreviousImage() {
                         : `${listing.compartments.bedrooms} Bedrooms`
                     }}</span>
                   </div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Laundry</p>
                     <span class="font-bold ml-16">
                       {{
@@ -533,24 +539,24 @@ function handlePreviousImage() {
                       }}</span
                     >
                   </div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Cooling</p>
                     <span class="font-bold ml-16">Air conditioner</span>
                   </div>
                 </div>
                 <!-- 2nd part -->
                 <div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>City</p>
                     <span class="font-bold ml-16">{{ listing.location }}</span>
                   </div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Year built</p>
                     <span class="font-bold ml-16">{{
                       listing.yearbuilt ? listing.yearbuilt : `2019`
                     }}</span>
                   </div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Size</p>
                     <span class="font-bold ml-16">{{ listing.size }} sqft</span>
                   </div>
@@ -558,7 +564,7 @@ function handlePreviousImage() {
                     <p>Land Size</p>
                     <span class="font-bold ml-16">{{ listing.size }} sqft</span>
                   </div>
-                  <div class="flex justify-between my-4">
+                  <div class="flex justify-between my-3">
                     <p>Parking Area</p>
                     <span class="font-bold ml-16">{{
                       listing.compartments.parking ? `Yes` : `No`
@@ -619,7 +625,9 @@ function handlePreviousImage() {
           </div>
           <!-- end side-images section  -->
           <!-- apply contact setion -->
-          <div class="border-2 border-gray-200 h- rounded w-[250px] mt-[46px]">
+          <div
+            class="border-2 border-gray-200 h- rounded w-[250px] mt-[46px] sticky top-0"
+          >
             <div class="my-4 ml-4">
               <p class="text-lg my-3 font-extrabold">Rent Price</p>
               <div class="my-1">
@@ -727,7 +735,7 @@ function handlePreviousImage() {
         </div>
       </div>
       <!-- start similar listings section -->
-      <div class="w-full px-4 lg:px-0 pt-5">
+      <div class="w-full px-4 lg:px-0 pt-5" v-if="similarListings.length > 0">
         <h2
           class="text-indigo-500 text-2xl font-medium pb-4 lg:text-start text-center"
         >

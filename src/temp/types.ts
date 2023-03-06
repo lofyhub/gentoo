@@ -269,7 +269,13 @@ export type sortParam = {
 
 export type house = houseSchema[];
 export interface RootState {
-  listings: houseSchema[];
+  listings: Record<string, houseSchema[]>;
   showLogin: boolean;
   userListings: Record<string, house>;
+}
+
+export interface sortParams {
+  location: string;
+  price: number;
+  size: string;
 }
