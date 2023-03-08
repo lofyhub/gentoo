@@ -247,7 +247,7 @@ function handlePhone() {
             <!-- Slider indicators -->
             <div
               v-if="listing.images.length > 1"
-              class="absolute z-10 flex space-x-3 -translate-x-1/2 bottom-14 left-1/2"
+              class="absolute z-10 flex space-x-2 -translate-x-1/2 bottom-6 left-1/2"
             >
               <button
                 v-for="(image, index) in listing.images"

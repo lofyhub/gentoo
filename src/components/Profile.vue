@@ -4,8 +4,10 @@ import { ref, defineProps, withDefaults } from "vue";
 import { userPublisher } from "@/temp/types";
 
 import { stringToHslColor } from "@/helpers/helpers";
+import { useSessionStore } from "@/store/session";
 
 const open = ref(false);
+const store = useSessionStore();
 
 const prop = withDefaults(
   defineProps<{
@@ -37,7 +39,7 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
                     {{ profile.username.slice(0, 2) }}
                   </div>
                 </div>
-                <div class="mt-1 pr-1">
+                <div class="mt-9 pr-1">
                   <a
                     class="inline-flex text-gray-800 hover:text-gray-900"
                     href="#0"
@@ -49,21 +51,20 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
                     </h2>
                   </a>
                   <!-- Bio -->
-                  <div class="mt-2">
+                  <div
+                    class="mt-2"
+                    v-if="store.$state.email === prop.profile.email"
+                  >
                     <div class="text-gray-400">{{ prop.profile.email }}</div>
                   </div>
                   <div class="mt-2">
                     <div class="text-sm">
-                      {{
-                        prop.profile.kikaoType === "Landlord"
-                          ? "Landlord"
-                          : "Tenant"
-                      }}
+                      {{ prop.profile.kikaoType }}
                     </div>
                   </div>
                   <div class="mt-2">
                     <div class="text-sm">
-                      {{ formatDate(prop.profile.date) }}
+                      Joined in {{ formatDate(prop.profile.date) }}
                     </div>
                   </div>
                 </div>

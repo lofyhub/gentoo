@@ -113,6 +113,15 @@ export function createDefaultProfile(id: string): userPublisher {
     },
   };
 }
+
+export interface TeamSchema {
+  name: string;
+  twitter: string;
+  avatar: string;
+  github: string;
+  role: string;
+}
+
 export interface houseFeature {
   name: string;
   _id: number;
