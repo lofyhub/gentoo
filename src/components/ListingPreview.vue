@@ -22,13 +22,31 @@ const session = useSessionStore();
 
 <template>
   <div
-    class="w-[300px] mt-4 mx-2 bg-white shadow-md hover:shadow-lg hover:bg-gray-100 rounded-sm overflow-hidden rounded-lg"
+    class="w-[300px] mit mt-4 mb-3 mx-2 bg-white border border-gray-300 hover:bg-gray-100 overflow-hidden rounded-lg"
   >
-    <img
-      :src="props.listing.images[props.listing.images.length - 1]"
-      alt="listing image from kikao"
-      class="object-cover object-center overflow-hidden h-[230px] w-full hover:cursor-pointer"
-    />
+    <div id="default-carousel" class="relative" data-carousel="static">
+      <img
+        :src="props.listing.images[props.listing.images.length - 1]"
+        alt="listing image from kikao"
+        class="object-cover object-center overflow-hidden h-[230px] w-full hover:cursor-pointer"
+      />
+      <!-- Slider indicators -->
+      <div
+        v-if="props.listing.images.length > 1"
+        class="absolute z-10 flex space-x-2 -translate-x-1/2 bottom-3 left-1/2"
+      >
+        <button
+          v-for="but in props.listing.images"
+          :key="but"
+          type="button"
+          class="w-1.5 h-1.5 rounded-full bg-gray-200"
+          aria-current="false"
+          aria-label="Slide 1"
+          data-carousel-slide-to="0"
+        ></button>
+      </div>
+    </div>
+
     <div class="px-3">
       <div class="mt-2 flex justify-between">
         <div>
@@ -55,7 +73,11 @@ const session = useSessionStore();
           </p>
           <hr class="my-1 h-2" />
           <span class="text-gray-500 py-1 truncate text-sm flex"
-            >You posted on
+            >{{
+              session.$state.userId === props.listing.userId
+                ? "You posted on"
+                : "Posted on"
+            }}
             <p class="h-1 w-1 rounded bg-gray-500 mx-2 my-2"></p>
             <span class="text-sm text-gray-500">{{
               formatDate(props.listing.createdAt)

@@ -66,7 +66,7 @@ function handleFavourite() {
       <!-- Slider indicators -->
       <div
         v-if="props.listing.images.length > 1"
-        class="absolute z-10 flex space-x-3 -translate-x-1/2 bottom-3 left-1/2"
+        class="absolute z-10 flex space-x-2 -translate-x-1/2 bottom-3 left-1/2"
       >
         <button
           v-for="but in props.listing.images"

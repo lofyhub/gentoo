@@ -8,7 +8,6 @@ import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import HouseIcon from "@/components/icons/HouseIcon.vue";
 import BrushIcon from "@/components/icons/BrushIcon.vue";
 import ActiveIcon from "@/components/icons/CheckCircleIcon.vue";
-import GlobeIcon from "@/components/icons/GlobeIcon.vue";
 import Bleep from "@/components/icons/Bleep.vue";
 import BleepRed from "@/components/icons/BleepRed.vue";
 import ImagePopup from "@/components/popups/ImagePopup.vue";
@@ -74,18 +73,16 @@ const bookmarked = computed(
 const backgroundColor = stringToHslColor(listingAuthor.value.username);
 const selected = ref<number>(0);
 const review = ref<string>(``);
-const showPrevNext = ref<boolean>(listing.value.images.length > 1);
+const showPrevNext = computed(() => listing.value.images.length > 1);
 const imageIndex = ref<number>(0);
-const sideImages = [listing.value.images[0], listing.value.images[1]];
+const sideImages = computed(() => [
+  listing.value.images[0],
+  listing.value.images[1],
+]);
 
 onBeforeMount(() => {
   listingStore.fetchListing(id.value);
 });
-
-// TODO: Better way to handle this
-if (listing.value) {
-  listingStore.getListingAuthor(listing.value.userId);
-}
 
 // methods
 function handleStars(index: number) {
@@ -238,11 +235,11 @@ function handlePhone() {
               alt=""
               srcset=""
               loading="lazy"
-              class="object-cover object-cover cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
+              class="object-cover cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
               :class="
                 listing.images.length > 1
                   ? 'rounded-tl-lg rounded-bl-lg'
-                  : ' rounded-lg'
+                  : ' rounded-sm'
               "
               @click="showImagePopup = true"
             />
@@ -457,7 +454,7 @@ function handlePhone() {
                   </div>
                 </div>
                 <div
-                  class="flex flex-col lg:flex-row justify-between font-medium"
+                  class="flex flex-col lg:flex-row justify-between font-medium text-xl"
                 >
                   <button
                     class="text-indigo-500 py-1 px-5 font-medium"
@@ -468,12 +465,6 @@ function handlePhone() {
                         ? listingAuthor.phone
                         : maskNumber(listingAuthor.phone, 3, 3)
                     }}
-                  </button>
-                  <button
-                    class="text-indigo-500 border-2 border-gray-200 py-1 px-5 rounded-md bg-white lg:ml-2 pt-2 lg:pt-0 text-center items-center flex justify-center"
-                  >
-                    <GlobeIcon class="inline w-5 h-5 lg:mr-2 mr-0" />
-                    Get more info
                   </button>
                 </div>
               </div>

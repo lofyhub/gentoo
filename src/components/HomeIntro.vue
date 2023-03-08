@@ -69,7 +69,7 @@ function animateValue(
               <div class="text-xl app-text flex text-black font-medium">
                 <p id="valuee">10 k+</p>
               </div>
-              <span class="ml-2 pt-1">listed properties</span>
+              <span class="ml-2">listed properties</span>
             </div>
           </div>
         </div>
