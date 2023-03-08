@@ -23,7 +23,6 @@ export const useRootStore = defineStore("rootStore", {
           },
         });
         const { listings } = await res.data;
-
         this.listings["all"] = listings;
       } catch (error) {
         handleError(error);

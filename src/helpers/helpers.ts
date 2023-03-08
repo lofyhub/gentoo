@@ -99,17 +99,6 @@ export interface file {
   contentType: string;
   fileName: string;
 }
-export function convertBuffer(file: file) {
-  let buffer;
-  if (file?.data) {
-    buffer = file.data.toString("base64");
-  } else {
-    return "";
-  }
-
-  const data = `data:${file.contentType};base64,${buffer}`;
-  return data;
-}
 
 export function getAuthHeaders() {
   const minTokenLength = 1;

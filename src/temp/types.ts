@@ -83,16 +83,18 @@ export type userPublisher = {
   userId: string;
   username: string;
   email: string;
-  kikaoType: "Landlord" | "Tenant";
+  kikaoType: string;
   date: Date;
-  business: {
-    name: string;
-    location: string;
-    phone: string;
-    businessType: string;
-    city: string;
-  };
+  phone: string;
+  business: Business;
 };
+
+export interface Business {
+  name: string;
+  location: string;
+  businessType: string;
+  city: string;
+}
 
 export function createDefaultProfile(id: string): userPublisher {
   return {
@@ -102,10 +104,10 @@ export function createDefaultProfile(id: string): userPublisher {
     email: ``,
     kikaoType: `Tenant`,
     date: new Date(),
+    phone: "",
     business: {
       name: "",
       location: "",
-      phone: "",
       businessType: "",
       city: "",
     },

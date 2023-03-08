@@ -10,10 +10,8 @@ import { withDefaults, defineProps, ref, computed } from "vue";
 import { formatDate } from "@/helpers/helpers";
 import { useSessionStore } from "@/store/session";
 import { useRootStore } from "@/store/index";
-import { convertBuffer } from "@/helpers/helpers";
 import { uselistingStore } from "@/store/listing";
 
-import { file } from "@/helpers/helpers";
 import { houseSchema } from "@/temp/types";
 
 const props = withDefaults(
@@ -27,7 +25,6 @@ const session = useSessionStore();
 const listing = uselistingStore();
 const store = useRootStore();
 const showImagePopup = ref(false);
-const isBinary = typeof props.listing.images[0] === "string" ? false : true;
 const isBookmarked = computed(
   () =>
     listing.$state.bookmarks.findIndex((elem) => elem === props.listing._id) !==
@@ -57,11 +54,7 @@ function handleFavourite() {
   >
     <div id="default-carousel" class="relative" data-carousel="static">
       <img
-        :src="
-        !isBinary
-          ? props.listing.images[props.listing.images.length - 1]
-          : convertBuffer(props.listing.images[0] as unknown as file)
-      "
+        :src="props.listing.images[props.listing.images.length - 1]"
         alt="listing image from kikao"
         loading="eager"
         fetchpriority="true"
@@ -155,11 +148,7 @@ function handleFavourite() {
   <Teleport to="body">
     <ImagePopup
       v-if="showImagePopup"
-      :image="
-        !isBinary
-          ? props.listing.images[props.listing.images.length - 1]
-          : convertBuffer(props.listing.images[0] as unknown as file)
-      "
+      :image="props.listing.images[props.listing.images.length - 1]"
       @close="showImagePopup = false"
     />
   </Teleport>

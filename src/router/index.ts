@@ -100,6 +100,12 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "Team route" */ "@/pages/Team.vue"),
   },
   {
+    path: "/blog",
+    name: "Blog",
+    component: () =>
+      import(/* webpackChunkName: "Blog route" */ "@/pages/Blog.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "Not Found",
     component: Notfound,

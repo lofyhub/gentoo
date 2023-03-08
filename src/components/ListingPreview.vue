@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { withDefaults, defineProps, ref } from "vue";
 import { houseSchema } from "@/temp/types";
-import { file, formatDate } from "@/helpers/helpers";
+import { formatDate } from "@/helpers/helpers";
 import Delete from "@/components/icons/Delete.vue";
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
 import ConfirmPopup from "@/components/popups/ConfirmPopup.vue";
-import { convertBuffer } from "@/helpers/helpers";
 import { useSessionStore } from "@/store/session";
 
 const props = withDefaults(
@@ -19,21 +18,16 @@ const props = withDefaults(
 
 const showConfirm = ref(false);
 const session = useSessionStore();
-const isBinary = typeof props.listing.images[0] === "string" ? false : true;
 </script>
 
 <template>
   <div
-    class="w-[290px] mt-4 mx-2 bg-white shadow-md hover:shadow-lg hover:bg-gray-100 rounded-sm overflow-hidden"
+    class="w-[300px] mt-4 mx-2 bg-white shadow-md hover:shadow-lg hover:bg-gray-100 rounded-sm overflow-hidden rounded-lg"
   >
     <img
-      :src="
-        !isBinary
-          ? props.listing.images[props.listing.images.length - 1]
-          : convertBuffer(props.listing.images[0] as unknown as file)
-      "
+      :src="props.listing.images[props.listing.images.length - 1]"
       alt="listing image from kikao"
-      class="object-cover object-center overflow-hidden h-[150px] w-full hover:cursor-pointer"
+      class="object-cover object-center overflow-hidden h-[230px] w-full hover:cursor-pointer"
     />
     <div class="px-3">
       <div class="mt-2 flex justify-between">

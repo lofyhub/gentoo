@@ -43,7 +43,7 @@ function handleReviewButton() {
   >
     <div>
       <p>
-        Sorry, there are currently no user comments or reviews available for
+        Sorry, there are currently no user reviews available for
         {{
           store.$state.userId === id
             ? `your posted listings`

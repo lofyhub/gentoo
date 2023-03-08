@@ -63,7 +63,7 @@ function animateValue(
               <div class="text-xl app-text text-black flex font-medium">
                 <p id="value">50 k+</p>
               </div>
-              <p class="ml-2 pt-1">tenants</p>
+              <p class="ml-2">tenants</p>
             </div>
             <div class="mt-2 flex">
               <div class="text-xl app-text flex text-black font-medium">

@@ -55,7 +55,7 @@ const id = store.$state.userId;
 watch(housetype, (newValue) => {
   for (let i = 0; i < commonSizes.length; i++) {
     if (newValue === commonSizes[i].name) {
-      size.value = commonSizes[i].size as unknown as string;
+      size.value = commonSizes[i].size;
     }
   }
 });
@@ -209,7 +209,7 @@ async function postListing() {
     formData.append("totalrooms", JSON.stringify(totalrooms.value));
     formData.append("washrooms", JSON.stringify(bathrooms.value));
     formData.append("parking", JSON.stringify(parking.value));
-    formData.append("size", JSON.stringify(size.value));
+    formData.append("size", size.value);
     formData.append("wifi", JSON.stringify(wifi.value));
     formData.append("security", JSON.stringify(security.value));
     formData.append("roomnumber", JSON.stringify(roomNumber.value));

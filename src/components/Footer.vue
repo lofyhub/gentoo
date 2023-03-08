@@ -152,7 +152,7 @@ const date = new Date().getFullYear();
             <ul>
               <li>
                 <a
-                  href="/privacy"
+                  href="/policy"
                   class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   TOS
@@ -160,7 +160,7 @@ const date = new Date().getFullYear();
               </li>
               <li>
                 <a
-                  href="/privacy"
+                  href="/policy"
                   class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   Privacy Policy
@@ -196,7 +196,7 @@ const date = new Date().getFullYear();
               </li>
               <li>
                 <a
-                  href="/privacy"
+                  href="/policy"
                   class="mb-3 inline-block text-base font-medium text-body-color hover:text-primary"
                 >
                   Terms of Use
