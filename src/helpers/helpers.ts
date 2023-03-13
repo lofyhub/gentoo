@@ -116,6 +116,15 @@ export function getAuthHeaders() {
   };
   return header;
 }
+
+export function getMonthYear(dateString: Date | string): string {
+  const dateObj = new Date(dateString);
+  const monthName = dateObj.toLocaleString("default", { month: "long" });
+  const year = dateObj.getFullYear().toString();
+  const monthYearString = monthName + ", " + year;
+  return monthYearString;
+}
+
 export function maskNumber(
   numberString: string,
   startDigits: number,

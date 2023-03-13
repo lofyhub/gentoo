@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatDate } from "@/helpers/helpers";
+import { getMonthYear } from "@/helpers/helpers";
 import { ref, defineProps, withDefaults } from "vue";
 import { userPublisher } from "@/temp/types";
 
@@ -20,17 +20,17 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
 </script>
 <template>
   <section
-    class="flex flex-col justify-center antialiased text-gray-600 h-auto p-4"
+    class="w-full flex flex-col justify-center antialiased text-gray-600 h-auto p-4"
   >
     <!-- Card -->
-    <div class="max-w-[800px] mx-auto">
+    <div class="w-full lg:max-w-[800px] mx-auto">
       <div class="flex flex-col h-full">
         <!-- Card top -->
         <div class="flex-grow p-5">
           <div class="flex justify-between items-start">
             <!-- Image + name -->
             <header>
-              <div class="flex my-3 lg:gap-20">
+              <div class="flex my-2 gap-x-20 lg:gap-x-30">
                 <div class="items-start mr-5">
                   <div
                     class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] shadow transition-opacity text-center flex justify-center items-center uppercase text-white text-5xl"
@@ -39,17 +39,11 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
                     {{ profile.username.slice(0, 2) }}
                   </div>
                 </div>
-                <div class="mt-9 pr-1">
-                  <a
-                    class="inline-flex text-gray-800 hover:text-gray-900"
-                    href="#0"
-                  >
-                    <h2
-                      class="text-xl leading-snug justify-center font-semibold"
-                    >
-                      {{ prop.profile.username }}
-                    </h2>
-                  </a>
+                <div class="lg:mt-4 pr-1 text-base">
+                  <h2 class="text-xl leading-snug justify-center font-bold">
+                    {{ prop.profile.username }}
+                  </h2>
+
                   <!-- Bio -->
                   <div
                     class="mt-2"
@@ -57,15 +51,30 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
                   >
                     <div class="text-gray-400">{{ prop.profile.email }}</div>
                   </div>
-                  <div class="mt-2">
-                    <div class="text-sm">
-                      {{ prop.profile.kikaoType }}
-                    </div>
+                  <div class="mt-1">
+                    {{ prop.profile.kikaoType }}
                   </div>
-                  <div class="mt-2">
-                    <div class="text-sm">
-                      Joined in {{ formatDate(prop.profile.date) }}
-                    </div>
+                  <div class="mt-1">
+                    Joined in {{ getMonthYear(prop.profile.date) }}
+                  </div>
+                  <div class="mt-1.5 text-lg flex">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                      />
+                    </svg>
+
+                    <span class="mx-2 font-semibold">{{ 20 }}</span>
+                    reviews
                   </div>
                 </div>
               </div>

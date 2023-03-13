@@ -42,7 +42,7 @@ function handleSort(values: sortParams) {
     </div>
     <div class="w-full lg:w-[1400px] lg:mx-auto min-h-screen mb-20">
       <div v-if="listings.length > 0">
-        <div class="flex flex-wrap mt-0 pt-0 justify-center">
+        <div class="flex flex-wrap mt-0 pt-0 justify-center gap-x-5">
           <Listing
             v-for="listing in listings"
             :key="listing._id"

@@ -98,23 +98,23 @@ function nextStep(): void {
     toastMessage("Please select either tenant or landlord");
     return;
   }
-  if (kikaotype.value === `tenant` && step.value === 1) {
+  if (kikaotype.value === `Tenant` && step.value === 1) {
     submitForm();
     return;
-  } else if (kikaotype.value === `landlord` && step.value === 3) {
+  } else if (kikaotype.value === `Landlord` && step.value === 3) {
     submitForm();
     return;
   }
 
   if (
     step.value === 1 &&
-    kikaotype.value === `landlord` &&
+    kikaotype.value === `Landlord` &&
     !businessType.value
   ) {
     toastMessage("Please select your business type");
     return;
   }
-  if (step.value === 2 && kikaotype.value === `landlord`) {
+  if (step.value === 2 && kikaotype.value === `Landlord`) {
     submitForm();
     return;
   }
@@ -201,7 +201,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
                 ? `border-indigo-500`
                 : `border-slate-200`
             "
-            @click="updateKikaotype(`landlord`)"
+            @click="updateKikaotype(`Landlord`)"
           >
             <svg
               class="fill-current h-6 h-6 block mx-4 align-middle"
@@ -232,7 +232,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             :class="
               kikaotype === `tenant` ? `border-indigo-500` : `border-slate-200`
             "
-            @click="updateKikaotype(`tenant`)"
+            @click="updateKikaotype(`Tenant`)"
           >
             <svg
               class="fill-current h-6 h-6 block mx-4 align-middle"

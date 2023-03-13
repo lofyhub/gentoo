@@ -27,19 +27,14 @@ onBeforeMount(() => {
 </script>
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
-  <div>
-    <div
-      v-if="Object.keys(authorListings).length < 1"
-      class="flex flex-wrap my-2"
-    >
+  <div class="flex justify-center flex-wrap my-2">
+    <div v-if="Object.keys(authorListings).length < 1">
       <ListingSkeleton v-for="i in 4" :key="i" />
     </div>
     <div v-else class="flex justify-center flex-wrap my-2">
-      <ListingPreview
-        v-for="listing in authorListings"
-        :key="listing._id"
-        :listing="listing"
-      />
+      <div v-for="listing in authorListings" :key="listing._id">
+        <ListingPreview :listing="listing" />
+      </div>
     </div>
   </div>
   <div v-if="!authorListings" class="text-center font-normal h-80 mt-20">

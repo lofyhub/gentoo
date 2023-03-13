@@ -46,17 +46,12 @@ function sortListings() {
 }
 </script>
 <template>
-  <div class="flex justify-center bg-white py-5 h-32">
+  <div class="flex justify-center bg-white py-5 h-24 items-center">
     <table class="table-fixed">
-      <thead class="hidden lg:inline-block">
-        <tr class="font-bold text-xs text-[#909CAB] tracking-[1.2px]">
-          <th class="lg:w-56 w-auto">LOCATION</th>
-          <th class="lg:w-40 w-auto">PRICE</th>
-          <th class="lg:w-56 w-auto">PROPERTY TYPE</th>
-        </tr>
-      </thead>
       <tbody>
-        <tr class="flex flex-wrap justify-center gap-2 lg:flex-row">
+        <tr
+          class="flex flex-wrap justify-center gap-2 lg:mt-0 mt-3 lg:flex-row"
+        >
           <td>
             <VueMultiselect
               v-model="location"

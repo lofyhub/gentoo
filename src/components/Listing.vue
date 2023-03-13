@@ -50,7 +50,7 @@ function handleFavourite() {
 </script>
 <template>
   <div
-    class="w-[300px] my-4 mx-2 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
+    class="w-[330px] my-4 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
   >
     <div id="default-carousel" class="relative" data-carousel="static">
       <img
@@ -82,11 +82,11 @@ function handleFavourite() {
     <div class="px-2.5">
       <div class="mt-1 flex justify-between">
         <div>
-          <span class="text-[18px] font-semibold app-text opacity-100"
-            >{{ (props.listing.rate.price * 1).toLocaleString("en") }} </span
-          ><span class="text-base font-semibold app-text pl-1 opacity-100">
+          <span class="text-[18px] font-bold app-text"
+            >{{ Number(props.listing.rate.price).toLocaleString("en") }} </span
+          ><span class="text-base font-semibold app-text pl-1">
             {{ props.listing.rate.countryCode.toLowerCase() }}</span
-          >/<span class="text-gray-500 text-base">{{
+          >/<span class="text-gray-500 text-lg">{{
             props.listing.rate.duration.toLowerCase()
           }}</span>
         </div>
@@ -102,44 +102,44 @@ function handleFavourite() {
       </div>
       <router-link :to="'/listing/' + props.listing._id">
         <div>
-          <p class="font-normal text-gray-900 text-lg truncate">
+          <p class="text-black-600 text-[20px] truncate">
             {{ props.listing.name }}
           </p>
 
-          <div class="my-1 truncate text-base text-gray-500 font-normal flex">
-            <span class="text-base"> {{ props.listing.county }}</span>
-            <p class="h-1 w-1 rounded bg-gray-700 mx-2 my-2.5"></p>
+          <div class="my-1 truncate text-[17px] text-gray-500 flex">
+            <span>{{ props.listing.county }} county</span>
+            <p class="h-1 w-1 rounded bg-gray-900 mx-4 my-2.5"></p>
             <span>{{ formatDate(props.listing.createdAt) }}</span>
           </div>
         </div>
 
-        <div class="flex pb-2 text-sm my-2">
-          <div class="flex pr-2">
+        <div class="flex justify-between pb-2 text-sm my-2">
+          <div class="flex">
             <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
-            <span class="text-gray-600 font-bold ml-1.5"
-              >{{ props.listing.compartments.bedrooms
-              }}<span class="ml-1 font-normal">{{
-                props.listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
-              }}</span></span
-            >
+            <span class="text-gray-600 font-bold mx-2">{{
+              props.listing.compartments.bedrooms
+            }}</span>
+            <span class="font-normal">{{
+              props.listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
+            }}</span>
           </div>
-          <div class="flex pr-2">
+          <div class="flex">
             <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
-            <span class="text-gray-600 ml-1 font-bold"
-              >{{ props.listing.compartments.washRooms
-              }}<span class="ml-1 font-normal">{{
-                props.listing.compartments.washRooms > 1
-                  ? `Bathrooms`
-                  : `Bathroom`
-              }}</span></span
-            >
+            <span class="text-gray-600 mx-2 font-bold">{{
+              props.listing.compartments.washRooms
+            }}</span>
+            <span class="font-normal">{{
+              props.listing.compartments.washRooms > 1
+                ? `Bathrooms`
+                : `Bathroom`
+            }}</span>
           </div>
           <div class="flex">
             <Yingyang class="w-4 h-4 inline" />
-            <span class="text-gray-600 ml-1.5 font-bold"
-              >{{ props.listing.size.toLocaleString()
-              }}<span class="font-normal ml-[2px]">sqft</span></span
-            >
+            <span class="text-gray-600 ml-2 mr-1 font-bold">{{
+              Number(props.listing.size.toLocaleString()).toLocaleString("en")
+            }}</span>
+            <span class="font-normal">sqft</span>
           </div>
         </div>
       </router-link>

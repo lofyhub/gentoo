@@ -28,8 +28,14 @@ import XIcon from "@/components/icons/Xcircle.vue";
 import StarEmpty from "@/components/icons/StarEmpty.vue";
 
 import { ref, computed, onBeforeMount } from "vue";
+import { useHead } from "unhead";
 
-import { formatDate, maskNumber, stringToHslColor } from "@/helpers/helpers";
+import {
+  formatDate,
+  maskNumber,
+  stringToHslColor,
+  getMonthYear,
+} from "@/helpers/helpers";
 import { toastError, toastMessage, toastWarning } from "@/plugins/toast";
 import { uselistingStore } from "@/store/listing";
 import { useSessionStore } from "@/store/session";
@@ -79,6 +85,9 @@ const sideImages = computed(() => [
   listing.value.images[0],
   listing.value.images[1],
 ]);
+useHead({
+  title: listing.value.name,
+});
 
 onBeforeMount(() => {
   listingStore.fetchListing(id.value);
@@ -171,7 +180,7 @@ function handlePhone() {
   >
     <Loading />
   </div>
-  <div v-else>
+  <div v-else class="pb-8">
     <div class="pt-2 px-4 lg:px-0">
       <BackButton class="my-3" />
     </div>
@@ -212,12 +221,14 @@ function handlePhone() {
             </button>
           </div>
         </div>
-        <div class="flex flex-row">
-          <h1 class="text-xl text-gray-500 font-normal">
+        <div class="flex flex-row text-lg">
+          <h1 class="text-gray-400 font-normal">
             {{ listing.name }}
           </h1>
-          <div class="text-gray-400 flex gap-2 text-base font-normal pt-1 ml-5">
-            <ClockIcon class="w-5 h-5" />
+          <div
+            class="text-gray-400 flex justify-center items-center text-center gap-2 font-normal ml-5"
+          >
+            <ClockIcon class="w-3 h-3" />
             <span>{{ formatDate(listing.createdAt) }}</span>
           </div>
         </div>
@@ -232,9 +243,9 @@ function handlePhone() {
             <!-- Carousel wrapper -->
             <img
               :src="listing.images[imageIndex]"
-              alt=""
+              :alt="`image listing of ${listing.name}`"
               srcset=""
-              loading="lazy"
+              loading="eager"
               class="object-cover cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
               :class="
                 listing.images.length > 1
@@ -330,7 +341,7 @@ function handlePhone() {
                 class="w-full h-[160] lg:h-[225px] overflow-hidden bg-img bg-cover"
                 :class="index === 0 ? 'rounded-tr-lg pb-2' : ' rounded-br-lg'"
                 alt="apartment image here"
-                loading="lazy"
+                loading="eager"
                 srcset=""
               />
             </div>
@@ -344,7 +355,7 @@ function handlePhone() {
           <div>
             <!-- Room details section bathrooms, washrooms e.t.c -->
             <div
-              class="mb-[48px] border-2 border-gray-200 rounded lg:h-[110px] h-auto"
+              class="mb-10 border-2 border-gray-200 rounded lg:h-[110px] h-auto"
             >
               <div class="flex justify-around h-auto mt-2">
                 <!-- bedrooms -->
@@ -394,7 +405,9 @@ function handlePhone() {
                   <p class="text-base font-semibold">Square Area</p>
                   <div class="pt-3">
                     <HouseIcon class="w-5 h-5 inline" />
-                    <span class="font-bold ml-2">{{ listing.size }}</span>
+                    <span class="font-bold ml-2">{{
+                      Number(listing.size).toLocaleString("en")
+                    }}</span>
                     <span class="text-gray-500 ml-1">sqft</span>
                   </div>
                 </div>
@@ -420,11 +433,11 @@ function handlePhone() {
               </div>
             </div>
             <!-- about this home -->
-            <div class="lg:mx-0 mx-4 mb-[48px]">
-              <h2 class="text-2xl font-medium text-indigo-500 mb-[14px]">
+            <div class="lg:mx-0 mx-4 mb-8">
+              <h2 class="text-2xl font-medium text-indigo-500">
                 About this home
               </h2>
-              <p class="py-3 text-justify">
+              <p class="pt-6 text-justify">
                 {{ listing.description }}
               </p>
             </div>
@@ -440,21 +453,23 @@ function handlePhone() {
               <div class="flex justify-between px-4 pb-6">
                 <div class="flex">
                   <router-link
-                    :to="'/' + listing.userId + '/reviews/'"
-                    class="w-14 h-14 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
+                    :to="'/' + listing.userId"
+                    class="w-16 h-16 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
                     :style="{ backgroundColor: backgroundColor }"
                   >
                     <span>{{ listingAuthor.username.slice(0, 2) }}</span>
                   </router-link>
-                  <div class="ml-4 p-0 b-0">
-                    <h3 class="font-extrabold p-0 m-0">
+                  <div class="ml-4 pt-2">
+                    <h3 class="font-extrabold m-0 text-lg">
                       {{ listingAuthor.username }}
                     </h3>
-                    <p>Housing Agency</p>
+                    <p class="text-base">
+                      Joined in {{ getMonthYear(listingAuthor.date) }}
+                    </p>
                   </div>
                 </div>
                 <div
-                  class="flex flex-col lg:flex-row justify-between font-medium text-xl"
+                  class="flex flex-col lg:flex-row justify-between font-medium text-base"
                 >
                   <button
                     class="text-indigo-500 py-1 px-5 font-medium"
@@ -475,7 +490,7 @@ function handlePhone() {
                 Rental facilities
               </h4>
               <div
-                class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-8 text-base"
+                class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-4 text-base"
               >
                 <div class="flex my-2">
                   <CheckCircleIcon
@@ -515,7 +530,6 @@ function handlePhone() {
             </div>
             <!-- end facilities -->
             <!-- end of listed by property owner -->
-            <hr class="mt-4" />
             <!-- start rentail features -->
             <div class="px-4 lg:px-0 pt-8">
               <h4 class="font-normal text-2xl text-gray-500">
@@ -525,12 +539,6 @@ function handlePhone() {
                 class="flex justify-between flex-col mx-4 lg:mx-0 lg:flex-row py-[20px] text-base"
               >
                 <div>
-                  <div class="flex justify-between my-3">
-                    <p>Listed on</p>
-                    <span class="font-bold ml-16 ml-16">
-                      {{ formatDate(listing.createdAt) }}</span
-                    >
-                  </div>
                   <div class="flex justify-between my-3">
                     <p>Availability</p>
                     <div class="ml-16 flex justify-center">
@@ -581,11 +589,12 @@ function handlePhone() {
                   </div>
                   <div class="flex justify-between my-3">
                     <p>Size</p>
-                    <span class="font-bold ml-16">{{ listing.size }} sqft</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <p>Land Size</p>
-                    <span class="font-bold ml-16">{{ listing.size }} sqft</span>
+                    <span class="font-bold ml-16"
+                      >{{
+                        Number(listing.size).toLocaleString("en")
+                      }}
+                      sqft</span
+                    >
                   </div>
                   <div class="flex justify-between my-3">
                     <p>Parking Area</p>
@@ -597,9 +606,8 @@ function handlePhone() {
               </div>
             </div>
             <!-- end of rental features -->
-            <hr class="my" />
             <!-- start safety -->
-            <div class="px-4 lg:px-0 pt-8">
+            <div class="px-4 lg:px-0 pt-2">
               <h4 class="font-normal text-2xl text-gray-500">Safety tips</h4>
               <div
                 class="flex justify-between flex-col mx-2 lg:flex-row pt-3 text-base"
@@ -747,7 +755,9 @@ function handlePhone() {
         >
           Similar Listings
         </h2>
-        <div class="flex flex-wrap mt-0 pt-0 lg:justify-start justify-center">
+        <div
+          class="flex flex-wrap gap-x-5 mt-0 pt-0 lg:justify-start justify-center"
+        >
           <Listing
             v-for="listing in similarListings"
             :key="listing._id"

@@ -9,13 +9,6 @@ useHead({
 
 const teamMembers: TeamSchema[] = [
   {
-    name: "John Philip",
-    twitter: "https://twitter.com/amjohnphilip",
-    avatar: "https://johnphilip.dev/_nuxt/johnphilipavatar.d4b3753f.jpeg",
-    github: "https://github.com/lofyhub",
-    role: "Builder",
-  },
-  {
     name: "Your name here",
     twitter: "https://twitter.com/kikaohq",
     avatar: "https://mkpusa.org/wp-content/uploads/2015/04/YourFace.jpg",

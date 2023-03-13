@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { withDefaults, defineProps, ref, defineEmits } from "vue";
-import { houseSchema } from "@/temp/housestemp";
-import { convertBuffer, file } from "@/helpers/helpers";
+import { houseSchema } from "@/temp/types";
 
 import XIcon from "@/components/icons/XIcon.vue";
 import Twitter from "@/components/icons/socials/Twitter.vue";
@@ -17,7 +16,6 @@ const prop = withDefaults(
   }>(),
   {}
 );
-const isBinary = typeof prop.listing.images[0] === "string" ? false : true;
 
 defineEmits(["close"]);
 
@@ -74,11 +72,7 @@ function whatsappShare() {
       </div>
       <div class="flex bg-gray-100 p-4 rounded">
         <img
-          :src="
-            !isBinary
-              ? prop.listing.images[prop.listing.images.length - 1]
-              : convertBuffer(prop.listing.images[0] as unknown as file)
-          "
+          :src="prop.listing.images[prop.listing.images.length - 1]"
           alt="social share image from kikao"
           class="h-32 w-32 lg:w-48 rounded bg-cover bg-img object-cover bg-cover"
         />

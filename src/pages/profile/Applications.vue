@@ -10,10 +10,6 @@ import { useSessionStore } from "@/store/session";
 import { uselistingStore } from "@/store/listing";
 import { computed } from "@vue/reactivity";
 
-useHead({
-  title: "Kikao | Profile",
-});
-
 const store = useSessionStore();
 const listingStore = uselistingStore();
 const route = useRoute();
@@ -25,6 +21,10 @@ const id = computed(() => {
   throw new Error("Id must be a string!");
 });
 const authorProfile = computed(() => listingStore.getProfile(id.value));
+
+useHead({
+  title: authorProfile.value.username + "'s Profile",
+});
 
 onBeforeMount(() => {
   listingStore.getListingAuthor(id.value);
@@ -48,7 +48,7 @@ function getStyles(tab: string) {
         <div class="flex">
           <router-link
             :to="'/' + id"
-            class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
+            class="block flex-1 text-center text-base text-gray-600 hover:text-gray-800 font-medium px-3 group"
           >
             <div
               class="flex items-center justify-center py-4"
@@ -71,7 +71,7 @@ function getStyles(tab: string) {
               <span>{{
                 store.$state.userId && store.$state.userId === id
                   ? `Your Listings`
-                  : `Homes listed by this owner`
+                  : `${authorProfile.username}'s listings`
               }}</span>
             </div>
           </router-link>
