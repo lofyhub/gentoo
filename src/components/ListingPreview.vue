@@ -110,7 +110,7 @@ const session = useSessionStore();
           <div class="flex">
             <Yingyang class="w-4 h-4 inline" />
             <span class="text-gray-600 ml-1.5 font-bold"
-              >{{ props.listing.size
+              >{{ Number(props.listing.size).toLocaleString("en")
               }}<span class="font-normal ml-1">sqft</span></span
             >
           </div>

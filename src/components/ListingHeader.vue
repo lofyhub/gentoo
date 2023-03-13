@@ -452,12 +452,22 @@ function handlePhone() {
               </div>
               <div class="flex justify-between px-4 pb-6">
                 <div class="flex">
-                  <router-link
-                    :to="'/' + listing.userId"
-                    class="w-16 h-16 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
-                    :style="{ backgroundColor: backgroundColor }"
-                  >
-                    <span>{{ listingAuthor.username.slice(0, 2) }}</span>
+                  <router-link :to="'/' + listing.userId">
+                    <img
+                      v-if="listingAuthor.profileImage"
+                      class="rounded-full w-16 h-16 object-cover"
+                      :src="listingAuthor.profileImage"
+                      :alt="listingAuthor.username + 'avatar image'"
+                      :title="listingAuthor.username + 'avatar image'"
+                      loading="eager"
+                    />
+                    <div
+                      v-else
+                      class="w-16 h-16 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
+                      :style="{ backgroundColor: backgroundColor }"
+                    >
+                      <span>{{ listingAuthor.username.slice(0, 2) }}</span>
+                    </div>
                   </router-link>
                   <div class="ml-4 pt-2">
                     <h3 class="font-extrabold m-0 text-lg">

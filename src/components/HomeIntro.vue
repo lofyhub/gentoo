@@ -1,41 +1,14 @@
 <script setup lang="ts">
 import SortListings from "@/components/SortListings.vue";
-import { onMounted, defineEmits } from "vue";
+import { defineEmits } from "vue";
 
 import { sortParams } from "@/temp/types";
-
-onMounted(() => {
-  const obj = document.getElementById("value");
-  const obj2 = document.getElementById("valuee");
-  animateValue(obj, 0, 50, 500);
-  animateValue(obj2, 0, 10, 500);
-});
 
 const emits = defineEmits(["sortValues"]);
 
 // methods
 function handleSort(values: sortParams) {
   emits("sortValues", values);
-}
-function animateValue(
-  obj: HTMLElement | null,
-  start: number,
-  end: number,
-  duration: number
-) {
-  let startTimestamp: number | null = null;
-  const step = (timestamp: number) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    if (obj !== null) {
-      obj.innerHTML = Math.floor(progress * (end - start) + start).toString();
-    }
-
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
-  };
-  window.requestAnimationFrame(step);
 }
 </script>
 
@@ -57,20 +30,6 @@ function animateValue(
               Find rental properties, commercial spaces, land, and more on our
               platform
             </p>
-          </div>
-          <div class="flex mb-4 justify-center">
-            <div class="mr-20 mt-2 flex">
-              <div class="text-xl app-text text-black flex font-medium">
-                <p id="value">50 k+</p>
-              </div>
-              <p class="ml-2">tenants</p>
-            </div>
-            <div class="mt-2 flex">
-              <div class="text-xl app-text flex text-black font-medium">
-                <p id="valuee">10 k+</p>
-              </div>
-              <span class="ml-2">listed properties</span>
-            </div>
           </div>
         </div>
       </div>

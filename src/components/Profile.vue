@@ -32,7 +32,16 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
             <header>
               <div class="flex my-2 gap-x-20 lg:gap-x-30">
                 <div class="items-start mr-5">
+                  <img
+                    v-if="profile.profileImage"
+                    class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] object-cover"
+                    :src="profile.profileImage"
+                    :alt="profile.username + 'avatar image'"
+                    :title="profile.username + 'avatar image'"
+                    loading="eager"
+                  />
                   <div
+                    v-else
                     class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] shadow transition-opacity text-center flex justify-center items-center uppercase text-white text-5xl"
                     :style="{ backgroundColor: backgroundColor }"
                   >

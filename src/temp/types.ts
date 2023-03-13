@@ -84,6 +84,7 @@ export type userPublisher = {
   username: string;
   email: string;
   kikaoType: string;
+  profileImage: string;
   date: Date;
   phone: string;
   business: Business;
@@ -104,6 +105,7 @@ export function createDefaultProfile(id: string): userPublisher {
     email: ``,
     kikaoType: `Tenant`,
     date: new Date(),
+    profileImage: "",
     phone: "",
     business: {
       name: "",
@@ -122,6 +124,14 @@ export interface TeamSchema {
   role: string;
 }
 
+export enum UserType {
+  Tenant = "Tenant",
+  Landlord = "Landlord",
+}
+export enum BusinessType {
+  Individual = "Individual",
+  Organization = "Organization",
+}
 export interface houseFeature {
   name: string;
   _id: number;

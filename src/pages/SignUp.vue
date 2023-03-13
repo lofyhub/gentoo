@@ -19,6 +19,7 @@ import {
 } from "@/plugins/toast";
 import { env } from "@/env";
 import router from "@/router";
+import { UserType, BusinessType } from "@/temp/types";
 
 const store = useRootStore();
 const session = useSessionStore();
@@ -27,14 +28,15 @@ const name = ref(``);
 const email = ref(``);
 const password = ref(``);
 const password2 = ref(``);
-const kikaotype = ref(``);
+const kikaotype = ref<UserType>(UserType.Landlord);
 const city = ref(``);
-const businessType = ref<`individual` | `organization` | ``>(``);
+const businessType = ref<BusinessType>(BusinessType.Organization);
 const businesname = ref(``);
 const location = ref(``);
 const loading = ref(false);
 const phone = ref();
 const showPass = ref(false);
+const selectedFile = ref();
 
 // methods
 
@@ -52,35 +54,37 @@ async function submitForm(): Promise<void> {
     toastMessage(`Password mismatch`);
     return;
   }
-  const bodyData = {
-    email: email.value.trim(),
-    password: password.value.trim(),
-    username: name.value.trim(),
-    kikaotype: kikaotype.value.trim(),
-    businesname: businesname.value.trim(),
-    location: location.value.trim(),
-    phone: phone.value,
-    businessType: businessType.value.trim(),
-    city: city.value.trim(),
-  };
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
     },
   };
 
   try {
     loading.value = true;
-    await axios.post(`${env}/signup`, bodyData, config);
+    let formData = new FormData();
+    formData.append("email", email.value.trim());
+    formData.append("password", password.value.trim());
+    formData.append("username", name.value.trim());
+    formData.append("kikaotype", kikaotype.value.trim());
+    formData.append("businesname", businesname.value.trim());
+    formData.append("location", location.value.trim());
+    formData.append("phone", phone.value);
+    formData.append("businessType", businessType.value.trim());
+    formData.append("city", city.value.trim());
+    formData.append("avatarimage", selectedFile.value);
+
+    const res = await axios.post(`${env}/signup`, formData, config);
+
     // reset values here
-    toastSuccess("Sucessfully created your account");
+    if (res.status === 200) {
+      toastSuccess("Congratulations! You're officially a member of Kikao");
+    }
     (email.value = ``),
       (password.value = ``),
-      (kikaotype.value = ``),
       (businesname.value = ``),
       (location.value = ``),
       (phone.value = 0),
-      (businessType.value = ``),
       (city.value = ``);
     step.value = 3;
   } catch (error) {
@@ -124,23 +128,35 @@ function stepBack(): void {
   step.value = step.value -= 1;
 }
 
-function updateKikaotype(type: string): void {
-  kikaotype.value = type;
+function updateKikaotype(type: UserType): void {
+  kikaotype.value = UserType[type];
 }
-function updateBusinesstype(type: "individual" | "organization"): void {
-  businessType.value = type;
+function updateBusinesstype(type: BusinessType): void {
+  businessType.value = BusinessType[type];
+}
+
+function onFileSelected(event: Event) {
+  if (!event.target) {
+    return;
+  }
+  const target = event.target as HTMLInputElement;
+  if (!target.files) {
+    toastError(`No image selected`);
+    return;
+  }
+  selectedFile.value = target.files[0];
 }
 </script>
 
 <template>
-  <div class="bg-white pt-20 min-h-screen" v-if="!session.$state.userId">
-    <div class="w-3/4 lg:w-1/3 mx-auto relative bg-white py-[50px]">
+  <div class="bg-white pt-8 min-h-screen" v-if="!session.$state.userId">
+    <div class="w-3/4 lg:w-1/3 mx-auto relative bg-white py-[20px]">
       <div class="relative">
         <div
           class="left-0 w-full absolute bg-slate-200 h-0.5 mt-[-1px] top-3/4"
           aria-hidden="true"
         ></div>
-        <ul class="flex w-full list-none justify-between pt-6 relative">
+        <ul class="flex w-full list-none justify-between pt-4 relative">
           <li>
             <a
               class="flex items-center justify-center rounded-full font-semibold text-xs text-white w-6 h-6"
@@ -189,7 +205,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
       </div>
 
       <!-- start of step one -->
-      <div v-if="step === 0" class="transition-all transform pt-20">
+      <div v-if="step === 0" class="transition-all transform pt-5">
         <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
           Tell us what’s your situation ✨
         </h1>
@@ -197,11 +213,11 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           <div
             class="flex items-center bg-white gap-6 transition-all transform text-sm cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
             :class="
-              kikaotype === `landlord`
+              kikaotype === UserType.Landlord
                 ? `border-indigo-500`
                 : `border-slate-200`
             "
-            @click="updateKikaotype(`Landlord`)"
+            @click="updateKikaotype(UserType.Landlord)"
           >
             <svg
               class="fill-current h-6 h-6 block mx-4 align-middle"
@@ -230,9 +246,11 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           <div
             class="flex items-center transition-all transform gap-6 bg-white text-sm cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
             :class="
-              kikaotype === `tenant` ? `border-indigo-500` : `border-slate-200`
+              kikaotype === UserType.Tenant
+                ? `border-indigo-500`
+                : `border-slate-200`
             "
-            @click="updateKikaotype(`Tenant`)"
+            @click="updateKikaotype(UserType.Tenant)"
           >
             <svg
               class="fill-current h-6 h-6 block mx-4 align-middle"
@@ -252,8 +270,8 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           </div>
         </div>
       </div>
-      <div v-if="step === 1" class="pt-20">
-        <div v-if="kikaotype === `landlord`">
+      <div v-if="step === 1" class="pt-5">
+        <div v-if="kikaotype === UserType.Landlord">
           <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
             Tell us about your business ✨
           </h1>
@@ -261,11 +279,11 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             <div
               class="w-52 h-48 bg-white rounded text-center py-6 px-4 border mr-6 cursor-pointer transition ease-in-out"
               :class="
-                businessType === `individual`
+                businessType === BusinessType.Individual
                   ? `border-indigo-500`
                   : `border-slate-200`
               "
-              @click="updateBusinesstype(`individual`)"
+              @click="updateBusinesstype(BusinessType.Individual)"
             >
               <svg
                 class="inline-flex fill-current w-10 h-10 mb-2 align-middle"
@@ -283,11 +301,11 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             <div
               class="w-52 h-48 bg-white rounded-sm text-center py-6 px-4 border cursor-pointer transition-all transform"
               :class="
-                businessType === `organization`
+                businessType === BusinessType.Organization
                   ? `border-indigo-500`
                   : `border-slate-200`
               "
-              @click="updateBusinesstype(`organization`)"
+              @click="updateBusinesstype(BusinessType.Organization)"
             >
               <svg
                 class="inline-flex fill-current w-10 h-10 mb-2 align-middle"
@@ -313,7 +331,10 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             </div>
           </div>
         </div>
-        <div v-if="kikaotype === `tenant`" class="transition-all transform">
+        <div
+          v-if="kikaotype === UserType.Tenant"
+          class="transition-all transform"
+        >
           <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
             Create your profile Account ✨
           </h1>
@@ -413,8 +434,8 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           </div>
         </div>
       </div>
-      <div v-if="step === 2" class="transition-all transform pt-20">
-        <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
+      <div v-if="step === 2" class="transition-all transform pt-5">
+        <h1 class="text-3xl text-slate-800 font-bold lg:py-[20px] py-[4px]">
           Create your profile Account ✨
         </h1>
         <div class="flex flex-col pt-4">
@@ -436,6 +457,23 @@ function updateBusinesstype(type: "individual" | "organization"): void {
             v-model="phone"
             placeholder="Telephone number"
           />
+
+          <div>
+            <label
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              for="user_avatar"
+              >Upload profile image</label
+            >
+            <input
+              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              aria-describedby="user_avatar_help"
+              id="user_avatar"
+              type="file"
+              accept="image/jpeg, image/png, image/jpg"
+              @change="onFileSelected"
+            />
+          </div>
+
           <div class="relative">
             <input
               :type="showPass ? `text` : `password`"
@@ -459,40 +497,6 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           />
         </div>
 
-        <div class="flex -space-x-4 py-4 justify-center">
-          <img
-            class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-            src="https://images.pexels.com/photos/3483800/pexels-photo-3483800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-          <img
-            class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-            src="https://images.pexels.com/photos/14267849/pexels-photo-14267849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-          <img
-            class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-            src="https://images.pexels.com/photos/4450080/pexels-photo-4450080.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-          <img
-            class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-            src="https://images.pexels.com/photos/5990737/pexels-photo-5990737.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-          <img
-            class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-            src="https://images.pexels.com/photos/3250357/pexels-photo-3250357.jpeg?auto=compress&cs=tinysrgb&w=1600"
-            alt=""
-          />
-          <a
-            class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
-            href="#"
-            >+99</a
-          >
-          <p class="pl-6 mt-2 text-base text-grey-dark">Join others on Kikao</p>
-        </div>
-
         <div class="text-center text-base text-grey-dark mt-2">
           By signing up, you agree to the
           <a
@@ -510,7 +514,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           </a>
         </div>
       </div>
-      <div v-if="step === 3" class="pt-20">
+      <div v-if="step === 3" class="pt-5">
         <div
           class="text-center items-center justify-center lg:py-[48px] py-[20px]"
         >
@@ -565,7 +569,7 @@ function updateBusinesstype(type: "individual" | "organization"): void {
           <SpinnerIcon v-if="loading" />
           <p v-else class="flex">
             {{
-              step === 1 && kikaotype === `tenant`
+              step === 1 && kikaotype === UserType.Tenant
                 ? `Create account`
                 : step === 2
                 ? `Create account`
@@ -585,13 +589,13 @@ function updateBusinesstype(type: "individual" | "organization"): void {
       <p class="text-2xl font-medium">You have recently signed up</p>
       <p class="text-base py-8 font-normal">See popular listings</p>
       <div class="flex justify-center">
-        <router-link
+        <RouterLink
           to="/listings"
           class="py-2 px-6 border flex border-indigo-500 opacity-100 rounded text-base text-gray-900 hover:bg-indigo-500 hover:text-white shadow transition transform"
         >
           <span>Go to listings</span>
           <LeftIcon
-        /></router-link>
+        /></RouterLink>
       </div>
     </div>
   </div>
