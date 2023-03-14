@@ -340,7 +340,7 @@ function handlePhone() {
                 :src="image"
                 class="w-full h-[160] lg:h-[225px] overflow-hidden bg-img bg-cover"
                 :class="index === 0 ? 'rounded-tr-lg pb-2' : ' rounded-br-lg'"
-                alt="apartment image here"
+                :alt="`image listing of ${listing.name}`"
                 loading="eager"
                 srcset=""
               />
