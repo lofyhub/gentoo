@@ -41,7 +41,10 @@ function handleSort(values: sortParams) {
       </div>
     </div>
     <div class="w-full lg:w-[1400px] lg:mx-auto min-h-screen mb-20">
-      <div v-if="listings.length > 0">
+      <div v-if="!listings" class="flex flex-wrap mt-0 pt-0 justify-center">
+        <ListingSkeleton v-for="i in 8" :key="i" />
+      </div>
+      <div v-else>
         <div class="flex flex-wrap mt-0 pt-0 justify-center gap-x-5">
           <Listing
             v-for="listing in listings"
@@ -49,9 +52,6 @@ function handleSort(values: sortParams) {
             :listing="listing"
           />
         </div>
-      </div>
-      <div v-else class="flex flex-wrap mt-0 pt-0 justify-center">
-        <ListingSkeleton v-for="i in 8" :key="i" />
       </div>
     </div>
   </div>
