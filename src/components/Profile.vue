@@ -36,8 +36,8 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
                     v-if="profile.profileImage"
                     class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] object-cover"
                     :src="profile.profileImage"
-                    :alt="profile.username + 'avatar image'"
-                    :title="profile.username + 'avatar image'"
+                    :alt="profile.username + ' avatar image'"
+                    :title="profile.username + ' avatar image'"
                     loading="eager"
                   />
                   <div

@@ -27,8 +27,11 @@ onBeforeMount(() => {
 </script>
 <template>
   <!-- Dashboard to add, delete, edit and view listings -->
-  <div class="flex justify-center flex-wrap my-2">
-    <div v-if="Object.keys(authorListings).length < 1">
+  <div>
+    <div
+      v-if="Object.keys(authorListings).length < 1"
+      class="flex justify-center flex-wrap my-2"
+    >
       <ListingSkeleton v-for="i in 4" :key="i" />
     </div>
     <div v-else class="flex justify-center flex-wrap my-2">
