@@ -7,6 +7,7 @@ import { stringToHslColor, formatDate } from "@/helpers/helpers";
 import { userReview } from "@/temp/types";
 
 import { ref, withDefaults, defineProps } from "vue";
+import { computed } from "@vue/reactivity";
 
 const props = withDefaults(
   defineProps<{
@@ -18,6 +19,24 @@ const props = withDefaults(
 const starRating = ref<number>(props.review.rating);
 const emptystar = ref<number>(5 - starRating.value);
 const backgroundColor = stringToHslColor(props.review.name);
+const showFullText = ref<boolean>(false);
+const maxLength = ref<number>(140);
+const truncatedText = computed(() => {
+  if (props.review.comment.length <= maxLength.value || showFullText.value) {
+    return props.review.comment;
+  } else {
+    return props.review.comment.substring(0, maxLength.value) + " ...";
+  }
+});
+const shouldShowReadMoreButton = computed(
+  () => props.review.comment.length > maxLength.value
+);
+
+// methods
+
+function displayFullText() {
+  showFullText.value = !showFullText.value;
+}
 </script>
 
 <template>
@@ -57,7 +76,14 @@ const backgroundColor = stringToHslColor(props.review.name);
         </p>
       </footer>
       <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
-        {{ props.review.comment }}
+        {{ truncatedText }}
+        <button
+          v-if="shouldShowReadMoreButton"
+          class="inline text-black underline"
+          @click="displayFullText"
+        >
+          read more
+        </button>
       </p>
     </div>
   </article>

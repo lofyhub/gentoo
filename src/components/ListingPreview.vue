@@ -22,7 +22,7 @@ const session = useSessionStore();
 
 <template>
   <div
-    class="w-[300px] mit mt-4 mb-3 mx-2 bg-white border border-gray-300 hover:bg-gray-100 overflow-hidden rounded-lg"
+    class="mit w-[330px] my-4 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
   >
     <div id="default-carousel" class="relative" data-carousel="static">
       <img
