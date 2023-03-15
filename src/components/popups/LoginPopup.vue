@@ -59,9 +59,11 @@ async function signIn() {
     }
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      toastWarning(error.response.data.message);
+      const { errors } = error.response.data;
+      console.log(errors);
+      return toastWarning(errors.msg);
     } else {
-      toastError(error as string);
+      return toastError(error as string);
     }
   } finally {
     loading.value = false;

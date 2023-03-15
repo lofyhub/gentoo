@@ -56,27 +56,36 @@ export const useRootStore = defineStore("rootStore", {
     ) {
       try {
         const token = localStorage.getItem("kikao-token");
-        if (!token) throw new Error("Token is not found in localStorage");
+        if (!token) {
+          throw new Error("Token is not found in localStorage");
+        }
+
         const bodyData = {
-          data: {
-            house_id: listingId,
-            user_id: userId,
-            rating: rating,
-            comment: comment,
-            listing_author_id: authorId,
-            name: name,
-          },
+          house_id: listingId,
+          user_id: userId,
+          rating,
+          comment,
+          listing_author_id: authorId,
+          name,
         };
+
         const headers = {
           "Content-Type": "application/json",
           "x-access-token": token,
         };
-        await axios.post(`${env}/reviews`, bodyData, { headers: headers });
-        toastSuccess("Your review has been successfully recorded");
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          return toastWarning(error.response.data.error);
+
+        const res = await axios.post(`${env}/reviews`, bodyData, {
+          headers,
+        });
+
+        if (res.status === 200) {
+          toastSuccess("Your review has been successfully recorded");
+          return;
+        } else {
+          throw new Error("Failed to post review");
         }
+      } catch (error) {
+        toastWarning("Failed to post review");
       }
     },
     removeDeletedListing(id: string) {
