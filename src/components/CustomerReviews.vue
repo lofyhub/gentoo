@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Reviews from "@/components/Reviews.vue";
+import Review from "@/components/Review.vue";
 
 import { uselistingStore } from "@/store/listing";
 import { useSessionStore } from "@/store/session";
@@ -70,7 +70,7 @@ function handleReviewButton() {
 
   <div v-else class="flex flex-wrap justify-start gap-y-4">
     <div v-for="review in reviews" :key="review.created_at">
-      <Reviews :review="review" />
+      <Review :review="review" />
     </div>
   </div>
 </template>

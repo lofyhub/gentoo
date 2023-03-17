@@ -12,7 +12,7 @@ const prop = withDefaults(
 </script>
 
 <template>
-  <div class="flex flex-col items-center my-8 lg:mx-10">
+  <div class="flex flex-col items-center">
     <img
       class="object-cover w-[200px] h-[200px] rounded-lg aspect-square flex-none shadow border border-gray-300"
       decoding="async"

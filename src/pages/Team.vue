@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Team from "@/components/Team/Team.vue";
+import Team from "@/components/Team/TeamMember.vue";
 import { TeamSchema } from "../temp/types";
 import { useHead } from "unhead";
 
@@ -32,7 +32,7 @@ const teamMembers: TeamSchema[] = [
       >
         Meet the team behind Kikao
       </p>
-      <div class="flex flex-wrap justify-center w-3/5 mx-auto">
+      <div class="flex flex-wrap justify-center w-4/5 mx-auto gap-6">
         <Team
           v-for="(member, index) in teamMembers"
           :key="index"

@@ -7,8 +7,8 @@ useHead({
 </script>
 
 <template>
-  <div class="bg-white min-h-screen">
-    <div class="prose w-4/5 mx-auto py-10">
+  <div class="bg-white min-h-screen flex justify-center">
+    <div class="prose w-4/5 mx-auto pt-32">
       <h1>Contact Kikao</h1>
       <h3>Your premier destination for all your house listing needs!</h3>
       <p>
@@ -18,14 +18,10 @@ useHead({
       </p>
       <h3>Contact Us:</h3>
       <ul>
-        <li>Email: kikao@gmail.com</li>
+        <li>Email: contactkikao@gmail.com</li>
         <li>Phone: +254-0778-537-497</li>
-        <li>Address: 123 Main St, Anytown KENYA</li>
+        <li>Address: Mama Ngina St, Nairobi KENYA</li>
       </ul>
-      <p>
-        Alternatively, you can use the contact form below and we will get back
-        to you as soon as possible.
-      </p>
       <!-- contact form -->
       <span>Thank you for choosing Kikao! 👊</span>
     </div>

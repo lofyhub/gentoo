@@ -43,11 +43,14 @@ function displayFullText() {
   <article class="w-[416px] border border-gray-200 mt-3 mx-3 rounded">
     <div class="mx-5 mt-6">
       <div class="flex items-center mb-4 space-x-4">
-        <span
-          class="w-14 h-14 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
-          :style="{ backgroundColor: backgroundColor }"
-          >{{ props.review.user_id.slice(0, 2) }}</span
-        >
+        <router-link :to="'/' + props.review.user_id">
+          <span
+            class="w-14 h-14 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
+            :style="{ backgroundColor: backgroundColor }"
+            >{{ props.review.user_id.slice(0, 2) }}</span
+          >
+        </router-link>
+
         <div class="space-y-1 font-medium dark:text-white">
           <p>{{ props.review.name }}</p>
           <div
