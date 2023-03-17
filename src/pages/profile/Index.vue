@@ -29,7 +29,7 @@ onBeforeMount(() => {
   <!-- Dashboard to add, delete, edit and view listings -->
   <div>
     <div
-      v-if="Object.keys(authorListings).length < 1"
+      v-if="!authorListings"
       class="flex justify-center flex-wrap my-2 gap-x-4"
     >
       <ListingSkeleton v-for="i in 4" :key="i" />
@@ -37,13 +37,17 @@ onBeforeMount(() => {
     <div
       v-else
       class="flex justify-center flex-wrap gap-y-2 gap-x-5 w-full lg:w-[1300px] mx-auto"
+      :class="authorListings.length > 1 ? `justify-start` : `justify-center`"
     >
       <div v-for="listing in authorListings" :key="listing._id">
         <ListingPreview :listing="listing" />
       </div>
     </div>
   </div>
-  <div v-if="!authorListings" class="text-center font-normal h-80 mt-20">
+  <div
+    v-if="Object.keys(authorListings).length === 0"
+    class="text-center font-normal h-80 mt-20"
+  >
     <p class="text-2xl font-medium">
       {{
         session.$state.userId === id

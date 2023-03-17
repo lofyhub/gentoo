@@ -38,14 +38,13 @@ async function getBookings() {
 </script>
 
 <template>
-  <div>
+  <div v-if="bookings" class="text-center font-normal h-80 mt-20">
+    <p class="text-2xl font-medium">No current Bookings available now</p>
+    <p class="text-base py-3 font-normal">Your bookings will appear here</p>
+  </div>
+  <div v-else>
     <div v-for="booking in bookings" :key="booking">
       <p class="text-gray-500">{{ booking }}</p>
     </div>
   </div>
-
-  <!-- <div v-else class="text-center font-normal h-80 mt-20">
-    <p class="text-2xl font-medium">No current Bookings available now</p>
-    <p class="text-base py-3 font-normal">Your bookings will appear here</p>
-  </div> -->
 </template>

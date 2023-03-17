@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Review from "@/components/Review.vue";
+import LeftIcon from "@/components/icons/LeftIcon.vue";
 
 import { uselistingStore } from "@/store/listing";
 import { useSessionStore } from "@/store/session";
@@ -41,9 +42,9 @@ function handleReviewButton() {
     v-if="Object.keys(reviews).length === 0"
     class="flex justify-center flex-wrap item-center text-center pt-4"
   >
-    <div>
-      <p>
-        Sorry, there are currently no user reviews available for
+    <div class="mt-16">
+      <p class="text-2xl font-medium">
+        No user reviews available for
         {{
           store.$state.userId === id
             ? `your posted listings`
@@ -57,18 +58,22 @@ function handleReviewButton() {
             : `Please check back later or be the first to leave a review!`
         }}
       </p>
-      <button
-        class="py-2.5 px-6 rounded-md border border-indigo-500 text-indigo-500 mt-2"
-        @click="handleReviewButton"
-      >
-        {{
-          store.$state.userId === id ? `Go to your listings` : `Leave a review`
-        }}
-      </button>
+      <div class="flex justify-center">
+        <button
+          class="py-2 px-6 flex rounded-md border border-indigo-500 text-indigo-500 mt-2"
+          @click="handleReviewButton"
+        >
+          {{ store.$state.userId === id ? `Go to listings` : `Leave a review` }}
+          <LeftIcon />
+        </button>
+      </div>
     </div>
   </div>
 
-  <div v-else class="flex flex-wrap justify-start gap-y-4">
+  <div
+    v-else
+    class="flex justify-center flex-wrap gap-y-2 gap-x-5 w-full lg:w-[1300px] mx-auto"
+  >
     <div v-for="review in reviews" :key="review.created_at">
       <Review :review="review" />
     </div>
