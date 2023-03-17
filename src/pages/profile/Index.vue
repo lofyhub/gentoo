@@ -30,13 +30,13 @@ onBeforeMount(() => {
   <div>
     <div
       v-if="Object.keys(authorListings).length < 1"
-      class="flex justify-center flex-wrap my-2"
+      class="flex justify-center flex-wrap my-2 gap-x-4"
     >
       <ListingSkeleton v-for="i in 4" :key="i" />
     </div>
     <div
       v-else
-      class="flex justify-center flex-wrap gap-y-2 gap-x-3 w-full lg:w-[1300px] mx-auto"
+      class="flex justify-center flex-wrap gap-y-2 gap-x-5 w-full lg:w-[1300px] mx-auto"
     >
       <div v-for="listing in authorListings" :key="listing._id">
         <ListingPreview :listing="listing" />

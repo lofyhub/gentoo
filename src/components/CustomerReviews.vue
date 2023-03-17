@@ -68,7 +68,7 @@ function handleReviewButton() {
     </div>
   </div>
 
-  <div v-else class="flex flex-wrap justify-center">
+  <div v-else class="flex flex-wrap justify-start gap-y-4">
     <div v-for="review in reviews" :key="review.created_at">
       <Reviews :review="review" />
     </div>

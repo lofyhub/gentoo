@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "@/pages/HomeView.vue";
-import ProfileListings from "@/pages/profile/Listings.vue";
+import ProfileListings from "@/pages/profile/Index.vue";
 import AddListing from "@/components/AddListing.vue";
 import Bookings from "@/components/Bookings.vue";
 import Notfound from "@/pages/NotFound.vue";
