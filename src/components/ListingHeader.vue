@@ -474,7 +474,7 @@ function handlePhone() {
                       {{ listingAuthor.username }}
                     </h3>
                     <p class="text-base">
-                      Joined in {{ getMonthYear(listingAuthor.date) }}
+                      Joined {{ getMonthYear(listingAuthor.date) }}
                     </p>
                   </div>
                 </div>

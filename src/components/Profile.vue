@@ -64,7 +64,7 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
                     {{ prop.profile.kikaoType }}
                   </div>
                   <div class="mt-1">
-                    Joined in {{ getMonthYear(prop.profile.date) }}
+                    Joined {{ getMonthYear(prop.profile.date) }}
                   </div>
                   <div class="mt-1.5 text-lg flex">
                     <svg
