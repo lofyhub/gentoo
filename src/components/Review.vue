@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import KenyanFlag from "@/components/icons/KenyanFlag.vue";
 import StartFull from "@/components/icons/StartFull.vue";
 import StartEmpty from "@/components/icons/StarEmpty.vue";
 
@@ -20,6 +19,7 @@ const starRating = ref<number>(props.review.rating);
 const emptystar = ref<number>(5 - starRating.value);
 const backgroundColor = stringToHslColor(props.review.name);
 const showFullText = ref<boolean>(false);
+const buttonClicked = ref<boolean>(false);
 const maxLength = ref<number>(140);
 const truncatedText = computed(() => {
   if (props.review.comment.length <= maxLength.value || showFullText.value) {
@@ -36,6 +36,7 @@ const shouldShowReadMoreButton = computed(
 
 function displayFullText() {
   showFullText.value = !showFullText.value;
+  buttonClicked.value = !buttonClicked.value;
 }
 </script>
 
@@ -56,23 +57,21 @@ function displayFullText() {
           <div
             class="flex items-center text-base text-gray-400 dark:text-gray-400"
           >
-            <KenyanFlag class="w-5 h-5 mr-2" />
-            Kenya
+            <StartFull v-for="i in starRating" :key="i" />
+            <div v-if="starRating !== 5" class="flex">
+              <StartEmpty v-for="i in emptystar" :key="i" />
+            </div>
+            <h3
+              class="ml-2 text-sm font-semibold text-gray-900 dark:text-white"
+            >
+              {{ props.review.rating }}/5 Rating
+            </h3>
           </div>
         </div>
       </div>
-      <div class="flex items-center mb-1">
-        <StartFull v-for="i in starRating" :key="i" />
-        <div v-if="starRating !== 5" class="flex">
-          <StartEmpty v-for="i in emptystar" :key="i" />
-        </div>
-        <h3 class="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-          {{ props.review.rating }}/5 Rating
-        </h3>
-      </div>
       <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400">
         <p>
-          Reviewed on :
+          Reviewed :
           <time datetime="2017-03-03 19:00">{{
             formatDate(props.review.created_at)
           }}</time>
@@ -85,7 +84,7 @@ function displayFullText() {
           class="inline text-black underline"
           @click="displayFullText"
         >
-          read more
+          {{ !buttonClicked ? `read more` : `hide` }}
         </button>
       </p>
     </div>

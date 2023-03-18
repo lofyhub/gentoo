@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { getMonthYear } from "@/helpers/helpers";
-import { ref, defineProps, withDefaults } from "vue";
-import { userPublisher } from "@/temp/types";
+import { ref, defineProps, withDefaults, computed, onBeforeMount } from "vue";
+import { userPublisher, userReview } from "@/temp/types";
 
 import { stringToHslColor } from "@/helpers/helpers";
 import { useSessionStore } from "@/store/session";
+import { uselistingStore } from "@/store/listing";
 
 const open = ref(false);
 const store = useSessionStore();
+const listingStore = uselistingStore();
 
 const prop = withDefaults(
   defineProps<{
@@ -17,6 +19,17 @@ const prop = withDefaults(
 );
 
 const backgroundColor = stringToHslColor(prop.profile.business.name);
+const userReviews = computed(() => {
+  const reviews = listingStore.getAuthorReviews(prop.profile.userId);
+  if (reviews) {
+    return reviews as userReview[];
+  }
+  return [] as userReview[];
+});
+
+onBeforeMount(() => {
+  listingStore.fetchAuthorReviews(prop.profile.userId);
+});
 </script>
 <template>
   <section
@@ -81,9 +94,15 @@ const backgroundColor = stringToHslColor(prop.profile.business.name);
                         d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
                       />
                     </svg>
-
-                    <span class="mx-2 font-semibold">{{ 20 }}</span>
-                    reviews
+                    <div v-if="userReviews.length > 0">
+                      <span class="mx-2 font-semibold">{{
+                        userReviews.length
+                      }}</span>
+                      reviews
+                    </div>
+                    <div v-else>
+                      <span class="mx-2">no reviews for user</span>
+                    </div>
                   </div>
                 </div>
               </div>

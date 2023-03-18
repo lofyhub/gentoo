@@ -6,7 +6,6 @@ import { uselistingStore } from "@/store/listing";
 import { useSessionStore } from "@/store/session";
 import { userReview } from "@/temp/types";
 import { computed } from "@vue/reactivity";
-import { onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const listingStore = uselistingStore();
@@ -21,12 +20,13 @@ const id = computed(() => {
   throw new Error("Id should be a string!");
 });
 
-const reviews: userReview[] = computed(() =>
-  listingStore.getAuthorReviews(id.value)
-);
+const reviews = computed(() => {
+  const reviews = listingStore.getAuthorReviews(id.value);
+  if (reviews) {
+    return reviews as userReview[];
+  }
 
-onBeforeMount(() => {
-  listingStore.fetchAuthorReviews(id.value);
+  return [] as userReview[];
 });
 
 // methods
@@ -69,14 +69,20 @@ function handleReviewButton() {
       </div>
     </div>
   </div>
-
-  <div
-    v-else
-    class="flex justify-center flex-wrap gap-8 w-full lg:w-[1300px] mx-auto"
-    :class="reviews.length >= 1 ? `justify-start` : `justify-center`"
-  >
-    <div v-for="review in reviews" :key="review.created_at">
-      <Review :review="review" />
+  <div v-else class="w-full lg:w-[900px] mx-auto">
+    <div
+      class="flex flex-wrap gap-8 pt-4"
+      :class="
+        reviews.length === 1
+          ? `justify-center`
+          : reviews.length > 1
+          ? `justify-start`
+          : ``
+      "
+    >
+      <div v-for="review in reviews" :key="review.created_at">
+        <Review :review="review" />
+      </div>
     </div>
   </div>
 </template>
