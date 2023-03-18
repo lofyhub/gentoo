@@ -40,13 +40,13 @@ function handleSort(values: sortParams) {
         <HomeIntro @sort-values="handleSort" />
       </div>
     </div>
-    <div class="w-full lg:w-[1400px] lg:mx-auto min-h-screen mb-20">
+    <div class="w-full lg:w-[1400px] mx-auto min-h-screen mb-20">
       <div v-if="!listings" class="flex flex-wrap mt-0 pt-0 justify-center">
         <ListingSkeleton v-for="i in 8" :key="i" />
       </div>
       <div v-else>
         <div
-          class="flex flex-wrap mt-0 pt-0 gap-x-5"
+          class="flex flex-wrap gap-x-5"
           :class="listings.length >= 1 ? `justify-start` : `justify-center`"
         >
           <Listing

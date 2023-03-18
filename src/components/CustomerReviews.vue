@@ -72,7 +72,8 @@ function handleReviewButton() {
 
   <div
     v-else
-    class="flex justify-center flex-wrap gap-y-2 gap-x-5 w-full lg:w-[1300px] mx-auto"
+    class="flex justify-center flex-wrap gap-8 w-full lg:w-[1300px] mx-auto"
+    :class="reviews.length >= 1 ? `justify-start` : `justify-center`"
   >
     <div v-for="review in reviews" :key="review.created_at">
       <Review :review="review" />
