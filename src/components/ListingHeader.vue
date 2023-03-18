@@ -82,9 +82,18 @@ const review = ref<string>(``);
 const showPrevNext = computed(() => listing.value.images.length > 1);
 const imageIndex = ref<number>(0);
 const sideImages = computed(() => [
-  listing.value.images[0],
-  listing.value.images[1],
+  secureImages.value[0],
+  secureImages.value[1],
 ]);
+const secureImages = computed(() => {
+  return listing.value.images.map((image) => {
+    if (image.startsWith("http:")) {
+      return image.replace(/^http:/, "https:");
+    }
+    return image;
+  });
+});
+
 useHead({
   title: listing.value.name,
 });
@@ -237,18 +246,18 @@ function handlePhone() {
           <div
             id="default-carousel"
             class="relative"
-            :class="listing.images.length > 1 ? ' lg:w-3/4' : 'lg:w-full'"
+            :class="secureImages.length > 1 ? ' lg:w-3/4' : 'lg:w-full'"
             data-carousel="static"
           >
             <!-- Carousel wrapper -->
             <img
-              :src="listing.images[imageIndex]"
+              :src="secureImages[imageIndex]"
               :alt="`image listing of ${listing.name}`"
               srcset=""
               loading="eager"
               class="object-cover cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
               :class="
-                listing.images.length > 1
+                secureImages.length > 1
                   ? 'rounded-tl-lg rounded-bl-lg'
                   : ' rounded-sm'
               "
@@ -257,11 +266,11 @@ function handlePhone() {
 
             <!-- Slider indicators -->
             <div
-              v-if="listing.images.length > 1"
+              v-if="secureImages.length > 1"
               class="absolute z-10 flex space-x-2 -translate-x-1/2 bottom-6 left-1/2"
             >
               <button
-                v-for="(image, index) in listing.images"
+                v-for="(image, index) in secureImages"
                 :key="index"
                 type="button"
                 class="rounded-full w-2.5 h-2.5"
@@ -334,7 +343,7 @@ function handlePhone() {
             </button>
           </div>
           <!-- start side images section -->
-          <div class="pl-3 hidden lg:block" v-if="listing.images.length > 1">
+          <div class="pl-3 hidden lg:block" v-if="secureImages.length > 1">
             <div v-for="(image, index) in sideImages" :key="index">
               <img
                 :src="image"
