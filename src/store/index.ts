@@ -3,7 +3,7 @@ import { RootState } from "@/temp/types";
 import { handleError, toastSuccess, toastWarning } from "@/plugins/toast";
 import axios from "axios";
 
-import { env } from "@/env";
+import { env } from "../env";
 
 export const useRootStore = defineStore("rootStore", {
   state: (): RootState => {
@@ -17,11 +17,7 @@ export const useRootStore = defineStore("rootStore", {
   actions: {
     async fetchListings() {
       try {
-        const res = await axios.get(`${env}/listings`, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        });
+        const res = await axios.get(`${env}/listings`);
         const { listings } = await res.data;
         this.listings["all"] = listings;
       } catch (error) {

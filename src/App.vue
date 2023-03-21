@@ -12,12 +12,12 @@ useHead({
   title: "Kikao | Find your next home with us",
 });
 
-const store = useRootStore();
+const rootStore = useRootStore();
 onBeforeMount(() => {
-  store.fetchListings();
+  rootStore.fetchListings();
 });
 
-const showLogin = computed(() => store.$state.showLogin);
+const showLogin = computed(() => rootStore.$state.showLogin);
 </script>
 <template>
   <div>

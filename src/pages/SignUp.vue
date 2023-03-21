@@ -379,43 +379,6 @@ function onFileSelected(event: Event) {
               placeholder="Confirm Password"
             />
           </div>
-
-          <div class="flex -space-x-4 py-4 justify-center">
-            <img
-              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-              src="https://images.pexels.com/photos/3483800/pexels-photo-3483800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              alt=""
-            />
-            <img
-              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-              src="https://images.pexels.com/photos/14267849/pexels-photo-14267849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              alt=""
-            />
-            <img
-              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-              src="https://images.pexels.com/photos/4450080/pexels-photo-4450080.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
-            />
-            <img
-              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-              src="https://images.pexels.com/photos/5990737/pexels-photo-5990737.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
-            />
-            <img
-              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-              src="https://images.pexels.com/photos/3250357/pexels-photo-3250357.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt=""
-            />
-            <a
-              class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
-              href="#"
-              >+99</a
-            >
-            <p class="pl-6 mt-2 text-base text-grey-dark">
-              Join others on Kikao
-            </p>
-          </div>
-
           <div class="text-center text-base text-grey-dark mt-2">
             By signing up, you agree to the
             <a
