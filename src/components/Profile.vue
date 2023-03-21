@@ -43,11 +43,13 @@ onBeforeMount(() => {
           <div class="flex justify-between items-start">
             <!-- Image + name -->
             <header>
-              <div class="flex my-2 gap-x-20 lg:gap-x-30">
+              <div
+                class="flex justify-center items-center my-2 gap-x-20 lg:gap-x-40"
+              >
                 <div class="items-start mr-5">
                   <img
                     v-if="profile.profileImage"
-                    class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] object-cover"
+                    class="rounded-full w-[150px] h-[150px] object-cover"
                     :src="profile.profileImage"
                     :alt="profile.username + ' avatar image'"
                     :title="profile.username + ' avatar image'"
@@ -55,7 +57,7 @@ onBeforeMount(() => {
                   />
                   <div
                     v-else
-                    class="rounded-full w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] shadow transition-opacity text-center flex justify-center items-center uppercase text-white text-5xl"
+                    class="rounded-full w-[150px] h-[150px] shadow transition-opacity text-center flex justify-center items-center uppercase text-white text-5xl"
                     :style="{ backgroundColor: backgroundColor }"
                   >
                     {{ profile.username.slice(0, 2) }}

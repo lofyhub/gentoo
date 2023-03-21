@@ -41,7 +41,7 @@ function displayFullText() {
 </script>
 
 <template>
-  <article class="w-[416px] border border-gray-200 rounded">
+  <article class="w-[416px] border border-gray-200 rounded-lg">
     <div class="mx-5 mt-6">
       <div class="flex items-center mb-4 space-x-4">
         <router-link :to="'/' + props.review.user_id">

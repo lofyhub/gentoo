@@ -44,11 +44,7 @@ function handleSort(values: sortParams) {
       <div v-if="!listings" class="flex flex-wrap mt-0 pt-0 justify-center">
         <ListingSkeleton v-for="i in 8" :key="i" />
       </div>
-      <div
-        v-else
-        class="flex flex-wrap gap-x-5"
-        :class="listings.length >= 1 ? `justify-start` : `justify-center`"
-      >
+      <div v-else class="flex flex-wrap gap-x-5 justify-center">
         <Listing
           v-for="listing in listings"
           :key="listing._id"

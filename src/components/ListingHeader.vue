@@ -102,6 +102,7 @@ onBeforeMount(() => {
   listingStore.fetchListing(id.value);
 });
 
+listingStore.getListingAuthor(listing.value.userId);
 // methods
 function handleStars(index: number) {
   selected.value = index;

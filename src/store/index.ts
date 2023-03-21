@@ -26,14 +26,7 @@ export const useRootStore = defineStore("rootStore", {
     },
     async authorListings(id: string) {
       try {
-        const headers = {
-          "Content-Type": "application/json",
-        };
-        const res = await axios.post(
-          `${env}/author/listings`,
-          { Id: id },
-          { headers: headers }
-        );
+        const res = await axios.post(`${env}/author/listings`, { Id: id });
 
         this.userListings[id] = await res.data.data;
       } catch (error) {
