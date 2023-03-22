@@ -36,7 +36,7 @@ onBeforeMount(() => {
     class="w-full flex flex-col justify-center antialiased text-gray-600 h-auto p-4"
   >
     <!-- Card -->
-    <div class="w-full lg:max-w-[800px] mx-auto">
+    <div class="w-full mx-auto">
       <div class="flex flex-col h-full">
         <!-- Card top -->
         <div class="flex-grow p-5">
@@ -44,7 +44,7 @@ onBeforeMount(() => {
             <!-- Image + name -->
             <header>
               <div
-                class="flex justify-center items-center my-2 gap-x-20 lg:gap-x-40"
+                class="flex justify-center items-center my-2 gap-x-0 lg:gap-x-40"
               >
                 <div class="items-start mr-5">
                   <img

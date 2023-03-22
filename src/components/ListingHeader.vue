@@ -246,8 +246,8 @@ function handlePhone() {
         <div class="mt-6 mb-10 flex">
           <div
             id="default-carousel"
-            class="relative"
-            :class="secureImages.length > 1 ? ' lg:w-3/4' : 'lg:w-full'"
+            class="relative w-full"
+            :class="secureImages.length > 1 ? ' lg:w-3/4' : 'w-full'"
             data-carousel="static"
           >
             <!-- Carousel wrapper -->
@@ -256,7 +256,7 @@ function handlePhone() {
               :alt="`image listing of ${listing.name}`"
               srcset=""
               loading="eager"
-              class="object-cover cursor-pointer overflow-hidden h-[300px] lg:h-[450px] w-full"
+              class="w-full object-cover cursor-pointer overflow-hidden h-[300px] lg:h-[450px]"
               :class="
                 secureImages.length > 1
                   ? 'rounded-tl-lg rounded-bl-lg'
@@ -348,7 +348,7 @@ function handlePhone() {
             <div v-for="(image, index) in sideImages" :key="index">
               <img
                 :src="image"
-                class="w-full h-[160] lg:h-[225px] overflow-hidden bg-img bg-cover"
+                class="w-full h-[160] lg:h-[225px] overflow-hidden bg-img bg-cover object-cover"
                 :class="index === 0 ? 'rounded-tr-lg pb-2' : ' rounded-br-lg'"
                 :alt="`image listing of ${listing.name}`"
                 loading="eager"
