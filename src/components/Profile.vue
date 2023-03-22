@@ -33,7 +33,7 @@ onBeforeMount(() => {
 </script>
 <template>
   <section
-    class="w-full flex flex-col justify-center antialiased text-gray-600 h-auto p-4"
+    class="w-full flex justify-center items-center antialiased h-auto p-4 mx-auto"
   >
     <!-- Card -->
     <div class="w-full mx-auto">
@@ -42,7 +42,7 @@ onBeforeMount(() => {
         <div class="flex-grow p-5">
           <div class="flex justify-between items-start">
             <!-- Image + name -->
-            <header>
+            <header class="flex justify-center items-center mx-auto">
               <div
                 class="flex justify-center items-center my-2 gap-x-0 lg:gap-x-40"
               >
