@@ -35,10 +35,8 @@ function handleSort(values: sortParams) {
 
 <template>
   <div class="home">
-    <div class="sticky top-0 z-30">
-      <div class="transform translate-y-0">
-        <HomeIntro @sort-values="handleSort" />
-      </div>
+    <div>
+      <HomeIntro @sort-values="handleSort" />
     </div>
     <div class="w-full lg:w-[1400px] mx-auto min-h-screen mb-20">
       <div v-if="!listings" class="flex flex-wrap mt-0 pt-0 justify-center">

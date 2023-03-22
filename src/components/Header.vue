@@ -54,7 +54,7 @@ function toggleDropdown() {
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex items-center justify-between mx-6 py-2">
           <a
-            class="text-2xl font-medium flex transition-colors duration-300 ml-2 lg:ml-20 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+            class="text-2xl text-black font-medium flex transition-colors duration-300 ml-2 lg:ml-20 transform dark:text-white lg:text-2xl"
             href="/"
           >
             <LogoIcon class="w-8 h-8 inline mt-2.5" />
@@ -70,11 +70,11 @@ function toggleDropdown() {
               x-cloak
               @click="isOpen = !isOpen"
               type="button"
-              class="text-black dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 border border-gray-200 rounded focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+              class="text-black focus:outline-none"
               aria-label="toggle menu"
             >
               <XIcon v-if="isOpen" class="w-8 h-8 transition-all transform" />
-              <Bars v-else class="w-10 h-10" />
+              <Bars v-else class="w-11 h-11" />
             </button>
           </div>
         </div>

@@ -46,7 +46,7 @@ function sortListings() {
 }
 </script>
 <template>
-  <div class="flex justify-center bg-white py-5 h-24 items-center">
+  <div class="flex justify-center py-5 h-24 items-center">
     <table class="table-fixed">
       <tbody>
         <tr

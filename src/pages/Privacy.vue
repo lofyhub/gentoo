@@ -89,7 +89,7 @@ useHead({
     <p class="tracking-tight text-gray-500 md:text-lg">
       If you have any questions or concerns about this Privacy Policy or our
       collection, use, or disclosure of your information, please contact us at
-      kikaohq@gmail.com.
+      contactkikao@gmail.com.
     </p>
   </div>
 </template>
