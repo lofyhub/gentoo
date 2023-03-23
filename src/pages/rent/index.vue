@@ -18,7 +18,7 @@ function reload() {
   <div class="w-4/5 lg:w-[1400px] mx-auto min-h-screen">
     <div
       v-if="sortedListings.length > 0"
-      class="flex flex-wrap mt-20 mb-20 justify-start w-full gap-x-5"
+      class="flex flex-wrap py-10 justify-start w-full gap-x-5"
     >
       <Listing
         v-for="listing in sortedListings"

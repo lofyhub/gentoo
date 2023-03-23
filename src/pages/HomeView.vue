@@ -3,33 +3,37 @@ import HomeIntro from "@/components/HomeIntro.vue";
 import Listing from "@/components/Listing.vue";
 import ListingSkeleton from "@/components/ListingSkeleton.vue";
 
-import { onBeforeMount, computed } from "vue";
+import { computed, ref } from "vue";
 import { useRootStore } from "@/store";
 
-import { sortParams } from "@/temp/types";
+import { houseSchema, sortParams } from "@/temp/types";
 
 const store = useRootStore();
 const listings = computed(() => store.$state.listings["all"]);
+const filteredListings = ref<houseSchema[]>(listings.value);
 
 // methods
 
-onBeforeMount(async () => await handleSort);
-
 function handleSort(values: sortParams) {
-  const filteredListings = store.$state.listings["all"].filter((house) => {
-    const { location, price, size } = values;
-    if (location && house.location !== location) {
-      return false;
+  const { location, price, size } = values;
+  // Reset the filtered listings to original state
+  filteredListings.value = listings.value;
+  // Check if any of the values exist
+  if (!location && !price && !size) {
+    return;
+  }
+
+  const filterListings = listings.value.filter(
+    ({ county, rate, size: houseSize }) => {
+      return (
+        (!location || county === location) &&
+        (!price || rate.price === price) &&
+        (!size || houseSize === size)
+      );
     }
-    if (price && house.rate.price !== price) {
-      return false;
-    }
-    if (size && house.size !== size) {
-      return false;
-    }
-    return true;
-  });
-  return filteredListings;
+  );
+
+  filteredListings.value = filterListings;
 }
 </script>
 
@@ -44,10 +48,13 @@ function handleSort(values: sortParams) {
       </div>
       <div v-else class="flex flex-wrap gap-x-5 justify-center">
         <Listing
-          v-for="listing in listings"
+          v-for="listing in filteredListings"
           :key="listing._id"
           :listing="listing"
         />
+        <div v-if="filteredListings.length === 0" class="text-center py-20">
+          <p>No listings were found with the provided sort details</p>
+        </div>
       </div>
     </div>
   </div>
