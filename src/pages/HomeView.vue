@@ -46,7 +46,7 @@ function handleSort(values: sortParams) {
       <div v-if="!listings" class="flex flex-wrap mt-0 pt-0 justify-center">
         <ListingSkeleton v-for="i in 8" :key="i" />
       </div>
-      <div v-else class="flex flex-wrap gap-x-5 justify-center">
+      <div v-else class="flex flex-wrap gap-x-5 justify-center py-8">
         <Listing
           v-for="listing in filteredListings"
           :key="listing._id"

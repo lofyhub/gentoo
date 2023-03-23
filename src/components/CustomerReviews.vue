@@ -71,7 +71,7 @@ function handleReviewButton() {
   </div>
   <div v-else class="w-full lg:w-[900px] mx-auto">
     <div
-      class="flex flex-wrap gap-8 pt-4"
+      class="flex flex-wrap gap-8 pt-4 justify-center"
       :class="
         reviews.length === 1
           ? `justify-center`

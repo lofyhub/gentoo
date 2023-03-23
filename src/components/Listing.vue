@@ -2,9 +2,10 @@
 import BedIcon from "@/components/icons/BedIcon.vue";
 import BathtabIcon from "@/components/icons/BathtabIcon.vue";
 import Yingyang from "@/components/icons/YingYang.vue";
-import ImagePopup from "@/components/popups/ImagePopup.vue";
 import heartIcon from "@/components/icons/heartIcon.vue";
 import HeartIconDark from "@/components/icons/HeartIconDark.vue";
+import NextIcon from "@/components/icons/NextIcon.vue";
+import PreviousIcon from "@/components/icons/PreviousIcon.vue";
 
 import { withDefaults, defineProps, ref, computed } from "vue";
 import { formatDate } from "@/helpers/helpers";
@@ -24,18 +25,15 @@ const props = withDefaults(
 const session = useSessionStore();
 const listing = uselistingStore();
 const store = useRootStore();
-const showImagePopup = ref(false);
 const isBookmarked = computed(
   () =>
     listing.$state.bookmarks.findIndex((elem) => elem === props.listing._id) !==
     -1
 );
+const imageIndex = ref<number>(0);
+const showPrevNext = ref<boolean>(false);
 
 // methods
-
-function updateSelectedImg() {
-  showImagePopup.value = true;
-}
 
 function handleFavourite() {
   if (!session.$state.userId) {
@@ -47,22 +45,41 @@ function handleFavourite() {
     listing.addBookmark(props.listing._id);
   }
 }
+
+function handleNextImage() {
+  if (imageIndex.value < props.listing.images.length - 1) {
+    imageIndex.value++;
+  }
+}
+
+function handlePreviousImage() {
+  if (imageIndex.value > 0) {
+    imageIndex.value--;
+  }
+}
 </script>
 <template>
   <div
-    class="w-[330px] my-4 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
+    class="w-[335px] my-4 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
   >
-    <div id="default-carousel" class="relative" data-carousel="static">
-      <img
-        :src="props.listing.images[props.listing.images.length - 1]"
-        alt="listing image from kikao"
-        loading="eager"
-        fetchpriority="true"
-        class="object-cover object-center overflow-hidden h-[230px] w-full hover:cursor-pointer"
-        width="280"
-        height="240"
-        @click="updateSelectedImg()"
-      />
+    <div
+      id="default-carousel"
+      class="relative"
+      data-carousel="static"
+      @mouseenter="showPrevNext = true"
+      @mouseleave="showPrevNext = false"
+    >
+      <transition name="fade">
+        <img
+          :src="props.listing.images[imageIndex]"
+          alt="listing image from kikao"
+          loading="eager"
+          fetchpriority="true"
+          class="object-cover object-center overflow-hidden h-[280px] w-full hover:cursor-pointer"
+          width="280"
+          height="280"
+      /></transition>
+
       <!-- Slider indicators -->
       <div
         v-if="props.listing.images.length > 1"
@@ -72,12 +89,46 @@ function handleFavourite() {
           v-for="but in props.listing.images"
           :key="but"
           type="button"
-          class="w-1.5 h-1.5 rounded-full bg-gray-200"
+          class="w-1.5 h-1.5 rounded-full"
+          :class="
+            but === props.listing.images[imageIndex]
+              ? ' bg-white'
+              : ' bg-gray-500'
+          "
           aria-current="false"
           aria-label="Slide 1"
           data-carousel-slide-to="0"
         ></button>
       </div>
+      <!-- Slider controls -->
+      <button
+        type="button"
+        v-if="props.listing.images.length > 1 && showPrevNext"
+        class="absolute top-0 left-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+        data-carousel-prev
+        @click="handlePreviousImage"
+      >
+        <span
+          class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/70 opacity-90 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+        >
+          <PreviousIcon />
+          <span class="sr-only">Previous</span>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="absolute top-0 right-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+        data-carousel-next
+        v-if="props.listing.images.length > 1 && showPrevNext"
+        @click="handleNextImage"
+      >
+        <span
+          class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/70 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+        >
+          <NextIcon />
+          <span class="sr-only">Next</span>
+        </span>
+      </button>
     </div>
     <div class="px-2.5">
       <div class="mt-1 flex justify-between">
@@ -96,7 +147,7 @@ function handleFavourite() {
           aria-label="Like"
           @click="handleFavourite"
         >
-          <HeartIconDark v-if="isBookmarked" class="w-5 h-5" />
+          <HeartIconDark v-if="isBookmarked" />
           <heartIcon v-else class="w-5 h-5" />
         </button>
       </div>
@@ -145,11 +196,15 @@ function handleFavourite() {
       </router-link>
     </div>
   </div>
-  <Teleport to="body">
-    <ImagePopup
-      v-if="showImagePopup"
-      :image="props.listing.images[props.listing.images.length - 1]"
-      @close="showImagePopup = false"
-    />
-  </Teleport>
 </template>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

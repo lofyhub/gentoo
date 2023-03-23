@@ -187,8 +187,8 @@ function toggleDropdown() {
                   </div>
                   <hr class="border-gray-200 dark:border-gray-700 mt-2" />
                   <div class="text-sm font-semibold">
-                    <a
-                      href="/profile"
+                    <router-link
+                      :to="'/' + session.$state.userId"
                       @click="isDropdown = !isDropdown"
                       class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
@@ -196,15 +196,16 @@ function toggleDropdown() {
                       <span class="mx-2 font-normal text-base">
                         Edit profile
                       </span>
-                    </a>
-                    <a
-                      href="/profile"
+                    </router-link>
+
+                    <router-link
+                      :to="'/' + session.$state.userId"
                       @click="isDropdown = !isDropdown"
                       class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                       <MacOptions />
                       <span class="mx-2 font-normal text-base"> Dashboard</span>
-                    </a>
+                    </router-link>
                     <hr class="border-gray-200 dark:border-gray-700" />
                     <a
                       href="/faq"
