@@ -5,8 +5,8 @@ import LeftIcon from "@/components/icons/LeftIcon.vue";
 import { uselistingStore } from "@/store/listing";
 import { useSessionStore } from "@/store/session";
 import { userReview } from "@/temp/types";
-import { computed } from "@vue/reactivity";
 import { useRoute, useRouter } from "vue-router";
+import { computed } from "vue";
 
 const listingStore = uselistingStore();
 const store = useSessionStore();
@@ -40,7 +40,7 @@ function handleReviewButton() {
 <template>
   <div
     v-if="Object.keys(reviews).length === 0"
-    class="flex justify-center flex-wrap item-center text-center pt-4"
+    class="flex flex-wrap justify-center pt-4 mt-20 text-center item-center h-80"
   >
     <div class="mt-16">
       <p class="text-2xl font-medium">
@@ -60,7 +60,7 @@ function handleReviewButton() {
       </p>
       <div class="flex justify-center">
         <button
-          class="py-2 px-6 flex rounded-md border border-indigo-500 text-indigo-500 mt-2"
+          class="flex px-6 py-2 mt-2 text-indigo-500 border border-indigo-500 rounded-md"
           @click="handleReviewButton"
         >
           {{ store.$state.userId === id ? `Go to listings` : `Leave a review` }}
@@ -69,9 +69,9 @@ function handleReviewButton() {
       </div>
     </div>
   </div>
-  <div v-else class="w-full lg:w-[900px] mx-auto">
+  <div v-else class="">
     <div
-      class="flex flex-wrap gap-8 pt-4 justify-center"
+      class="flex flex-wrap justify-center gap-8 pt-4"
       :class="
         reviews.length === 1
           ? `justify-center`
@@ -80,9 +80,11 @@ function handleReviewButton() {
           : ``
       "
     >
-      <div v-for="review in reviews" :key="review.created_at">
-        <Review :review="review" />
-      </div>
+      <Review
+        v-for="review in reviews"
+        :key="review.created_at"
+        :review="review"
+      />
     </div>
   </div>
 </template>

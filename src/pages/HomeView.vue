@@ -42,17 +42,17 @@ function handleSort(values: sortParams) {
     <div>
       <HomeIntro @sort-values="handleSort" />
     </div>
-    <div class="w-full lg:w-[1400px] mx-auto min-h-screen mb-20">
-      <div v-if="!listings" class="flex flex-wrap mt-0 pt-0 justify-center">
+    <div class="w-full min-h-screen mx-auto mb-20">
+      <div v-if="!listings" class="flex flex-wrap justify-center pt-0 mt-0">
         <ListingSkeleton v-for="i in 8" :key="i" />
       </div>
-      <div v-else class="flex flex-wrap gap-x-5 justify-center py-8">
+      <div v-else class="flex flex-wrap justify-center py-10 gap-x-7 gap-y-4">
         <Listing
           v-for="listing in filteredListings"
           :key="listing._id"
           :listing="listing"
         />
-        <div v-if="filteredListings.length === 0" class="text-center py-20">
+        <div v-if="filteredListings.length === 0" class="py-20 text-center">
           <p>No listings were found with the provided sort details</p>
         </div>
       </div>

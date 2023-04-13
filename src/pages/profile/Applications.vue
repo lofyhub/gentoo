@@ -8,7 +8,7 @@ import { useHead } from "unhead";
 
 import { useSessionStore } from "@/store/session";
 import { uselistingStore } from "@/store/listing";
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 
 const store = useSessionStore();
 const listingStore = uselistingStore();
@@ -42,13 +42,13 @@ function getStyles(tab: string) {
 <template>
   <div class="mb-20">
     <!-- Dashboard to add, delete, edit and view listings -->
-    <div class="sticky top-10 z-20 bg-white">
+    <div class="sticky z-20 bg-white top-10">
       <Profile :profile="authorProfile" />
-      <div class="w-full lg:w-4/5 mx-auto border-t border-gray-200">
-        <div class="flex">
+      <div class="w-full mx-auto border-t border-gray-200 lg:w-4/5">
+        <div class="flex text-base">
           <router-link
             :to="'/' + id"
-            class="block flex-1 text-center text-base text-gray-600 hover:text-gray-800 font-medium px-3 group"
+            class="flex-1 block px-3 font-medium text-center text-gray-600 hover:text-gray-800 group"
           >
             <div
               class="flex items-center justify-center py-4"
@@ -59,7 +59,7 @@ function getStyles(tab: string) {
                 stroke-width="1.5"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                class="w-5 h-5 inline flex-shrink-0 mr-2 text-gray-400"
+                class="flex-shrink-0 inline w-6 h-6 mr-2 text-gray-400 group-hover:text-gray-500"
               >
                 <path
                   stroke-linecap="round"
@@ -76,29 +76,9 @@ function getStyles(tab: string) {
             </div>
           </router-link>
           <router-link
-            :to="'/' + id + '/addlisting'"
-            v-if="store.$state.userId && store.$state.userId === id"
-            class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
-          >
-            <div
-              class="flex items-center justify-center py-4"
-              :class="getStyles('addlisting')"
-            >
-              <svg
-                class="w-4 h-4 fill-current text-gray-400 group-hover:text-gray-500 flex-shrink-0 mr-2"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z"
-                />
-              </svg>
-              <span>Create Listing</span>
-            </div>
-          </router-link>
-          <router-link
             :to="'/' + id + '/bookings'"
             v-if="store.$state.userId && store.$state.userId === id"
-            class="flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
+            class="flex-1 px-3 font-medium text-center text-gray-600 hover:text-gray-800 group"
           >
             <div
               class="flex items-center justify-center py-4"
@@ -110,7 +90,7 @@ function getStyles(tab: string) {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-4 h-4 text-gray-400 group-hover:text-gray-500 flex-shrink-0 mr-2"
+                class="flex-shrink-0 w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500"
               >
                 <path
                   stroke-linecap="round"
@@ -124,13 +104,13 @@ function getStyles(tab: string) {
           </router-link>
           <router-link
             :to="'/' + id + '/reviews'"
-            class="block flex-1 text-center text-sm text-gray-600 hover:text-gray-800 font-medium px-3 group"
+            class="flex-1 block px-3 font-medium text-center text-gray-600 hover:text-gray-800 group"
           >
             <div
               class="flex items-center justify-center py-4"
               :class="getStyles('reviews')"
             >
-              <ChatIcon></ChatIcon>
+              <ChatIcon class="w-6 h-6" />
 
               <span>Reviews</span>
             </div>
@@ -138,7 +118,7 @@ function getStyles(tab: string) {
         </div>
       </div>
     </div>
-    <div class="w-full lg:w-5/5 mx-auto">
+    <div class="w-full">
       <router-view></router-view>
     </div>
   </div>

@@ -49,19 +49,19 @@ function toggleDropdown() {
 </script>
 
 <template>
-  <nav class="shadow dark:bg-gray-800 sticky top-0 left-0 w-full bg-white z-30">
-    <div class="container md:px-10 p-0 mx-auto">
+  <nav class="sticky top-0 left-0 z-30 w-full bg-white shadow dark:bg-gray-800">
+    <div class="container p-0 mx-auto md:px-10">
       <div class="lg:flex lg:items-center lg:justify-between">
-        <div class="flex items-center justify-between mx-6 py-2">
+        <div class="flex items-center justify-between py-2 mx-6">
           <a
-            class="text-2xl text-black font-medium flex transition-colors duration-300 ml-2 lg:ml-20 transform dark:text-white lg:text-2xl"
+            class="flex ml-2 text-2xl font-medium text-black transition-colors duration-300 transform lg:ml-20 dark:text-white lg:text-2xl"
             href="/"
           >
             <LogoIcon class="w-8 h-8 inline mt-2.5" />
             <span v-if="dashRoute === `Dashboard`" class="ml-2 mt-3.5">{{
               session.$state.userId ? `Dashboard` : `Profile`
             }}</span>
-            <span v-else class="ml-2 mt-3">Kikao</span></a
+            <span v-else class="mt-3 ml-2">Kikao</span></a
           >
 
           <!-- Mobile menu button -->
@@ -88,12 +88,12 @@ function toggleDropdown() {
           class="absolute inset-x-0 z-20 w-full px-6 py-4 mr-6 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center"
         >
           <div
-            class="flex flex-col lg:flex-row lg:items-center text-[14px] font-medium"
+            class="flex flex-col text-[14px] font-medium lg:flex-row lg:items-center"
           >
             <router-link
               to="/listings"
               @click="isOpen = false"
-              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 mx-3 mt-2 transition-all transition-colors duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               :class="
                 route.name === `Rent`
                   ? `font-bold border-b-2 border-indigo-500`
@@ -104,20 +104,20 @@ function toggleDropdown() {
             <router-link
               to="/listings"
               @click="isOpen = false"
-              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 mx-3 mt-2 transition-all transition-colors duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Stays</router-link
             >
             <router-link
               to="/listings"
               @click="isOpen = false"
-              class="px-4 py-5 hover:border-b-2 hover:border-indigo-500 transition-all transform mx-3 mt-2 transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 mx-3 mt-2 transition-all transition-colors duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Attractions</router-link
             >
 
             <a
               @click="handleListing"
               v-if="session.$state.userId"
-              class="py-5 px-3 hover:border-b-2 mx-4 hover:border-indigo-500 hover:bg-indigo-50 transition-all transform mt-2 cursor-pointer transition-colors duration-300 transform rounded-sm lg:mt-0 dark:text-gray-200"
+              class="px-3 py-5 mx-4 mt-2 transition-all transition-colors duration-300 transform rounded-sm cursor-pointer hover:border-b-2 hover:border-indigo-500 hover:bg-indigo-50 lg:mt-0 dark:text-gray-200"
               :class="
                 route.name === `Dashboard` ||
                 route.name === `Listings` ||
@@ -130,7 +130,7 @@ function toggleDropdown() {
               Create Listing
             </a>
 
-            <div class="flex items-center mt-4 lg:mt-0 mx-6">
+            <div class="flex items-center mx-6 mt-4 lg:mt-0">
               <!-- start avatar seciton -->
               <div
                 x-data="{ isOpen: true }"
@@ -140,14 +140,20 @@ function toggleDropdown() {
                 <!-- Dropdown toggle button -->
                 <button
                   @click="toggleDropdown"
-                  class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+                  class="flex text-gray-900 rounded-full gap-x-2 items-centerfont-medium hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
                 >
-                  <div class="flex mx-1.5">
-                    <Avatar class="w-5 h-5" />
-                    <span class="mt-[3px] ml-2"> {{ userData.username }}</span>
+                  <div class="flex">
+                    <img
+                      v-if="session.$state._id"
+                      class="object-cover w-10 h-10 rounded-full"
+                      src="https://images.pexels.com/photos/4924538/pexels-photo-4924538.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                      alt=" avatar image"
+                      title="avatar image"
+                      loading="eager"
+                    />
                   </div>
                   <svg
-                    class="w-4 h-4 mx-1.5"
+                    class="w-5 h-5 my-auto"
                     aria-hidden="true"
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -171,7 +177,7 @@ function toggleDropdown() {
                   x-transition:leave="transition ease-in duration-100"
                   x-transition:leave-start="opacity-100 scale-100"
                   x-transition:leave-end="opacity-0 scale-90"
-                  class="absolute right-0 z-20 w-56 mt-4 left-4 lg:left-0 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+                  class="absolute right-0 z-20 w-56 mt-4 overflow-hidden origin-top-right bg-white rounded-md shadow-xl left-4 lg:left-0 dark:bg-gray-800"
                 >
                   <div class="text-base font-medium">
                     <div class="mx-5">
@@ -185,15 +191,15 @@ function toggleDropdown() {
                       </p>
                     </div>
                   </div>
-                  <hr class="border-gray-200 dark:border-gray-700 mt-2" />
+                  <hr class="mt-2 border-gray-200 dark:border-gray-700" />
                   <div class="text-sm font-semibold">
                     <router-link
                       :to="'/' + session.$state.userId"
                       @click="isDropdown = !isDropdown"
-                      class="flex items-center p-3 text-sm capitalize transition-colors text-gray-500 duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
+                      class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
-                      <Avatar class="h-6 w-6" />
-                      <span class="mx-2 font-normal text-base">
+                      <Avatar class="w-6 h-6" />
+                      <span class="mx-2 text-base font-normal">
                         Edit profile
                       </span>
                     </router-link>
@@ -204,7 +210,7 @@ function toggleDropdown() {
                       class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                       <MacOptions />
-                      <span class="mx-2 font-normal text-base"> Dashboard</span>
+                      <span class="mx-2 text-base font-normal"> Dashboard</span>
                     </router-link>
                     <hr class="border-gray-200 dark:border-gray-700" />
                     <a
@@ -213,22 +219,22 @@ function toggleDropdown() {
                       class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                       <Question />
-                      <span class="mx-2 font-normal text-base"> Help </span>
+                      <span class="mx-2 text-base font-normal"> Help </span>
                     </a>
                     <button
                       type="button"
                       @click="logOut"
-                      class="flex font-bold items-center w-full cursor-pointer hover:text-white p-3 text-base text-red-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-red-500 hover:text-white dark:hover:bg-gray-700 dark:hover:text-white"
+                      class="flex items-center w-full p-3 text-base font-bold text-red-500 capitalize transition-colors duration-300 transform cursor-pointer hover:text-white dark:text-gray-300 hover:bg-red-500 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                       <SignOut class="text-red-500 hover:text-white" />
-                      <span class="mx-1 font-extrabold ml-3"> Sign Out </span>
+                      <span class="mx-1 ml-3 font-extrabold"> Sign Out </span>
                     </button>
                   </div>
                 </div>
               </div>
               <!-- end of avatar section -->
 
-              <div v-else class="mr-8 flex font-semibold">
+              <div v-else class="flex mr-8 font-semibold">
                 <button
                   @click="store.toggleLogin(), (isOpen = false)"
                   class="mr-4 border border-indigp-100 opacity-100 py-1.8 px-6 rounded transition-all ease-in hover:bg-indigo-50"

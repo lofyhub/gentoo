@@ -56,7 +56,7 @@ function displayFullText() {
         <router-link :to="'/' + props.review.user_id">
           <img
             v-if="authorProfile"
-            class="rounded-full w-14 h-14 object-cover"
+            class="object-cover rounded-full w-14 h-14"
             :src="authorProfile.profileImage"
             :alt="authorProfile.username + ' avatar image'"
             :title="authorProfile.username + ' avatar image'"
@@ -64,14 +64,14 @@ function displayFullText() {
           />
           <span
             v-else
-            class="w-14 h-14 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
+            class="flex items-center justify-center text-base text-center text-white uppercase rounded-full w-14 h-14"
             :style="{ backgroundColor: backgroundColor }"
             >{{ props.review.user_id.slice(0, 2) }}</span
           >
         </router-link>
 
         <div class="space-y-1 font-medium dark:text-white">
-          <p>{{ props.review.name }}</p>
+          <p class="text-base font-semibold">{{ props.review.name }}</p>
           <div
             class="flex items-center text-base text-gray-400 dark:text-gray-400"
           >
