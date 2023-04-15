@@ -10,6 +10,7 @@ export const useRootStore = defineStore("rootStore", {
     return {
       listings: {},
       showLogin: false,
+      showAddlisting: false,
       userListings: {},
     };
   },
@@ -82,6 +83,9 @@ export const useRootStore = defineStore("rootStore", {
     },
     toggleLogin() {
       this.showLogin = !this.showLogin;
+    },
+    toggleShowListing() {
+      this.showAddlisting = !this.showAddlisting;
     },
   },
   getters: {

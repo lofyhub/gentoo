@@ -292,6 +292,7 @@ export type house = houseSchema[];
 export interface RootState {
   listings: Record<string, houseSchema[]>;
   showLogin: boolean;
+  showAddlisting: boolean;
   userListings: Record<string, house>;
 }
 

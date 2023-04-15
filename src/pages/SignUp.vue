@@ -149,17 +149,17 @@ function onFileSelected(event: Event) {
 </script>
 
 <template>
-  <div class="bg-white pt-8 min-h-screen" v-if="!session.$state.userId">
+  <div class="min-h-screen pt-8 bg-white" v-if="!session.$state.userId">
     <div class="w-3/4 lg:w-1/3 mx-auto relative bg-white py-[20px]">
       <div class="relative">
         <div
           class="left-0 w-full absolute bg-slate-200 h-0.5 mt-[-1px] top-3/4"
           aria-hidden="true"
         ></div>
-        <ul class="flex w-full list-none justify-between pt-4 relative">
+        <ul class="relative flex justify-between w-full pt-4 list-none">
           <li>
             <a
-              class="flex items-center justify-center rounded-full font-semibold text-xs text-white w-6 h-6"
+              class="flex items-center justify-center w-6 h-6 text-xs font-semibold text-white rounded-full"
               :style="
                 step > -1
                   ? `background-color: rgb(99 102 241)`
@@ -170,7 +170,7 @@ function onFileSelected(event: Event) {
           </li>
           <li>
             <a
-              class="flex items-center justify-center rounded-full font-semibold text-xs text-white w-6 h-6 text-slate-500"
+              class="flex items-center justify-center w-6 h-6 text-xs font-semibold text-white rounded-full"
               :style="
                 step > 0
                   ? `background-color: rgb(99 102 241) ; color: rgb(255 255 255);`
@@ -181,7 +181,7 @@ function onFileSelected(event: Event) {
           </li>
           <li>
             <a
-              class="flex items-center justify-center rounded-full font-semibold text-xs text-white w-6 h-6 text-slate-500"
+              class="flex items-center justify-center w-6 h-6 text-xs font-semibold text-white rounded-full"
               :style="
                 step > 1
                   ? `background-color: rgb(99 102 241); color: rgb(255 255 255);`
@@ -192,7 +192,7 @@ function onFileSelected(event: Event) {
           </li>
           <li>
             <a
-              class="flex items-center justify-center rounded-full font-semibold text-xs text-white w-6 h-6 text-slate-500"
+              class="flex items-center justify-center w-6 h-6 text-xs font-semibold text-white rounded-full text-slate-500"
               :style="
                 step > 2
                   ? `background-color: rgb(99 102 241); color: rgb(255 255 255);`
@@ -205,13 +205,13 @@ function onFileSelected(event: Event) {
       </div>
 
       <!-- start of step one -->
-      <div v-if="step === 0" class="transition-all transform pt-5">
+      <div v-if="step === 0" class="pt-5 transition-all transform">
         <h1 class="text-3xl text-slate-800 font-bold lg:py-[48px] py-[20px]">
           Tell us what’s your situation ✨
         </h1>
         <div class="flex flex-col">
           <div
-            class="flex items-center bg-white gap-6 transition-all transform text-sm cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
+            class="flex items-center gap-6 p-4 my-4 text-sm transition-all transform bg-white border rounded cursor-pointer text-slate-800 dw hover--border-slate-300"
             :class="
               kikaotype === UserType.Landlord
                 ? `border-indigo-500`
@@ -220,7 +220,7 @@ function onFileSelected(event: Event) {
             @click="updateKikaotype(UserType.Landlord)"
           >
             <svg
-              class="fill-current h-6 h-6 block mx-4 align-middle"
+              class="block h-6 mx-4 align-middle fill-current"
               viewBox="0 0 24 24"
             >
               <path
@@ -238,13 +238,13 @@ function onFileSelected(event: Event) {
             </svg>
             <div>
               <h2 class="text-xl font-normal">I am a Landlord</h2>
-              <p class="text-gray-500 text-sm py-1">
+              <p class="py-1 text-sm text-gray-500">
                 I am here to list a property
               </p>
             </div>
           </div>
           <div
-            class="flex items-center transition-all transform gap-6 bg-white text-sm cursor-pointer p-4 my-4 text-slate-800 dw rounded border hover--border-slate-300"
+            class="flex items-center gap-6 p-4 my-4 text-sm transition-all transform bg-white border rounded cursor-pointer text-slate-800 dw hover--border-slate-300"
             :class="
               kikaotype === UserType.Tenant
                 ? `border-indigo-500`
@@ -253,7 +253,7 @@ function onFileSelected(event: Event) {
             @click="updateKikaotype(UserType.Tenant)"
           >
             <svg
-              class="fill-current h-6 h-6 block mx-4 align-middle"
+              class="block h-6 mx-4 align-middle fill-current"
               viewBox="0 0 24 24"
             >
               <path
@@ -263,7 +263,7 @@ function onFileSelected(event: Event) {
             </svg>
             <div>
               <h2 class="text-xl font-normal">I am a Tenant</h2>
-              <p class="text-gray-500 text-sm py-1">
+              <p class="py-1 text-sm text-gray-500">
                 I am searching for a house
               </p>
             </div>
@@ -277,7 +277,7 @@ function onFileSelected(event: Event) {
           </h1>
           <div class="flex py-8">
             <div
-              class="w-52 h-48 bg-white rounded text-center py-6 px-4 border mr-6 cursor-pointer transition ease-in-out"
+              class="h-48 px-4 py-6 mr-6 text-center transition ease-in-out bg-white border rounded cursor-pointer w-52"
               :class="
                 businessType === BusinessType.Individual
                   ? `border-indigo-500`
@@ -286,7 +286,7 @@ function onFileSelected(event: Event) {
               @click="updateBusinesstype(BusinessType.Individual)"
             >
               <svg
-                class="inline-flex fill-current w-10 h-10 mb-2 align-middle"
+                class="inline-flex w-10 h-10 mb-2 align-middle fill-current"
                 viewBox="0 0 40 40"
               >
                 <circle class="text-indigo-100" cx="20" cy="20" r="20"></circle>
@@ -295,11 +295,11 @@ function onFileSelected(event: Event) {
                   d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z"
                 ></path>
               </svg>
-              <p class="text-slate-800 font-semibold mb-1">Individual</p>
+              <p class="mb-1 font-semibold text-slate-800">Individual</p>
               <span>You run your business on your own</span>
             </div>
             <div
-              class="w-52 h-48 bg-white rounded-sm text-center py-6 px-4 border cursor-pointer transition-all transform"
+              class="h-48 px-4 py-6 text-center transition-all transform bg-white border rounded-sm cursor-pointer w-52"
               :class="
                 businessType === BusinessType.Organization
                   ? `border-indigo-500`
@@ -308,7 +308,7 @@ function onFileSelected(event: Event) {
               @click="updateBusinesstype(BusinessType.Organization)"
             >
               <svg
-                class="inline-flex fill-current w-10 h-10 mb-2 align-middle"
+                class="inline-flex w-10 h-10 mb-2 align-middle fill-current"
                 viewBox="0 0 40 40"
               >
                 <circle class="text-indigo-100" cx="20" cy="20" r="20"></circle>
@@ -326,7 +326,7 @@ function onFileSelected(event: Event) {
                   d="m22.371 24.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 20 18v-1.828A4.087 4.087 0 0 0 16 12a4.087 4.087 0 0 0-4 4.172V18a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V28a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z"
                 ></path>
               </svg>
-              <p class="text-slate-800 font-semibold mb-1">Organization</p>
+              <p class="mb-1 font-semibold text-slate-800">Organization</p>
               <span>Business is run as part of an agency</span>
             </div>
           </div>
@@ -341,19 +341,19 @@ function onFileSelected(event: Event) {
           <div class="flex flex-col pt-4">
             <input
               type="text"
-              class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               v-model="name"
               placeholder="Full Name"
             />
             <input
               type="text"
-              class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               v-model="email"
               placeholder="Email"
             />
             <input
               type="text"
-              class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               v-model="phone"
               placeholder="Telephone number"
             />
@@ -375,12 +375,12 @@ function onFileSelected(event: Event) {
             <div class="relative">
               <input
                 :type="showPass ? `text` : `password`"
-                class="block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                class="block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 v-model="password"
                 placeholder="Password"
               />
               <div
-                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer transition ease-in-out"
+                class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm leading-5 transition ease-in-out cursor-pointer"
                 @click="showPass = !showPass"
               >
                 <EyeIconClose v-if="showPass" />
@@ -389,12 +389,12 @@ function onFileSelected(event: Event) {
             </div>
             <input
               type="password"
-              class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               v-model="password2"
               placeholder="Confirm Password"
             />
           </div>
-          <div class="text-center text-base text-grey-dark mt-2">
+          <div class="mt-2 text-base text-center text-grey-dark">
             By signing up, you agree to the
             <a
               class="no-underline border-b border-grey-dark text-grey-dark"
@@ -412,26 +412,26 @@ function onFileSelected(event: Event) {
           </div>
         </div>
       </div>
-      <div v-if="step === 2" class="transition-all transform pt-5">
+      <div v-if="step === 2" class="pt-5 transition-all transform">
         <h1 class="text-3xl text-slate-800 font-bold lg:py-[20px] py-[4px]">
           Create your profile Account ✨
         </h1>
         <div class="flex flex-col pt-4">
           <input
             type="text"
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             v-model="name"
             placeholder="Full Name"
           />
           <input
             type="text"
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             v-model="email"
             placeholder="Email"
           />
           <input
             type="text"
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             v-model="phone"
             placeholder="Telephone number"
           />
@@ -455,12 +455,12 @@ function onFileSelected(event: Event) {
           <div class="relative">
             <input
               :type="showPass ? `text` : `password`"
-              class="block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              class="block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               v-model="password"
               placeholder="Password"
             />
             <div
-              class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer transition ease-in-out"
+              class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm leading-5 transition ease-in-out cursor-pointer"
               @click="showPass = !showPass"
             >
               <EyeIconClose v-if="showPass" />
@@ -469,13 +469,13 @@ function onFileSelected(event: Event) {
           </div>
           <input
             type="password"
-            class="relative block w-full appearance-none my-2 rounded border border-gray-300 p-4 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            class="relative block w-full p-4 my-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded appearance-none focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             v-model="password2"
             placeholder="Confirm Password"
           />
         </div>
 
-        <div class="text-center text-base text-grey-dark mt-2">
+        <div class="mt-2 text-base text-center text-grey-dark">
           By signing up, you agree to the
           <a
             class="no-underline border-b border-grey-dark text-grey-dark"
@@ -500,7 +500,7 @@ function onFileSelected(event: Event) {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="text-indigo-500 inline-flex fill-current w-20 h-20 align-middle"
+            class="inline-flex w-20 h-20 text-indigo-500 align-middle fill-current"
           >
             <path
               fill-rule="evenodd"
@@ -528,7 +528,7 @@ function onFileSelected(event: Event) {
         v-show="step !== 4"
         class="flex items-center justify-between py-8 text-sm transition-all transform"
       >
-        <div class="underline underline-offset-8 text-sm">
+        <div class="text-sm underline underline-offset-8">
           <button
             class="text-gray-600 rounded py-2.5 px-6 flex underline underline-offset-8"
             type="button"
@@ -560,16 +560,16 @@ function onFileSelected(event: Event) {
     </div>
   </div>
   <div
-    class="bg-white py-64 flex justify-center items-center text-center"
+    class="flex items-center justify-center py-64 text-center bg-white"
     v-else
   >
-    <div class="text-center font-normal h-80">
+    <div class="font-normal text-center h-80">
       <p class="text-2xl font-medium">You have recently signed up</p>
-      <p class="text-base py-8 font-normal">See popular listings</p>
+      <p class="py-8 text-base font-normal">See popular listings</p>
       <div class="flex justify-center">
         <RouterLink
           to="/listings"
-          class="py-2 px-6 border flex border-indigo-500 opacity-100 rounded text-base text-gray-900 hover:bg-indigo-500 hover:text-white shadow transition transform"
+          class="flex px-6 py-2 text-base text-gray-900 transition transform border border-indigo-500 rounded shadow opacity-100 hover:bg-indigo-500 hover:text-white"
         >
           <span>Go to listings</span>
           <LeftIcon

@@ -36,7 +36,7 @@ function logOut() {
 function handleListing() {
   isOpen.value = false;
   if (session.$state._id) {
-    router.push(`/${session.$state.userId}/addlisting`);
+    store.toggleShowListing();
     return;
   }
 
@@ -51,7 +51,7 @@ function toggleDropdown() {
 <template>
   <nav class="sticky top-0 left-0 z-30 w-full bg-white shadow dark:bg-gray-800">
     <div class="container p-0 mx-auto md:px-10">
-      <div class="lg:flex lg:items-center lg:justify-between">
+      <div class="lg:flex lg:items-center lg:justify-around">
         <div class="flex items-center justify-between py-2 mx-6">
           <a
             class="flex ml-2 text-2xl font-medium text-black transition-colors duration-300 transform lg:ml-20 dark:text-white lg:text-2xl"
@@ -88,12 +88,12 @@ function toggleDropdown() {
           class="absolute inset-x-0 z-20 w-full px-6 py-4 mr-6 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center"
         >
           <div
-            class="flex flex-col text-[14px] font-medium lg:flex-row lg:items-center"
+            class="flex flex-col text-[15px] font-medium lg:flex-row lg:items-center"
           >
             <router-link
               to="/listings"
               @click="isOpen = false"
-              class="px-4 py-5 mx-3 mt-2 transition-all transition-colors duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 mx-3 mt-2 transition-all duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               :class="
                 route.name === `Rent`
                   ? `font-bold border-b-2 border-indigo-500`
@@ -104,7 +104,7 @@ function toggleDropdown() {
             <router-link
               to="/listings"
               @click="isOpen = false"
-              class="px-4 py-5 mx-3 mt-2 transition-all transition-colors duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 mx-3 mt-2 transition-all duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Stays</router-link
             >
             <router-link

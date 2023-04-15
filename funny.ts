@@ -1,0 +1,15 @@
+[
+  "Did you know that the average person spends six months of their life waiting for red lights to turn green? That's enough time to build a house!",
+  "The word 'mortgage' comes from the French language and means 'death pledge.' Don't worry, though, you won't actually die from paying off your mortgage!",
+  "While the largest house in the United States is the Biltmore Estate, which has 178,926 square feet of floor space, in Kenya, it's more common to find houses with smaller floor plans that are still comfortable and affordable.",
+  "The world's oldest house is located in the Khirokitia village in Cyprus and dates back to 7000 BC. That's over 9,000 years old! In Kenya, there are also many traditional homes that have been passed down through families for generations.",
+  "In Sweden, it's common for people to leave their shoes outside their front doors when they enter their homes. This is to keep their homes clean and free of dirt and mud! Similarly, in many communities in Kenya, it's customary to remove your shoes before entering someone's home as a sign of respect.",
+  "While the first house in the world to have indoor plumbing and hot and cold running water was the home of King Minos of Crete, which was built around 1700 BC, while modern plumbing is not as widespread in Kenya, there are many homes with modern amenities like electricity and running water.",
+  "The term 'keeping up with the Joneses' comes from a comic strip that was popular in the early 1900s. The strip featured a family called the Joneses who always had the latest and greatest gadgets and gizmos. In Kenya, it's more important to focus on building a home that is comfortable and functional, rather than trying to keep up with the latest trends.",
+  "While building a home in Kenya may take longer than the 13 months it took to build the Empire State Building in New York City, it's still amazing what can be accomplished when you put your mind to it!",
+  "While most homes in Kenya are not as large as the White House, which has 132 rooms, 35 bathrooms, and 6 levels in the residence, there are still many homes that are spacious and comfortable for families.",
+  "The world's narrowest house is located in Warsaw, Poland. It is only 28 inches wide at its narrowest point, and 4 feet wide at its widest point. While homes in Kenya are typically not as narrow as this, there are still many unique and interesting homes to be found.",
+  "The Great Wall of China is the longest wall in the world and is over 13,000 miles long. It's so long that it could wrap around the entire coastline of Kenya over four times!",
+  "The world's largest treehouse is located in Crossville, Tennessee, and stands at 97 feet tall. While there may not be treehouses quite that large in Kenya, there are many beautiful homes nestled in the trees throughout the country.",
+  "The world's largest palace is the Palace of the Parliament in Bucharest, Romania, which has over 3,000 rooms. While homes in Kenya may not be quite as large, there are still many beautiful and spacious homes to be found.",
+];

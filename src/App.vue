@@ -5,6 +5,7 @@ import { useHead } from "unhead";
 import Footer from "@/components/Footer.vue";
 import HeaderVue from "@/components/Header.vue";
 import LoginPopup from "@/components/popups/LoginPopup.vue";
+import AddListing from "@/components/AddListing.vue";
 
 import { useRootStore } from "@/store/index";
 
@@ -18,6 +19,7 @@ onBeforeMount(() => {
 });
 
 const showLogin = computed(() => rootStore.$state.showLogin);
+const showAddListing = computed(() => rootStore.$state.showAddlisting);
 </script>
 <template>
   <div>
@@ -27,6 +29,7 @@ const showLogin = computed(() => rootStore.$state.showLogin);
 
     <Teleport to="body">
       <LoginPopup v-if="showLogin" />
+      <AddListing v-if="showAddListing" />
     </Teleport>
   </div>
 </template>
