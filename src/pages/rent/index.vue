@@ -7,7 +7,7 @@ import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import router from "@/router";
 
 const rootStore = useRootStore();
-const sortedListings = computed(() => rootStore.$state.listings["all"]);
+const sortedListings = computed(() => rootStore.$state.listings);
 
 // methods
 function reload() {

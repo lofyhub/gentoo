@@ -9,6 +9,13 @@ useHead({
 
 const teamMembers: TeamSchema[] = [
   {
+    name: "Oluoch",
+    twitter: "https://twitter.com/pinyenpiny",
+    avatar: "https://mkpusa.org/wp-content/uploads/2015/04/YourFace.jpg",
+    github: "https://github.com/silkroad",
+    role: "Builder",
+  },
+  {
     name: "Your name here",
     twitter: "https://twitter.com/kikaohq",
     avatar: "https://mkpusa.org/wp-content/uploads/2015/04/YourFace.jpg",

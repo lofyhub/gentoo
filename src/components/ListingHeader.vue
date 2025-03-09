@@ -30,8 +30,6 @@ import NextIcon from "@/components/icons/NextIcon.vue";
 import PreviousIcon from "@/components/icons/PreviousIcon.vue";
 
 import { ref, computed, onBeforeMount } from "vue";
-import { useHead } from "unhead";
-
 import {
   formatDate,
   maskNumber,
@@ -54,31 +52,23 @@ const inPerson = ref(false);
 const virtual = ref(false);
 const showShare = ref(false);
 const showBookingPopup = ref(false);
-const id = computed(() => {
-  if (typeof route.params.id === "string") {
-    return route.params.id;
-  }
-
-  throw new Error("Id should be a string!");
-});
+const id = route.params.id as string;
 
 const similarListings = computed(() => {
-  if (rootStore.$state.listings["all"]) {
-    return rootStore.$state.listings["all"].slice(0, 6);
+  if (rootStore.$state.listings) {
+    return rootStore.$state.listings.slice(0, 6);
   }
   return [];
 });
-const listing = computed(() => listingStore.getListingDetails(id.value));
-const listingAuthor = computed(() =>
-  listingStore.getProfile(listing.value.userId)
-);
+
+const listing = computed(() => listingStore.$state.houseListing[id]);
 const bookmarked = computed(
   () =>
     listingStore.$state.bookmarks.findIndex(
-      (elem) => elem === listing.value._id
+      (elem) => elem === listing.value.id
     ) !== -1
 );
-const backgroundColor = stringToHslColor(listingAuthor.value.username);
+const backgroundColor = stringToHslColor("kikao");
 const selected = ref<number>(0);
 const review = ref<string>(``);
 const showPrevNext = computed(() => listing.value.images.length > 1);
@@ -95,16 +85,14 @@ const secureImages = computed(() => {
     return image;
   });
 });
+const listingAuthor = computed(() =>
+  listingStore.getProfile(listing.value.userId)
+);
 
-useHead({
-  title: listing.value.name,
+onBeforeMount(async () => {
+  await listingStore.fetchListing(id);
 });
 
-onBeforeMount(() => {
-  listingStore.fetchListing(id.value);
-});
-
-listingStore.getListingAuthor(listing.value.userId);
 // methods
 function handleStars(index: number) {
   selected.value = index;
@@ -125,8 +113,8 @@ function handleReviews() {
     selected.value,
     review.value,
     store.$state.userId,
-    id.value,
-    listingAuthor.value.userId,
+    id,
+    store.$state.userId,
     store.$state.username
   );
   selected.value = 0;
@@ -151,15 +139,14 @@ function addFavourite() {
   if (!store.$state.userId) {
     return rootStore.toggleLogin();
   } else if (bookmarked.value) {
-    return listingStore.deleteBookmark(listing.value._id);
+    return listingStore.deleteBookmark(listing.value.id);
   }
-  console.log("this is triggered");
-  listingStore.addBookmark(listing.value._id);
+  listingStore.addBookmark(listing.value.id);
   return;
 }
 
 function handleBooking() {
-  if (!store.$state._id) {
+  if (!store.$state.id) {
     return rootStore.toggleLogin();
   }
   showBookingPopup.value = !showBookingPopup.value;
@@ -187,7 +174,7 @@ function handlePhone() {
 
 <template>
   <div
-    v-if="!listing._id"
+    v-if="!listing"
     class="flex justify-center items-center text-center lg:h-[860px] h-96"
   >
     <Loading />
@@ -220,7 +207,7 @@ function handlePhone() {
                 <HeartIcon v-else class="inline h-3.5 w-3.5" />
               </span>
               <span class="text-base ml-2 hidden lg:inline-block">{{
-                bookmarked ? `Bookmarked` : `Bookmak`
+                bookmarked ? `Bookmarked` : `Bookmark`
               }}</span>
             </button>
             <button
@@ -436,10 +423,10 @@ function handlePhone() {
               </div>
               <div class="flex justify-between px-4 pb-6">
                 <div class="flex">
-                  <router-link :to="'/' + listing.userId">
+                  <router-link :to="'/user/' + listing.userId">
                     <img
                       v-if="listingAuthor.profileImage"
-                      class="rounded-full w-16 h-16 object-cover"
+                      class="rounded-full w-14 h-14 object-cover"
                       :src="listingAuthor.profileImage"
                       :alt="listingAuthor.username + 'avatar image'"
                       :title="listingAuthor.username + 'avatar image'"
@@ -447,10 +434,10 @@ function handlePhone() {
                     />
                     <div
                       v-else
-                      class="w-16 h-16 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
+                      class="w-10 h-10 rounded-full text-center flex justify-center items-center uppercase text-white text-base"
                       :style="{ backgroundColor: backgroundColor }"
                     >
-                      <span>{{ listingAuthor.username.slice(0, 2) }}</span>
+                      <span>{{ listingAuthor.username }}</span>
                     </div>
                   </router-link>
                   <div class="ml-4 pt-2">
@@ -458,7 +445,7 @@ function handlePhone() {
                       {{ listingAuthor.username }}
                     </h3>
                     <p class="text-base">
-                      Joined {{ getMonthYear(listingAuthor.date) }}
+                      Joined {{ getMonthYear(listingAuthor.createdAt) }}
                     </p>
                   </div>
                 </div>
@@ -471,8 +458,8 @@ function handlePhone() {
                   >
                     {{
                       store.$state.userId
-                        ? listingAuthor.phone
-                        : maskNumber(listingAuthor.phone, 3, 3)
+                        ? listingAuthor?.phoneNumber
+                        : maskNumber(listingAuthor?.phoneNumber!, 3, 3)
                     }}
                   </button>
                 </div>
@@ -578,7 +565,7 @@ function handlePhone() {
                   <div class="flex justify-between my-3">
                     <p>Year built</p>
                     <span class="font-bold ml-16">{{
-                      listing.yearbuilt ? listing.yearbuilt : `2019`
+                      listing.yearBuilt ? listing.yearBuilt : `2019`
                     }}</span>
                   </div>
                   <div class="flex justify-between my-3">
@@ -640,10 +627,10 @@ function handlePhone() {
               <p class="text-lg my-3 font-extrabold">Rent Price</p>
               <div class="my-1">
                 <span class="text-lg font-bold app-text"
-                  >{{ (listing.rate.price * 1).toLocaleString("en") }}
-                  {{ listing.rate.countryCode }}</span
-                >/<span class="font-medium text-gray-500 font-normal">{{
-                  listing.rate.duration.toLowerCase()
+                  >{{ (listing.rates.price * 1).toLocaleString("en") }}
+                  {{ listing.rates.countryCode }}</span
+                >/<span class="font-medium text-gray-500">{{
+                  listing.rates.duration.toLowerCase()
                 }}</span>
               </div>
               <div class="py-[10px]">

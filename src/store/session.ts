@@ -2,23 +2,21 @@ import { defineStore } from "pinia";
 // https://pinia.vuejs.org/core-concepts/
 
 export interface Session {
-  _id: string;
+  id: string;
   userId: string;
   username: string;
   email: string;
-  regDate: string;
-  kikaotype: string;
+  image: string;
 }
 
 export const useSessionStore = defineStore(`session`, {
   state: (): Session => {
     return {
-      _id: ``,
+      id: ``,
       userId: ``,
       username: ``,
       email: ``,
-      regDate: ``,
-      kikaotype: ``,
+      image: ``,
     };
   },
   persist: true,
@@ -27,11 +25,9 @@ export const useSessionStore = defineStore(`session`, {
       if (!data) {
         return;
       }
-      (this._id = data._id),
+      (this.id = data.id),
         (this.username = data.username),
         (this.email = data.email),
-        (this.regDate = data.regDate),
-        (this.kikaotype = data.kikaotype),
         (this.userId = data.userId);
     },
   },

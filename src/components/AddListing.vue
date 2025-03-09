@@ -663,7 +663,7 @@ function goBack() {
                   <div class="mt-2">
                     <button
                       type="button"
-                      class="flex items-center justify-center justify-around text-gray-400 transition-all transform gap-x-1 hover:text-gray-500 hover:fill-gray-500"
+                      class="flex items-center justify-around text-gray-400 transition-all transform gap-x-1 hover:text-gray-500 hover:fill-gray-500"
                       @click="clearPreview(index)"
                     >
                       <Delete class="w-3 h-3 fill-gray-400" />

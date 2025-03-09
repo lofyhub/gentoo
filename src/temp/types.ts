@@ -1,12 +1,11 @@
 export interface houseSchema {
-  _id: string;
   id: string;
   userId: string;
   name: string;
   location: string;
   county: string;
   images: string[];
-  rate: {
+  rates: {
     price: number;
     duration: string;
     countryCode: string;
@@ -23,7 +22,7 @@ export interface houseSchema {
   };
   size: string;
   createdAt: string;
-  yearbuilt: number;
+  yearBuilt: number;
   status: string;
   description: string;
 }
@@ -79,15 +78,24 @@ export const counties = [
 ];
 
 export type userPublisher = {
-  _id: string;
-  userId: string;
+  id: string;
+  gender: string;
+  isLinked: string;
   username: string;
   email: string;
   kikaoType: string;
   profileImage: string;
-  date: Date;
-  phone: string;
-  business: Business;
+  phoneNumber: string;
+  provider: string;
+  providerUserId: string;
+  providerPictureUrl: string;
+  businessName: string;
+  businessLocation: string;
+  businessType: string;
+  businessCity: string;
+  businessLogo: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export interface Business {
@@ -99,20 +107,24 @@ export interface Business {
 
 export function createDefaultProfile(id: string): userPublisher {
   return {
-    _id: ``,
-    userId: id,
-    username: ``,
-    email: ``,
-    kikaoType: `Tenant`,
-    date: new Date(),
+    id: id,
+    gender: "",
+    isLinked: "",
+    username: "",
+    email: "",
+    kikaoType: "",
     profileImage: "",
-    phone: "",
-    business: {
-      name: "",
-      location: "",
-      businessType: "",
-      city: "",
-    },
+    phoneNumber: "",
+    provider: "",
+    providerUserId: "",
+    providerPictureUrl: "",
+    businessName: "",
+    businessLocation: "",
+    businessType: "",
+    businessCity: "",
+    businessLogo: "",
+    createdAt: "",
+    updatedAt: "",
   };
 }
 
@@ -134,7 +146,7 @@ export enum BusinessType {
 }
 export interface houseFeature {
   name: string;
-  _id: number;
+  id: number;
   location: string;
   images: string[];
   listedOn: string;
@@ -166,14 +178,13 @@ export interface listing {
 
 export function createDefaultListing(id: string): houseSchema {
   return {
-    _id: ``,
     id: ``,
     userId: id,
     name: ``,
     location: ``,
     county: ``,
     images: [``],
-    rate: {
+    rates: {
       price: 0,
       duration: ``,
       countryCode: ``,
@@ -190,7 +201,7 @@ export function createDefaultListing(id: string): houseSchema {
     },
     size: ``,
     createdAt: ``,
-    yearbuilt: 0,
+    yearBuilt: 0,
     status: ``,
     description: ``,
   };
@@ -290,7 +301,7 @@ export type sortParam = {
 
 export type house = houseSchema[];
 export interface RootState {
-  listings: Record<string, houseSchema[]>;
+  listings: houseSchema[];
   showLogin: boolean;
   showAddlisting: boolean;
   userListings: Record<string, house>;

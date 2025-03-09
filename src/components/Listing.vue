@@ -60,7 +60,7 @@ function handlePreviousImage() {
 </script>
 <template>
   <div
-    class="w-[335px] my-4 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
+    class="w-[310px] my-4 bg-white border rounded-lg overflow-hidden hover:bg-gray-100"
   >
     <div
       id="default-carousel"
@@ -75,9 +75,9 @@ function handlePreviousImage() {
           alt="listing image from kikao"
           loading="eager"
           fetchpriority="true"
-          class="object-cover object-center overflow-hidden h-[280px] w-full hover:cursor-pointer"
-          width="280"
-          height="280"
+          class="object-cover object-center overflow-hidden h-[250px] w-full hover:cursor-pointer"
+          width="250"
+          height="250"
       /></transition>
 
       <!-- Slider indicators -->
@@ -134,11 +134,11 @@ function handlePreviousImage() {
       <div class="mt-1 flex justify-between">
         <div>
           <span class="text-[18px] font-bold app-text"
-            >{{ Number(props.listing.rate.price).toLocaleString("en") }} </span
+            >{{ Number(props.listing.rates.price).toLocaleString("en") }} </span
           ><span class="text-base font-semibold app-text pl-1">
-            {{ props.listing.rate.countryCode.toLowerCase() }}</span
+            {{ "Kshs" }}</span
           >/<span class="text-gray-500 text-lg">{{
-            props.listing.rate.duration.toLowerCase()
+            props.listing.rates.duration.toLowerCase()
           }}</span>
         </div>
         <button
@@ -151,32 +151,32 @@ function handlePreviousImage() {
           <heartIcon v-else class="w-5 h-5" />
         </button>
       </div>
-      <router-link :to="'/listing/' + props.listing._id">
+      <router-link :to="'/listing/' + props.listing.id">
         <div>
-          <p class="text-black-600 text-[20px] truncate">
+          <p class="font-semibold text-[20px] truncate">
             {{ props.listing.name }}
           </p>
 
-          <div class="my-1 truncate text-[17px] text-gray-500 flex">
-            <span>{{ props.listing.county }} county</span>
+          <div class="my-1 truncate text-[17px] text-gray-500 flex gap-1">
+            <span>{{ props.listing.county }} County</span>
             <p class="h-1 w-1 rounded bg-gray-900 mx-4 my-2.5"></p>
             <span>{{ formatDate(props.listing.createdAt) }}</span>
           </div>
         </div>
 
         <div class="flex justify-between pb-2 text-sm my-2">
-          <div class="flex">
+          <div class="flex gap-1">
             <BedIcon class="w-4 h-4 fill-indigo-500 inline" />
-            <span class="text-gray-600 font-bold mx-2">{{
+            <span class="text-gray-600 font-bold">{{
               props.listing.compartments.bedrooms
             }}</span>
             <span class="font-normal">{{
               props.listing.compartments.bedrooms > 1 ? `Beds` : `Bed`
             }}</span>
           </div>
-          <div class="flex">
+          <div class="flex gap-1">
             <BathtabIcon class="w-4 h-4 fill-indigo-500 inline" />
-            <span class="text-gray-600 mx-2 font-bold">{{
+            <span class="text-gray-600 font-bold">{{
               props.listing.compartments.washRooms
             }}</span>
             <span class="font-normal">{{
@@ -185,10 +185,10 @@ function handlePreviousImage() {
                 : `Bathroom`
             }}</span>
           </div>
-          <div class="flex">
+          <div class="flex gap-1">
             <Yingyang class="w-4 h-4 inline" />
-            <span class="text-gray-600 ml-2 mr-1 font-bold">{{
-              Number(props.listing.size.toLocaleString()).toLocaleString("en")
+            <span class="text-gray-600 font-bold">{{
+              props.listing.size.slice(0, 4)
             }}</span>
             <span class="font-normal">sqft</span>
           </div>

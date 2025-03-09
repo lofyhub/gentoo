@@ -130,9 +130,14 @@ export function maskNumber(
   startDigits: number,
   endDigits: number
 ) {
+  if (!numberString || typeof numberString !== "string") {
+    return "";
+  }
+
   const start = numberString.slice(0, startDigits);
   const end = numberString.slice(-endDigits);
   const middle = "".padEnd(numberString.length - startDigits - endDigits, "x");
+
   return start + middle + end;
 }
 
@@ -145,3 +150,11 @@ export function stringToHslColor(str: string, s = 40, l = 80) {
   const h = hash % 360;
   return "hsl(" + h + ", " + s + "%, " + l + "%)";
 }
+
+export const getToken = (): string => {
+  const token = localStorage.getItem("kikao-token");
+  if (!token) {
+    throw new Error("Token not found");
+  }
+  return token;
+};

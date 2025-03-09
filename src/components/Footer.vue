@@ -6,7 +6,7 @@ const date = new Date().getFullYear();
 
 <template>
   <footer
-    class="wow fadeInUp relative bg-primary bg-opacity-5 pt-8 md:pt-20 lg:pt-14 border-t border-gray-200 sticky"
+    class="wow fadeInUp relative bg-primary bg-opacity-5 pt-8 md:pt-20 lg:pt-14 border-t border-gray-200"
     data-wow-delay=".1s"
   >
     <div class="container mx-auto pt-0">
@@ -24,7 +24,7 @@ const date = new Date().getFullYear();
             </a>
             <div class="justify-center items-center lg:ml-32">
               <div class="mb-3 text-black leading-relaxed">
-                Say Goodbye to house hunting forever
+                Effortlessly collect rental payments!
               </div>
               <div
                 class="flex justify-center lg:justify-start text-center items-center lg:text-start"

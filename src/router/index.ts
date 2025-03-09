@@ -34,6 +34,30 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "Signup route" */ "@/pages/SignUp.vue"),
   },
   {
+    path: "/register",
+    name: "Register",
+    component: () =>
+      import(/* webpackChunkName: "Register route" */ "@/pages/Register.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "Login" */ "@/pages/login/Index.vue"),
+
+    // Nested child routes
+    children: [
+      {
+        path: "success", // Matches "/login/success"
+        name: "LoginSuccess",
+        component: () =>
+          import(
+            /* webpackChunkName: "LoginSuccess" */ "@/pages/login/success.vue"
+          ),
+      },
+    ],
+  },
+  {
     path: "/listing/:id",
     name: "Listing",
     component: () =>

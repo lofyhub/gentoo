@@ -1,14 +1,14 @@
 import { defineStore } from "pinia";
-import { RootState } from "@/temp/types";
+import { RootState, houseSchema } from "@/temp/types";
 import { handleError, toastSuccess, toastWarning } from "@/plugins/toast";
 import axios from "axios";
 
-import { env } from "../env";
+import { baseUrl } from "../env";
 
 export const useRootStore = defineStore("rootStore", {
   state: (): RootState => {
     return {
-      listings: {},
+      listings: [] as houseSchema[],
       showLogin: false,
       showAddlisting: false,
       userListings: {},
@@ -18,16 +18,16 @@ export const useRootStore = defineStore("rootStore", {
   actions: {
     async fetchListings() {
       try {
-        const res = await axios.get(`${env}/listings`);
-        const { listings } = await res.data;
-        this.listings["all"] = listings;
+        const res = await axios.get(`${baseUrl}/listings`);
+        const data = await res.data.data.listings;
+        this.listings = data;
       } catch (error) {
         handleError(error);
       }
     },
     async authorListings(id: string) {
       try {
-        const res = await axios.post(`${env}/author/listings`, { Id: id });
+        const res = await axios.post(`${baseUrl}/author/listings`, { Id: id });
 
         this.userListings[id] = await res.data.data;
       } catch (error) {
@@ -64,7 +64,7 @@ export const useRootStore = defineStore("rootStore", {
           "x-access-token": token,
         };
 
-        const res = await axios.post(`${env}/reviews`, bodyData, {
+        const res = await axios.post(`${baseUrl}/reviews`, bodyData, {
           headers,
         });
 
@@ -91,7 +91,7 @@ export const useRootStore = defineStore("rootStore", {
   getters: {
     getListingById: (state) => {
       return (id: string) =>
-        state.listings["all"].find((listing) => listing._id === id);
+        state.listings.find((listing) => listing.id === id);
     },
     getAuthorListings: (state) => (id: string) => {
       if (state.userListings[id]) {

@@ -22,20 +22,20 @@ const route = useRoute();
 const router = useRouter();
 const isOpen = ref(false);
 const isDropdown = ref(false);
-const userData = computed(() => session.$state);
+const userData = session.$state;
 const dashRoute = computed(() => route.matched[0]?.name);
 
 // methods
 function logOut() {
   session.$reset();
   listingStore.clearBookmarks();
-  localStorage.removeItem("kikao-token");
+  localStorage.removeItem("kikao_token");
   router.push("/");
 }
 
 function handleListing() {
   isOpen.value = false;
-  if (session.$state._id) {
+  if (session.$state.id) {
     store.toggleShowListing();
     return;
   }
@@ -54,10 +54,10 @@ function toggleDropdown() {
       <div class="lg:flex lg:items-center lg:justify-around">
         <div class="flex items-center justify-between py-2 mx-6">
           <a
-            class="flex ml-2 text-2xl font-medium text-black transition-colors duration-300 transform lg:ml-20 dark:text-white lg:text-2xl"
+            class="flex ml-2 text-xl font-medium text-black transition-colors duration-300 transform lg:ml-20 dark:text-white lg:text-1xl"
             href="/"
           >
-            <LogoIcon class="w-8 h-8 inline mt-2.5" />
+            <LogoIcon class="w-7 h-7 inline mt-2.5" />
             <span v-if="dashRoute === `Dashboard`" class="ml-2 mt-3.5">{{
               session.$state.userId ? `Dashboard` : `Profile`
             }}</span>
@@ -110,14 +110,14 @@ function toggleDropdown() {
             <router-link
               to="/listings"
               @click="isOpen = false"
-              class="px-4 py-5 mx-3 mt-2 transition-all transition-colors duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
+              class="px-4 py-5 mx-3 mt-2 transition-colors duration-300 transform rounded-sm hover:border-b-2 hover:border-indigo-500 lg:mt-0 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
               >Attractions</router-link
             >
 
             <a
               @click="handleListing"
               v-if="session.$state.userId"
-              class="px-3 py-5 mx-4 mt-2 transition-all transition-colors duration-300 transform rounded-sm cursor-pointer hover:border-b-2 hover:border-indigo-500 hover:bg-indigo-50 lg:mt-0 dark:text-gray-200"
+              class="px-3 py-5 mx-4 mt-2 transition-colors duration-300 transform rounded-sm cursor-pointer hover:border-b-2 hover:border-indigo-500 hover:bg-indigo-50 lg:mt-0 dark:text-gray-200"
               :class="
                 route.name === `Dashboard` ||
                 route.name === `Listings` ||
@@ -134,7 +134,7 @@ function toggleDropdown() {
               <!-- start avatar seciton -->
               <div
                 x-data="{ isOpen: true }"
-                v-if="userData._id"
+                v-if="userData.id"
                 class="relative inline-block"
               >
                 <!-- Dropdown toggle button -->
@@ -144,10 +144,10 @@ function toggleDropdown() {
                 >
                   <div class="flex">
                     <img
-                      v-if="session.$state._id"
+                      v-if="session.$state.id"
                       class="object-cover w-10 h-10 rounded-full"
-                      src="https://images.pexels.com/photos/4924538/pexels-photo-4924538.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                      alt=" avatar image"
+                      :src="userData.image"
+                      alt="profile image"
                       title="avatar image"
                       loading="eager"
                     />

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from "vue";
 import { useHead } from "unhead";
-
 import Footer from "@/components/Footer.vue";
 import HeaderVue from "@/components/Header.vue";
 import LoginPopup from "@/components/popups/LoginPopup.vue";

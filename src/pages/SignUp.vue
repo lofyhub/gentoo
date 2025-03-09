@@ -192,7 +192,7 @@ function onFileSelected(event: Event) {
           </li>
           <li>
             <a
-              class="flex items-center justify-center w-6 h-6 text-xs font-semibold text-white rounded-full text-slate-500"
+              class="flex items-center justify-center w-6 h-6 text-xs font-semibold text-white rounded-full"
               :style="
                 step > 2
                   ? `background-color: rgb(99 102 241); color: rgb(255 255 255);`
@@ -539,7 +539,7 @@ function onFileSelected(event: Event) {
           </button>
         </div>
         <button
-          class="bg-indigo-500 opacity-100 text-white text-sm rounded py-2.5 px-6 flex"
+          class="mr-4 bg-indigo-500 opacity-100 text-white hover:bg-indigo-700 py-2.5 px-5 rounded flex transition-all ease-in"
           type="button"
           @click="nextStep()"
           v-if="step < 3"

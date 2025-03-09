@@ -4,11 +4,8 @@ import { toastError, toastSuccess, toastWarning } from "@/plugins/toast";
 
 import axios from "axios";
 import { env } from "@/env";
-import {
-  createDefaultListing,
-  createDefaultProfile,
-  listing,
-} from "@/temp/types";
+import { createDefaultListing, listing } from "@/temp/types";
+import { getToken } from "@/helpers/helpers";
 
 export const uselistingStore = defineStore(`listingStore`, {
   state: (): listing => {
@@ -27,7 +24,7 @@ export const uselistingStore = defineStore(`listingStore`, {
     async fetchAuthorReviews(id: string) {
       try {
         const bodyData = {
-          author_id: id,
+          authorId: id,
         };
         const config = {
           headers: {
@@ -52,7 +49,7 @@ export const uselistingStore = defineStore(`listingStore`, {
     async getListingAuthor(id: string) {
       try {
         const bodyData = {
-          _id: id,
+          id: id,
         };
         const config = {
           headers: {
@@ -73,8 +70,10 @@ export const uselistingStore = defineStore(`listingStore`, {
     async fetchListing(id: string) {
       try {
         const res = await axios.post(`${env}/user/listing`, { id: id });
-        const listing = await res.data.listing;
+        const listing = await res.data.data;
         this.houseListing[id] = listing;
+        // TODO: This is an untipattern maybe find  a better way to handle this
+        this.getListingAuthor(listing.userId);
       } catch (error) {
         console.log(error);
       }
@@ -82,7 +81,7 @@ export const uselistingStore = defineStore(`listingStore`, {
 
     async fetchBookmarks() {
       try {
-        const token = localStorage.getItem("kikao-token");
+        const token = getToken();
         if (!token) throw new Error("Token is not found in localStorage");
 
         const data = {
@@ -107,21 +106,22 @@ export const uselistingStore = defineStore(`listingStore`, {
     },
     async addBookmark(id: string) {
       try {
-        const token = localStorage.getItem("kikao-token");
+        const token = getToken();
         if (!token) throw new Error("Token is not found in localStorage");
 
         const data = {
           userid: useSessionStore().$state.userId,
           Id: id,
         };
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": token,
-          },
+        const header = {
+          "Content-Type": "application/json",
+          "x-access-token": token,
         };
 
-        const res = await axios.post(`${env}/bookmarks`, data, config);
+        const res = await axios.post(`${env}/bookmarks`, data, {
+          headers: header,
+        });
+
         if (res.status === 200) {
           toastSuccess(`Listing added to your bookmarks`);
         }
@@ -134,7 +134,7 @@ export const uselistingStore = defineStore(`listingStore`, {
     },
     async deleteBookmark(id: string) {
       try {
-        const token = localStorage.getItem("kikao-token");
+        const token = getToken();
         if (!token) throw new Error("Token is not found in localStorage");
 
         const data = {
@@ -142,13 +142,13 @@ export const uselistingStore = defineStore(`listingStore`, {
           Id: id,
         };
         const header = {
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": token,
-          },
+          "Content-Type": "application/json",
+          "x-access-token": token,
         };
 
-        const res = await axios.post(`${env}/delete/bookmarks`, data, header);
+        const res = await axios.post(`${env}/delete/bookmarks`, data, {
+          headers: header,
+        });
         if (res.status === 200) {
           toastSuccess(`Listing removed from bookmarks`);
         }
@@ -166,8 +166,6 @@ export const uselistingStore = defineStore(`listingStore`, {
       if (state.listingAuthor[id]) {
         return state.listingAuthor[id];
       }
-
-      return createDefaultProfile(id);
     },
     getAuthorReviews: (state: listing) => (id: string) => {
       if (state.authorReviews[id]) {
