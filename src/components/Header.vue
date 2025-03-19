@@ -3,7 +3,6 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import LogoIcon from "@/components/icons/LogoIcon.vue";
-import Question from "@/components/icons/Question.vue";
 import Avatar from "@/components/icons/Avatar.vue";
 import SignOut from "@/components/icons/SignOut.vue";
 import MacOptions from "@/components/icons/Mac.vue";
@@ -120,10 +119,9 @@ function toggleDropdown() {
               class="px-3 py-5 mx-4 mt-2 transition-colors duration-300 transform rounded-sm cursor-pointer hover:border-b-2 hover:border-indigo-500 hover:bg-indigo-50 lg:mt-0 dark:text-gray-200"
               :class="
                 route.name === `Dashboard` ||
-                route.name === `Listings` ||
                 route.name === `addlisting` ||
                 route.name === `Guidelines`
-                  ? `border-b-2 border-indigo-500 font-bold`
+                  ? `font-bold`
                   : `text-gray-800`
               "
             >
@@ -145,7 +143,7 @@ function toggleDropdown() {
                   <div class="flex">
                     <img
                       v-if="session.$state.id"
-                      class="object-cover w-10 h-10 rounded-full"
+                      class="object-cover w-8 h-8 rounded-full"
                       :src="userData.image"
                       alt="profile image"
                       title="avatar image"
@@ -179,27 +177,15 @@ function toggleDropdown() {
                   x-transition:leave-end="opacity-0 scale-90"
                   class="absolute right-0 z-20 w-56 mt-4 overflow-hidden origin-top-right bg-white rounded-md shadow-xl left-4 lg:left-0 dark:bg-gray-800"
                 >
-                  <div class="text-base font-medium">
-                    <div class="mx-5">
-                      <h1
-                        class="text-base font-semibold text-gray-700 dark:text-gray-200"
-                      >
-                        {{ userData.username }}
-                      </h1>
-                      <p class="text-sm text-gray-500 dark:text-gray-400">
-                        {{ userData.email }}
-                      </p>
-                    </div>
-                  </div>
                   <hr class="mt-2 border-gray-200 dark:border-gray-700" />
                   <div class="text-sm font-semibold">
                     <router-link
-                      :to="'/' + session.$state.userId"
+                      :to="'/profile/' + session.$state.userId"
                       @click="isDropdown = !isDropdown"
                       class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
-                      <Avatar class="w-6 h-6" />
-                      <span class="mx-2 text-base font-normal">
+                      <Avatar class="w-4 h-4" />
+                      <span class="mx-1 text-sm font-normal">
                         Edit profile
                       </span>
                     </router-link>
@@ -209,18 +195,10 @@ function toggleDropdown() {
                       @click="isDropdown = !isDropdown"
                       class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
-                      <MacOptions />
-                      <span class="mx-2 text-base font-normal"> Dashboard</span>
+                      <MacOptions class="w-4 h-4" />
+                      <span class="mx-1 text-sm font-normal"> Dashboard</span>
                     </router-link>
                     <hr class="border-gray-200 dark:border-gray-700" />
-                    <a
-                      href="/faq"
-                      @click="isDropdown = !isDropdown"
-                      class="flex items-center p-3 text-sm text-gray-500 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <Question />
-                      <span class="mx-2 text-base font-normal"> Help </span>
-                    </a>
                     <button
                       type="button"
                       @click="logOut"
@@ -235,14 +213,14 @@ function toggleDropdown() {
               <!-- end of avatar section -->
 
               <div v-else class="flex mr-8 font-semibold">
-                <button
-                  @click="store.toggleLogin(), (isOpen = false)"
-                  class="mr-4 border border-indigp-100 opacity-100 py-1.8 px-6 rounded transition-all ease-in hover:bg-indigo-50"
-                >
-                  Log In
-                </button>
                 <RouterLink
-                  :to="`/signup`"
+                  :to="`/login`"
+                  class="mr-4 border border-indigo-100 opacity-100 flex px-6 rounded-md transition-all ease-in hover:bg-indigo-50"
+                >
+                  <span> Log In</span>
+                </RouterLink>
+                <RouterLink
+                  :to="`/register`"
                   @click="isOpen = false"
                   class="mr-4 bg-indigo-500 opacity-100 text-white hover:bg-indigo-700 py-2.5 px-5 rounded flex transition-all ease-in"
                 >

@@ -4,6 +4,7 @@ import { handleError, toastSuccess, toastWarning } from "@/plugins/toast";
 import axios from "axios";
 
 import { baseUrl } from "../env";
+import { getToken } from "@/helpers/helpers";
 
 export const useRootStore = defineStore("rootStore", {
   state: (): RootState => {
@@ -25,11 +26,23 @@ export const useRootStore = defineStore("rootStore", {
         handleError(error);
       }
     },
-    async authorListings(id: string) {
+    async authorListings(Id: string) {
       try {
-        const res = await axios.post(`${baseUrl}/author/listings`, { Id: id });
+        const token = getToken();
 
-        this.userListings[id] = await res.data.data;
+        const headers = {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        };
+        const res = await axios.post(
+          `${baseUrl}author/listings`,
+          { Id },
+          {
+            headers,
+          }
+        );
+
+        this.userListings[Id] = await res.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           return toastWarning(error.response.data.error);
@@ -45,10 +58,7 @@ export const useRootStore = defineStore("rootStore", {
       name: string
     ) {
       try {
-        const token = localStorage.getItem("kikao-token");
-        if (!token) {
-          throw new Error("Token is not found in localStorage");
-        }
+        const token = getToken();
 
         const bodyData = {
           house_id: listingId,

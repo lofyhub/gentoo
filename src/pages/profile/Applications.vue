@@ -3,7 +3,7 @@ import Profile from "@/components/Profile.vue";
 import ChatIcon from "@/components/icons/ChatIcon.vue";
 
 import { useRoute } from "vue-router";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useHead } from "unhead";
 
 import { useSessionStore } from "@/store/session";
@@ -13,17 +13,11 @@ import { computed } from "vue";
 const store = useSessionStore();
 const listingStore = uselistingStore();
 const route = useRoute();
-const id = computed(() => {
-  if (typeof route.params.id === "string") {
-    return route.params.id;
-  }
-
-  throw new Error("Id must be a string!");
-});
+const id = ref(route.params.id as string);
 const authorProfile = computed(() => listingStore.getProfile(id.value));
 
 useHead({
-  title: authorProfile.value.username + "'s Profile",
+  title: authorProfile.value?.id + "'s Profile",
 });
 
 onBeforeMount(() => {
@@ -43,12 +37,14 @@ function getStyles(tab: string) {
   <div class="mb-20">
     <!-- Dashboard to add, delete, edit and view listings -->
     <div class="sticky z-20 bg-white top-10">
-      <Profile :profile="authorProfile" />
+      <div v-if="authorProfile">
+        <Profile :profile="authorProfile" />
+      </div>
       <div class="w-full mx-auto border-t border-gray-200 lg:w-4/5">
         <div class="flex text-base">
           <router-link
-            :to="'/' + id"
-            class="flex-1 block px-3 font-medium text-center text-gray-600 hover:text-gray-800 group"
+            :to="'/profile/' + id"
+            class="flex-1 block px-3 font-medium text-center text-gray-600 hover:text-gray-800 group hover:cursor-pointer"
           >
             <div
               class="flex items-center justify-center py-4"
@@ -71,14 +67,14 @@ function getStyles(tab: string) {
               <span>{{
                 store.$state.userId && store.$state.userId === id
                   ? `Your Listings`
-                  : `${authorProfile.username}'s listings`
+                  : `${authorProfile}'s listings`
               }}</span>
             </div>
           </router-link>
           <router-link
-            :to="'/' + id + '/bookings'"
+            :to="'/profile/' + id + '/bookings'"
             v-if="store.$state.userId && store.$state.userId === id"
-            class="flex-1 px-3 font-medium text-center text-gray-600 hover:text-gray-800 group"
+            class="flex-1 px-3 font-medium text-center text-gray-600 hover:text-gray-800 group hover:cursor-pointer"
           >
             <div
               class="flex items-center justify-center py-4"
@@ -103,8 +99,8 @@ function getStyles(tab: string) {
             </div>
           </router-link>
           <router-link
-            :to="'/' + id + '/reviews'"
-            class="flex-1 block px-3 font-medium text-center text-gray-600 hover:text-gray-800 group"
+            :to="'/profile/' + id + '/reviews'"
+            class="flex-1 block px-3 font-medium text-center text-gray-600 hover:text-gray-800 group hover:cursor-pointer"
           >
             <div
               class="flex items-center justify-center py-4"

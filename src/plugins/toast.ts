@@ -11,7 +11,7 @@ export function toastSuccess(text: string) {
   Toastify({
     text,
     duration: 4000,
-    gravity: `bottom`, // `top` or `bottom`
+    gravity: `top`, // `top` or `bottom`
     position: `left`,
     avatar: SuccessAvatar,
     style: {

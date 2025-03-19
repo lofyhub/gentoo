@@ -20,9 +20,9 @@ const prop = withDefaults(
   {}
 );
 
-const backgroundColor = stringToHslColor(prop.profile.business.name);
+const backgroundColor = stringToHslColor(prop.profile.username);
 const userReviews = computed(() => {
-  const reviews = listingStore.getAuthorReviews(prop.profile.userId);
+  const reviews = listingStore.getAuthorReviews(prop.profile.id);
   if (reviews) {
     return reviews as userReview[];
   }
@@ -30,7 +30,7 @@ const userReviews = computed(() => {
 });
 
 onBeforeMount(() => {
-  listingStore.fetchAuthorReviews(prop.profile.userId);
+  listingStore.fetchAuthorReviews(prop.profile.id);
 });
 </script>
 <template>
@@ -51,7 +51,7 @@ onBeforeMount(() => {
                 <div class="items-start mr-5">
                   <img
                     v-if="profile.profileImage"
-                    class="rounded-full w-[150px] h-[150px] object-cover"
+                    class="rounded-full w-[100px] h-[100px] object-cover"
                     :src="profile.profileImage"
                     :alt="profile.username + ' avatar image'"
                     :title="profile.username + ' avatar image'"
@@ -77,24 +77,22 @@ onBeforeMount(() => {
                   >
                     <div class="text-gray-400">{{ prop.profile.email }}</div>
                   </div>
-                  <div class="flex mt-1 text-lg gap-x-4">
-                    <p>{{ prop.profile.kikaoType }}</p>
-                    <p>Joined {{ getMonthYear(prop.profile.date) }}</p>
+                  <div class="flex mt-1 text-lg gap-x-4 flex-col">
+                    <p class="text-justified">{{ prop.profile.kikaoType }}</p>
+                    <p class="text-sm">
+                      Joined {{ getMonthYear(prop.profile.createdAt) }}
+                    </p>
                   </div>
 
-                  <div class="mt-1.5 text-lg flex gap-x-3">
-                    <StartFull class="w-7 h-7" />
-                    <div v-if="userReviews.length > 0">
-                      <p>
-                        <span class="text-base font-bold">
-                          {{ userReviews.length }}</span
-                        >
-                        reviews
-                      </p>
-                    </div>
-                    <div v-else>
-                      <p>no reviews for user</p>
-                    </div>
+                  <div class="mt-1.5 text-lg flex flex-row gap-x-2">
+                    <StartFull class="w-3 h-3" />
+                    <p v-if="userReviews.length > 0">
+                      <span class="text-sm font-bold">
+                        {{ userReviews.length }}</span
+                      >
+                      reviews
+                    </p>
+                    <p v-else class="text-sm">0 reviews</p>
                   </div>
                 </div>
               </div>

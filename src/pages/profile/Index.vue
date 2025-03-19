@@ -3,7 +3,7 @@ import ListingPreview from "@/components/ListingPreview.vue";
 import ListingSkeleton from "@/components/ListingSkeleton.vue";
 import LeftIcon from "@/components/icons/LeftIcon.vue";
 
-import { computed, onBeforeMount } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import { useRootStore } from "@/store";
 import { useSessionStore } from "@/store/session";
 import { useRoute } from "vue-router";
@@ -11,13 +11,7 @@ import { useRoute } from "vue-router";
 const rootStore = useRootStore();
 const session = useSessionStore();
 const route = useRoute();
-const id = computed(() => {
-  if (typeof route.params.id === "string") {
-    return route.params.id;
-  }
-
-  throw new Error("Id should be a string!");
-});
+const id = ref(route.query.user_id as string);
 
 const authorListings = computed(() => rootStore.getAuthorListings(id.value));
 
@@ -39,14 +33,14 @@ onBeforeMount(() => {
       class="flex justify-center flex-wrap gap-y-2 gap-x-5 w-full lg:w-[1300px] mx-auto"
       :class="authorListings.length > 1 ? `justify-start` : `justify-center`"
     >
-      <div v-for="listing in authorListings" :key="listing._id">
+      <div v-for="listing in authorListings" :key="listing.id">
         <ListingPreview :listing="listing" />
       </div>
     </div>
   </div>
   <div
     v-if="Object.keys(authorListings).length === 0"
-    class="text-center font-normal h-80 mt-20"
+    class="text-center font-normal h-80 pt-10"
   >
     <p class="text-2xl font-medium">
       {{

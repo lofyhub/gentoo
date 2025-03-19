@@ -40,9 +40,9 @@ function handleReviewButton() {
 <template>
   <div
     v-if="Object.keys(reviews).length === 0"
-    class="flex flex-wrap justify-center pt-4 mt-20 text-center item-center h-80"
+    class="flex flex-wrap justify-center pt-10 text-center item-center h-80"
   >
-    <div class="mt-16">
+    <div>
       <p class="text-2xl font-medium">
         No user reviews available for
         {{

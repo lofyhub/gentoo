@@ -21,10 +21,10 @@ export const uselistingStore = defineStore(`listingStore`, {
     clearBookmarks() {
       this.bookmarks = [];
     },
-    async fetchAuthorReviews(id: string) {
+    async fetchAuthorReviews(Id: string) {
       try {
         const bodyData = {
-          authorId: id,
+          Id,
         };
         const config = {
           headers: {
@@ -32,13 +32,9 @@ export const uselistingStore = defineStore(`listingStore`, {
           },
         };
 
-        const res = await axios.post(
-          `${env}/author/reviews/`,
-          bodyData,
-          config
-        );
+        const res = await axios.post(`${env}/author/reviews`, bodyData, config);
         const reviews = await res.data;
-        this.authorReviews[id] = reviews;
+        this.authorReviews[Id] = reviews;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           return toastWarning(error.response.data.message);
@@ -46,10 +42,10 @@ export const uselistingStore = defineStore(`listingStore`, {
         console.log(error);
       }
     },
-    async getListingAuthor(id: string) {
+    async getListingAuthor(Id: string) {
       try {
         const bodyData = {
-          id: id,
+          Id,
         };
         const config = {
           headers: {
@@ -59,7 +55,7 @@ export const uselistingStore = defineStore(`listingStore`, {
 
         const res = await axios.post(`${env}/listing/author`, bodyData, config);
         const { data } = await res.data;
-        this.listingAuthor[id] = data;
+        this.listingAuthor[Id] = data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           return toastWarning(error.response.data.message);
@@ -82,7 +78,6 @@ export const uselistingStore = defineStore(`listingStore`, {
     async fetchBookmarks() {
       try {
         const token = getToken();
-        if (!token) throw new Error("Token is not found in localStorage");
 
         const data = {
           userid: useSessionStore().$state.userId,
@@ -107,7 +102,6 @@ export const uselistingStore = defineStore(`listingStore`, {
     async addBookmark(id: string) {
       try {
         const token = getToken();
-        if (!token) throw new Error("Token is not found in localStorage");
 
         const data = {
           userid: useSessionStore().$state.userId,
@@ -135,7 +129,6 @@ export const uselistingStore = defineStore(`listingStore`, {
     async deleteBookmark(id: string) {
       try {
         const token = getToken();
-        if (!token) throw new Error("Token is not found in localStorage");
 
         const data = {
           userid: useSessionStore().$state.userId,

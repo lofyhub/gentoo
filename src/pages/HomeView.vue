@@ -24,9 +24,9 @@ const listings = computed(() => store.$state.listings);
         <div
           v-for="mark in marketingHero"
           :key="mark.name"
-          class="w-[400px] border rounded-lg overflow-hidden hover:bg-gray-100 border-gray-200 flex br-5 shadow-sm py-3 px-5 flex-col"
+          class="w-[400px] border rounded-lg hover:cursor-pointer overflow-hidden hover:bg-gray-100 border-gray-300 flex br-5 py-3 px-5 flex-col"
         >
-          <h2 class="text-3xl font-semibold">{{ mark.name }}</h2>
+          <h2 class="text-2xl font-semibold">{{ mark.name }}</h2>
           <h4 class="text-xl font-medium py-2">{{ mark.title }}</h4>
           <p>{{ mark.about }}</p>
         </div>

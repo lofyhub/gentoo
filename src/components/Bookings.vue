@@ -38,7 +38,7 @@ async function getBookings() {
 </script>
 
 <template>
-  <div v-if="bookings" class="text-center font-normal h-80 mt-20">
+  <div v-if="bookings" class="text-center font-normal h-80 pt-10">
     <p class="text-2xl font-medium">No current Bookings available now</p>
     <p class="text-base py-3 font-normal">Your bookings will appear here</p>
   </div>

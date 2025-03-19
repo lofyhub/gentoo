@@ -44,18 +44,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "Login",
     component: () =>
       import(/* webpackChunkName: "Login" */ "@/pages/login/Index.vue"),
-
-    // Nested child routes
-    children: [
-      {
-        path: "success", // Matches "/login/success"
-        name: "LoginSuccess",
-        component: () =>
-          import(
-            /* webpackChunkName: "LoginSuccess" */ "@/pages/login/success.vue"
-          ),
-      },
-    ],
+  },
+  {
+    path: "/success",
+    name: "Success",
+    component: () =>
+      import(/* webpackChunkName: "Success" */ "@/pages/Success.vue"),
   },
   {
     path: "/listing/:id",
@@ -64,7 +58,7 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "listingroute" */ "@/pages/rent/Listing.vue"),
   },
   {
-    path: "/:id",
+    path: "/profile/:id",
     name: "Dashboard",
     component: () =>
       import(

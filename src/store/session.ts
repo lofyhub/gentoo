@@ -28,6 +28,7 @@ export const useSessionStore = defineStore(`session`, {
       (this.id = data.id),
         (this.username = data.username),
         (this.email = data.email),
+        (this.image = data.image),
         (this.userId = data.userId);
     },
   },
