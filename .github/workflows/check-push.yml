@@ -1,74 +1,81 @@
-name: Validate Branch
+name: CI Pipeline
 on:
   push:
     branches:
-      - '**'
+      - "**" # Runs on all branches
 
 jobs:
-
   install-dependencies:
     runs-on: ubuntu-latest
     container:
-      image: node:16-alpine
+      image: node:20-alpine # Updated from 16 to latest LTS as of March 2025
     steps:
+      - uses: actions/checkout@v4 # Updated from v1 (deprecated) to v4
+        with:
+          fetch-depth: 1 # Shallow clone for speed
 
-      - uses: actions/checkout@v1
-
-      - name: install tar (for actions/cache)
+      - name: Install tar (for caching)
         run: apk add --no-cache tar
 
-      # use the cached node_modules -- this is only used to speed up the install-dependencies job
-      - uses: actions/cache@v2
+      # Use modern cache action to speed up dependency installation
+      - uses: actions/cache@v4 # Updated from v2 to v4 (v2 deprecated Feb 2025)
+        id: cache-node-modules # Add ID to check if cache hits
         with:
-          path: 'node_modules'
+          path: node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node-modules-
 
-      - name: install git
+      - name: Install git
         run: apk add --no-cache git
+        if: steps.cache-node-modules.outputs.cache-hit != 'true' # Skip if cached
 
-      - name: yarn install
-        run: yarn install
+      - name: Yarn install
+        run: yarn install --frozen-lockfile # Ensures consistent installs
+        if: steps.cache-node-modules.outputs.cache-hit != 'true' # Skip if cached
 
-      # this copy of node_modules will be used for the rest of the workflow
-      - name: compress node_modules
+      # Compress node_modules for downstream jobs
+      - name: Compress node_modules
         run: tar -czf node_modules.tar.gz node_modules
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4 # Updated from v2 to v4
         with:
           name: node_modules.tar.gz
           path: node_modules.tar.gz
+          retention-days: 1 # Short retention to save space
 
   lint:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:16-alpine
+      image: node:20-alpine
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - uses: actions/checkout@v1
-
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4 # Updated to v4
         with:
           name: node_modules.tar.gz
-      - name: extract node_modules
+      - name: Extract node_modules
         run: tar -xzf node_modules.tar.gz
 
-      - name: lint
+      - name: Lint
         run: yarn lint
 
   build:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:16-alpine
+      image: node:20-alpine
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - uses: actions/checkout@v1
-
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4 # Updated to v4
         with:
           name: node_modules.tar.gz
-      - name: extract node_modules
+      - name: Extract node_modules
         run: tar -xzf node_modules.tar.gz
 
-      - name: build
+      - name: Build
         run: yarn build
